@@ -1,0 +1,132 @@
+:root {
+    // Variables de color
+    --primary: #388E3C;
+    --primary-hover: #328036;
+    --primary-active: #2D7230;
+
+    --primary-d: #2A6B2D;
+    --primary-d-hover: #225524;
+    --primary-d-active: #19401B;
+
+    --secondary: #039BE5;
+    --secondary-hover: #038CCE;
+    --secondary-active: #027CB7;
+
+    --secondary-d: #0274AC;
+    --secondary-d-hover: #025D89;
+    --secondary-d-active: #014667;
+
+    --gray50:  #F5F5F5;
+    --gray100: #E8E8E8;
+    --gray200: #CFCFCF;
+    --gray300: #B6B6B6;
+    --gray400: #9E9E9E;
+    --gray500: #858585;
+    --gray600: #6B6B6B;
+    --gray700: #525252;
+    --gray800: #3B3B3B;
+    --gray900: #222222;
+
+    --state-success:       #2ECC71; 
+    --state-success-bg:    #EAFAF1;
+    --state-success-text:  #1D8348;
+
+    --state-error:         #E74C3C;
+    --state-error-bg:      #FDF2F0;
+    --state-error-text:    #922B21;
+
+    --state-warning:       #F39C12;
+    --state-warning-bg:    #FEF5E7;
+    --state-warning-text:  #9C640C;
+
+    --state-info:          #34495E;
+    --state-info-bg:       #EBEDEF;
+    --state-info-text:     #212F3C;
+
+
+    // Variables de tipografía
+    --font-primary: "Inter", sans-serif;
+    --font-secondary: "ABeeZee", sans-serif;
+
+    --font-xs:  0.75rem;
+    --font-s:   0.875rem; 
+    --font-m:   1rem; 
+    --font-l:   1.25rem;
+    --font-xl:  1.5rem;
+    --font-2xl: 1.875rem;
+    --font-3xl: 2.25rem;
+    --font-4xl: 3rem;
+    --font-5xl: 3.75rem;
+
+    --font-light: light;
+    --font-regular: normal;
+    --font-medium: medium;
+    --font-semibold: 600;
+    --font-bold: bold;
+
+    --font-tight: 1.25;
+    --font-normal: 1.50;
+    --font-relaxed: 1.75;
+
+
+    // Variables de espaciado
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-5: 1.25rem;
+    --spacing-6: 1.5rem;
+    --spacing-7: 1.75rem;
+    --spacing-8: 2rem;
+    --spacing-9: 2.25rem;
+    --spacing-10: 2.5rem;
+    --spacing-11: 2.75rem;
+    --spacing-12: 3rem;
+    --spacing-13: 3.25rem;
+    --spacing-14: 3.5rem;
+    --spacing-15: 3.75rem;
+    --spacing-16: 4rem;
+    --spacing-17: 4.25rem;
+    --spacing-18: 4.5rem;
+    --spacing-19: 4.75rem;
+    --spacing-20: 5rem;
+    --spacing-21: 5.25rem;
+    --spacing-22: 5.5rem;
+    --spacing-23: 5.75rem;
+    --spacing-24: 6rem;
+
+
+    // Variables de breakpoints
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+
+
+    // Variables de sombras
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+
+    // Variables de bordes y radios
+    --border-thin: 1px;
+    --border-medium: 2px;
+    --border-thick: 4px;
+
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius-full: 9999px;
+
+
+    // Variables de transición
+    --duration-fast: 150ms;
+    --duration-base: 300ms;
+    --duration-slow: 500ms;
+
+    --timing-ease-in-out: ease-in-out;
+}
