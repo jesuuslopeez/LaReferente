@@ -96,13 +96,6 @@
     --spacing-24: 6rem;
 
 
-    // Variables de breakpoints
-    --breakpoint-sm: 640px;
-    --breakpoint-md: 768px;
-    --breakpoint-lg: 1024px;
-    --breakpoint-xl: 1280px;
-
-
     // Variables de sombras
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -130,3 +123,10 @@
 
     --timing-ease-in-out: ease-in-out;
 }
+
+
+// Variables de breakpoints - Hechas en modo SASS por compatibilidad con media queries- 
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
