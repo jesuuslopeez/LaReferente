@@ -1,0 +1,53 @@
+# ------------------------------------------------------
+# DEPENDENCIAS (Lo gordo que nunca debe subir)
+# ------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ------------------------------------------------------
+# PRODUCCIÓN / BUILD (Archivos generados)
+# ------------------------------------------------------
+dist/
+build/
+out/
+coverage/
+.sass-cache/
+
+# ------------------------------------------------------
+# SISTEMA OPERATIVO (Basura de Mac y Windows)
+# ------------------------------------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ------------------------------------------------------
+# ENTORNOS Y SECRETOS (¡Seguridad ante todo!)
+# ------------------------------------------------------
+.env
+.env.local
+.env.*.local
+
+# ------------------------------------------------------
+# EDITORES (Configuración local de tu VSCode, etc)
+# ------------------------------------------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ------------------------------------------------------
+# TUS PETICIONES (Los JSON)
+# ------------------------------------------------------
+
+# OJO: Lo estándar es SUBIR package.json (para que otros sepan qué librerías usas)
+# y NO SUBIR package-lock.json si te da conflictos.
+
+# Si quieres bloquear los lock-files (recomendado si trabajas solo o te molestan):
+package-lock.json
+yarn.lock
+
+# Si de verdad quieres ignorar el package.json (NO RECOMENDADO si vas a compartir el código):
+# package.json
