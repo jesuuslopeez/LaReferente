@@ -31,7 +31,7 @@ Desktop.ini
 .env.*.local
 
 # ------------------------------------------------------
-# EDITORES (Configuración local de tu VSCode, etc)
+# EDITORES (Configuración local de tu VSCode, etc)     
 # ------------------------------------------------------
 .vscode/
 .idea/
@@ -48,6 +48,3 @@ Desktop.ini
 # Si quieres bloquear los lock-files (recomendado si trabajas solo o te molestan):
 package-lock.json
 yarn.lock
-
-# Si de verdad quieres ignorar el package.json (NO RECOMENDADO si vas a compartir el código):
-# package.json
