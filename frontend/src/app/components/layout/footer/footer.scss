@@ -1,0 +1,124 @@
+@import '../../../../styles/00-settings/variables';
+
+.footer {
+  background: var(--primary);
+  color: white;
+  padding: var(--spacing-12) 0 var(--spacing-6);
+  margin-top: auto;
+  font-family: var(--font-secondary);
+
+  &__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-6);
+  }
+
+  &__main {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: var(--spacing-12);
+    padding-bottom: var(--spacing-8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-8);
+    }
+  }
+
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  &__logo {
+    height: 40px;
+    width: auto;
+  }
+
+  &__description {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: var(--font-normal);
+    margin: 0;
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  &__title {
+    font-size: var(--font-l);
+    font-weight: var(--font-semibold);
+    margin: 0;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  &__list-item {
+    // Estilos del item
+  }
+
+  &__link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--timing-ease-in-out);
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  &__social-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: var(--spacing-3);
+  }
+
+  &__social-item {
+    // Estilos del item
+  }
+
+  &__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    color: white;
+    transition: background var(--duration-fast) var(--timing-ease-in-out);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  &__social-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__bottom {
+    padding-top: var(--spacing-6);
+    text-align: center;
+  }
+
+  &__copyright {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-s);
+    margin: 0;
+  }
+}

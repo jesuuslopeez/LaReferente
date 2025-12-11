@@ -6,6 +6,9 @@ import { ModalComponent } from './components/modal/modal.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { ThemeService } from './services/theme.service';
+import { Header } from './components/layout/header/header';
+import { Main } from './components/layout/main/main';
+import { Footer } from './components/layout/footer/footer';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +18,10 @@ import { ThemeService } from './services/theme.service';
     MenuComponent,
     ModalComponent,
     TabsComponent,
-    TooltipDirective
+    TooltipDirective,
+    Header,
+    Main,
+    Footer
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'

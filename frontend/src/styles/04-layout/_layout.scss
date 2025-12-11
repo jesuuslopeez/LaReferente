@@ -3,11 +3,9 @@
   margin-right: auto;
   margin-left: auto;
   
-  // Padding lateral para móviles 
   padding-right: var(--spacing-4);
   padding-left: var(--spacing-4);
 
-  // Anchos máximos responsivos 
   @include media-up($breakpoint-sm) { max-width: 640px; }
   @include media-up($breakpoint-md) { max-width: 768px; }
   @include media-up($breakpoint-lg) { max-width: 1024px; }

@@ -1,0 +1,81 @@
+<header class="header">
+  <section class="header__container">
+    <!-- Logo -->
+    <a routerLink="/" class="header__logo">
+      <img src="/images/logo.png" alt="La Referente" class="header__logo-img" />
+    </a>
+
+    <!-- Navegación principal -->
+    <nav class="header__nav">
+      <ul class="header__nav-list">
+        <li class="header__nav-item">
+          <a routerLink="/noticias" routerLinkActive="header__nav-link--active" class="header__nav-link">
+            Noticias
+          </a>
+        </li>
+        <li class="header__nav-item">
+          <a routerLink="/competiciones" routerLinkActive="header__nav-link--active" class="header__nav-link">
+            Competiciones
+          </a>
+        </li>
+        <li class="header__nav-item">
+          <a routerLink="/equipos" routerLinkActive="header__nav-link--active" class="header__nav-link">
+            Equipos
+          </a>
+        </li>
+        <li class="header__nav-item">
+          <a routerLink="/jugadores" routerLinkActive="header__nav-link--active" class="header__nav-link">
+            Jugadores
+          </a>
+        </li>
+        <li class="header__nav-item">
+          <a routerLink="/calendario" routerLinkActive="header__nav-link--active" class="header__nav-link">
+            Calendario
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Buscador y utilidades -->
+    <section class="header__utilities">
+      <!-- Buscador con dropdown -->
+      <form class="header__search" role="search">
+        <select class="header__search-dropdown">
+          <option value="all">Todo</option>
+          <option value="noticias">Noticias</option>
+          <option value="equipos">Equipos</option>
+          <option value="jugadores">Jugadores</option>
+        </select>
+        <input type="text" class="header__search-input" placeholder="Buscar" />
+        <button class="header__search-btn" aria-label="Buscar">
+          <svg class="header__search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+      </form>
+
+      <!-- Toggle tema con icono sol/luna -->
+      <button class="header__theme-btn" (click)="toggleTheme()" aria-label="Cambiar tema">
+        @if (isDarkMode()) {
+          <!-- Icono Sol (para cambiar a light mode) -->
+          <svg class="header__theme-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        } @else {
+          <!-- Icono Luna (para cambiar a dark mode) -->
+          <svg class="header__theme-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        }
+      </button>
+
+      <!-- Usuario -->
+      <button class="header__account-btn" aria-label="Cuenta">
+        <svg class="header__account-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        <span class="header__account-text">Cuenta</span>
+      </button>
+    </section>
+  </section>
+</header>

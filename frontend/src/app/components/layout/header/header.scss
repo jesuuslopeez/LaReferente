@@ -1,0 +1,249 @@
+@import '../../../../styles/00-settings/variables';
+
+.header {
+  background: var(--primary);
+  color: white;
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  font-family: var(--font-secondary);
+
+  &__container {
+    max-width: 100%;
+    margin: 0;
+    padding: var(--spacing-3) var(--spacing-8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-6);
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    text-decoration: none;
+    color: white;
+    transition: opacity var(--duration-fast) var(--timing-ease-in-out);
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &__logo-img {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  &__logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  &__logo-title {
+    font-size: var(--font-xl);
+    font-weight: var(--font-bold);
+    font-style: italic;
+  }
+
+  &__logo-subtitle {
+    font-size: var(--font-xl);
+    font-weight: var(--font-bold);
+    font-style: italic;
+  }
+
+  &__nav {
+    flex: 0 1 auto;
+  }
+
+  &__nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: var(--spacing-1);
+  }
+
+  &__nav-item {
+    // Estilos del item
+  }
+
+  &__nav-link {
+    display: block;
+    padding: var(--spacing-2) var(--spacing-4);
+    color: white;
+    text-decoration: none;
+    font-size: var(--font-l);
+    font-weight: var(--font-regular);
+    white-space: nowrap;
+    position: relative;
+    transition: all var(--duration-fast) var(--timing-ease-in-out);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: var(--spacing-4);
+      right: var(--spacing-4);
+      height: 2px;
+      background: white;
+      transform: scaleX(0);
+      transition: transform var(--duration-fast) var(--timing-ease-in-out);
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+
+    &--active {
+      font-weight: var(--font-semibold);
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  &__utilities {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    height: 40px;
+  }
+
+  &__search-dropdown {
+    padding: 0 var(--spacing-3);
+    border: none;
+    background: white;
+    color: var(--primary);
+    font-size: var(--font-m);
+    cursor: pointer;
+    outline: none;
+    border-right: 1px solid var(--gray300);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__search-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0 var(--spacing-3);
+    border: none;
+    background: white;
+    color: var(--gray900);
+    font-size: var(--font-m);
+    outline: none;
+
+    &::placeholder {
+      color: var(--gray500);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 var(--spacing-3);
+    background: white;
+    border: none;
+    cursor: pointer;
+    color: var(--gray700);
+    transition: color var(--duration-fast) var(--timing-ease-in-out);
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+
+  &__search-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__theme-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: opacity var(--duration-fast) var(--timing-ease-in-out);
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__theme-icon {
+    width: 24px;
+    height: 24px;
+    animation: fadeInRotate 0.4s var(--timing-ease-in-out);
+  }
+
+  @keyframes fadeInRotate {
+    from {
+      opacity: 0;
+      transform: rotate(-90deg) scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  &__account-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-4);
+    background: white;
+    border: 2px solid transparent;
+    border-radius: var(--radius-full);
+    color: var(--primary);
+    cursor: pointer;
+    font-size: var(--font-m);
+    transition: all var(--duration-fast) var(--timing-ease-in-out);
+
+    &:hover {
+      background: var(--primary);
+      border-color: white;
+      color: white;
+    }
+  }
+
+  &__account-btn:hover &__account-icon {
+    color: white;
+  }
+
+  &__account-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__account-text {
+    white-space: nowrap;
+  }
+}
