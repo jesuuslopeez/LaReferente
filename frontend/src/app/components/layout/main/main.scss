@@ -1,0 +1,8 @@
+@import '../../../../styles/00-settings/variables';
+
+.main {
+  min-height: calc(100vh - 200px);
+  background: var(--bg-color);
+  color: var(--text-color);
+  padding: var(--spacing-8) 0;
+}
