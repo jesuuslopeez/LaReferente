@@ -1,0 +1,125 @@
+---
+config:
+  theme: neo-dark
+---
+erDiagram
+    USUARIO ||--o{ NOTICIA : "es autor de (autor_id)"
+    USUARIO ||--o{ COMENTARIO : "publica (usuario_id)"
+
+    EQUIPO ||--o{ JUGADOR : "tiene a (equipo_id)"
+    EQUIPO ||--o{ PARTIDO : "juega local (equipo_local_id)"
+    EQUIPO ||--o{ PARTIDO : "juega visitante (equipo_visitante_id)"
+    EQUIPO ||--o{ CLASIFICACION : "aparece en (equipo_id)"
+
+    JUGADOR ||--o{ ESTADISTICA_JUGADOR : "tiene (jugador_id)"
+
+    COMPETICION ||--o{ PARTIDO : "organiza (competicion_id)"
+    COMPETICION ||--o{ CLASIFICACION : "tiene tabla (competicion_id)"
+
+    NOTICIA ||--o{ COMENTARIO : "recibe (noticia_id)"
+    USUARIO ||--o{ EQUIPO : "crea/modifica"
+    USUARIO ||--o{ JUGADOR : "crea/modifica"
+    USUARIO ||--o{ COMPETICION : "crea/modifica"
+    USUARIO ||--o{ PARTIDO : "crea/modifica resultados"
+    USUARIO ||--o{ ESTADISTICA_JUGADOR : "crea/modifica"
+    USUARIO ||--o{ CLASIFICACION : "crea/modifica"
+    USUARIO ||--o{ NOTICIA : "modifica (editor)"
+
+
+    USUARIO {
+        BIGINT id PK
+        VARCHAR email UK
+        VARCHAR password
+        VARCHAR nombre
+        VARCHAR apellidos
+        ENUM rol
+        BOOLEAN activo
+        TIMESTAMP fecha_registro
+        TIMESTAMP ultima_conexion
+    }
+
+    EQUIPO {
+        BIGINT id PK
+        VARCHAR nombre
+        VARCHAR pais
+        BOOLEAN activo
+        TIMESTAMP fecha_creacion
+        BIGINT creado_por_id FK "Nuevo: Usuario creador"
+        TIMESTAMP fecha_modificacion "Nuevo"
+        BIGINT modificado_por_id FK "Nuevo: Último editor"
+    }
+
+    JUGADOR {
+        BIGINT id PK
+        VARCHAR nombre
+        VARCHAR apellidos
+        BIGINT equipo_id FK
+        BOOLEAN activo
+        TIMESTAMP fecha_creacion
+        BIGINT creado_por_id FK "Nuevo: Usuario creador"
+        TIMESTAMP fecha_modificacion "Nuevo"
+        BIGINT modificado_por_id FK "Nuevo: Último editor"
+    }
+
+    COMPETICION {
+        BIGINT id PK
+        VARCHAR nombre
+        BOOLEAN activo
+        TIMESTAMP fecha_creacion
+        BIGINT creado_por_id FK "Nuevo: Usuario creador"
+        TIMESTAMP fecha_modificacion "Nuevo"
+        BIGINT modificado_por_id FK "Nuevo: Último editor"
+    }
+
+    PARTIDO {
+        BIGINT id PK
+        BIGINT competicion_id FK
+        BIGINT equipo_local_id FK
+        BIGINT equipo_visitante_id FK
+        TIMESTAMP fecha_hora
+        INT goles_local
+        INT goles_visitante
+        ENUM estado
+        TIMESTAMP fecha_creacion
+        BIGINT creado_por_id FK "Nuevo: Usuario creador"
+        TIMESTAMP fecha_modificacion "Nuevo (Cuándo se puso el resultado)"
+        BIGINT modificado_por_id FK "Nuevo: Quién puso el resultado"
+    }
+
+    NOTICIA {
+        BIGINT id PK
+        VARCHAR titulo
+        BIGINT autor_id FK "Autor original"
+        TIMESTAMP fecha_creacion
+        TIMESTAMP fecha_modificacion
+        BIGINT modificado_por_id FK "Nuevo: Por si un editor corrige al autor"
+    }
+
+    ESTADISTICA_JUGADOR {
+        BIGINT id PK
+        BIGINT jugador_id FK
+        VARCHAR temporada
+        TIMESTAMP fecha_actualizacion
+        BIGINT creado_por_id FK "Nuevo"
+        BIGINT modificado_por_id FK "Nuevo"
+    }
+
+    COMENTARIO {
+        BIGINT id PK
+        BIGINT noticia_id FK
+        BIGINT usuario_id FK
+        TEXT contenido
+        BOOLEAN aprobado
+        TIMESTAMP fecha_creacion
+    }
+
+    CLASIFICACION {
+        BIGINT id PK
+        BIGINT competicion_id FK
+        BIGINT equipo_id FK
+        INT posicion
+        INT puntos
+        TIMESTAMP fecha_actualizacion
+        BIGINT creado_por_id FK "Nuevo (si se genera manualmente)"
+        BIGINT modificado_por_id FK "Nuevo (si se ajusta manualmente)"
+    }
