@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class CommentDTO {
     private Long id;
     private Long noticiaId;
+    private String noticiaTitulo;
     private Long usuarioId;
     private String usuarioNombre;
     private String contenido;
