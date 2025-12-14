@@ -40,7 +40,7 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     List<Match> findMatchesBetweenTeams(@Param("equipo1") Long equipo1, @Param("equipo2") Long equipo2);
 
     // Partidos de hoy
-    @Query("SELECT m FROM Match m WHERE DATE(m.fechaHora) = CURRENT_DATE ORDER BY m.fechaHora ASC")
+    @Query("SELECT m FROM Match m WHERE CAST(m.fechaHora AS LocalDate) = CURRENT_DATE ORDER BY m.fechaHora ASC")
     List<Match> findTodayMatches();
 
     // Contar victorias de un equipo
