@@ -35,5 +35,6 @@ public interface StandingsRepository extends JpaRepository<Standings, Long> {
     List<Standings> findBestAttackByCompetition(@Param("competicionId") Long competicionId);
 
     // Posiciones de un equipo en todas sus competiciones
-    List<Standings> findByEquipoIdOrderByCompeticionNombreAsc(Long equipoId);
+    @Query("SELECT s FROM Standings s WHERE s.equipo.id = :equipoId ORDER BY s.competicion.nombre ASC")
+    List<Standings> findByEquipoIdOrderByCompeticionNombreAsc(@Param("equipoId") Long equipoId);
 }
