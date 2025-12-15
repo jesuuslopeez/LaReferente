@@ -1,0 +1,105 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+
+  &__password-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+    margin-bottom: var(--spacing-3);
+  }
+
+  &__password-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--spacing-2);
+  }
+
+  &__password-label {
+    font-family: var(--font-secondary);
+    font-weight: var(--font-medium);
+    font-size: var(--font-s);
+    color: white;
+    margin: 0;
+  }
+
+  &__required {
+    color: var(--error);
+  }
+
+  &__forgot-password {
+    color: white;
+    font-size: var(--font-xs);
+    font-family: var(--font-secondary);
+    text-decoration: none;
+    transition: text-decoration var(--duration-fast) var(--timing-ease-in-out);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input-icon {
+    position: absolute;
+    left: var(--spacing-4);
+    width: 20px;
+    height: 20px;
+    color: var(--primary);
+    pointer-events: none;
+  }
+
+  &__input {
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-4) var(--spacing-3) var(--spacing-12);
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: var(--font-m);
+    font-family: var(--font-primary);
+    background: white;
+    color: var(--gray900);
+    transition: box-shadow var(--duration-fast) var(--timing-ease-in-out);
+
+    &::placeholder {
+      color: var(--gray400);
+      font-family: var(--font-primary);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+  }
+
+  &__footer {
+    color: white;
+    font-size: var(--font-s);
+    font-family: var(--font-secondary);
+    text-align: center;
+    margin: var(--spacing-2) 0 0 0;
+  }
+
+  &__link {
+    background: none;
+    border: none;
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: var(--font-s);
+    font-family: var(--font-secondary);
+    padding: 0;
+    margin: 0;
+    transition: opacity var(--duration-fast) var(--timing-ease-in-out);
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
