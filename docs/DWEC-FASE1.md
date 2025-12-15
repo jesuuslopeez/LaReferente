@@ -3,11 +3,13 @@
 **Fecha de entrega**: 18 de diciembre
 **Criterios**: RA6.a, RA6.c, RA6.d, RA6.e, RA6.h
 
+**Nota**: Los componentes documentados aquí están desarrollados y funcionales, pero aún no están integrados en las páginas principales de la aplicación. Están preparados para futuras implementaciones cuando se necesiten.
+
 ---
 
 ## 1. Arquitectura de Eventos
 
-La arquitectura de eventos en esta aplicación Angular sigue el patrón unidireccional de datos, utilizando **signals** para estado reactivo y **event binding** nativo del DOM.
+He implementado una arquitectura de eventos basada en el patrón unidireccional de datos de Angular, usando signals para gestionar el estado reactivo y event binding nativo del DOM.
 
 ### Flujo de Eventos Principal
 
@@ -84,13 +86,13 @@ Usuario → Evento DOM (click/keydown/mouseenter)
 
 | Evento | Chrome | Firefox | Safari | Edge | Notas |
 |--------|--------|---------|--------|------|-------|
-| `click` | ✅ Todas | ✅ Todas | ✅ Todas | ✅ Todas | Soporte universal |
-| `mouseenter` | ✅ Todas | ✅ Todas | ✅ Todas | ✅ Todas | Soporte universal |
-| `mouseleave` | ✅ Todas | ✅ Todas | ✅ Todas | ✅ Todas | Soporte universal |
-| `keydown.escape` | ✅ Todas | ✅ Todas | ✅ Todas | ✅ Todas | Modificador Angular |
-| `document:click` | ✅ Todas | ✅ Todas | ✅ Todas | ✅ Todas | Event bubbling |
-| `matchMedia()` | ✅ 9+ | ✅ 6+ | ✅ 5.1+ | ✅ 10+ | Para prefers-color-scheme |
-| `localStorage` | ✅ 4+ | ✅ 3.5+ | ✅ 4+ | ✅ 8+ | Persistencia tema |
+| `click` | OK Todas | OK Todas | OK Todas | OK Todas | Soporte universal |
+| `mouseenter` | OK Todas | OK Todas | OK Todas | OK Todas | Soporte universal |
+| `mouseleave` | OK Todas | OK Todas | OK Todas | OK Todas | Soporte universal |
+| `keydown.escape` | OK Todas | OK Todas | OK Todas | OK Todas | Modificador Angular |
+| `document:click` | OK Todas | OK Todas | OK Todas | OK Todas | Event bubbling |
+| `matchMedia()` | OK 9+ | OK 6+ | OK 5.1+ | OK 10+ | Para prefers-color-scheme |
+| `localStorage` | OK 4+ | OK 3.5+ | OK 4+ | OK 8+ | Persistencia tema |
 
 ---
 
@@ -329,21 +331,21 @@ private showTooltip(): void {
 
 ## 5. Criterios de Aceptación
 
-✅ **RA6.a**: Manipulación del DOM con ViewChild, ElementRef y Renderer2
-✅ **RA6.c**: Event binding y manejo de eventos (click, teclado, mouse)
-✅ **RA6.d**: Prevención de comportamiento por defecto con preventDefault()
-✅ **RA6.e**: Control de propagación de eventos con stopPropagation()
-✅ **RA6.h**: Componentes interactivos funcionales
+- **RA6.a**: Manipulación del DOM con ViewChild, ElementRef y Renderer2
+- **RA6.c**: Event binding y manejo de eventos (click, teclado, mouse)
+- **RA6.d**: Prevención de comportamiento por defecto con preventDefault()
+- **RA6.e**: Control de propagación de eventos con stopPropagation()
+- **RA6.h**: Componentes interactivos funcionales
 
 ---
 
 ## 6. Entregables
 
-✅ **Componentes interactivos funcionando con eventos**
-✅ **Theme switcher completamente funcional**
-✅ **Menú mobile con apertura/cierre**
-✅ **Mínimo 2 componentes adicionales interactivos**: Modal, Tabs, Tooltip (3 componentes)
-✅ **Documentación de eventos en README** (este documento)
+- Componentes interactivos funcionando con eventos
+- Theme switcher completamente funcional
+- Menú mobile con apertura/cierre
+- Mínimo 2 componentes adicionales interactivos: Modal, Tabs, Tooltip (3 componentes)
+- Documentación de eventos en README (este documento)
 
 ---
 
