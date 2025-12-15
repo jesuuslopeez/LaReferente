@@ -1,0 +1,23 @@
+.form-modal-button {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-6);
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  font-size: var(--font-m);
+  font-weight: var(--font-semibold);
+  font-family: var(--font-secondary);
+  background: white;
+  color: var(--primary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--timing-ease-in-out);
+
+  &:hover {
+    background: var(--primary);
+    border-color: white;
+    color: white;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
