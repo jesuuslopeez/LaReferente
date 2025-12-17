@@ -29,12 +29,15 @@
     [required]="true">
   </app-form-input>
 
-  <div class="register-form__terms-checkbox">
-    <input type="checkbox" id="terms" name="terms" class="register-form__terms-input" required />
-    <label for="terms" class="register-form__terms-label">
+  <section class="register-form__terms-wrapper">
+    <app-form-checkbox
+      checkboxId="register-terms"
+      name="terms"
+      [required]="true"
+    >
       Acepto los <a href="/terminos" class="register-form__terms-link">términos y condiciones</a>
-    </label>
-  </div>
+    </app-form-checkbox>
+  </section>
 
   <app-form-modal-button text="Registrarse" type="submit" />
 

@@ -3,31 +3,28 @@
   flex-direction: column;
   gap: var(--spacing-1);
 
-  &__terms-checkbox {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-2);
+  .form-field__label {
+    color: var(--gray50);
+  }
+
+  .form-field__help-text {
+    color: var(--gray50);
+  }
+
+  &__terms-wrapper {
     margin: var(--spacing-3) 0;
-    padding-left: var(--spacing-2);
-  }
 
-  &__terms-input {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    accent-color: white;
-  }
-
-  &__terms-label {
-    color: white;
-    font-size: var(--font-s);
-    font-family: var(--font-secondary);
-    cursor: pointer;
-    margin: 0;
+    --checkbox-text-color: var(--gray50);
+    --checkbox-text-size: var(--font-s);
+    --checkbox-border-color: var(--gray50);
+    --checkbox-bg-color: var(--gray50);
+    --checkbox-checked-bg-color: var(--gray50);
+    --checkbox-checked-border-color: var(--gray50);
+    --checkbox-icon-color: var(--primary);
   }
 
   &__terms-link {
-    color: white;
+    color: var(--gray50);
     text-decoration: underline;
     font-family: var(--font-secondary);
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);
@@ -38,7 +35,7 @@
   }
 
   &__footer {
-    color: white;
+    color: var(--gray50);
     font-size: var(--font-s);
     font-family: var(--font-secondary);
     text-align: center;
@@ -48,7 +45,7 @@
   &__link {
     background: none;
     border: none;
-    color: white;
+    color: var(--gray50);
     text-decoration: underline;
     cursor: pointer;
     font-size: var(--font-s);

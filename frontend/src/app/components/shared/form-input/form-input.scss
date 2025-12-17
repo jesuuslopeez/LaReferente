@@ -8,7 +8,7 @@
     font-family: var(--font-secondary);
     font-weight: var(--font-medium);
     font-size: var(--font-s);
-    color: white;
+    color: var(--text-color);
   }
 
   &__required {
@@ -24,8 +24,8 @@
   &__input-icon {
     position: absolute;
     left: var(--spacing-4);
-    width: 20px;
-    height: 20px;
+    width: var(--spacing-5);
+    height: var(--spacing-5);
     color: var(--primary);
     pointer-events: none;
   }
@@ -33,12 +33,12 @@
   &__input {
     width: 100%;
     padding: var(--spacing-3) var(--spacing-4) var(--spacing-3) var(--spacing-12);
-    border: none;
+    border: var(--border-medium) solid var(--primary);
     border-radius: var(--radius-full);
     font-size: var(--font-m);
     font-family: var(--font-primary);
-    background: white;
-    color: var(--gray900);
+    background: var(--bg-color);
+    color: var(--text-color);
     transition: box-shadow var(--duration-fast) var(--timing-ease-in-out);
 
     &::placeholder {
@@ -48,13 +48,14 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 2px var(--primary);
+      box-shadow: 0 0 0 var(--border-medium) var(--primary);
     }
   }
 
   &__help-text {
     font-size: var(--font-xs);
-    color: rgba(255, 255, 255, 0.7);
+    font-family: var(--font-secondary);
+    color: var(--text-secondary);
     padding-left: var(--spacing-4);
   }
 

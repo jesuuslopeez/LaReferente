@@ -73,11 +73,9 @@ export class ModalComponent {
   }
 
   protected onBackdropClick(): void {
-    // Solo cierra si el click fue en el backdrop, no en el contenido
     this.close();
   }
 
-  // Cerrar modal con tecla ESC
   @HostListener('document:keydown.escape')
   onEscapePress(): void {
     if (this.isOpen()) {

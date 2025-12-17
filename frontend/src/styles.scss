@@ -1,11 +1,4 @@
-// 00-settings: Variables SCSS
 @import './styles/00-settings/variables';
-
-// 00-settings: Variables CSS (Custom Properties)
 @import './styles/00-settings/css-variables';
-
-// 01-tools: Mixins y funciones
 @import './styles/01-tools/mixins';
-
-// 02-generic: Reset
 @import './styles/02-generic/reset';

@@ -3,6 +3,14 @@
   flex-direction: column;
   gap: var(--spacing-1);
 
+  .form-field__label {
+    color: var(--gray50);
+  }
+
+  .form-field__help-text {
+    color: var(--gray50);
+  }
+
   &__password-wrapper {
     display: flex;
     flex-direction: column;
@@ -21,7 +29,7 @@
     font-family: var(--font-secondary);
     font-weight: var(--font-medium);
     font-size: var(--font-s);
-    color: white;
+    color: var(--gray50);
     margin: 0;
   }
 
@@ -30,7 +38,7 @@
   }
 
   &__forgot-password {
-    color: white;
+    color: var(--gray50);
     font-size: var(--font-xs);
     font-family: var(--font-secondary);
     text-decoration: none;
@@ -50,8 +58,8 @@
   &__input-icon {
     position: absolute;
     left: var(--spacing-4);
-    width: 20px;
-    height: 20px;
+    width: var(--spacing-5);
+    height: var(--spacing-5);
     color: var(--primary);
     pointer-events: none;
   }
@@ -63,7 +71,7 @@
     border-radius: var(--radius-full);
     font-size: var(--font-m);
     font-family: var(--font-primary);
-    background: white;
+    background: var(--bg-color);
     color: var(--gray900);
     transition: box-shadow var(--duration-fast) var(--timing-ease-in-out);
 
@@ -74,12 +82,12 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 2px var(--primary);
+      box-shadow: 0 0 0 var(--border-medium) var(--primary);
     }
   }
 
   &__footer {
-    color: white;
+    color: var(--gray50);
     font-size: var(--font-s);
     font-family: var(--font-secondary);
     text-align: center;
@@ -89,7 +97,7 @@
   &__link {
     background: none;
     border: none;
-    color: white;
+    color: var(--gray50);
     text-decoration: underline;
     cursor: pointer;
     font-size: var(--font-s);

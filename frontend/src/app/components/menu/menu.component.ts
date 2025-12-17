@@ -60,7 +60,6 @@ export class MenuComponent {
     this.isOpen.set(false);
   }
 
-  // Cerrar menu al hacer click fuera del componente
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const clickedInside = this.elementRef.nativeElement.contains(event.target);

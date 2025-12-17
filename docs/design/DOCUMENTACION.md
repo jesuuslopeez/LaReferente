@@ -746,3 +746,1367 @@ Media query para responsive (min-width). Aplica estilos desde un breakpoint haci
 Solo en componentes que requieren estilos verdaderamente globales. En general, se evita para mantener la encapsulación.
 
 ---
+
+## 2. HTML Semántico y Estructura
+
+### 2.1 Elementos Semánticos Utilizados
+
+#### **`<header>`**
+Encabezado principal de la aplicación. Contiene el logo, navegación principal y utilidades.
+
+**Ubicación:** `frontend/src/app/components/layout/header/header.html`
+
+```html
+<header class="header">
+  <section class="header__container">
+    <!-- Logo -->
+    <a routerLink="/" class="header__logo">
+      <img src="/images/logo.png" alt="La Referente" class="header__logo-img" />
+    </a>
+
+    <!-- Navegación principal -->
+    <nav class="header__nav">
+      <ul class="header__nav-list">
+        <li class="header__nav-item">
+          <a routerLink="/noticias" routerLinkActive="header__nav-link--active" 
+             class="header__nav-link">
+            Noticias
+          </a>
+        </li>
+        <li class="header__nav-item">
+          <a routerLink="/competiciones" routerLinkActive="header__nav-link--active" 
+             class="header__nav-link">
+            Competiciones
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Buscador y utilidades -->
+    <section class="header__utilities">
+      <form class="header__search" role="search">
+        <select class="header__search-dropdown">
+          <option value="all">Todo</option>
+          <option value="noticias">Noticias</option>
+        </select>
+        <input type="text" class="header__search-input" placeholder="Buscar" />
+        <button class="header__search-btn" aria-label="Buscar">
+          <!-- Icono -->
+        </button>
+      </form>
+    </section>
+  </section>
+</header>
+```
+
+
+#### **`<nav>`**
+Navegación principal de la aplicación.
+
+**Cuándo usarlo:**
+- Solo para la navegación principal del sitio
+- NO para cualquier grupo de enlaces
+
+```html
+<nav class="header__nav">
+  <ul class="header__nav-list">
+    <li class="header__nav-item">
+      <a routerLink="/noticias" class="header__nav-link">Noticias</a>
+    </li>
+  </ul>
+</nav>
+```
+
+#### **`<main>`**
+Contenido principal de cada página.
+
+**Ubicación:** `frontend/src/app/components/layout/main/main.html`
+
+```html
+<main class="main">
+  <section class="main__container">
+    <ng-content></ng-content>
+  </section>
+</main>
+```
+
+#### **`<footer>`**
+Pie de página con información legal y redes sociales.
+
+**Ubicación:** `frontend/src/app/components/layout/footer/footer.html`
+
+```html
+<footer class="footer">
+  <section class="footer__container">
+    <!-- Sección principal del footer -->
+    <section class="footer__main">
+      <!-- Logo y descripción -->
+      <section class="footer__brand">
+        <img src="/images/logo.png" alt="La Referente" class="footer__logo" />
+        <p class="footer__description">
+          Tu fuente de información sobre fútbol español.
+        </p>
+      </section>
+
+      <!-- Enlaces legales -->
+      <section class="footer__section">
+        <h3 class="footer__title">Legal</h3>
+        <ul class="footer__list">
+          <li class="footer__list-item">
+            <a routerLink="/terminos" class="footer__link">Términos y condiciones</a>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- Copyright -->
+    <section class="footer__bottom">
+      <p class="footer__copyright">
+        © 2024 La Referente. Todos los derechos reservados.
+      </p>
+    </section>
+  </section>
+</footer>
+```
+
+#### **`<section>`**
+Agrupación temática de contenido.
+
+**Cuándo usarlo:**
+- Cuando el contenido tiene un tema específico
+- Generalmente tiene un heading (h2, h3, etc.)
+
+```html
+<!-- Utilidades del header -->
+<section class="header__utilities">
+  <form class="header__search" role="search">
+    <!-- ... -->
+  </form>
+  <button class="header__theme-btn"><!-- ... --></button>
+</section>
+
+<!-- Sección legal del footer -->
+<section class="footer__section">
+  <h3 class="footer__title">Legal</h3>
+  <ul class="footer__list">
+    <!-- ... -->
+  </ul>
+</section>
+```
+
+#### **`<article>`**
+**Cuándo lo usaremos:**
+- Para noticias individuales
+- Para perfiles de jugadores
+- Contenido que puede ser distribuido independientemente
+
+**Ejemplo futuro:**
+```html
+<article class="noticia">
+  <header class="noticia__header">
+    <h2 class="noticia__titulo">Título de la noticia</h2>
+    <time class="noticia__fecha" datetime="2024-12-15">15 de diciembre, 2024</time>
+  </header>
+  <section class="noticia__contenido">
+    <p>Contenido de la noticia...</p>
+  </section>
+</article>
+```
+
+#### **`<aside>`**
+**Cuándo lo usaremos:**
+- Para contenido relacionado pero no esencial
+- Barras laterales con información adicional
+- Widgets de redes sociales
+
+**Ejemplo futuro:**
+```html
+<aside class="sidebar">
+  <h3 class="sidebar__titulo">Últimos resultados</h3>
+  <ul class="sidebar__lista">
+    <!-- ... -->
+  </ul>
+</aside>
+```
+
+### 2.2 Jerarquía de Headings
+
+**Reglas aplicadas:**
+
+1. **Un solo `<h1>` por página** - Título principal del contenido
+2. **`<h2>` para secciones principales** - Dividen el contenido en bloques temáticos
+3. **`<h3>` para subsecciones** - Subdividen las secciones h2
+4. **NUNCA saltar niveles** - No pasar de h2 a h4
+
+**Diagrama de jerarquía:**
+
+```
+Página: Inicio
+│
+└─ h1: "Bienvenido a La Referente"
+   │
+   ├─ h2: "Últimas Noticias"
+   │  ├─ h3: "Noticia 1"
+   │  ├─ h3: "Noticia 2"
+   │  └─ h3: "Noticia 3"
+   │
+   ├─ h2: "Competiciones Destacadas"
+   │  ├─ h3: "La Liga"
+   │  │  └─ h4: "Próximos partidos"
+   │  ├─ h3: "Copa del Rey"
+   │  │  └─ h4: "Resultados recientes"
+   │  └─ h3: "Champions League"
+   │
+   └─ h2: "Jugadores Destacados"
+      ├─ h3: "Delanteros"
+      ├─ h3: "Mediocampistas"
+      └─ h3: "Defensas"
+```
+
+
+### 2.3 Estructura de Formularios
+
+#### **Componente `form-input`**
+
+**Ubicación:** `frontend/src/app/components/shared/form-input/form-input.html`
+
+**Características:**
+- Asociación correcta de `label` con `input` mediante `for` e `id`
+- Indicador visual de campo requerido (`*`)
+- Iconos descriptivos
+- Mensajes de ayuda y error
+
+**Código completo:**
+
+```html
+<section class="form-field">
+  @if (label) {
+    <label [for]="inputId" class="form-field__label">
+      {{ label }}@if (required) {<span class="form-field__required">*</span>}
+    </label>
+  }
+
+  <section class="form-field__input-wrapper">
+    @if (icon) {
+      <svg class="form-field__input-icon" xmlns="http://www.w3.org/2000/svg"
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              stroke-width="2" [attr.d]="icon" />
+      </svg>
+    }
+
+    <input
+      class="form-field__input"
+      [type]="type"
+      [id]="inputId"
+      [name]="name"
+      [placeholder]="placeholder"
+      [required]="required"
+    />
+  </section>
+
+  @if (helpText) {
+    <small class="form-field__help-text">{{ helpText }}</small>
+  }
+
+  @if (errorMessage) {
+    <span class="form-field__error-message">{{ errorMessage }}</span>
+  }
+</section>
+```
+
+**Explicación:**
+
+1. **Asociación label-input:**
+   ```html
+   <label [for]="inputId">Correo electrónico</label>
+   <input [id]="inputId" type="email" />
+   ```
+   - El atributo `for` del label debe coincidir con el `id` del input
+   - Esto permite hacer clic en el label para enfocar el input
+   - Mejora la accesibilidad
+
+2. **Campo requerido:**
+   ```html
+   {{ label }}@if (required) {<span class="form-field__required">*</span>}
+   ```
+   - Indicador visual (`*`) en rojo
+   - Atributo `required` en el input para validación HTML5
+
+3. **Iconos descriptivos:**
+   ```html
+   <svg class="form-field__input-icon">
+     <path [attr.d]="icon" />
+   </svg>
+   ```
+   - Mejoran la identificación visual del campo
+   - No son interactivos (`pointer-events: none`)
+
+4. **Mensajes de ayuda y error:**
+   ```html
+   <small class="form-field__help-text">{{ helpText }}</small>
+   <span class="form-field__error-message">{{ errorMessage }}</span>
+   ```
+   - Proporcionan contexto adicional
+   - Los errores se muestran en rojo
+
+#### **Uso del componente:**
+
+```html
+<app-form-input
+  label="Correo electrónico"
+  type="email"
+  name="email"
+  inputId="register-email"
+  placeholder="Introduce tu correo electrónico"
+  icon="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+  [required]="true">
+</app-form-input>
+```
+
+**Genera HTML accesible:**
+
+```html
+<section class="form-field">
+  <label for="register-email" class="form-field__label">
+    Correo electrónico<span class="form-field__required">*</span>
+  </label>
+
+  <section class="form-field__input-wrapper">
+    <svg class="form-field__input-icon"><!-- Icono --></svg>
+    <input
+      class="form-field__input"
+      type="email"
+      id="register-email"
+      name="email"
+      placeholder="Introduce tu correo electrónico"
+      required
+    />
+  </section>
+</section>
+```
+
+#### **`<fieldset>` y `<legend>`**
+
+**Cuándo los usaremos:**
+
+Los usaremos cuando tengamos formularios más complejos con grupos de campos relacionados.
+
+**Ejemplo futuro - Formulario de filtros:**
+
+```html
+<form class="filtros-form">
+  <fieldset class="filtros-form__group">
+    <legend class="filtros-form__legend">Filtrar por competición</legend>
+    
+    <label class="filtros-form__label">
+      <input type="checkbox" name="competicion" value="la-liga">
+      La Liga
+    </label>
+    
+    <label class="filtros-form__label">
+      <input type="checkbox" name="competicion" value="copa-rey">
+      Copa del Rey
+    </label>
+    
+    <label class="filtros-form__label">
+      <input type="checkbox" name="competicion" value="champions">
+      Champions League
+    </label>
+  </fieldset>
+
+  <fieldset class="filtros-form__group">
+    <legend class="filtros-form__legend">Filtrar por fecha</legend>
+    
+    <label class="filtros-form__label">
+      Desde:
+      <input type="date" name="fecha-desde">
+    </label>
+    
+    <label class="filtros-form__label">
+      Hasta:
+      <input type="date" name="fecha-hasta">
+    </label>
+  </fieldset>
+</form>
+```
+
+**Beneficios:**
+- Agrupa campos relacionados semánticamente
+- Mejora la accesibilidad (lectores de pantalla)
+- Permite estilizar grupos completos
+
+#### **Formularios actuales:**
+
+**Login Form:**
+```html
+<form class="login-form" (submit)="onSubmit($event)">
+  <app-form-input
+    label="Correo electrónico"
+    type="email"
+    name="email"
+    inputId="login-email"
+    [required]="true">
+  </app-form-input>
+
+  <!-- Input de contraseña personalizado para layout especial -->
+  <section class="login-form__password-wrapper">
+    <section class="login-form__password-header">
+      <p class="login-form__password-label">
+        Contraseña<span class="login-form__required">*</span>
+      </p>
+      <a href="/recuperar-contrasena" class="login-form__forgot-password">
+        ¿Olvidaste tu contraseña?
+      </a>
+    </section>
+    <section class="login-form__input-wrapper">
+      <svg class="login-form__input-icon"><!-- Icono --></svg>
+      <input
+        type="password"
+        id="login-password"
+        name="password"
+        class="login-form__input"
+        placeholder="Introduce tu contraseña"
+        required
+      />
+    </section>
+  </section>
+
+  <app-form-modal-button text="Iniciar sesión" type="submit" />
+</form>
+```
+
+**Register Form:**
+```html
+<form class="register-form" (submit)="onSubmit($event)">
+  <app-form-input
+    label="Correo electrónico"
+    type="email"
+    name="email"
+    inputId="register-email"
+    [required]="true">
+  </app-form-input>
+
+  <app-form-input
+    label="Nombre"
+    type="text"
+    name="nombre"
+    inputId="register-nombre"
+    [required]="true">
+  </app-form-input>
+
+  <app-form-input
+    label="Contraseña"
+    type="password"
+    name="password"
+    inputId="register-password"
+    [required]="true">
+  </app-form-input>
+
+  <!-- Checkbox de términos -->
+  <section class="register-form__terms-checkbox">
+    <input type="checkbox" id="terms" name="terms"
+           class="register-form__terms-input" required />
+    <label for="terms" class="register-form__terms-label">
+      Acepto los <a href="/terminos" class="register-form__terms-link">
+        términos y condiciones
+      </a>
+    </label>
+  </section>
+
+  <app-form-modal-button text="Registrarse" type="submit" />
+</form>
+```
+
+**Características de accesibilidad:**
+- Todos los inputs tienen `label` asociados
+- Campos requeridos marcados visualmente (`*`) y con atributo `required`
+- Placeholders descriptivos
+- Nombres semánticos (`name` attribute)
+- IDs únicos para cada campo
+
+---
+
+## 3. Sistema de componentes UI
+
+### 3.1 Componentes implementados
+
+#### **Button**
+
+**Propósito:** Botón reutilizable para acciones del usuario.
+
+**Ubicación:** `frontend/src/app/components/shared/button/button.ts`
+
+**Variantes disponibles:**
+- `primary` - Acción principal (fondo blanco, borde verde)
+- `secondary` - Acción secundaria (fondo blanco, borde azul)
+- `ghost` - Acción terciaria (transparente, sin borde)
+- `danger` - Acciones destructivas (transparente, borde rojo)
+
+**Tamaños disponibles:**
+- `sm` - Small (padding 8px 16px, font 14px, radius 12px)
+- `md` - Medium (padding 12px 24px, font 16px, radius 16px)
+- `lg` - Large (padding 16px 32px, font 20px, radius 20px)
+
+**Estados:**
+- Normal
+- Hover (fondo color, texto blanco)
+- Active (escala 0.98)
+- Disabled (opacity 0.5, cursor not-allowed)
+
+**Ejemplo de uso:**
+
+```html
+<app-button
+  text="Guardar cambios"
+  variant="primary"
+  size="md"
+  type="submit">
+</app-button>
+
+<app-button
+  text="Cancelar"
+  variant="secondary"
+  size="md"
+  [disabled]="true">
+</app-button>
+```
+
+**Código del componente:**
+
+```typescript
+export class Button {
+  readonly text = input.required<string>();
+  readonly variant = input<'primary' | 'secondary' | 'ghost' | 'danger'>('primary');
+  readonly size = input<'sm' | 'md' | 'lg'>('md');
+  readonly type = input<'button' | 'submit' | 'reset'>('button');
+  readonly disabled = input<boolean>(false);
+  readonly click = output<void>();
+}
+```
+
+---
+
+#### **Form Input**
+
+**Propósito:** Campo de entrada de texto accesible con label, icono opcional y validación.
+
+**Ubicación:** `frontend/src/app/components/shared/form-input/form-input.ts`
+
+**Variantes disponibles:**
+- text, email, password, number (según type)
+
+**Características:**
+- Label asociado con for/id
+- Icono descriptivo opcional (SVG)
+- Texto de ayuda opcional
+- Mensaje de error opcional
+- Indicador visual de campo requerido (*)
+
+**Estados:**
+- Normal
+- Focus (box-shadow verde)
+- Error (mensaje en rojo)
+
+**Ejemplo de uso:**
+
+```html
+<app-form-input
+  label="Correo electrónico"
+  type="email"
+  name="email"
+  inputId="user-email"
+  placeholder="correo@ejemplo.com"
+  icon="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+  [required]="true"
+  helpText="Usaremos este correo para contactarte">
+</app-form-input>
+```
+
+**Código del componente:**
+
+```typescript
+export class FormInput {
+  readonly label = input<string>();
+  readonly type = input<string>('text');
+  readonly inputId = input.required<string>();
+  readonly name = input.required<string>();
+  readonly placeholder = input<string>('');
+  readonly required = input<boolean>(false);
+  readonly icon = input<string>();
+  readonly helpText = input<string>();
+  readonly errorMessage = input<string>();
+}
+```
+
+---
+
+#### **Form Textarea**
+
+**Propósito:** Área de texto multilínea para comentarios o descripciones.
+
+**Ubicación:** `frontend/src/app/components/shared/form-textarea/form-textarea.ts`
+
+**Características:**
+- Resize vertical
+- Scrollbar personalizado (color primary)
+- Altura mínima 80px
+- Ancho máximo 500px
+
+**Estados:**
+- Normal
+- Focus (box-shadow verde, borde primary)
+
+**Ejemplo de uso:**
+
+```html
+<app-form-textarea
+  textareaId="comentario"
+  name="comentario"
+  placeholder="Escribe tu comentario aquí..."
+  [rows]="4">
+</app-form-textarea>
+```
+
+**Código del componente:**
+
+```typescript
+export class FormTextarea {
+  readonly textareaId = input.required<string>();
+  readonly name = input.required<string>();
+  readonly placeholder = input<string>('');
+  readonly rows = input<number>(3);
+}
+```
+
+---
+
+#### **Form Select**
+
+**Propósito:** Selector dropdown para elegir entre opciones predefinidas.
+
+**Ubicación:** `frontend/src/app/components/shared/form-select/form-select.ts`
+
+**Características:**
+- Label opcional
+- Icono de flecha que rota al hacer focus
+- Placeholder como primera opción disabled
+- Indicador de campo requerido
+- Borde primary y radius xl
+
+**Estados:**
+- Normal
+- Focus (box-shadow verde, icono rotado 180deg)
+- Hover (box-shadow sutil)
+
+**Ejemplo de uso:**
+
+```html
+<app-form-select
+  label="País"
+  selectId="pais"
+  name="pais"
+  [options]="paisesOptions"
+  placeholder="Selecciona un país"
+  [required]="true">
+</app-form-select>
+```
+
+**Código del componente:**
+
+```typescript
+export interface SelectOption {
+  value: string;
+  label: string;
+}
+
+export class FormSelect {
+  readonly label = input<string>();
+  readonly selectId = input.required<string>();
+  readonly name = input.required<string>();
+  readonly options = input.required<SelectOption[]>();
+  readonly placeholder = input<string>('');
+  readonly required = input<boolean>(false);
+}
+```
+
+---
+
+#### **Form Checkbox**
+
+**Propósito:** Casilla de verificación para opciones binarias.
+
+**Ubicación:** `frontend/src/app/components/shared/form-checkbox/form-checkbox.ts`
+
+**Características:**
+- Label asociado correctamente
+- Estado checked por defecto opcional
+- Texto de ayuda opcional
+- Indicador de campo requerido
+- Diseño personalizado con borde primary
+
+**Estados:**
+- Unchecked
+- Checked (background primary)
+- Focus (outline primary)
+
+**Ejemplo de uso:**
+
+```html
+<app-form-checkbox
+  checkboxId="terminos"
+  name="terminos"
+  label="Acepto los términos y condiciones"
+  [required]="true"
+  helpText="Debes aceptar para continuar">
+</app-form-checkbox>
+
+<app-form-checkbox
+  checkboxId="newsletter"
+  name="newsletter"
+  label="Recibir novedades por email"
+  [checked]="true">
+</app-form-checkbox>
+```
+
+**Código del componente:**
+
+```typescript
+export class FormCheckbox {
+  readonly checkboxId = input.required<string>();
+  readonly name = input.required<string>();
+  readonly label = input.required<string>();
+  readonly required = input<boolean>(false);
+  readonly checked = input<boolean>(false);
+  readonly helpText = input<string>();
+}
+```
+
+---
+
+#### **Alert**
+
+**Propósito:** Mensajes de feedback para el usuario (éxito, error, advertencia, información).
+
+**Ubicación:** `frontend/src/app/components/shared/alert/alert.ts`
+
+**Variantes disponibles:**
+- `success` - Verde (confirmaciones exitosas)
+- `error` - Rojo (errores y fallos)
+- `warning` - Naranja (advertencias)
+- `info` - Azul (información general)
+
+**Características:**
+- Botón de cerrar opcional
+- Animación de entrada (slideIn)
+- Se oculta al cerrar usando signals
+- Border radius xl
+
+**Estados:**
+- Visible
+- Cerrado (display none mediante signal)
+
+**Ejemplo de uso:**
+
+```html
+<app-alert
+  type="success"
+  message="Los cambios se han guardado correctamente"
+  [closable]="true"
+  (close)="handleAlertClose()">
+</app-alert>
+
+<app-alert
+  type="error"
+  message="Ha ocurrido un error al procesar la solicitud">
+</app-alert>
+
+<app-alert
+  type="warning"
+  message="Esta acción no se puede deshacer">
+</app-alert>
+
+<app-alert
+  type="info"
+  message="Se han actualizado las condiciones del servicio">
+</app-alert>
+```
+
+**Código del componente:**
+
+```typescript
+export type AlertType = 'success' | 'error' | 'warning' | 'info';
+
+export class Alert {
+  readonly type = input<AlertType>('info');
+  readonly message = input.required<string>();
+  readonly closable = input<boolean>(true);
+  readonly close = output<void>();
+  protected readonly visible = signal(true);
+
+  protected onClose(): void {
+    this.visible.set(false);
+    this.close.emit();
+  }
+}
+```
+
+---
+
+#### **Card (Jugador)**
+
+**Propósito:** Tarjeta para mostrar información de un jugador.
+
+**Ubicación:** `frontend/src/app/components/shared/card/card.ts`
+
+**Características:**
+- Foto del jugador
+- Número de dorsal
+- Nombre completo
+- Logo del club
+- País, edad y posición
+- Botones de acción (Ver perfil / Ver equipo)
+
+**Estados:**
+- Normal
+- Hover en botones
+
+**Ejemplo de uso:**
+
+```html
+<app-card
+  playerName="Alexia Putellas"
+  playerImage="https://example.com/alexia.jpg"
+  [dorsalNumber]="11"
+  clubName="FC Barcelona"
+  clubLogo="https://example.com/fcb-logo.png"
+  country="España"
+  [age]="30"
+  position="Centrocampista">
+</app-card>
+```
+
+**Código del componente:**
+
+```typescript
+export class Card {
+  readonly playerName = input.required<string>();
+  readonly playerImage = input.required<string>();
+  readonly dorsalNumber = input.required<number>();
+  readonly clubName = input.required<string>();
+  readonly clubLogo = input.required<string>();
+  readonly country = input.required<string>();
+  readonly age = input.required<number>();
+  readonly position = input.required<string>();
+}
+```
+
+---
+
+#### **Competition Card**
+
+**Propósito:** Tarjeta para mostrar información de una competición.
+
+**Ubicación:** `frontend/src/app/components/shared/competition-card/competition-card.ts`
+
+**Características:**
+- Logo de la competición
+- Nombre
+- Total de equipos
+- Número de grupos (opcional)
+- Fechas de inicio y fin
+
+**Estados:**
+- Normal
+- Hover (transform scale)
+
+**Ejemplo de uso:**
+
+```html
+<!-- Liga de grupo único -->
+<app-competition-card
+  logo="https://example.com/laliga.png"
+  name="LaLiga EA Sports"
+  [totalTeams]="20"
+  startDate="Agosto 2025"
+  endDate="Mayo 2026">
+</app-competition-card>
+
+<!-- Liga multigrupo -->
+<app-competition-card
+  logo="https://example.com/copa.png"
+  name="Copa de la Reina"
+  [totalTeams]="16"
+  [groups]="2"
+  startDate="Septiembre 2025"
+  endDate="Junio 2026">
+</app-competition-card>
+```
+
+**Código del componente:**
+
+```typescript
+export class CompetitionCard {
+  readonly logo = input.required<string>();
+  readonly name = input.required<string>();
+  readonly totalTeams = input.required<number>();
+  readonly groups = input<number>();
+  readonly startDate = input.required<string>();
+  readonly endDate = input.required<string>();
+}
+```
+
+---
+
+#### **Account Modal**
+
+**Propósito:** Modal genérico para login y registro.
+
+**Ubicación:** `frontend/src/app/components/shared/account-modal/account-modal.ts`
+
+**Características:**
+- Título personalizable
+- Proyección de contenido (ng-content)
+- Botón de cerrar (X)
+- Overlay oscuro con blur
+- Animación de entrada
+- Z-index alto (var(--z-modal))
+
+**Estados:**
+- Abierto
+- Cerrado
+
+**Ejemplo de uso:**
+
+```html
+@if (showLoginModal()) {
+  <app-account-modal title="Iniciar sesión" (close)="closeLoginModal()">
+    <app-login-form (switchToRegister)="switchToRegister()" />
+  </app-account-modal>
+}
+
+@if (showRegisterModal()) {
+  <app-account-modal title="Registrarse" (close)="closeRegisterModal()">
+    <app-register-form (switchToLogin)="switchToLogin()" />
+  </app-account-modal>
+}
+```
+
+**Código del componente:**
+
+```typescript
+export class AccountModal {
+  readonly title = input.required<string>();
+  readonly close = output<void>();
+
+  protected onClose(): void {
+    this.close.emit();
+  }
+}
+```
+
+---
+
+#### **Login Form**
+
+**Propósito:** Formulario de inicio de sesión.
+
+**Ubicación:** `frontend/src/app/components/shared/login-form/login-form.ts`
+
+**Características:**
+- Input de email
+- Input de contraseña con enlace "¿Olvidaste tu contraseña?"
+- Botón submit
+- Link para cambiar a registro
+- Signal para manejar estado del formulario
+
+**Eventos:**
+- `switchToRegister` - Emitido al hacer clic en "Regístrate"
+
+**Ejemplo de uso:**
+
+```html
+<app-login-form (switchToRegister)="openRegisterModal()" />
+```
+
+---
+
+#### **Register Form**
+
+**Propósito:** Formulario de registro de nuevos usuarios.
+
+**Ubicación:** `frontend/src/app/components/shared/register-form/register-form.ts`
+
+**Características:**
+- Input de email
+- Input de nombre
+- Input de contraseña
+- Checkbox de términos y condiciones
+- Botón submit
+- Link para cambiar a login
+
+**Eventos:**
+- `switchToLogin` - Emitido al hacer clic en "Inicia sesión"
+
+**Ejemplo de uso:**
+
+```html
+<app-register-form (switchToLogin)="openLoginModal()" />
+```
+
+---
+
+#### **Form Modal Button**
+
+**Propósito:** Botón específico para formularios dentro de modales.
+
+**Ubicación:** `frontend/src/app/components/shared/form-modal-button/form-modal-button.ts`
+
+**Características:**
+- Ancho completo (width 100%)
+- Padding mayor
+- Font semibold
+- Color primary
+
+**Ejemplo de uso:**
+
+```html
+<app-form-modal-button text="Iniciar sesión" type="submit" />
+<app-form-modal-button text="Registrarse" type="submit" />
+```
+
+---
+
+### 3.2 Nomenclatura y metodología
+
+La nomenclatura en "La Referente" sigue estrictamente **BEM (Block Element Modifier)**.
+
+#### **Estructura BEM aplicada**
+
+**Block:** Componente independiente
+
+```scss
+.button { }
+.card { }
+.alert { }
+.form-field { }
+.header { }
+```
+
+**Element:** Parte del bloque (doble guión bajo `__`)
+
+```scss
+.button__text { }
+.card__title { }
+.card__image { }
+.alert__message { }
+.alert__close { }
+.form-field__label { }
+.form-field__input { }
+.header__logo { }
+.header__nav { }
+```
+
+**Modifier:** Variante del bloque o elemento (doble guión `--`)
+
+```scss
+.button--primary { }
+.button--secondary { }
+.button--disabled { }
+.card--featured { }
+.alert--success { }
+.alert--error { }
+.form-field__input--error { }
+```
+
+#### **Ejemplos reales del proyecto**
+
+**Componente Button:**
+
+```html
+<button class="button button--primary button--md">
+  Guardar
+</button>
+```
+
+```scss
+.button {
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+
+  &--sm {
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-s);
+    border-radius: 12px;
+  }
+
+  &--md {
+    padding: var(--spacing-3) var(--spacing-6);
+    font-size: var(--font-m);
+    border-radius: 16px;
+  }
+
+  &--primary {
+    background: white;
+    border-color: var(--primary);
+    color: var(--primary);
+
+    &:hover:not(:disabled) {
+      background: var(--primary);
+      color: white;
+    }
+  }
+}
+```
+
+**Componente Card:**
+
+```html
+<article class="card">
+  <img class="card__photo" src="..." />
+  <span class="card__dorsal">11</span>
+  <h3 class="card__name">Alexia Putellas</h3>
+  <div class="card__info">
+    <img class="card__club-logo" src="..." />
+    <span class="card__club-name">FC Barcelona</span>
+  </div>
+  <div class="card__stats">
+    <span class="card__stat">País: España</span>
+    <span class="card__stat">Edad: 30</span>
+  </div>
+</article>
+```
+
+```scss
+.card {
+  &__photo {
+    width: 100%;
+    border-radius: var(--radius-md);
+  }
+
+  &__dorsal {
+    position: absolute;
+    top: var(--spacing-2);
+    right: var(--spacing-2);
+    background: var(--primary);
+    color: white;
+  }
+
+  &__name {
+    font-size: var(--font-l);
+    font-weight: var(--font-semibold);
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+}
+```
+
+**Componente Alert:**
+
+```html
+<div class="alert alert--success">
+  <span class="alert__message">Operación exitosa</span>
+  <button class="alert__close">X</button>
+</div>
+```
+
+```scss
+.alert {
+  display: flex;
+  padding: var(--spacing-4);
+  border-radius: var(--radius-xl);
+  border: 2px solid;
+
+  &__message {
+    flex: 1;
+  }
+
+  &__close {
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  &--success {
+    background: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+  }
+
+  &--error {
+    background: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+  }
+}
+```
+
+#### **Block vs Element: Criterios de decisión**
+
+**Uso de Block:**
+- Cuando el componente puede existir independientemente
+- Cuando se puede reutilizar en diferentes contextos
+- Cuando tiene sentido semántico por sí mismo
+
+Ejemplos: `.button`, `.card`, `.alert`, `.header`
+
+**Uso de Element:**
+- Cuando la parte no tiene sentido fuera del bloque
+- Cuando depende del contexto del bloque padre
+- Cuando no se reutiliza fuera del bloque
+
+Ejemplos: `.card__title`, `.alert__message`, `.header__logo`
+
+#### **Modificadores vs clases de estado**
+
+**Modificadores:** Para variantes visuales o funcionales
+
+```scss
+.button--primary
+.button--secondary
+.button--sm
+.button--lg
+.alert--success
+.alert--error
+```
+
+**Clases de estado:** Para cambios temporales interactivos
+
+Uso de pseudo-clases CSS en lugar de clases adicionales:
+
+```scss
+.button {
+  &:hover { }
+  &:active { }
+  &:disabled { }
+  &:focus { }
+}
+```
+
+O atributos data cuando es dinámico:
+
+```html
+<div class="alert" data-visible="true"></div>
+```
+
+```scss
+.alert[data-visible="false"] {
+  display: none;
+}
+```
+
+**Regla:** Si el estado es visual y predecible, usar pseudo-clase. Si es dinámico desde JS/TS, usar data-attribute o signal.
+
+---
+
+### 3.3 Style Guide
+
+#### **Propósito del Style Guide**
+
+El Style Guide es una página especial (`/style-guide`) que muestra todos los componentes del proyecto en un solo lugar.
+
+**Ubicación:** `frontend/src/app/pages/style-guide/`
+
+**Funciones principales:**
+
+1. **Documentación visual:** Ver todos los componentes y sus variantes de un vistazo
+2. **Testing manual:** Probar interacciones y estados
+3. **Referencia para desarrollo:** Comprobar diseños antes de implementar
+4. **Consistencia:** Asegurar que todos los componentes sigan el sistema de diseño
+
+#### **Estructura del Style Guide**
+
+El Style Guide se organiza en secciones temáticas:
+
+**Secciones:**
+- **Botones:** Todas las variantes (primary, secondary, ghost, danger) y tamaños (sm, md, lg)
+- **Formularios:** Inputs, textareas, selects, checkboxes con ejemplos
+- **Tarjetas:** Cards de jugador y competiciones
+- **Feedback:** Alerts en sus 4 variantes (success, error, warning, info)
+
+**Código del Style Guide:**
+
+```html
+<section class="style-guide">
+  <header class="style-guide__header">
+    <h1 class="style-guide__title">Style Guide</h1>
+    <p class="style-guide__subtitle">Guía de componentes y estilos de La Referente</p>
+  </header>
+
+  <!-- SECCIÓN: BOTONES -->
+  <section id="buttons" class="style-guide__section">
+    <h2 class="style-guide__section-title">Botones</h2>
+    <p class="style-guide__section-desc">Todos los tamaños, variantes y estados.</p>
+
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Primary Buttons</h3>
+      <div class="style-guide__showcase">
+        <div class="style-guide__item">
+          <app-button text="Small" variant="primary" size="sm" />
+          <span class="style-guide__label">Small</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Medium" variant="primary" size="md" />
+          <span class="style-guide__label">Medium</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Large" variant="primary" size="lg" />
+          <span class="style-guide__label">Large</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Disabled" variant="primary" [disabled]="true" />
+          <span class="style-guide__label">Disabled</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Más variantes de botones... -->
+  </section>
+
+  <!-- SECCIÓN: FORMULARIOS -->
+  <section id="forms" class="style-guide__section">
+    <!-- Form inputs, selects, textareas, checkboxes... -->
+  </section>
+
+  <!-- SECCIÓN: TARJETAS -->
+  <section id="cards" class="style-guide__section">
+    <!-- Cards de jugador y competiciones... -->
+  </section>
+
+  <!-- SECCIÓN: FEEDBACK -->
+  <section id="feedback" class="style-guide__section">
+    <!-- Alerts... -->
+  </section>
+</section>
+```
+
+#### **Beneficios del Style Guide**
+
+**Para desarrollo:**
+- Ver cómo se ve un componente antes de integrarlo
+- Comprobar que las variantes funcionan correctamente
+- Detectar inconsistencias visuales
+
+**Para diseño:**
+- Referencia visual de todos los componentes
+- Verificar que se respeta el sistema de diseño
+- Documentación viva que se actualiza con el código
+
+**Para testing:**
+- Probar estados hover, focus, disabled
+- Verificar responsive design
+- Comprobar accesibilidad
+
+**Para mantenimiento:**
+- Un solo lugar para ver impacto de cambios CSS
+- Facilita refactoring
+- Previene regresiones visuales
+
+> **Captura de pantalla:** ![Style Guide completo](../screenshots/style-guide-full.png)

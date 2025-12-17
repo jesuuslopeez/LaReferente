@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormInput } from '../form-input/form-input';
 import { FormModalButton } from '../form-modal-button/form-modal-button';
+import { FormCheckbox } from '../form-checkbox/form-checkbox';
 
 @Component({
   selector: 'app-register-form',
-  imports: [FormInput, FormModalButton],
+  imports: [FormInput, FormModalButton, FormCheckbox],
   templateUrl: './register-form.html',
   styleUrl: './register-form.scss',
 })

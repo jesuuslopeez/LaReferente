@@ -1,0 +1,283 @@
+<section class="style-guide">
+  
+  <header class="style-guide__header">
+    <h1 class="style-guide__title">Style Guide</h1>
+    <p class="style-guide__subtitle">Guía de componentes y estilos de La Referente</p>
+  </header>
+
+  
+  <section id="buttons" class="style-guide__section">
+    <h2 class="style-guide__section-title">Botones</h2>
+    <p class="style-guide__section-desc">Todos los tamaños, variantes y estados de los botones.</p>
+
+    
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Primary Buttons</h3>
+      <div class="style-guide__showcase">
+        <div class="style-guide__item">
+          <app-button text="Small" variant="primary" size="sm" />
+          <span class="style-guide__label">Small</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Medium" variant="primary" size="md" />
+          <span class="style-guide__label">Medium</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Large" variant="primary" size="lg" />
+          <span class="style-guide__label">Large</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Disabled" variant="primary" size="md" [disabled]="true" />
+          <span class="style-guide__label">Disabled</span>
+        </div>
+      </div>
+    </article>
+
+    
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Secondary Buttons</h3>
+      <div class="style-guide__showcase">
+        <div class="style-guide__item">
+          <app-button text="Small" variant="secondary" size="sm" />
+          <span class="style-guide__label">Small</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Medium" variant="secondary" size="md" />
+          <span class="style-guide__label">Medium</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Large" variant="secondary" size="lg" />
+          <span class="style-guide__label">Large</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Disabled" variant="secondary" size="md" [disabled]="true" />
+          <span class="style-guide__label">Disabled</span>
+        </div>
+      </div>
+    </article>
+
+    
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Ghost Buttons</h3>
+      <div class="style-guide__showcase">
+        <div class="style-guide__item">
+          <app-button text="Small" variant="ghost" size="sm" />
+          <span class="style-guide__label">Small</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Medium" variant="ghost" size="md" />
+          <span class="style-guide__label">Medium</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Large" variant="ghost" size="lg" />
+          <span class="style-guide__label">Large</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Disabled" variant="ghost" size="md" [disabled]="true" />
+          <span class="style-guide__label">Disabled</span>
+        </div>
+      </div>
+    </article>
+
+    
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Danger Buttons</h3>
+      <div class="style-guide__showcase">
+        <div class="style-guide__item">
+          <app-button text="Small" variant="danger" size="sm" />
+          <span class="style-guide__label">Small</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Medium" variant="danger" size="md" />
+          <span class="style-guide__label">Medium</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Large" variant="danger" size="lg" />
+          <span class="style-guide__label">Large</span>
+        </div>
+        <div class="style-guide__item">
+          <app-button text="Disabled" variant="danger" size="md" [disabled]="true" />
+          <span class="style-guide__label">Disabled</span>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  
+  <section id="forms" class="style-guide__section">
+    <h2 class="style-guide__section-title">Formularios</h2>
+    <p class="style-guide__section-desc">Inputs, selects, textareas y checkboxes.</p>
+
+    
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Form Input</h3>
+      <div class="style-guide__showcase style-guide__showcase--column">
+        <div class="style-guide__form-item">
+          <app-form-input
+            label="Nombre completo"
+            inputId="name"
+            name="name"
+            placeholder="Introduce tu nombre"
+            icon="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+          />
+        </div>
+        <div class="style-guide__form-item">
+          <app-form-input
+            label="Email"
+            inputId="email"
+            name="email"
+            type="email"
+            placeholder="correo@ejemplo.com"
+            [required]="true"
+            icon="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          />
+        </div>
+        <div class="style-guide__form-item">
+          <app-form-input
+            label="Contraseña"
+            inputId="password"
+            name="password"
+            type="password"
+            placeholder="••••••••"
+            helpText="Mínimo 8 caracteres"
+            icon="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          />
+        </div>
+      </div>
+    </article>
+
+    
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Form Textarea</h3>
+      <div class="style-guide__showcase style-guide__showcase--column">
+        <div class="style-guide__form-item">
+          <app-form-textarea
+            textareaId="description"
+            name="description"
+            placeholder="Escribe tu comentario aquí..."
+            [rows]="4"
+          />
+        </div>
+      </div>
+    </article>
+
+    
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Form Select</h3>
+      <div class="style-guide__showcase style-guide__showcase--column">
+        <div class="style-guide__form-item">
+          <app-form-select
+            label="País"
+            selectId="country"
+            name="country"
+            [options]="countryOptions"
+            placeholder="Selecciona un país"
+          />
+        </div>
+        <div class="style-guide__form-item">
+          <app-form-select
+            label="Posición"
+            selectId="position"
+            name="position"
+            [options]="positionOptions"
+            [required]="true"
+            placeholder="Selecciona una posición"
+          />
+        </div>
+      </div>
+    </article>
+
+    
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Form Checkbox</h3>
+      <div class="style-guide__showcase style-guide__showcase--column">
+        <div class="style-guide__form-item">
+          <app-form-checkbox
+            checkboxId="terms"
+            name="terms"
+            label="Acepto los términos y condiciones"
+            [required]="true"
+          />
+        </div>
+        <div class="style-guide__form-item">
+          <app-form-checkbox
+            checkboxId="newsletter"
+            name="newsletter"
+            label="Deseo recibir información sobre novedades"
+            helpText="Recibirás un correo mensual"
+          />
+        </div>
+        <div class="style-guide__form-item">
+          <app-form-checkbox
+            checkboxId="checked"
+            name="checked"
+            label="Checkbox marcado por defecto"
+            [checked]="true"
+          />
+        </div>
+      </div>
+    </article>
+  </section>
+
+  
+  <section id="cards" class="style-guide__section">
+    <h2 class="style-guide__section-title">Tarjetas</h2>
+    <p class="style-guide__section-desc">Tarjetas de jugadores y competiciones.</p>
+
+    
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Player Card</h3>
+      <div class="style-guide__showcase">
+        <app-card
+          playerName="Ángel Fernández Carmona"
+          playerImage="https://via.placeholder.com/100"
+          [dorsalNumber]="33"
+          clubName="FC Barcelona"
+          clubLogo="https://via.placeholder.com/20"
+          country="España"
+          [age]="25"
+          position="Delantera"
+        />
+      </div>
+    </article>
+
+    
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Competition Cards</h3>
+      <div class="style-guide__showcase">
+        <app-competition-card
+          logo="https://via.placeholder.com/80"
+          name="LaLiga EA Sports"
+          [totalTeams]="20"
+          startDate="Agosto 2025"
+          endDate="Mayo 2026"
+        />
+        <app-competition-card
+          logo="https://via.placeholder.com/80"
+          name="Copa de la Reina"
+          [totalTeams]="16"
+          [groups]="2"
+          startDate="Septiembre 2025"
+          endDate="Junio 2026"
+        />
+      </div>
+    </article>
+  </section>
+
+  
+  <section id="feedback" class="style-guide__section">
+    <h2 class="style-guide__section-title">Feedback</h2>
+    <p class="style-guide__section-desc">Componentes de retroalimentación al usuario.</p>
+
+    
+    <article class="style-guide__component">
+      <h3 class="style-guide__component-title">Alerts</h3>
+      <div class="style-guide__showcase style-guide__showcase--column">
+        <app-alert type="success" message="¡Operación realizada con éxito! Los cambios se han guardado correctamente." />
+        <app-alert type="error" message="Ha ocurrido un error al procesar la solicitud. Por favor, inténtalo de nuevo." />
+        <app-alert type="warning" message="Advertencia: Esta acción no se puede deshacer. Procede con precaución." />
+        <app-alert type="info" message="Información: Se han actualizado las condiciones del servicio. Revisa los cambios." />
+      </div>
+    </article>
+  </section>
+</section>
