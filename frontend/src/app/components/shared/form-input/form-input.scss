@@ -8,7 +8,7 @@
     font-family: var(--font-secondary);
     font-weight: var(--font-medium);
     font-size: var(--font-s);
-    color: var(--text-color);
+    color: var(--gray50);
   }
 
   &__required {
@@ -37,8 +37,9 @@
     border-radius: var(--radius-full);
     font-size: var(--font-m);
     font-family: var(--font-primary);
-    background: var(--bg-color);
-    color: var(--text-color);
+    background: var(--gray50);
+    color: var(--gray900);
+    caret-color: var(--gray900);
     transition: box-shadow var(--duration-fast) var(--timing-ease-in-out);
 
     &::placeholder {

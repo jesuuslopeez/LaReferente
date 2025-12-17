@@ -60,6 +60,59 @@
     }
   </section>
 
+  <!-- Ejemplo de FormArray -->
+  <section class="home__form-array">
+    <h2 class="home__section-title">Ejemplo FormArray - Lista Dinámica de Teléfonos</h2>
+    <p class="home__section-desc">Añade o elimina teléfonos dinámicamente</p>
+
+    <form [formGroup]="phonesForm" (ngSubmit)="onSubmitPhones()" class="home__phones-form">
+      <div class="home__form-field">
+        <label class="home__form-label">Nombre</label>
+        <input 
+          formControlName="name" 
+          placeholder="Tu nombre"
+          class="home__form-input"
+          [class.home__form-input--error]="phonesForm.get('name')?.invalid && phonesForm.get('name')?.touched"
+        />
+        @if (phonesForm.get('name')?.invalid && phonesForm.get('name')?.touched) {
+          <small class="home__form-error">Nombre requerido (mínimo 2 caracteres)</small>
+        }
+      </div>
+
+      <div formArrayName="phones" class="home__phones-list">
+        <label class="home__form-label">Teléfonos</label>
+        @for (phone of phones.controls; track $index) {
+          <div [formGroupName]="$index" class="home__phone-row">
+            <input 
+              formControlName="number" 
+              placeholder="6XXXXXXXX o 7XXXXXXXX"
+              class="home__form-input home__form-input--phone"
+              [class.home__form-input--error]="phone.get('number')?.invalid && phone.get('number')?.touched"
+            />
+            <button 
+              type="button" 
+              (click)="removePhone($index)" 
+              class="home__phone-remove"
+              [disabled]="phones.length === 1"
+            >
+              ×
+            </button>
+            @if (phone.get('number')?.invalid && phone.get('number')?.touched) {
+              <small class="home__form-error home__form-error--full">Teléfono inválido (debe empezar por 6 o 7 y tener 9 dígitos)</small>
+            }
+          </div>
+        }
+        <button type="button" (click)="addPhone()" class="home__phone-add">
+          + Añadir teléfono
+        </button>
+      </div>
+
+      <button type="submit" class="home__form-submit" [disabled]="phonesForm.invalid">
+        Guardar teléfonos
+      </button>
+    </form>
+  </section>
+
   <section class="home__featured">
     <h2 class="home__section-title">Jugadores Destacados</h2>
     <section class="home__cards">
@@ -116,6 +169,7 @@
       />
     </section>
   </section>
+
 
   <section class="home__actions">
     <app-button

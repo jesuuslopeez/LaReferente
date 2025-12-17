@@ -1,47 +1,88 @@
-<form class="register-form" (submit)="onSubmit($event)">
-  <app-form-input
-    label="Correo electrónico"
-    type="email"
-    name="email"
-    inputId="register-email"
-    placeholder="Introduce tu correo electrónico"
-    icon="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-    [required]="true">
-  </app-form-input>
+<form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit($event)">
+  <section class="register-form__field">
+    <app-form-input
+      label="Correo electrónico"
+      type="email"
+      inputId="register-email"
+      placeholder="Introduce tu correo electrónico"
+      icon="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+      [required]="true"
+      [control]="email"
+    />
+
+    @if (email?.pending) {
+      <small class="register-form__hint register-form__hint--loading">Verificando email...</small>
+    }
+
+    @if (email?.errors?.['emailTaken'] && !email?.pending && email?.touched) {
+      <small class="register-form__error">Este email ya está registrado</small>
+    }
+  </section>
 
   <app-form-input
     label="Nombre"
     type="text"
-    name="nombre"
     inputId="register-nombre"
     placeholder="Introduce tu nombre"
     icon="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-    [required]="true">
-  </app-form-input>
+    [required]="true"
+    [control]="nombre"
+  />
 
-  <app-form-input
-    label="Contraseña"
-    type="password"
-    name="password"
-    inputId="register-password"
-    placeholder="Introduce tu contraseña"
-    icon="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-    [required]="true">
-  </app-form-input>
+  <section class="register-form__field">
+    <app-form-input
+      label="Contraseña"
+      type="password"
+      inputId="register-password"
+      placeholder="Mínimo 12 caracteres"
+      icon="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+      [required]="true"
+      [control]="password"
+    />
+
+    @if (password?.touched && getPasswordErrors().length > 0) {
+      <ul class="register-form__errors-list">
+        @for (error of getPasswordErrors(); track error) {
+          <li class="register-form__error">{{ error }}</li>
+        }
+      </ul>
+    }
+  </section>
+
+  <section class="register-form__field">
+    <app-form-input
+      label="Confirmar Contraseña"
+      type="password"
+      inputId="register-confirm-password"
+      placeholder="Repite tu contraseña"
+      icon="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+      [required]="true"
+      [control]="confirmPassword"
+    />
+
+    @if (registerForm.errors?.['mismatch'] && confirmPassword?.touched) {
+      <small class="register-form__error">Las contraseñas no coinciden</small>
+    }
+  </section>
 
   <section class="register-form__terms-wrapper">
     <app-form-checkbox
       checkboxId="register-terms"
-      name="terms"
       [required]="true"
+      [control]="terms"
     >
       Acepto los <a href="/terminos" class="register-form__terms-link">términos y condiciones</a>
     </app-form-checkbox>
   </section>
 
-  <app-form-modal-button text="Registrarse" type="submit" />
+  <app-form-modal-button
+    text="Registrarse"
+    type="submit"
+    [disabled]="registerForm.invalid || registerForm.pending"
+  />
 
   <p class="register-form__footer">
-    ¿Ya tienes cuenta? <button type="button" class="register-form__link" (click)="onSwitchToLogin()">Inicia sesión</button>
+    ¿Ya tienes cuenta?
+    <button type="button" class="register-form__link" (click)="onSwitchToLogin()">Inicia sesión</button>
   </p>
 </form>

@@ -20,7 +20,7 @@
 
     &:checked ~ .form-checkbox__label-box .form-checkbox__box {
       background-color: var(--checkbox-checked-bg-color, var(--primary));
-      border-color: var(--checkbox-checked-border-color, var(--primary));
+      border-color: var(--gray50);
     }
 
     &:checked ~ .form-checkbox__label-box .form-checkbox__icon {
@@ -51,7 +51,7 @@
     min-width: var(--spacing-6);
     border: var(--border-medium) solid var(--checkbox-border-color, var(--primary));
     border-radius: var(--radius-sm);
-    background-color: var(--checkbox-bg-color, transparent);
+    background-color: var(--gray50);
     transition: all var(--duration-fast);
     display: flex;
     align-items: center;
@@ -61,7 +61,7 @@
   &__icon {
     width: var(--spacing-4);
     height: var(--spacing-4);
-    color: var(--checkbox-icon-color, white);
+    color: var(--gray50);
     opacity: 0;
     transform: scale(0.8);
     transition: all var(--duration-fast);
