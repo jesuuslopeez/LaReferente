@@ -163,7 +163,7 @@ onEscapePress(event: KeyboardEvent): void {
 
 onBackdropClick(event: MouseEvent): void {
   // stopPropagation se usa en el template:
-  // <article (click)="$event.stopPropagation()">
+  // <section (click)="$event.stopPropagation()">
   this.close();
 }
 ```

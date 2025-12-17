@@ -1,0 +1,36 @@
+<div class="form-checkbox">
+  <div class="form-checkbox__wrapper">
+    <input
+      type="checkbox"
+      [id]="checkboxId"
+      [name]="name"
+      [checked]="checked"
+      [required]="required"
+      class="form-checkbox__input"
+    />
+    <label [for]="checkboxId" class="form-checkbox__label-box">
+      <span class="form-checkbox__box">
+        <svg
+          class="form-checkbox__icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </span>
+    </label>
+    <span class="form-checkbox__text">
+      <ng-content>{{ label }}</ng-content>
+      @if (required) {
+        <span class="form-checkbox__required">*</span>
+      }
+    </span>
+  </div>
+  @if (helpText) {
+  <p class="form-checkbox__help">{{ helpText }}</p>
+  }
+</div>

@@ -42,18 +42,23 @@ services:
     volumes:
       - ./backend/uploads:/app/uploads
 
-  # Frontend (opcional, si usas nginx para servir el frontend)
-  # frontend:
-  #   image: nginx:alpine
-  #   container_name: lareferente-frontend-dev
-  #   ports:
-  #     - "80:80"
-  #   volumes:
-  #     - ./frontend/dist:/usr/share/nginx/html
-  #   networks:
-  #     - lareferente-network
-  #   depends_on:
-  #     - backend
+  # Frontend Angular con hot-reload
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: lareferente-frontend-dev
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - lareferente-network
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=development
 
 volumes:
   postgres-data-dev:
