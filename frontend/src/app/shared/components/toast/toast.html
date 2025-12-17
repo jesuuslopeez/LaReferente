@@ -1,0 +1,6 @@
+@if (toast()) {
+  <aside class="toast" [class]="'toast--' + toast()!.type" (click)="dismiss()" role="status" aria-live="polite">
+    <span class="toast__message">{{ toast()!.message }}</span>
+    <button class="toast__close" (click)="dismiss()" aria-label="Cerrar">×</button>
+  </aside>
+}

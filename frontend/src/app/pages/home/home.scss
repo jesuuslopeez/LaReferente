@@ -1,11 +1,15 @@
 .home {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 60vh;
-  text-align: center;
+  gap: var(--spacing-8);
   padding: var(--spacing-8);
+  max-width: 1200px;
+  margin: 0 auto;
+
+  &__header {
+    text-align: center;
+    padding: var(--spacing-6) 0;
+  }
 
   &__title {
     font-family: var(--font-secondary);
@@ -18,10 +22,104 @@
     font-family: var(--font-primary);
     font-size: var(--font-l);
     color: var(--text-color);
-    margin-bottom: var(--spacing-8);
   }
 
-  &__link {
-    text-decoration: none;
+  &__alerts {
+    width: 100%;
+  }
+
+  &__demo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    padding: var(--spacing-6);
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-m);
+  }
+
+  &__section-title {
+    font-family: var(--font-secondary);
+    font-size: var(--font-xl);
+    color: var(--text-color);
+    margin-bottom: var(--spacing-2);
+  }
+
+  &__section-desc {
+    font-family: var(--font-primary);
+    font-size: var(--font-m);
+    color: var(--text-secondary);
+  }
+
+  &__demo-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-3);
+    justify-content: center;
+  }
+
+  &__last-message {
+    font-family: var(--font-primary);
+    font-size: var(--font-m);
+    color: var(--text-secondary);
+    padding: var(--spacing-3);
+    background: rgba(30, 200, 91, 0.1);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--primary);
+    margin-top: var(--spacing-2);
+
+    strong {
+      color: var(--primary);
+    }
+  }
+
+  &__featured {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-4);
+  }
+
+  &__competitions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  &__competition-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-4);
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-6) 0;
+  }
+
+  @media (max-width: 768px) {
+    padding: var(--spacing-4);
+
+    &__title {
+      font-size: var(--font-xl);
+    }
+
+    &__description {
+      font-size: var(--font-m);
+    }
+
+    &__cards {
+      grid-template-columns: 1fr;
+    }
+
+    &__competition-cards {
+      grid-template-columns: 1fr;
+    }
   }
 }

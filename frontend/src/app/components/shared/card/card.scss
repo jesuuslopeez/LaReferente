@@ -10,7 +10,7 @@
 
   &__header {
     position: relative;
-    height: 140px;
+    height: 170px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -25,11 +25,10 @@
   }
 
   &__player-image {
-    width: 100px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
     border-radius: var(--radius-full);
     object-fit: cover;
-    border: var(--border-thick) solid white;
   }
 
   &__player-name-badge {
@@ -37,14 +36,14 @@
     bottom: calc(var(--spacing-2) * -1);
     left: 0;
     background: white;
-    padding: var(--spacing-1) var(--spacing-3);
+    padding: var(--spacing-2) var(--spacing-4);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
   }
 
   &__player-name {
     font-family: var(--font-primary);
-    font-size: var(--font-s);
+    font-size: var(--font-m);
     font-weight: var(--font-light);
     font-style: italic;
     color: var(--primary);
@@ -53,7 +52,7 @@
 
   &__dorsal {
     font-family: var(--font-secondary);
-    font-size: var(--font-4xl);
+    font-size: 4.5rem;
     font-weight: var(--font-bold);
     color: white;
     line-height: var(--font-tight);
