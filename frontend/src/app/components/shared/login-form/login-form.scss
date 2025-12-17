@@ -3,14 +3,6 @@
   flex-direction: column;
   gap: var(--spacing-1);
 
-  .form-field__label {
-    color: var(--gray50);
-  }
-
-  .form-field__help-text {
-    color: var(--gray50);
-  }
-
   &__password-wrapper {
     display: flex;
     flex-direction: column;
@@ -67,12 +59,13 @@
   &__input {
     width: 100%;
     padding: var(--spacing-3) var(--spacing-4) var(--spacing-3) var(--spacing-12);
-    border: none;
+    border: var(--border-medium) solid var(--primary);
     border-radius: var(--radius-full);
     font-size: var(--font-m);
     font-family: var(--font-primary);
-    background: var(--bg-color);
+    background: var(--gray50);
     color: var(--gray900);
+    caret-color: var(--gray900);
     transition: box-shadow var(--duration-fast) var(--timing-ease-in-out);
 
     &::placeholder {
@@ -109,5 +102,13 @@
     &:hover {
       opacity: 0.8;
     }
+  }
+
+  &__error {
+    color: var(--error);
+    font-size: var(--font-xs);
+    font-family: var(--font-primary);
+    margin-top: var(--spacing-1);
+    padding-left: var(--spacing-2);
   }
 }

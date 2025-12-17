@@ -12,14 +12,26 @@
       </svg>
     }
 
-    <input
-      class="form-field__input"
-      [type]="type"
-      [id]="inputId"
-      [name]="name"
-      [placeholder]="placeholder"
-      [required]="required"
-    />
+    @if (control) {
+      <input
+        class="form-field__input"
+        [type]="type"
+        [id]="inputId"
+        [name]="name"
+        [placeholder]="placeholder"
+        [required]="required"
+        [formControl]="control"
+      />
+    } @else {
+      <input
+        class="form-field__input"
+        [type]="type"
+        [id]="inputId"
+        [name]="name"
+        [placeholder]="placeholder"
+        [required]="required"
+      />
+    }
   </section>
 
   @if (helpText) {

@@ -1,36 +1,142 @@
 .register-form {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1);
+  gap: var(--spacing-4);
 
-  .form-field__label {
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  &__label {
+    font-family: var(--font-secondary);
+    font-size: var(--font-m);
+    font-weight: 600;
     color: var(--gray50);
   }
 
-  .form-field__help-text {
-    color: var(--gray50);
+  &__required {
+    color: var(--error);
+  }
+
+  &__input {
+    width: 100%;
+    padding: var(--spacing-3);
+    font-family: var(--font-secondary);
+    font-size: var(--font-m);
+    color: var(--text-primary);
+    background: var(--background);
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-fast) var(--timing-ease-in-out);
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    &--error {
+      border-color: var(--error);
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
+      }
+    }
+
+    &--valid {
+      border-color: var(--success);
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+      }
+    }
+
+    &::placeholder {
+      color: var(--text-tertiary);
+    }
+  }
+
+  &__error {
+    font-family: var(--font-secondary);
+    font-size: var(--font-s);
+    color: var(--error);
+    margin: 0;
+  }
+
+  &__errors-list {
+    margin: var(--spacing-1) 0 0 var(--spacing-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  &__hint {
+    font-family: var(--font-secondary);
+    font-size: var(--font-s);
+    color: var(--text-secondary);
+
+    &--loading {
+      color: var(--info);
+      font-style: italic;
+    }
   }
 
   &__terms-wrapper {
-    margin: var(--spacing-3) 0;
+    margin: var(--spacing-2) 0;
+  }
 
-    --checkbox-text-color: var(--gray50);
-    --checkbox-text-size: var(--font-s);
-    --checkbox-border-color: var(--gray50);
-    --checkbox-bg-color: var(--gray50);
-    --checkbox-checked-bg-color: var(--gray50);
-    --checkbox-checked-border-color: var(--gray50);
-    --checkbox-icon-color: var(--primary);
+  &__checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    margin-top: var(--spacing-1);
+    cursor: pointer;
+  }
+
+  &__checkbox-text {
+    font-family: var(--font-secondary);
+    font-size: var(--font-s);
+    color: var(--gray50);
   }
 
   &__terms-link {
     color: var(--gray50);
     text-decoration: underline;
-    font-family: var(--font-secondary);
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);
 
     &:hover {
       opacity: 0.8;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-5);
+    font-family: var(--font-secondary);
+    font-size: var(--font-m);
+    font-weight: 600;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--timing-ease-in-out);
+
+    &:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    &:disabled {
+      background: var(--border);
+      color: var(--text-tertiary);
+      cursor: not-allowed;
     }
   }
 

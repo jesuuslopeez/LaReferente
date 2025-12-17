@@ -1,10 +1,12 @@
-import { Component, Input, AfterContentInit } from '@angular/core';
+import { Component, Input, AfterContentInit, ViewEncapsulation } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-form-checkbox',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './form-checkbox.html',
   styleUrl: './form-checkbox.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class FormCheckbox implements AfterContentInit {
   @Input() label: string = '';
@@ -13,6 +15,7 @@ export class FormCheckbox implements AfterContentInit {
   @Input() required: boolean = false;
   @Input() checked: boolean = false;
   @Input() helpText: string = '';
+  @Input() control: FormControl | null = null;
 
   hasContent = false;
 
