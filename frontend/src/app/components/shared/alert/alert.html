@@ -1,5 +1,5 @@
 @if (visible()) {
-  <div class="alert alert--{{ type() }}" role="alert">
+  <aside class="alert alert--{{ type() }}" role="alert">
     <span class="alert__message">{{ message() }}</span>
     @if (closable()) {
       <button class="alert__close" (click)="onClose()" aria-label="Cerrar">
@@ -8,5 +8,5 @@
         </svg>
       </button>
     }
-  </div>
+  </aside>
 }

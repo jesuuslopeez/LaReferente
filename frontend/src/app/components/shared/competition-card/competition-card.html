@@ -8,7 +8,7 @@
   
   <section class="competition-card__info">
     
-    <div class="competition-card__badge">
+    <span class="competition-card__badge">
       <svg
         class="competition-card__icon"
         xmlns="http://www.w3.org/2000/svg"
@@ -24,11 +24,11 @@
         />
       </svg>
       <span class="competition-card__badge-text">Equipos: {{ totalTeams() }}</span>
-    </div>
+    </span>
 
-    
+
     @if (isMultiGroup) {
-    <div class="competition-card__badge">
+    <span class="competition-card__badge">
       <svg
         class="competition-card__icon"
         xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@
         />
       </svg>
       <span class="competition-card__badge-text">Grupos: {{ groups() }}</span>
-    </div>
+    </span>
     }
   </section>
 

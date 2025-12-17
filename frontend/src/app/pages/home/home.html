@@ -1,11 +1,128 @@
 <section class="home">
-  <h1 class="home__title">Bienvenido a La Referente</h1>
-  <p class="home__description">Tu fuente de información sobre fútbol español</p>
+  <header class="home__header">
+    <h1 class="home__title">Bienvenido a La Referente</h1>
+    <p class="home__description">Tu fuente de información sobre fútbol español</p>
+  </header>
 
-  <app-button
-    text="Ver Componentes"
-    variant="primary"
-    size="md"
-    (click)="navigateToStyleGuide()"
-    class="home__link" />
+  <section class="home__alerts">
+    <app-alert
+      type="info"
+      message="Bienvenido a La Referente. Explora los mejores jugadores y competiciones del fútbol español."
+    />
+  </section>
+
+  <section class="home__demo">
+    <h2 class="home__section-title">Prueba los Servicios</h2>
+    <p class="home__section-desc">Interactúa con los servicios de notificaciones y loading implementados</p>
+
+    <section class="home__demo-buttons">
+      <app-button
+        text="Toast Success"
+        variant="primary"
+        size="sm"
+        (click)="showSuccessToast()"
+      />
+      <app-button
+        text="Toast Error"
+        variant="danger"
+        size="sm"
+        (click)="showErrorToast()"
+      />
+      <app-button
+        text="Toast Info"
+        variant="secondary"
+        size="sm"
+        (click)="showInfoToast()"
+      />
+      <app-button
+        text="Toast Warning"
+        variant="ghost"
+        size="sm"
+        (click)="showWarningToast()"
+      />
+      <app-button
+        [text]="isLoading() ? 'Cargando...' : 'Simular Loading'"
+        variant="primary"
+        size="sm"
+        [disabled]="isLoading()"
+        (click)="simulateLoading()"
+      />
+      <app-button
+        text="Enviar Notificación"
+        variant="secondary"
+        size="sm"
+        (click)="sendNotification()"
+      />
+    </section>
+
+    @if (lastMessage()) {
+      <p class="home__last-message">Último mensaje: <strong>{{ lastMessage() }}</strong></p>
+    }
+  </section>
+
+  <section class="home__featured">
+    <h2 class="home__section-title">Jugadores Destacados</h2>
+    <section class="home__cards">
+      <app-card
+        playerName="Lamine Yamal"
+        playerImage="https://www.thesportsdb.com/images/media/player/cutout/m9n4ja1761512633.png/medium"
+        [dorsalNumber]="10"
+        clubName="FC Barcelona"
+        clubLogo="https://r2.thesportsdb.com/images/media/team/badge/wq9sir1639406443.png/medium"
+        country="España"
+        [age]="18"
+        position="Extremo"
+      />
+      <app-card
+        playerName="Pedri González"
+        playerImage="https://r2.thesportsdb.com/images/media/player/cutout/82xtuu1726509836.png/medium"
+        [dorsalNumber]="8"
+        clubName="FC Barcelona"
+        clubLogo="https://r2.thesportsdb.com/images/media/team/badge/wq9sir1639406443.png/medium"
+        country="España"
+        [age]="22"
+        position="Centrocampista"
+      />
+      <app-card
+        playerName="Nico Williams"
+        playerImage="https://r2.thesportsdb.com/images/media/player/cutout/8lg7941629190551.png/medium"
+        [dorsalNumber]="10"
+        clubName="Athletic Club"
+        clubLogo="https://r2.thesportsdb.com/images/media/team/badge/68w7fe1639408210.png/medium"
+        country="España"
+        [age]="22"
+        position="Extremo"
+      />
+    </section>
+  </section>
+
+  <section class="home__competitions">
+    <h2 class="home__section-title">Competiciones</h2>
+    <section class="home__competition-cards">
+      <app-competition-card
+        logo="https://r2.thesportsdb.com/images/media/league/badge/ja4it51687628717.png/medium"
+        name="LaLiga EA Sports"
+        [totalTeams]="20"
+        startDate="Agosto 2024"
+        endDate="Mayo 2025"
+      />
+      <app-competition-card
+        logo="https://r2.thesportsdb.com/images/media/league/badge/2ikh3a1671782958.png/medium"
+        name="Copa del Rey"
+        [totalTeams]="116"
+        [groups]="0"
+        startDate="Octubre 2024"
+        endDate="Abril 2025"
+      />
+    </section>
+  </section>
+
+  <section class="home__actions">
+    <app-button
+      text="Ver Guía de Componentes"
+      variant="primary"
+      size="lg"
+      (click)="navigateToStyleGuide()"
+    />
+  </section>
 </section>
