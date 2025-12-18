@@ -1,87 +1,123 @@
-# Docker Setup - La Referente
+# Guía de Docker para La Referente
+
+Este proyecto incluye configuraciones de Docker Compose para desarrollo y producción que levantan:
+- Frontend (Angular 19)
+- Backend (Spring Boot)
+- Base de datos (PostgreSQL 16)
 
 ## Desarrollo
 
-### Arrancar el proyecto en modo desarrollo:
+Para levantar el entorno de desarrollo con hot-reload:
 
 ```bash
 docker-compose -f docker-compose.dev.yml up --build
 ```
 
-Esto levanta:
-- **PostgreSQL** en `localhost:5432`
-- **Backend** en `localhost:8080`
+Servicios disponibles:
+- **Frontend**: http://localhost:4200 (con hot-reload)
+- **Backend**: http://localhost:8080
+- **PostgreSQL**: localhost:5432
 
-### Ver logs:
-```bash
-docker-compose -f docker-compose.dev.yml logs -f
-```
+Para detener los servicios:
 
-### Parar todo:
 ```bash
 docker-compose -f docker-compose.dev.yml down
 ```
 
-### Parar y eliminar volúmenes (borra la BD):
+Para detener y eliminar volúmenes (elimina la base de datos):
+
 ```bash
 docker-compose -f docker-compose.dev.yml down -v
 ```
 
----
-
 ## Producción
 
-### 1. Crear archivo `.env` con tus credenciales:
+Para levantar el entorno de producción:
 
 ```bash
-cp .env.example .env
+docker-compose -f docker-compose.prod.yml up --build -d
 ```
 
-Edita `.env` y cambia las contraseñas y secretos.
+Servicios disponibles:
+- **Frontend**: http://localhost (Nginx sirviendo build de producción)
+- **Backend**: http://localhost/api (proxy inverso a través de Nginx)
 
-### 2. Arrancar en producción:
+Variables de entorno recomendadas (crear archivo `.env`):
 
-```bash
-docker-compose -f docker-compose.prod.yml up -d --build
+```env
+DB_USER=postgres
+DB_PASSWORD=tu_password_seguro
+JWT_SECRET=tu_jwt_secret_muy_largo_y_seguro
+JWT_EXPIRATION=86400000
 ```
 
-El flag `-d` lo ejecuta en segundo plano (detached).
+Para detener los servicios:
 
-### 3. Ver logs:
-```bash
-docker-compose -f docker-compose.prod.yml logs -f backend
-```
-
-### 4. Parar:
 ```bash
 docker-compose -f docker-compose.prod.yml down
 ```
 
----
+## Reconstruir solo un servicio
 
-## Endpoints disponibles
+Frontend:
+```bash
+docker-compose -f docker-compose.dev.yml up --build frontend
+```
 
-Una vez arrancado:
-
-- **Backend API**: http://localhost:8080/api
-- **Swagger UI**: http://localhost:8080/swagger-ui.html
-- **Actuator Health**: http://localhost:8080/actuator/health
-
----
-
-## Comandos útiles
-
-### Reconstruir solo el backend:
+Backend:
 ```bash
 docker-compose -f docker-compose.dev.yml up --build backend
 ```
 
-### Ejecutar comandos dentro del contenedor de PostgreSQL:
+## Ver logs
+
+Todos los servicios:
+```bash
+docker-compose -f docker-compose.dev.yml logs -f
+```
+
+Solo un servicio:
+```bash
+docker-compose -f docker-compose.dev.yml logs -f frontend
+```
+
+## Acceso a contenedores
+
+Frontend:
+```bash
+docker exec -it lareferente-frontend-dev sh
+```
+
+Backend:
+```bash
+docker exec -it lareferente-backend-dev sh
+```
+
+PostgreSQL:
 ```bash
 docker exec -it lareferente-postgres-dev psql -U postgres -d lareferente
 ```
 
-### Ver estado de los contenedores:
-```bash
-docker-compose -f docker-compose.dev.yml ps
+## Estructura de archivos Docker
+
 ```
+.
+├── docker-compose.dev.yml          # Configuración desarrollo
+├── docker-compose.prod.yml         # Configuración producción
+├── frontend/
+│   ├── Dockerfile                  # Build producción (multi-stage con Nginx)
+│   ├── Dockerfile.dev              # Build desarrollo (hot-reload)
+│   ├── nginx.conf                  # Configuración Nginx para producción
+│   └── .dockerignore              # Archivos ignorados en build
+└── backend/
+    ├── Dockerfile                  # Build Spring Boot
+    └── .dockerignore              # Archivos ignorados en build
+```
+
+## Notas
+
+- El frontend en desarrollo usa volúmenes para hot-reload automático
+- El frontend en producción hace un build optimizado y se sirve con Nginx
+- El backend comparte un volumen para los archivos subidos
+- PostgreSQL usa volúmenes nombrados para persistencia de datos
+- Todos los servicios están en la misma red Docker

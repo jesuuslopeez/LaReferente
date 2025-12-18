@@ -1,23 +1,40 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Form Modal Button
+// Los estilos principales estan en 05-components/_boton.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+:host {
+  display: block;
+}
+
 .form-modal-button {
   width: 100%;
   padding: var(--spacing-3) var(--spacing-6);
-  border: 2px solid transparent;
+  border: var(--border-medium) solid transparent;
   border-radius: var(--radius-full);
-  font-size: var(--font-m);
+  font-size: var(--font-base);
   font-weight: var(--font-semibold);
-  font-family: var(--font-secondary);
-  background: white;
+  font-family: var(--font-primary);
+  background: var(--gray50);
   color: var(--primary);
   cursor: pointer;
   transition: all var(--duration-fast) var(--timing-ease-in-out);
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: var(--primary);
-    border-color: white;
-    color: white;
+    border-color: var(--gray50);
+    color: var(--gray50);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     transform: scale(0.98);
+  }
+
+  &:disabled {
+    background: var(--gray300);
+    color: var(--gray500);
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 }

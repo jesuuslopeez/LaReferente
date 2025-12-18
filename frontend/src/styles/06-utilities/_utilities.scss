@@ -1,0 +1,211 @@
+// ===============================================================================
+// CLASES DE UTILIDAD
+// Archivo: 06-utilities/_utilities.scss
+// Clases de una sola propiedad para ajustes rapidos
+// ===============================================================================
+
+// ---------------------------------------------------------------------------
+// DISPLAY
+// ---------------------------------------------------------------------------
+.oculto { display: none; }
+.bloque { display: block; }
+.en-linea { display: inline; }
+.bloque-en-linea { display: inline-block; }
+.flex { display: flex; }
+.flex-en-linea { display: inline-flex; }
+.grid { display: grid; }
+
+// ---------------------------------------------------------------------------
+// FLEXBOX
+// ---------------------------------------------------------------------------
+.flex-fila { flex-direction: row; }
+.flex-columna { flex-direction: column; }
+.flex-envolver { flex-wrap: wrap; }
+.flex-no-envolver { flex-wrap: nowrap; }
+
+.justificar-inicio { justify-content: flex-start; }
+.justificar-centro { justify-content: center; }
+.justificar-fin { justify-content: flex-end; }
+.justificar-entre { justify-content: space-between; }
+.justificar-alrededor { justify-content: space-around; }
+
+.alinear-inicio { align-items: flex-start; }
+.alinear-centro { align-items: center; }
+.alinear-fin { align-items: flex-end; }
+.alinear-estirar { align-items: stretch; }
+
+.flex-1 { flex: 1; }
+.flex-auto { flex: auto; }
+.flex-ninguno { flex: none; }
+
+// ---------------------------------------------------------------------------
+// TEXTO
+// ---------------------------------------------------------------------------
+.texto-izquierda { text-align: left; }
+.texto-centro { text-align: center; }
+.texto-derecha { text-align: right; }
+.texto-justificado { text-align: justify; }
+
+.texto-mayusculas { text-transform: uppercase; }
+.texto-minusculas { text-transform: lowercase; }
+.texto-capitalizado { text-transform: capitalize; }
+.texto-normal { text-transform: none; }
+
+.texto-negrita { font-weight: var(--font-bold); }
+.texto-seminegrita { font-weight: var(--font-semibold); }
+.texto-medio { font-weight: var(--font-medium); }
+.texto-regular { font-weight: var(--font-regular); }
+.texto-ligero { font-weight: var(--font-light); }
+
+.texto-truncado {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ---------------------------------------------------------------------------
+// COLORES DE TEXTO
+// ---------------------------------------------------------------------------
+.color-primario { color: var(--primary); }
+.color-secundario { color: var(--secondary); }
+.color-exito { color: var(--success); }
+.color-error { color: var(--error); }
+.color-advertencia { color: var(--warning); }
+.color-info { color: var(--info); }
+.color-texto { color: var(--text-color); }
+.color-texto-secundario { color: var(--text-secondary); }
+.color-blanco { color: var(--white); }
+
+// ---------------------------------------------------------------------------
+// COLORES DE FONDO
+// ---------------------------------------------------------------------------
+.fondo-primario { background-color: var(--primary); }
+.fondo-secundario { background-color: var(--secondary); }
+.fondo-exito { background-color: var(--success); }
+.fondo-error { background-color: var(--error); }
+.fondo-advertencia { background-color: var(--warning); }
+.fondo-info { background-color: var(--info); }
+.fondo-color { background-color: var(--bg-color); }
+.fondo-secundario-color { background-color: var(--bg-secondary); }
+.fondo-transparente { background-color: transparent; }
+
+// ---------------------------------------------------------------------------
+// ESPACIADO - MARGIN
+// ---------------------------------------------------------------------------
+.m-0 { margin: 0; }
+.m-1 { margin: var(--spacing-1); }
+.m-2 { margin: var(--spacing-2); }
+.m-3 { margin: var(--spacing-3); }
+.m-4 { margin: var(--spacing-4); }
+.m-6 { margin: var(--spacing-6); }
+.m-8 { margin: var(--spacing-8); }
+.m-auto { margin: auto; }
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: var(--spacing-1); }
+.mt-2 { margin-top: var(--spacing-2); }
+.mt-4 { margin-top: var(--spacing-4); }
+.mt-6 { margin-top: var(--spacing-6); }
+.mt-8 { margin-top: var(--spacing-8); }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: var(--spacing-1); }
+.mb-2 { margin-bottom: var(--spacing-2); }
+.mb-4 { margin-bottom: var(--spacing-4); }
+.mb-6 { margin-bottom: var(--spacing-6); }
+.mb-8 { margin-bottom: var(--spacing-8); }
+
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+// ---------------------------------------------------------------------------
+// ESPACIADO - PADDING
+// ---------------------------------------------------------------------------
+.p-0 { padding: 0; }
+.p-1 { padding: var(--spacing-1); }
+.p-2 { padding: var(--spacing-2); }
+.p-3 { padding: var(--spacing-3); }
+.p-4 { padding: var(--spacing-4); }
+.p-6 { padding: var(--spacing-6); }
+.p-8 { padding: var(--spacing-8); }
+
+.pt-4 { padding-top: var(--spacing-4); }
+.pb-4 { padding-bottom: var(--spacing-4); }
+.px-4 { padding-left: var(--spacing-4); padding-right: var(--spacing-4); }
+.py-4 { padding-top: var(--spacing-4); padding-bottom: var(--spacing-4); }
+
+// ---------------------------------------------------------------------------
+// GAP
+// ---------------------------------------------------------------------------
+.gap-1 { gap: var(--spacing-1); }
+.gap-2 { gap: var(--spacing-2); }
+.gap-3 { gap: var(--spacing-3); }
+.gap-4 { gap: var(--spacing-4); }
+.gap-6 { gap: var(--spacing-6); }
+.gap-8 { gap: var(--spacing-8); }
+
+// ---------------------------------------------------------------------------
+// ANCHO Y ALTO
+// ---------------------------------------------------------------------------
+.ancho-completo { width: 100%; }
+.ancho-auto { width: auto; }
+.alto-completo { height: 100%; }
+.alto-pantalla { height: 100vh; }
+.min-alto-pantalla { min-height: 100vh; }
+
+// ---------------------------------------------------------------------------
+// BORDES
+// ---------------------------------------------------------------------------
+.borde { border: var(--border-thin) solid var(--border-color); }
+.borde-primario { border-color: var(--primary); }
+.borde-redondeado { border-radius: var(--radius-md); }
+.borde-redondeado-lg { border-radius: var(--radius-lg); }
+.borde-redondeado-completo { border-radius: var(--radius-full); }
+.sin-borde { border: none; }
+
+// ---------------------------------------------------------------------------
+// SOMBRAS
+// ---------------------------------------------------------------------------
+.sombra-sm { box-shadow: var(--shadow-sm); }
+.sombra-md { box-shadow: var(--shadow-md); }
+.sombra-lg { box-shadow: var(--shadow-lg); }
+.sombra-xl { box-shadow: var(--shadow-xl); }
+.sin-sombra { box-shadow: none; }
+
+// ---------------------------------------------------------------------------
+// POSICIONAMIENTO
+// ---------------------------------------------------------------------------
+.relativo { position: relative; }
+.absoluto { position: absolute; }
+.fijo { position: fixed; }
+.pegajoso { position: sticky; }
+
+// ---------------------------------------------------------------------------
+// CURSOR
+// ---------------------------------------------------------------------------
+.cursor-pointer { cursor: pointer; }
+.cursor-no-permitido { cursor: not-allowed; }
+.cursor-texto { cursor: text; }
+
+// ---------------------------------------------------------------------------
+// VISIBILIDAD
+// ---------------------------------------------------------------------------
+.visible { visibility: visible; }
+.invisible { visibility: hidden; }
+.opacidad-0 { opacity: 0; }
+.opacidad-50 { opacity: 0.5; }
+.opacidad-100 { opacity: 1; }
+
+// ---------------------------------------------------------------------------
+// ACCESIBILIDAD
+// ---------------------------------------------------------------------------
+.solo-lector-pantalla {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

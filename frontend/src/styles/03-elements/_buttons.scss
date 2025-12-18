@@ -1,0 +1,22 @@
+// ===============================================================================
+// ESTILOS BASE DE BOTONES
+// Archivo: 03-elements/_buttons.scss
+// ===============================================================================
+
+button {
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: inherit;
+
+  &:focus {
+    outline: var(--border-medium) solid var(--primary);
+    outline-offset: var(--border-medium);
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}

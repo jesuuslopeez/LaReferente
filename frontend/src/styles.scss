@@ -1,11 +1,75 @@
-// 00-settings: Variables SCSS
-@import './styles/00-settings/variables';
+// ===============================================================================
+// ARCHIVO PRINCIPAL DE ESTILOS
+// Archivo: styles.scss
+// Importa todos los archivos SCSS en el orden correcto (ITCSS)
+// ===============================================================================
 
-// 00-settings: Variables CSS (Custom Properties)
-@import './styles/00-settings/css-variables';
+// ---------------------------------------------------------------------------
+// 1. SETTINGS - Configuracion (variables)
+// ---------------------------------------------------------------------------
+@use './styles/00-settings/variables';
+@use './styles/00-settings/css-variables';
 
-// 01-tools: Mixins y funciones
-@import './styles/01-tools/mixins';
+// ---------------------------------------------------------------------------
+// 2. TOOLS - Herramientas (mixins y funciones)
+// ---------------------------------------------------------------------------
+@use './styles/01-tools/mixins';
 
-// 02-generic: Reset
-@import './styles/02-generic/reset';
+// ---------------------------------------------------------------------------
+// 3. GENERIC - Reset y normalizaciones
+// ---------------------------------------------------------------------------
+@use './styles/02-generic/reset';
+
+// ---------------------------------------------------------------------------
+// 4. ELEMENTS - Estilos base de elementos HTML
+// ---------------------------------------------------------------------------
+@use './styles/03-elements/typography';
+@use './styles/03-elements/links';
+@use './styles/03-elements/buttons';
+@use './styles/03-elements/forms';
+@use './styles/03-elements/lists';
+
+// ---------------------------------------------------------------------------
+// 5. LAYOUT - Estructura y contenedores
+// ---------------------------------------------------------------------------
+@use './styles/04-layout/layout';
+
+// ---------------------------------------------------------------------------
+// 6. COMPONENTS - Componentes reutilizables
+// ---------------------------------------------------------------------------
+@use './styles/05-components/boton';
+@use './styles/05-components/tarjeta';
+@use './styles/05-components/formulario';
+@use './styles/05-components/navegacion';
+@use './styles/05-components/modal';
+@use './styles/05-components/alerta';
+@use './styles/05-components/notificacion';
+
+// ---------------------------------------------------------------------------
+// 7. UTILITIES - Clases de utilidad
+// ---------------------------------------------------------------------------
+@use './styles/06-utilities/utilities';
+
+// ---------------------------------------------------------------------------
+// ESTILOS GLOBALES ADICIONALES
+// ---------------------------------------------------------------------------
+
+// Feedback visual de formularios reactivos (Angular)
+input.ng-touched.ng-invalid,
+textarea.ng-touched.ng-invalid,
+select.ng-touched.ng-invalid {
+  border-color: var(--error);
+}
+
+input.ng-touched.ng-valid,
+textarea.ng-touched.ng-valid,
+select.ng-touched.ng-valid {
+  border-color: var(--success);
+}
+
+input.ng-pending,
+textarea.ng-pending,
+select.ng-pending {
+  border-style: dashed;
+  border-color: var(--info);
+}

@@ -9,6 +9,8 @@ import { ThemeService } from './services/theme.service';
 import { Header } from './components/layout/header/header';
 import { Main } from './components/layout/main/main';
 import { Footer } from './components/layout/footer/footer';
+import { Toast } from './shared/components/toast/toast';
+import { Loading } from './shared/components/loading/loading';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +23,9 @@ import { Footer } from './components/layout/footer/footer';
     TooltipDirective,
     Header,
     Main,
-    Footer
+    Footer,
+    Toast,
+    Loading
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'

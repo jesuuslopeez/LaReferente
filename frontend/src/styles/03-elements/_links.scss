@@ -1,0 +1,29 @@
+// ===============================================================================
+// ESTILOS BASE DE ENLACES
+// Archivo: 03-elements/_links.scss
+// ===============================================================================
+
+a {
+  font-family: var(--font-primary);
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--timing-ease-in-out);
+
+  &:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: var(--primary-active);
+  }
+
+  &:focus {
+    outline: var(--border-medium) solid var(--primary);
+    outline-offset: var(--border-medium);
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}

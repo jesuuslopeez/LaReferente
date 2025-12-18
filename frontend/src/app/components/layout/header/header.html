@@ -1,44 +1,95 @@
 <header class="header">
   <section class="header__container">
-    <!-- Logo -->
     <a routerLink="/" class="header__logo">
       <img src="/images/logo.png" alt="La Referente" class="header__logo-img" />
     </a>
 
-    <!-- Navegación principal -->
-    <nav class="header__nav">
+    <button
+      class="header__hamburger"
+      [class.header__hamburger--open]="mobileMenuOpen()"
+      (click)="toggleMobileMenu()"
+      aria-label="Menú">
+      <span class="header__hamburger-line"></span>
+      <span class="header__hamburger-line"></span>
+      <span class="header__hamburger-line"></span>
+    </button>
+
+    <nav class="header__nav" [class.header__nav--open]="mobileMenuOpen()">
       <ul class="header__nav-list">
         <li class="header__nav-item">
-          <a routerLink="/noticias" routerLinkActive="header__nav-link--active" class="header__nav-link">
+          <a routerLink="/noticias" routerLinkActive="header__nav-link--active" class="header__nav-link" (click)="closeMobileMenu()">
             Noticias
           </a>
         </li>
         <li class="header__nav-item">
-          <a routerLink="/competiciones" routerLinkActive="header__nav-link--active" class="header__nav-link">
+          <a routerLink="/competiciones" routerLinkActive="header__nav-link--active" class="header__nav-link" (click)="closeMobileMenu()">
             Competiciones
           </a>
         </li>
         <li class="header__nav-item">
-          <a routerLink="/equipos" routerLinkActive="header__nav-link--active" class="header__nav-link">
+          <a routerLink="/equipos" routerLinkActive="header__nav-link--active" class="header__nav-link" (click)="closeMobileMenu()">
             Equipos
           </a>
         </li>
         <li class="header__nav-item">
-          <a routerLink="/jugadores" routerLinkActive="header__nav-link--active" class="header__nav-link">
+          <a routerLink="/jugadores" routerLinkActive="header__nav-link--active" class="header__nav-link" (click)="closeMobileMenu()">
             Jugadores
           </a>
         </li>
         <li class="header__nav-item">
-          <a routerLink="/calendario" routerLinkActive="header__nav-link--active" class="header__nav-link">
+          <a routerLink="/calendario" routerLinkActive="header__nav-link--active" class="header__nav-link" (click)="closeMobileMenu()">
             Calendario
           </a>
         </li>
       </ul>
+
+      <section class="header__mobile-utilities">
+        <form class="header__mobile-search" role="search">
+          <select class="header__mobile-search-dropdown">
+            <option value="all">Todo</option>
+            <option value="noticias">Noticias</option>
+            <option value="equipos">Equipos</option>
+            <option value="jugadores">Jugadores</option>
+          </select>
+          <input type="text" class="header__mobile-search-input" placeholder="Buscar" />
+          <button class="header__mobile-search-btn" aria-label="Buscar">
+            <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+        </form>
+
+        <button class="header__mobile-theme-btn" (click)="toggleTheme()" aria-label="Cambiar tema">
+          @if (isDarkMode()) {
+            <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <span>Modo claro</span>
+          } @else {
+            <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+            <span>Modo oscuro</span>
+          }
+        </button>
+
+        <button class="header__mobile-account-btn" (click)="openLoginModal(); closeMobileMenu()">
+          <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          <span>Iniciar sesión</span>
+        </button>
+
+        <button class="header__mobile-account-btn" (click)="openRegisterModal(); closeMobileMenu()">
+          <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+          </svg>
+          <span>Registrarse</span>
+        </button>
+      </section>
     </nav>
 
-    <!-- Buscador y utilidades -->
     <section class="header__utilities">
-      <!-- Buscador con dropdown -->
       <form class="header__search" role="search">
         <select class="header__search-dropdown">
           <option value="all">Todo</option>
@@ -47,30 +98,32 @@
           <option value="jugadores">Jugadores</option>
         </select>
         <input type="text" class="header__search-input" placeholder="Buscar" />
-        <button class="header__search-btn" aria-label="Buscar">
+        <button type="submit" class="header__search-btn" aria-label="Buscar">
           <svg class="header__search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </button>
       </form>
 
-      <!-- Toggle tema con icono sol/luna -->
+      <button type="button" class="header__search-toggle" (click)="toggleSearchDropdown()" aria-label="Buscar">
+        <svg class="header__search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </button>
+
       <button class="header__theme-btn" (click)="toggleTheme()" aria-label="Cambiar tema">
         @if (isDarkMode()) {
-          <!-- Icono Sol (para cambiar a light mode) -->
           <svg class="header__theme-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
           </svg>
         } @else {
-          <!-- Icono Luna (para cambiar a dark mode) -->
           <svg class="header__theme-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
           </svg>
         }
       </button>
 
-      <!-- Usuario -->
-      <div class="header__account">
+      <section class="header__account">
         <button class="header__account-btn" (click)="toggleAccountMenu()" aria-label="Cuenta">
           <svg class="header__account-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -79,28 +132,52 @@
         </button>
 
         @if (accountMenuOpen()) {
-          <div class="header__account-dropdown">
+          <section class="header__account-dropdown">
             <button class="header__account-dropdown-item" (click)="openLoginModal()">
               Iniciar sesión
             </button>
             <button class="header__account-dropdown-item" (click)="openRegisterModal()">
               Registrarse
             </button>
-          </div>
+          </section>
         }
-      </div>
+      </section>
     </section>
   </section>
 </header>
 
-<!-- Modal Login -->
+@if (searchDropdownOpen()) {
+  <section class="search-dropdown">
+    <section class="search-dropdown__container">
+      <form class="search-dropdown__form" role="search">
+        <select class="search-dropdown__select">
+          <option value="all">Todo</option>
+          <option value="noticias">Noticias</option>
+          <option value="equipos">Equipos</option>
+          <option value="jugadores">Jugadores</option>
+        </select>
+        <input type="text" class="search-dropdown__input" placeholder="Buscar..." />
+        <button type="submit" class="search-dropdown__submit" aria-label="Buscar">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+        <button type="button" class="search-dropdown__close" (click)="closeSearchDropdown()" aria-label="Cerrar">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </form>
+    </section>
+  </section>
+}
+
 @if (showLoginModal()) {
   <app-account-modal title="Iniciar sesión" (close)="closeLoginModal()">
     <app-login-form (switchToRegister)="switchToRegister()" />
   </app-account-modal>
 }
 
-<!-- Modal Register -->
 @if (showRegisterModal()) {
   <app-account-modal title="Registrarse" (close)="closeRegisterModal()">
     <app-register-form (switchToLogin)="switchToLogin()" />

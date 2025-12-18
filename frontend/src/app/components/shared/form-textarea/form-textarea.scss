@@ -1,0 +1,59 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Form Textarea
+// Los estilos principales estan en 05-components/_formulario.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+@use '../../../../styles/00-settings/variables' as *;
+
+:host {
+  display: block;
+}
+
+.form-field {
+  &__textarea {
+    max-width: 500px;
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-4);
+    border: var(--border-medium) solid var(--primary);
+    border-radius: var(--radius-md);
+    font-size: var(--font-base);
+    font-family: var(--font-primary);
+    background: var(--white);
+    color: var(--text-primary);
+    resize: vertical;
+    min-height: var(--spacing-20);
+    transition: all var(--duration-fast) var(--timing-ease-in-out);
+    line-height: var(--font-normal);
+
+    &::placeholder {
+      color: var(--gray400);
+      font-family: var(--font-primary);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 var(--border-medium) rgba(34, 139, 34, 0.2);
+    }
+
+    &::-webkit-scrollbar {
+      width: var(--spacing-2);
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--gray100);
+      border-radius: var(--radius-sm);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: var(--radius-sm);
+
+      &:hover {
+        background: var(--primary);
+        opacity: 0.8;
+      }
+    }
+  }
+}

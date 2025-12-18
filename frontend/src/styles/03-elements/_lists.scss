@@ -1,0 +1,42 @@
+// ===============================================================================
+// ESTILOS BASE DE LISTAS
+// Archivo: 03-elements/_lists.scss
+// ===============================================================================
+
+ul, ol {
+  font-family: var(--font-primary);
+  margin: 0 0 var(--spacing-4) 0;
+  padding-left: var(--spacing-6);
+}
+
+li {
+  font-family: var(--font-primary);
+  margin-bottom: var(--spacing-2);
+  line-height: var(--font-normal);
+}
+
+// Listas sin estilo (para navegacion, etc.)
+ul[class],
+ol[class] {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+// Lista de definiciones
+dl {
+  font-family: var(--font-primary);
+  margin: 0 0 var(--spacing-4) 0;
+}
+
+dt {
+  font-family: var(--font-primary);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--spacing-1);
+}
+
+dd {
+  font-family: var(--font-primary);
+  margin-left: var(--spacing-4);
+  margin-bottom: var(--spacing-3);
+}

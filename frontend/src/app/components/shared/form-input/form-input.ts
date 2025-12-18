@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-form-input',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './form-input.html',
   styleUrl: './form-input.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class FormInput {
   @Input() label: string = '';
@@ -16,4 +18,5 @@ export class FormInput {
   @Input() errorMessage: string = '';
   @Input() helpText: string = '';
   @Input() icon: string = '';
+  @Input() control: FormControl | null = null;
 }

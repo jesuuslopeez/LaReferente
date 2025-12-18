@@ -1,0 +1,122 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Alert
+// Los estilos principales estan en 05-components/_alerta.scss
+// Este archivo solo contiene ajustes especificos de este componente
+// ===============================================================================
+
+:host {
+  display: block;
+}
+
+// Usando las clases globales de alerta definidas en ITCSS
+// Ver: styles/05-components/_alerta.scss
+
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-xl);
+  border: var(--border-medium) solid;
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
+  font-weight: var(--font-medium);
+  animation: slideIn var(--duration-fast) var(--timing-ease-in-out);
+
+  &__message {
+    flex: 1;
+    line-height: var(--font-normal);
+  }
+
+  &__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--spacing-6);
+    height: var(--spacing-6);
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all var(--duration-fast) var(--timing-ease-in-out);
+    flex-shrink: 0;
+
+    svg {
+      width: var(--spacing-5);
+      height: var(--spacing-5);
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &--success {
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    border-color: var(--success);
+
+    .alert__close {
+      color: var(--success-text);
+
+      &:hover {
+        background-color: rgba(46, 204, 113, 0.15);
+      }
+    }
+  }
+
+  &--error {
+    background-color: var(--error-bg);
+    color: var(--error-text);
+    border-color: var(--error);
+
+    .alert__close {
+      color: var(--error-text);
+
+      &:hover {
+        background-color: rgba(192, 57, 43, 0.15);
+      }
+    }
+  }
+
+  &--warning {
+    background-color: var(--warning-bg);
+    color: var(--warning-text);
+    border-color: var(--warning);
+
+    .alert__close {
+      color: var(--warning-text);
+
+      &:hover {
+        background-color: rgba(243, 156, 18, 0.15);
+      }
+    }
+  }
+
+  &--info {
+    background-color: var(--info-bg);
+    color: var(--info-text);
+    border-color: var(--info);
+
+    .alert__close {
+      color: var(--info-text);
+
+      &:hover {
+        background-color: rgba(52, 73, 94, 0.15);
+      }
+    }
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
