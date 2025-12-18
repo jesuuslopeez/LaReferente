@@ -1,11 +1,21 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Form Modal Button
+// Los estilos principales estan en 05-components/_boton.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+:host {
+  display: block;
+}
+
 .form-modal-button {
   width: 100%;
   padding: var(--spacing-3) var(--spacing-6);
   border: var(--border-medium) solid transparent;
   border-radius: var(--radius-full);
-  font-size: var(--font-m);
+  font-size: var(--font-base);
   font-weight: var(--font-semibold);
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
   background: var(--gray50);
   color: var(--primary);
   cursor: pointer;

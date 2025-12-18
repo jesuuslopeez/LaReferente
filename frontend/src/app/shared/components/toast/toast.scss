@@ -1,19 +1,29 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Toast
+// Los estilos principales estan en 05-components/_notificacion.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+:host {
+  display: block;
+}
+
 .toast {
   position: fixed;
   top: var(--spacing-5);
   right: var(--spacing-5);
-  z-index: 10000;
+  z-index: var(--z-toast);
   min-width: 300px;
   max-width: 500px;
   padding: var(--spacing-4) var(--spacing-12) var(--spacing-4) var(--spacing-4);
   border-radius: var(--radius-lg);
-  color: white;
-  font-family: var(--font-secondary);
-  font-size: var(--font-m);
+  color: var(--white);
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
   box-shadow: var(--shadow-xl);
   cursor: pointer;
   transition: opacity var(--duration-base) var(--timing-ease-in-out);
-  animation: slideIn var(--duration-base) var(--timing-ease-in-out);
+  animation: toast-slideIn var(--duration-base) var(--timing-ease-in-out);
 
   &__message {
     display: block;
@@ -26,8 +36,9 @@
     right: var(--spacing-2);
     background: transparent;
     border: none;
-    color: white;
+    color: var(--white);
     font-size: var(--font-2xl);
+    font-family: var(--font-primary);
     line-height: 1;
     cursor: pointer;
     padding: var(--spacing-1);
@@ -56,7 +67,7 @@
   }
 }
 
-@keyframes slideIn {
+@keyframes toast-slideIn {
   from {
     transform: translateX(100%);
     opacity: 0;

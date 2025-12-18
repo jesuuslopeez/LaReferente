@@ -1,6 +1,16 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Button
+// Los estilos principales estan en 05-components/_boton.scss
+// Este archivo solo contiene ajustes especificos de este componente
+// ===============================================================================
+
+:host {
+  display: inline-block;
+}
+
 .button {
   font-family: var(--font-primary);
-  font-weight: var(--font-light);
+  font-weight: var(--font-medium);
   cursor: pointer;
   transition: all var(--duration-fast) var(--timing-ease-in-out);
   border: var(--border-medium) solid transparent;
@@ -21,63 +31,63 @@
 
   &--sm {
     padding: var(--spacing-2) var(--spacing-4);
-    font-size: var(--font-s);
+    font-size: var(--font-sm);
     border-radius: var(--radius-xl);
   }
 
   &--md {
     padding: var(--spacing-3) var(--spacing-6);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
     border-radius: var(--radius-2xl);
   }
 
   &--lg {
     padding: var(--spacing-4) var(--spacing-8);
-    font-size: var(--font-l);
+    font-size: var(--font-lg);
     border-radius: var(--radius-2xl);
   }
 
   &--primary {
-    background: white;
+    background-color: var(--white);
     border-color: var(--primary);
     color: var(--primary);
 
     &:hover:not(:disabled) {
-      background: var(--primary);
-      color: white;
+      background-color: var(--primary);
+      color: var(--white);
     }
   }
 
   &--secondary {
-    background: white;
+    background-color: var(--white);
     border-color: var(--secondary);
     color: var(--secondary);
 
     &:hover:not(:disabled) {
-      background: var(--secondary);
-      color: white;
+      background-color: var(--secondary);
+      color: var(--white);
     }
   }
 
   &--ghost {
-    background: transparent;
+    background-color: transparent;
     border-color: transparent;
     color: var(--primary);
 
     &:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.1);
+      background-color: var(--bg-hover);
     }
   }
 
   &--danger {
-    background: transparent;
+    background-color: transparent;
     border-color: var(--error);
     color: var(--error);
     font-weight: var(--font-semibold);
 
     &:hover:not(:disabled) {
-      background: var(--error);
-      color: white;
+      background-color: var(--error);
+      color: var(--white);
     }
   }
 }

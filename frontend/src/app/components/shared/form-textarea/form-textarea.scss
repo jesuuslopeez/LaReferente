@@ -1,4 +1,14 @@
-@import '../../../../styles/00-settings/variables';
+// ===============================================================================
+// COMPONENTE ANGULAR: Form Textarea
+// Los estilos principales estan en 05-components/_formulario.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+@use '../../../../styles/00-settings/variables' as *;
+
+:host {
+  display: block;
+}
 
 .form-field {
   &__textarea {
@@ -7,9 +17,9 @@
     padding: var(--spacing-3) var(--spacing-4);
     border: var(--border-medium) solid var(--primary);
     border-radius: var(--radius-md);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
     font-family: var(--font-primary);
-    background: white;
+    background: var(--white);
     color: var(--text-primary);
     resize: vertical;
     min-height: var(--spacing-20);

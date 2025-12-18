@@ -1,3 +1,13 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Register Form
+// Los estilos principales estan en 05-components/_formulario.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+:host {
+  display: block;
+}
+
 .register-form {
   display: flex;
   flex-direction: column;
@@ -10,9 +20,9 @@
   }
 
   &__label {
-    font-family: var(--font-secondary);
-    font-size: var(--font-m);
-    font-weight: 600;
+    font-family: var(--font-primary);
+    font-size: var(--font-base);
+    font-weight: var(--font-semibold);
     color: var(--gray50);
   }
 
@@ -23,11 +33,11 @@
   &__input {
     width: 100%;
     padding: var(--spacing-3);
-    font-family: var(--font-secondary);
-    font-size: var(--font-m);
+    font-family: var(--font-primary);
+    font-size: var(--font-base);
     color: var(--text-primary);
     background: var(--background);
-    border: 2px solid var(--border);
+    border: var(--border-medium) solid var(--border);
     border-radius: var(--radius-md);
     transition: all var(--duration-fast) var(--timing-ease-in-out);
 
@@ -59,8 +69,8 @@
   }
 
   &__error {
-    font-family: var(--font-secondary);
-    font-size: var(--font-s);
+    font-family: var(--font-primary);
+    font-size: var(--font-sm);
     color: var(--error);
     margin: 0;
   }
@@ -72,8 +82,8 @@
   }
 
   &__hint {
-    font-family: var(--font-secondary);
-    font-size: var(--font-s);
+    font-family: var(--font-primary);
+    font-size: var(--font-sm);
     color: var(--text-secondary);
 
     &--loading {
@@ -99,12 +109,13 @@
   }
 
   &__checkbox-text {
-    font-family: var(--font-secondary);
-    font-size: var(--font-s);
+    font-family: var(--font-primary);
+    font-size: var(--font-sm);
     color: var(--gray50);
   }
 
   &__terms-link {
+    font-family: var(--font-primary);
     color: var(--gray50);
     text-decoration: underline;
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);
@@ -117,11 +128,11 @@
   &__button {
     width: 100%;
     padding: var(--spacing-3) var(--spacing-5);
-    font-family: var(--font-secondary);
-    font-size: var(--font-m);
-    font-weight: 600;
+    font-family: var(--font-primary);
+    font-size: var(--font-base);
+    font-weight: var(--font-semibold);
     background: var(--primary);
-    color: white;
+    color: var(--white);
     border: none;
     border-radius: var(--radius-md);
     cursor: pointer;
@@ -142,8 +153,8 @@
 
   &__footer {
     color: var(--gray50);
-    font-size: var(--font-s);
-    font-family: var(--font-secondary);
+    font-size: var(--font-sm);
+    font-family: var(--font-primary);
     text-align: center;
     margin: var(--spacing-2) 0 0 0;
   }
@@ -154,8 +165,8 @@
     color: var(--gray50);
     text-decoration: underline;
     cursor: pointer;
-    font-size: var(--font-s);
-    font-family: var(--font-secondary);
+    font-size: var(--font-sm);
+    font-family: var(--font-primary);
     padding: 0;
     margin: 0;
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);

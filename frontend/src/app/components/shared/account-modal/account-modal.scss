@@ -1,3 +1,13 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Account Modal
+// Los estilos principales estan en 05-components/_modal.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+:host {
+  display: block;
+}
+
 .account-modal {
   &__overlay {
     position: fixed;
@@ -34,8 +44,9 @@
     height: var(--spacing-8);
     background: transparent;
     border: none;
-    color: white;
+    color: var(--white);
     font-size: var(--font-4xl);
+    font-family: var(--font-primary);
     line-height: var(--font-tight);
     cursor: pointer;
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);
@@ -46,7 +57,7 @@
   }
 
   &__title {
-    color: white;
+    color: var(--white);
     font-size: var(--font-xl);
     font-weight: var(--font-semibold);
     font-family: var(--font-secondary);

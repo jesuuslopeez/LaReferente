@@ -1,31 +1,75 @@
-@import './styles/00-settings/variables';
-@import './styles/00-settings/css-variables';
-@import './styles/01-tools/mixins';
-@import './styles/02-generic/reset';
+// ===============================================================================
+// ARCHIVO PRINCIPAL DE ESTILOS
+// Archivo: styles.scss
+// Importa todos los archivos SCSS en el orden correcto (ITCSS)
+// ===============================================================================
 
-// Feedback visual de formularios reactivos
+// ---------------------------------------------------------------------------
+// 1. SETTINGS - Configuracion (variables)
+// ---------------------------------------------------------------------------
+@use './styles/00-settings/variables';
+@use './styles/00-settings/css-variables';
+
+// ---------------------------------------------------------------------------
+// 2. TOOLS - Herramientas (mixins y funciones)
+// ---------------------------------------------------------------------------
+@use './styles/01-tools/mixins';
+
+// ---------------------------------------------------------------------------
+// 3. GENERIC - Reset y normalizaciones
+// ---------------------------------------------------------------------------
+@use './styles/02-generic/reset';
+
+// ---------------------------------------------------------------------------
+// 4. ELEMENTS - Estilos base de elementos HTML
+// ---------------------------------------------------------------------------
+@use './styles/03-elements/typography';
+@use './styles/03-elements/links';
+@use './styles/03-elements/buttons';
+@use './styles/03-elements/forms';
+@use './styles/03-elements/lists';
+
+// ---------------------------------------------------------------------------
+// 5. LAYOUT - Estructura y contenedores
+// ---------------------------------------------------------------------------
+@use './styles/04-layout/layout';
+
+// ---------------------------------------------------------------------------
+// 6. COMPONENTS - Componentes reutilizables
+// ---------------------------------------------------------------------------
+@use './styles/05-components/boton';
+@use './styles/05-components/tarjeta';
+@use './styles/05-components/formulario';
+@use './styles/05-components/navegacion';
+@use './styles/05-components/modal';
+@use './styles/05-components/alerta';
+@use './styles/05-components/notificacion';
+
+// ---------------------------------------------------------------------------
+// 7. UTILITIES - Clases de utilidad
+// ---------------------------------------------------------------------------
+@use './styles/06-utilities/utilities';
+
+// ---------------------------------------------------------------------------
+// ESTILOS GLOBALES ADICIONALES
+// ---------------------------------------------------------------------------
+
+// Feedback visual de formularios reactivos (Angular)
 input.ng-touched.ng-invalid,
 textarea.ng-touched.ng-invalid,
 select.ng-touched.ng-invalid {
-  border-color: var(--error) !important;
+  border-color: var(--error);
 }
 
 input.ng-touched.ng-valid,
 textarea.ng-touched.ng-valid,
 select.ng-touched.ng-valid {
-  border-color: var(--success) !important;
+  border-color: var(--success);
 }
 
 input.ng-pending,
 textarea.ng-pending,
 select.ng-pending {
-  border-style: dashed !important;
-  border-color: var(--info) !important;
-}
-
-// Transiciones suaves
-input,
-textarea,
-select {
-  transition: border-color var(--duration-fast) var(--timing-ease-in-out);
+  border-style: dashed;
+  border-color: var(--info);
 }

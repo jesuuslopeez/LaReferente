@@ -1,4 +1,14 @@
-@import '../../../../styles/00-settings/variables';
+// ===============================================================================
+// COMPONENTE ANGULAR: Competition Card
+// Los estilos principales estan en 05-components/_tarjeta.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+@use '../../../../styles/00-settings/variables' as *;
+
+:host {
+  display: block;
+}
 
 .competition-card {
   width: 360px;
@@ -25,10 +35,10 @@
   }
 
   &__title {
-    font-family: var(--font-primary);
+    font-family: var(--font-secondary);
     font-size: var(--font-xl);
     font-weight: var(--font-bold);
-    color: white;
+    color: var(--white);
     text-align: center;
     margin: 0;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -47,7 +57,7 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
-    background: white;
+    background: var(--white);
     padding: var(--spacing-2) var(--spacing-4);
     border-radius: var(--radius-2xl);
     box-shadow: var(--shadow-sm);
@@ -62,7 +72,7 @@
 
   &__badge-text {
     font-family: var(--font-primary);
-    font-size: var(--font-s);
+    font-size: var(--font-sm);
     font-weight: var(--font-semibold);
     color: var(--primary);
     white-space: nowrap;
@@ -79,21 +89,21 @@
   &__date-icon {
     width: var(--spacing-5);
     height: var(--spacing-5);
-    color: white;
+    color: var(--white);
     flex-shrink: 0;
   }
 
   &__date-text {
     font-family: var(--font-primary);
-    font-size: var(--font-s);
+    font-size: var(--font-sm);
     font-weight: var(--font-regular);
-    color: white;
+    color: var(--white);
   }
 
   &__actions {
     display: flex;
     gap: 0;
-    background: white;
+    background: var(--white);
     border: var(--border-thick) solid var(--primary);
     border-top: var(--border-thick) solid var(--primary);
     border-radius: 0 0 var(--radius-xl) var(--radius-xl);
@@ -105,7 +115,7 @@
     flex: 1;
     padding: var(--spacing-3) var(--spacing-4);
     font-family: var(--font-primary);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
     font-weight: var(--font-medium);
     border: none;
     border-radius: 0;
@@ -132,24 +142,16 @@
       border-right: var(--border-thick) solid var(--primary);
     }
 
-    &--primary {
-      &:hover {
-        background: var(--primary);
-        color: white;
-      }
-    }
-
+    &--primary,
     &--secondary {
       &:hover {
         background: var(--primary);
-        color: white;
+        color: var(--white);
       }
     }
   }
-}
 
-@media (max-width: 768px) {
-  .competition-card {
+  @media (max-width: $breakpoint-md) {
     width: 100%;
     max-width: 360px;
   }

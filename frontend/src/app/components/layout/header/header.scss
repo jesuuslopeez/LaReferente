@@ -1,14 +1,22 @@
-@import '../../../../styles/00-settings/variables';
+// ===============================================================================
+// COMPONENTE ANGULAR: Header
+// Los estilos principales estan en 05-components/_navegacion.scss
+// Este archivo contiene los estilos especificos del header
+// ===============================================================================
+
+:host {
+  display: block;
+}
 
 .header {
-  background: var(--primary);
-  color: white;
+  background-color: var(--primary);
+  color: var(--white);
   box-shadow: var(--shadow-md);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: var(--z-header);
   width: 100%;
-  font-family: var(--font-secondary);
+  font-family: var(--font-primary);
 
   &__container {
     max-width: 100%;
@@ -31,7 +39,7 @@
     align-items: center;
     gap: var(--spacing-3);
     text-decoration: none;
-    color: white;
+    color: var(--white);
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);
 
     &:hover {
@@ -53,7 +61,7 @@
     justify-content: space-around;
     width: calc(var(--spacing-7) + var(--spacing-1));
     height: var(--spacing-6);
-    background: transparent;
+    background-color: transparent;
     border: none;
     cursor: pointer;
     padding: 0;
@@ -65,9 +73,9 @@
   &__hamburger-line {
     width: 100%;
     height: var(--border-thick);
-    background: white;
+    background-color: var(--white);
     border-radius: var(--radius-sm);
-    transition: all var(--duration-normal) var(--timing-ease-in-out);
+    transition: all var(--duration-base) var(--timing-ease-in-out);
     transform-origin: center;
   }
 
@@ -88,7 +96,7 @@
 
   &__nav {
     flex: 1 1 auto;
-    transition: all var(--duration-normal) var(--timing-ease-in-out);
+    transition: all var(--duration-base) var(--timing-ease-in-out);
 
     @media (max-width: 1200px) {
       position: fixed;
@@ -96,7 +104,7 @@
       left: 0;
       width: 100%;
       height: 100vh;
-      background: var(--primary);
+      background-color: var(--primary);
       transform: translateX(-100%);
       opacity: 0;
       visibility: hidden;
@@ -140,9 +148,9 @@
   &__nav-link {
     display: block;
     padding: var(--spacing-2) var(--spacing-4);
-    color: white;
+    color: var(--white);
     text-decoration: none;
-    font-size: var(--font-l);
+    font-size: var(--font-lg);
     font-weight: var(--font-regular);
     white-space: nowrap;
     position: relative;
@@ -155,7 +163,7 @@
       left: var(--spacing-4);
       right: var(--spacing-4);
       height: var(--border-medium);
-      background: white;
+      background-color: var(--white);
       transform: scaleX(0);
       transition: transform var(--duration-fast) var(--timing-ease-in-out);
     }
@@ -180,8 +188,8 @@
       width: 100%;
       text-align: center;
       &::after { display: none; }
-      &:hover { background: rgba(255, 255, 255, 0.1); }
-      &--active { background: rgba(255, 255, 255, 0.2); }
+      &:hover { background-color: rgba(255, 255, 255, 0.1); }
+      &--active { background-color: rgba(255, 255, 255, 0.2); }
     }
   }
 
@@ -197,11 +205,11 @@
   &__search {
     display: flex;
     align-items: center;
-    background: white;
+    background-color: var(--white);
     border-radius: var(--radius-full);
     overflow: hidden;
     height: var(--spacing-10);
-    transition: all var(--duration-normal) var(--timing-ease-in-out);
+    transition: all var(--duration-base) var(--timing-ease-in-out);
 
     @media (max-width: 1400px) {
       display: none;
@@ -215,7 +223,7 @@
     width: var(--spacing-10);
     height: var(--spacing-10);
     padding: 0;
-    background: white;
+    background-color: var(--white);
     border: none;
     border-radius: 50%;
     color: var(--gray700);
@@ -223,7 +231,7 @@
     flex-shrink: 0;
     transition: all var(--duration-fast) var(--timing-ease-in-out);
 
-    &:hover { color: var(--primary); background: rgba(255, 255, 255, 0.9); }
+    &:hover { color: var(--primary); background-color: rgba(255, 255, 255, 0.9); }
 
     @media (max-width: 1400px) {
       display: flex;
@@ -238,9 +246,10 @@
     padding: 0 var(--spacing-3);
     border: none;
     border-right: 1px solid var(--gray300);
-    background: white;
+    background-color: var(--white);
     color: var(--primary);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
+    font-family: var(--font-primary);
     cursor: pointer;
     outline: none;
   }
@@ -250,9 +259,10 @@
     min-width: 200px;
     padding: 0 var(--spacing-3);
     border: none;
-    background: white;
+    background-color: var(--white);
     color: var(--gray900);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
+    font-family: var(--font-primary);
     outline: none;
 
     &::placeholder { color: var(--gray500); }
@@ -263,7 +273,7 @@
     align-items: center;
     justify-content: center;
     padding: 0 var(--spacing-3);
-    background: white;
+    background-color: var(--white);
     border: none;
     cursor: pointer;
     color: var(--gray700);
@@ -281,9 +291,9 @@
     width: var(--spacing-10);
     height: var(--spacing-10);
     padding: 0;
-    background: transparent;
+    background-color: transparent;
     border: none;
-    color: white;
+    color: var(--white);
     cursor: pointer;
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);
     flex-shrink: 0;
@@ -298,20 +308,21 @@
     align-items: center;
     gap: var(--spacing-2);
     padding: var(--spacing-2) var(--spacing-4);
-    background: white;
+    background-color: var(--white);
     border: var(--border-medium) solid transparent;
     border-radius: var(--radius-full);
     color: var(--primary);
     cursor: pointer;
-    font-size: var(--font-m);
+    font-size: var(--font-base);
+    font-family: var(--font-primary);
     transition: all var(--duration-fast) var(--timing-ease-in-out);
     flex-shrink: 0;
     white-space: nowrap;
 
-    &:hover { background: var(--primary); border-color: white; color: white; }
+    &:hover { background-color: var(--primary); border-color: var(--white); color: var(--white); }
 
-    @media (max-width: 1550px) { padding: var(--spacing-2) var(--spacing-4); font-size: var(--font-m); }
-    @media (max-width: 1450px) { padding: var(--spacing-2) var(--spacing-3); font-size: var(--font-s); gap: var(--spacing-1); }
+    @media (max-width: 1550px) { padding: var(--spacing-2) var(--spacing-4); font-size: var(--font-base); }
+    @media (max-width: 1450px) { padding: var(--spacing-2) var(--spacing-3); font-size: var(--font-sm); gap: var(--spacing-1); }
     @media (max-width: 1420px) {
       padding: var(--spacing-2);
       width: var(--spacing-10);
@@ -321,7 +332,7 @@
     }
   }
 
-  &__account-btn:hover &__account-icon { color: white; }
+  &__account-btn:hover &__account-icon { color: var(--white); }
   &__account-icon { width: var(--spacing-5); height: var(--spacing-5); }
   &__account-text { white-space: nowrap; }
 
@@ -334,7 +345,7 @@
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
-    background: var(--primary);
+    background-color: var(--primary);
     border: var(--border-medium) solid var(--primary-active);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
@@ -347,12 +358,13 @@
     display: block;
     width: 100%;
     padding: var(--spacing-3) var(--spacing-4);
-    background: transparent;
+    background-color: transparent;
     border: none;
-    color: white;
+    color: var(--white);
     text-align: left;
     cursor: pointer;
-    font-size: var(--font-m);
+    font-size: var(--font-base);
+    font-family: var(--font-primary);
     font-weight: var(--font-medium);
     transition: all var(--duration-fast) var(--timing-ease-in-out);
 
@@ -375,7 +387,7 @@
 
   &__mobile-search {
     display: flex;
-    background: white;
+    background-color: var(--white);
     border-radius: var(--radius-lg);
     overflow: hidden;
     height: calc(var(--spacing-12) + var(--spacing-2));
@@ -385,9 +397,10 @@
     padding: 0 var(--spacing-3);
     border: none;
     border-right: 1px solid var(--gray300);
-    background: white;
+    background-color: var(--white);
     color: var(--primary);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
+    font-family: var(--font-primary);
     cursor: pointer;
     outline: none;
   }
@@ -396,9 +409,10 @@
     flex: 1;
     padding: 0 var(--spacing-3);
     border: none;
-    background: white;
+    background-color: var(--white);
     color: var(--gray900);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
+    font-family: var(--font-primary);
     outline: none;
 
     &::placeholder { color: var(--gray500); }
@@ -409,10 +423,10 @@
     align-items: center;
     justify-content: center;
     padding: 0 var(--spacing-4);
-    background: var(--primary);
+    background-color: var(--primary);
     border: none;
     cursor: pointer;
-    color: white;
+    color: var(--white);
 
     &:hover { opacity: 0.9; }
   }
@@ -424,17 +438,18 @@
     justify-content: center;
     gap: var(--spacing-3);
     padding: var(--spacing-4);
-    background: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     border: var(--border-medium) solid rgba(255, 255, 255, 0.3);
     border-radius: var(--radius-lg);
-    color: white;
-    font-size: var(--font-l);
+    color: var(--white);
+    font-size: var(--font-lg);
+    font-family: var(--font-primary);
     font-weight: var(--font-medium);
     cursor: pointer;
     transition: all var(--duration-fast) var(--timing-ease-in-out);
 
     &:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background-color: rgba(255, 255, 255, 0.2);
       border-color: rgba(255, 255, 255, 0.5);
     }
   }
@@ -445,13 +460,14 @@
   }
 }
 
+// Modal overlay
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background-color: var(--overlay-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -460,7 +476,7 @@
 
 .modal-content {
   position: relative;
-  background: white;
+  background-color: var(--white);
   border-radius: var(--radius-lg);
   padding: var(--spacing-8);
   max-width: 500px;
@@ -474,7 +490,7 @@
   right: var(--spacing-4);
   width: var(--spacing-8);
   height: var(--spacing-8);
-  background: transparent;
+  background-color: transparent;
   border: none;
   color: var(--gray600);
   font-size: 2rem;
@@ -487,13 +503,14 @@
   }
 }
 
+// Search dropdown
 .search-dropdown {
-  background: var(--primary);
+  background-color: var(--primary);
   box-shadow: var(--shadow-md);
   width: 100%;
   z-index: 99;
-  animation: slideDown var(--duration-normal) var(--timing-ease-in-out);
-  font-family: var(--font-secondary);
+  animation: slideDown var(--duration-base) var(--timing-ease-in-out);
+  font-family: var(--font-primary);
 
   @media (min-width: 1401px) {
     display: none;
@@ -515,7 +532,7 @@
   &__form {
     display: flex;
     align-items: center;
-    background: white;
+    background-color: var(--white);
     border-radius: var(--radius-lg);
     overflow: hidden;
     height: calc(var(--spacing-12) + var(--spacing-2));
@@ -526,10 +543,10 @@
     padding: 0 var(--spacing-3);
     border: none;
     border-right: 1px solid var(--gray300);
-    background: white;
+    background-color: var(--white);
     color: var(--primary);
-    font-size: var(--font-m);
-    font-family: var(--font-secondary);
+    font-size: var(--font-base);
+    font-family: var(--font-primary);
     cursor: pointer;
     outline: none;
     height: 100%;
@@ -539,10 +556,10 @@
     flex: 1;
     padding: 0 var(--spacing-4);
     border: none;
-    background: white;
+    background-color: var(--white);
     color: var(--gray900);
-    font-size: var(--font-m);
-    font-family: var(--font-secondary);
+    font-size: var(--font-base);
+    font-family: var(--font-primary);
     outline: none;
     height: 100%;
 
@@ -556,10 +573,10 @@
     align-items: center;
     justify-content: center;
     padding: 0 var(--spacing-4);
-    background: var(--primary);
+    background-color: var(--primary);
     border: none;
     cursor: pointer;
-    color: white;
+    color: var(--white);
     height: 100%;
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);
 
@@ -578,7 +595,7 @@
     align-items: center;
     justify-content: center;
     padding: 0 var(--spacing-4);
-    background: var(--gray200);
+    background-color: var(--gray200);
     border: none;
     cursor: pointer;
     color: var(--gray700);
@@ -586,7 +603,7 @@
     transition: all var(--duration-fast) var(--timing-ease-in-out);
 
     &:hover {
-      background: var(--gray300);
+      background-color: var(--gray300);
       color: var(--gray900);
     }
 
