@@ -102,6 +102,6 @@
 
   &__input:not(:disabled) ~ .form-checkbox__label-box:hover .form-checkbox__box {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(30, 200, 91, 0.1);
+    box-shadow: 0 0 0 0.1875rem rgba(30, 200, 91, 0.1);
   }
 }

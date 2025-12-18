@@ -11,7 +11,7 @@
   flex-direction: column;
   gap: var(--spacing-8);
   padding: var(--spacing-8);
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
 
   &__header {
@@ -42,7 +42,7 @@
     gap: var(--spacing-4);
     padding: var(--spacing-6);
     background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 0.0625rem solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-lg);
   }
 
@@ -73,7 +73,7 @@
     padding: var(--spacing-3);
     background-color: rgba(30, 200, 91, 0.1);
     border-radius: var(--radius-md);
-    border-left: 3px solid var(--primary);
+    border-left: 0.1875rem solid var(--primary);
     margin-top: var(--spacing-2);
 
     strong {
@@ -87,7 +87,7 @@
     gap: var(--spacing-4);
     padding: var(--spacing-6);
     background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 0.0625rem solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-md);
   }
 
@@ -112,7 +112,7 @@
 
   &__form-input {
     padding: var(--spacing-3);
-    border: 2px solid var(--primary);
+    border: 0.125rem solid var(--primary);
     border-radius: var(--radius-md);
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -122,7 +122,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(30, 200, 91, 0.2);
+      box-shadow: 0 0 0 0.1875rem rgba(30, 200, 91, 0.2);
     }
 
     &--error {
@@ -181,7 +181,7 @@
   &__phone-add {
     padding: var(--spacing-3);
     background-color: transparent;
-    border: 2px dashed var(--primary);
+    border: 0.125rem dashed var(--primary);
     border-radius: var(--radius-md);
     color: var(--primary);
     font-family: var(--font-primary);
@@ -224,7 +224,7 @@
 
   &__cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
     gap: var(--spacing-4);
   }
 
@@ -236,7 +236,7 @@
 
   &__competition-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
     gap: var(--spacing-4);
   }
 
