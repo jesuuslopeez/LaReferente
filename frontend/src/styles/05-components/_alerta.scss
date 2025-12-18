@@ -1,0 +1,148 @@
+// ===============================================================================
+// COMPONENTE: ALERTA
+// Archivo: 05-components/_alerta.scss
+// ===============================================================================
+
+@use '../01-tools/mixins' as *;
+
+// ---------------------------------------------------------------------------
+// Clase base de la alerta
+// ---------------------------------------------------------------------------
+.alerta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-xl);
+  border: var(--border-medium) solid;
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
+  font-weight: var(--font-medium);
+  animation: alertaEntrar var(--duration-fast) var(--timing-ease-in-out);
+}
+
+// ---------------------------------------------------------------------------
+// Elementos de la alerta
+// ---------------------------------------------------------------------------
+.alerta__icono {
+  flex-shrink: 0;
+  width: var(--spacing-6);
+  height: var(--spacing-6);
+}
+
+.alerta__mensaje {
+  flex: 1;
+  line-height: var(--font-normal);
+}
+
+.alerta__cerrar {
+  @include flex-centrar;
+  width: var(--spacing-6);
+  height: var(--spacing-6);
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--timing-ease-in-out);
+  flex-shrink: 0;
+
+  svg {
+    width: var(--spacing-5);
+    height: var(--spacing-5);
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Modificadores de tipo
+// ---------------------------------------------------------------------------
+.alerta--exito {
+  background-color: var(--success-bg);
+  color: var(--success-text);
+  border-color: var(--success);
+
+  .alerta__icono {
+    color: var(--success);
+  }
+
+  .alerta__cerrar {
+    color: var(--success-text);
+
+    &:hover {
+      background-color: rgba(46, 204, 113, 0.15);
+    }
+  }
+}
+
+.alerta--error {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  border-color: var(--error);
+
+  .alerta__icono {
+    color: var(--error);
+  }
+
+  .alerta__cerrar {
+    color: var(--error-text);
+
+    &:hover {
+      background-color: rgba(192, 57, 43, 0.15);
+    }
+  }
+}
+
+.alerta--advertencia {
+  background-color: var(--warning-bg);
+  color: var(--warning-text);
+  border-color: var(--warning);
+
+  .alerta__icono {
+    color: var(--warning);
+  }
+
+  .alerta__cerrar {
+    color: var(--warning-text);
+
+    &:hover {
+      background-color: rgba(243, 156, 18, 0.15);
+    }
+  }
+}
+
+.alerta--info {
+  background-color: var(--info-bg);
+  color: var(--info-text);
+  border-color: var(--info);
+
+  .alerta__icono {
+    color: var(--info);
+  }
+
+  .alerta__cerrar {
+    color: var(--info-text);
+
+    &:hover {
+      background-color: rgba(52, 73, 94, 0.15);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Animacion
+// ---------------------------------------------------------------------------
+@keyframes alertaEntrar {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

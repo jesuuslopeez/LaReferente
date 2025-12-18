@@ -1,4 +1,13 @@
-// Variables SCSS base para colores
+// ===============================================================================
+// VARIABLES CSS (Custom Properties)
+// Archivo: 00-settings/_css-variables.scss
+// IMPORTANTE: No crear nuevas variables de colores ni tipografias
+// ===============================================================================
+
+// ---------------------------------------------------------------------------
+// COLORES SCSS (para interpolacion en :root)
+// NO CREAR NUEVAS - usar solo las existentes
+// ---------------------------------------------------------------------------
 $primary-light: #388e3c;
 $primary-hover-light: #328036;
 $primary-active-light: #2d7230;
@@ -15,7 +24,6 @@ $secondary-dark: #0274ac;
 $secondary-hover-dark: #025d89;
 $secondary-active-dark: #014667;
 
-// Grises
 $gray50: #f5f5f5;
 $gray100: #e8e8e8;
 $gray200: #cfcfcf;
@@ -27,7 +35,6 @@ $gray700: #525252;
 $gray800: #3b3b3b;
 $gray900: #222222;
 
-// Fondos y textos para light mode
 $bg-primary-light: #ffffff;
 $bg-secondary-light: $gray50;
 $text-primary-light: $gray900;
@@ -35,7 +42,6 @@ $text-secondary-light: $gray600;
 $border-color-light: $gray200;
 $bg-hover-light: $gray50;
 
-// Fondos y textos para dark mode
 $bg-primary-dark: $gray900;
 $bg-secondary-dark: $gray800;
 $text-primary-dark: #ffffff;
@@ -43,12 +49,11 @@ $text-secondary-dark: $gray300;
 $border-color-dark: $gray700;
 $bg-hover-dark: $gray800;
 
-// Estados
 $success: #2ecc71;
 $success-bg: #eafaf1;
 $success-text: #1d8348;
 
-$error: #e74c3c;
+$error: #c0392b;
 $error-bg: #fdf2f0;
 $error-text: #922b21;
 
@@ -60,18 +65,18 @@ $info: #34495e;
 $info-bg: #ebedef;
 $info-text: #212f3c;
 
-// Overlay
 $overlay-bg: rgba(0, 0, 0, 0.5);
 
-// Z-index
+$z-toast: 10000;
 $z-modal: 1000;
 $z-header: 100;
 $z-dropdown: 50;
 
-// Variables CSS (Custom Properties)
+// ---------------------------------------------------------------------------
+// TEMA CLARO (por defecto)
+// ---------------------------------------------------------------------------
 :root,
 :root.theme-light {
-  // Colores de tema - cambiarán con el tema
   --primary: #{$primary-light};
   --primary-hover: #{$primary-hover-light};
   --primary-active: #{$primary-active-light};
@@ -88,8 +93,10 @@ $z-dropdown: 50;
   --bg-hover: #{$bg-hover-light};
 }
 
+// ---------------------------------------------------------------------------
+// TEMA OSCURO
+// ---------------------------------------------------------------------------
 :root.theme-dark {
-  // Colores de tema - versión dark
   --primary: #{$primary-dark};
   --primary-hover: #{$primary-hover-dark};
   --primary-active: #{$primary-active-dark};
@@ -106,8 +113,11 @@ $z-dropdown: 50;
   --bg-hover: #{$bg-hover-dark};
 }
 
+// ---------------------------------------------------------------------------
+// VARIABLES CSS GLOBALES
+// ---------------------------------------------------------------------------
 :root {
-  // Escala de grises - no cambian con el tema
+  // Escala de grises
   --gray50: #{$gray50};
   --gray100: #{$gray100};
   --gray200: #{$gray200};
@@ -119,7 +129,7 @@ $z-dropdown: 50;
   --gray800: #{$gray800};
   --gray900: #{$gray900};
 
-  // Estados - no cambian con el tema
+  // Colores semanticos
   --success: #{$success};
   --success-bg: #{$success-bg};
   --success-text: #{$success-text};
@@ -136,37 +146,51 @@ $z-dropdown: 50;
   --info-bg: #{$info-bg};
   --info-text: #{$info-text};
 
-  // Overlay y z-index
+  // Colores auxiliares
+  --white: #ffffff;
+  --black: #000000;
   --overlay-bg: #{$overlay-bg};
+
+  // Z-index
+  --z-toast: #{$z-toast};
   --z-modal: #{$z-modal};
   --z-header: #{$z-header};
   --z-dropdown: #{$z-dropdown};
 
-  // Tipografía - no cambian con el tema
+  // ---------------------------------------------------------------------------
+  // TIPOGRAFIAS (NO CREAR NUEVAS - usar solo las existentes)
+  // --font-secondary: para TITULOS (h1-h6)
+  // --font-primary: para TODO LO DEMAS
+  // ---------------------------------------------------------------------------
   --font-primary: 'Inter', sans-serif;
   --font-secondary: 'ABeeZee', sans-serif;
 
+  // Tamanos de fuente (NO CREAR NUEVOS)
   --font-xs: 0.75rem;
-  --font-s: 0.875rem;
-  --font-m: 1rem;
-  --font-l: 1.25rem;
+  --font-sm: 0.875rem;
+  --font-base: 1rem;
+  --font-lg: 1.25rem;
   --font-xl: 1.5rem;
   --font-2xl: 1.875rem;
   --font-3xl: 2.25rem;
   --font-4xl: 3rem;
   --font-5xl: 3.75rem;
 
-  --font-light: light;
-  --font-regular: normal;
-  --font-medium: medium;
+  // Pesos de fuente
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
   --font-semibold: 600;
-  --font-bold: bold;
+  --font-bold: 700;
 
+  // Alturas de linea
   --font-tight: 1.25;
   --font-normal: 1.5;
   --font-relaxed: 1.75;
 
-  // Espaciado - no cambian con el tema
+  // ---------------------------------------------------------------------------
+  // ESPACIADOS (puedes crear nuevos si son necesarios)
+  // ---------------------------------------------------------------------------
   --spacing-1: 0.25rem;
   --spacing-2: 0.5rem;
   --spacing-3: 0.75rem;
@@ -192,13 +216,17 @@ $z-dropdown: 50;
   --spacing-23: 5.75rem;
   --spacing-24: 6rem;
 
-  // Sombras - no cambian con el tema
+  // ---------------------------------------------------------------------------
+  // SOMBRAS (puedes crear nuevas si son necesarias)
+  // ---------------------------------------------------------------------------
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
-  // Bordes y radios - no cambian con el tema
+  // ---------------------------------------------------------------------------
+  // BORDES Y RADIOS (puedes crear nuevos si son necesarios)
+  // ---------------------------------------------------------------------------
   --border-thin: 1px;
   --border-medium: 2px;
   --border-thick: 4px;
@@ -210,7 +238,9 @@ $z-dropdown: 50;
   --radius-2xl: 16px;
   --radius-full: 9999px;
 
-  // Transiciones - no cambian con el tema
+  // ---------------------------------------------------------------------------
+  // TIEMPOS DE ANIMACION (puedes crear nuevos si son necesarios)
+  // ---------------------------------------------------------------------------
   --duration-fast: 150ms;
   --duration-base: 300ms;
   --duration-slow: 500ms;

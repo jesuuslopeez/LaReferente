@@ -1,3 +1,13 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Form Input
+// Los estilos principales estan en 05-components/_formulario.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+:host {
+  display: block;
+}
+
 .form-field {
   display: flex;
   flex-direction: column;
@@ -5,10 +15,10 @@
   margin-bottom: var(--spacing-3);
 
   &__label {
-    font-family: var(--font-secondary);
+    font-family: var(--font-primary);
     font-weight: var(--font-medium);
-    font-size: var(--font-s);
-    color: white;
+    font-size: var(--font-sm);
+    color: var(--gray50);
   }
 
   &__required {
@@ -24,8 +34,8 @@
   &__input-icon {
     position: absolute;
     left: var(--spacing-4);
-    width: 20px;
-    height: 20px;
+    width: var(--spacing-5);
+    height: var(--spacing-5);
     color: var(--primary);
     pointer-events: none;
   }
@@ -33,12 +43,13 @@
   &__input {
     width: 100%;
     padding: var(--spacing-3) var(--spacing-4) var(--spacing-3) var(--spacing-12);
-    border: none;
+    border: var(--border-medium) solid var(--primary);
     border-radius: var(--radius-full);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
     font-family: var(--font-primary);
-    background: white;
+    background-color: var(--gray50);
     color: var(--gray900);
+    caret-color: var(--gray900);
     transition: box-shadow var(--duration-fast) var(--timing-ease-in-out);
 
     &::placeholder {
@@ -48,18 +59,20 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 2px var(--primary);
+      box-shadow: 0 0 0 var(--border-medium) var(--primary);
     }
   }
 
   &__help-text {
     font-size: var(--font-xs);
-    color: rgba(255, 255, 255, 0.7);
+    font-family: var(--font-primary);
+    color: var(--text-secondary);
     padding-left: var(--spacing-4);
   }
 
   &__error-message {
     font-size: var(--font-xs);
+    font-family: var(--font-primary);
     color: var(--error);
     padding-left: var(--spacing-4);
   }

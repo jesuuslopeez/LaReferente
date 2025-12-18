@@ -1,35 +1,123 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Register Form
+// Los estilos principales estan en 05-components/_formulario.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+:host {
+  display: block;
+}
+
 .register-form {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1);
+  gap: var(--spacing-4);
 
-  &__terms-checkbox {
+  &__field {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: var(--spacing-2);
-    margin: var(--spacing-3) 0;
-    padding-left: var(--spacing-2);
   }
 
-  &__terms-input {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    accent-color: white;
+  &__label {
+    font-family: var(--font-primary);
+    font-size: var(--font-base);
+    font-weight: var(--font-semibold);
+    color: var(--gray50);
   }
 
-  &__terms-label {
-    color: white;
-    font-size: var(--font-s);
-    font-family: var(--font-secondary);
-    cursor: pointer;
+  &__required {
+    color: var(--error);
+  }
+
+  &__input {
+    width: 100%;
+    padding: var(--spacing-3);
+    font-family: var(--font-primary);
+    font-size: var(--font-base);
+    color: var(--text-primary);
+    background: var(--background);
+    border: var(--border-medium) solid var(--border);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-fast) var(--timing-ease-in-out);
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    &--error {
+      border-color: var(--error);
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.1);
+      }
+    }
+
+    &--valid {
+      border-color: var(--success);
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+      }
+    }
+
+    &::placeholder {
+      color: var(--text-tertiary);
+    }
+  }
+
+  &__error {
+    font-family: var(--font-primary);
+    font-size: var(--font-sm);
+    color: var(--error);
     margin: 0;
   }
 
+  &__errors-list {
+    margin: var(--spacing-1) 0 0 var(--spacing-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  &__hint {
+    font-family: var(--font-primary);
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+
+    &--loading {
+      color: var(--info);
+      font-style: italic;
+    }
+  }
+
+  &__terms-wrapper {
+    margin: var(--spacing-2) 0;
+  }
+
+  &__checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+    cursor: pointer;
+  }
+
+  &__checkbox {
+    margin-top: var(--spacing-1);
+    cursor: pointer;
+  }
+
+  &__checkbox-text {
+    font-family: var(--font-primary);
+    font-size: var(--font-sm);
+    color: var(--gray50);
+  }
+
   &__terms-link {
-    color: white;
+    font-family: var(--font-primary);
+    color: var(--gray50);
     text-decoration: underline;
-    font-family: var(--font-secondary);
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);
 
     &:hover {
@@ -37,10 +125,36 @@
     }
   }
 
+  &__button {
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-5);
+    font-family: var(--font-primary);
+    font-size: var(--font-base);
+    font-weight: var(--font-semibold);
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--timing-ease-in-out);
+
+    &:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    &:disabled {
+      background: var(--border);
+      color: var(--text-tertiary);
+      cursor: not-allowed;
+    }
+  }
+
   &__footer {
-    color: white;
-    font-size: var(--font-s);
-    font-family: var(--font-secondary);
+    color: var(--gray50);
+    font-size: var(--font-sm);
+    font-family: var(--font-primary);
     text-align: center;
     margin: var(--spacing-2) 0 0 0;
   }
@@ -48,11 +162,11 @@
   &__link {
     background: none;
     border: none;
-    color: white;
+    color: var(--gray50);
     text-decoration: underline;
     cursor: pointer;
-    font-size: var(--font-s);
-    font-family: var(--font-secondary);
+    font-size: var(--font-sm);
+    font-family: var(--font-primary);
     padding: 0;
     margin: 0;
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);

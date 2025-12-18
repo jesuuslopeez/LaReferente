@@ -1,26 +1,38 @@
-<div class="form-field">
+<section class="form-field">
   @if (label) {
     <label [for]="inputId" class="form-field__label">
       {{ label }}@if (required) {<span class="form-field__required">*</span>}
     </label>
   }
 
-  <div class="form-field__input-wrapper">
+  <section class="form-field__input-wrapper">
     @if (icon) {
       <svg class="form-field__input-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="icon" />
       </svg>
     }
 
-    <input
-      class="form-field__input"
-      [type]="type"
-      [id]="inputId"
-      [name]="name"
-      [placeholder]="placeholder"
-      [required]="required"
-    />
-  </div>
+    @if (control) {
+      <input
+        class="form-field__input"
+        [type]="type"
+        [id]="inputId"
+        [name]="name"
+        [placeholder]="placeholder"
+        [required]="required"
+        [formControl]="control"
+      />
+    } @else {
+      <input
+        class="form-field__input"
+        [type]="type"
+        [id]="inputId"
+        [name]="name"
+        [placeholder]="placeholder"
+        [required]="required"
+      />
+    }
+  </section>
 
   @if (helpText) {
     <small class="form-field__help-text">{{ helpText }}</small>
@@ -29,4 +41,4 @@
   @if (errorMessage) {
     <span class="form-field__error-message">{{ errorMessage }}</span>
   }
-</div>
+</section>

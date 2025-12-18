@@ -1,0 +1,150 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Card (Tarjeta de jugador)
+// Los estilos principales estan en 05-components/_tarjeta.scss
+// Este archivo contiene los estilos especificos de la card de jugador
+// ===============================================================================
+
+:host {
+  display: block;
+}
+
+.card {
+  width: 328px;
+  background-color: var(--primary);
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    position: relative;
+    height: 170px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: var(--spacing-4);
+  }
+
+  &__player {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__player-image {
+    width: 130px;
+    height: 130px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+  }
+
+  &__player-name-badge {
+    position: absolute;
+    bottom: calc(var(--spacing-2) * -1);
+    left: 0;
+    background-color: var(--white);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+  }
+
+  &__player-name {
+    font-family: var(--font-primary);
+    font-size: var(--font-base);
+    font-weight: var(--font-light);
+    font-style: italic;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+
+  &__dorsal {
+    font-family: var(--font-secondary);
+    font-size: 4.5rem;
+    font-weight: var(--font-bold);
+    color: var(--white);
+    line-height: var(--font-tight);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &__info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3);
+    padding: var(--spacing-5) var(--spacing-4) var(--spacing-4);
+  }
+
+  &__info-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  &__info-icon {
+    width: var(--spacing-5);
+    height: var(--spacing-5);
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  &__info-text {
+    font-family: var(--font-primary);
+    font-size: var(--font-sm);
+    font-weight: var(--font-regular);
+    color: var(--white);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0;
+    background-color: var(--white);
+    border: var(--border-thick) solid var(--primary);
+    border-top: var(--border-thick) solid var(--primary);
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    overflow: hidden;
+    margin-top: auto;
+  }
+
+  &__button {
+    flex: 1;
+    padding: var(--spacing-3) var(--spacing-4);
+    font-family: var(--font-primary);
+    font-size: var(--font-base);
+    font-weight: var(--font-medium);
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--primary);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--timing-ease-in-out);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    min-height: 44px;
+
+    &:focus {
+      outline: var(--border-medium) solid var(--primary);
+      outline-offset: calc(var(--border-medium) * -1);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:not(:last-child) {
+      border-right: var(--border-thick) solid var(--primary);
+    }
+
+    &--primary,
+    &--secondary {
+      &:hover {
+        background-color: var(--primary);
+        color: var(--white);
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+// ===============================================================================
+// ESTILOS BASE DE FORMULARIOS
+// Archivo: 03-elements/_forms.scss
+// ===============================================================================
+
+input,
+textarea,
+select {
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-family: var(--font-primary);
+  color: var(--gray400);
+}
+
+label {
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
+  font-weight: var(--font-medium);
+  color: var(--text-color);
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-bold);
+  font-size: var(--font-lg);
+  color: var(--text-color);
+  margin-bottom: var(--spacing-4);
+}
+
+// Eliminar estilos por defecto de inputs numericos
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

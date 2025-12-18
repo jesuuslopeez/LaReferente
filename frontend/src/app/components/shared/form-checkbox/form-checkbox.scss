@@ -1,0 +1,107 @@
+// ===============================================================================
+// COMPONENTE ANGULAR: Form Checkbox
+// Los estilos principales estan en 05-components/_formulario.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+@use '../../../../styles/00-settings/variables' as *;
+
+:host {
+  display: block;
+}
+
+.form-checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+
+  &__wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+  }
+
+  &__input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+
+    &:checked ~ .form-checkbox__label-box .form-checkbox__box {
+      background-color: var(--checkbox-checked-bg-color, var(--primary));
+      border-color: var(--gray50);
+    }
+
+    &:checked ~ .form-checkbox__label-box .form-checkbox__icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    &:focus ~ .form-checkbox__label-box .form-checkbox__box {
+      outline: var(--border-medium) solid var(--primary);
+      outline-offset: var(--border-medium);
+    }
+
+    &:disabled ~ .form-checkbox__label-box {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__label-box {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__box {
+    position: relative;
+    width: var(--spacing-6);
+    height: var(--spacing-6);
+    min-width: var(--spacing-6);
+    border: var(--border-medium) solid var(--checkbox-border-color, var(--primary));
+    border-radius: var(--radius-sm);
+    background-color: var(--gray50);
+    transition: all var(--duration-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__icon {
+    width: var(--spacing-4);
+    height: var(--spacing-4);
+    color: var(--gray50);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all var(--duration-fast);
+  }
+
+  &__text {
+    color: var(--checkbox-text-color, var(--text-color));
+    font-family: var(--font-primary);
+    font-size: var(--checkbox-text-size, var(--font-base));
+    font-weight: var(--font-regular);
+    line-height: var(--font-normal);
+    padding-top: calc(var(--spacing-1) / 2);
+  }
+
+  &__required {
+    color: var(--primary);
+    margin-left: var(--spacing-1);
+  }
+
+  &__help {
+    font-family: var(--font-primary);
+    font-size: var(--font-sm);
+    font-weight: var(--font-regular);
+    color: var(--text-secondary);
+    margin: 0;
+    padding-left: calc(var(--spacing-6) + var(--spacing-3));
+  }
+
+  &__input:not(:disabled) ~ .form-checkbox__label-box:hover .form-checkbox__box {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(30, 200, 91, 0.1);
+  }
+}

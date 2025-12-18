@@ -1,17 +1,208 @@
-@mixin flex-center {
+// ===============================================================================
+// MIXINS SCSS
+// Archivo: 01-tools/_mixins.scss
+// IMPORTANTE: Los mixins deben usar las variables EXISTENTES
+// ===============================================================================
+
+@use '../00-settings/variables' as *;
+
+// ---------------------------------------------------------------------------
+// MIXIN 1: Responsive (media queries)
+// Uso: @include responsive('md') { width: 50%; }
+// Breakpoints disponibles: 'sm', 'md', 'lg', 'xl', '2xl'
+// ---------------------------------------------------------------------------
+@mixin responsive($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 2: Flexbox centrado
+// Uso: @include flex-centrar;
+// ---------------------------------------------------------------------------
+@mixin flex-centrar {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-@mixin text-truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+// ---------------------------------------------------------------------------
+// MIXIN 3: Flexbox columna
+// Uso: @include flex-columna(var(--spacing-4));
+// ---------------------------------------------------------------------------
+@mixin flex-columna($gap: 0) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
 }
 
-@mixin media-up($breakpoint) {
-  @media (min-width: $breakpoint) {
-    @content;
+// ---------------------------------------------------------------------------
+// MIXIN 4: Flexbox fila
+// Uso: @include flex-fila(var(--spacing-4));
+// ---------------------------------------------------------------------------
+@mixin flex-fila($gap: 0) {
+  display: flex;
+  flex-direction: row;
+  gap: $gap;
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 5: Tipografia para titulos
+// Usa --font-secondary (variable existente, no crear nueva)
+// Uso: @include tipografia-titulo;
+// ---------------------------------------------------------------------------
+@mixin tipografia-titulo {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-bold);
+  line-height: var(--font-tight);
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 6: Tipografia para textos
+// Usa --font-primary (variable existente, no crear nueva)
+// Uso: @include tipografia-texto;
+// ---------------------------------------------------------------------------
+@mixin tipografia-texto {
+  font-family: var(--font-primary);
+  font-weight: var(--font-regular);
+  line-height: var(--font-normal);
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 7: Base para botones
+// Uso: @include boton-base;
+// ---------------------------------------------------------------------------
+@mixin boton-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3) var(--spacing-6);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--timing-ease-in-out);
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 8: Base para tarjetas/cards
+// Uso: @include tarjeta-base;
+// ---------------------------------------------------------------------------
+@mixin tarjeta-base {
+  background-color: var(--bg-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-6);
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 9: Base para inputs
+// Uso: @include input-base;
+// ---------------------------------------------------------------------------
+@mixin input-base {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  border: var(--border-medium) solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: border-color var(--duration-fast) var(--timing-ease-in-out);
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+
+  &::placeholder {
+    color: var(--gray400);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 10: Texto truncado con ellipsis
+// Uso: @include texto-truncado;
+// ---------------------------------------------------------------------------
+@mixin texto-truncado {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 11: Centrar con position absolute
+// Uso: @include centrar-absoluto;
+// ---------------------------------------------------------------------------
+@mixin centrar-absoluto {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 12: Transicion suave
+// Uso: @include transicion-suave;
+// ---------------------------------------------------------------------------
+@mixin transicion-suave($propiedades: all) {
+  transition: $propiedades var(--duration-base) var(--timing-ease-in-out);
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 13: Ocultar elemento visualmente pero accesible
+// Uso: @include oculto-accesible;
+// ---------------------------------------------------------------------------
+@mixin oculto-accesible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 14: Overlay de fondo
+// Uso: @include overlay;
+// ---------------------------------------------------------------------------
+@mixin overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-bg);
+  z-index: var(--z-modal);
+}
+
+// ---------------------------------------------------------------------------
+// MIXIN 15: Focus visible accesible
+// Uso: @include focus-visible;
+// ---------------------------------------------------------------------------
+@mixin focus-visible {
+  &:focus {
+    outline: var(--border-medium) solid var(--primary);
+    outline-offset: var(--border-medium);
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
   }
 }

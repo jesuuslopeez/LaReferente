@@ -45,22 +45,21 @@ services:
     volumes:
       - ./backend/uploads:/app/uploads
 
-  # Nginx como reverse proxy (opcional)
-  # nginx:
-  #   image: nginx:alpine
-  #   container_name: lareferente-nginx-prod
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   volumes:
-  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-  #     - ./frontend/dist:/usr/share/nginx/html
-  #     - ./nginx/ssl:/etc/nginx/ssl
-  #   networks:
-  #     - lareferente-network
-  #   depends_on:
-  #     - backend
-  #   restart: unless-stopped
+  # Frontend Angular con Nginx
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: lareferente-frontend-prod
+    ports:
+      - "80:80"
+    networks:
+      - lareferente-network
+    depends_on:
+      - backend
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
 
 volumes:
   postgres-data-prod:

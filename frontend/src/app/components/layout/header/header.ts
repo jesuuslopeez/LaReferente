@@ -19,6 +19,8 @@ export class Header {
   protected readonly accountMenuOpen = signal(false);
   protected readonly showLoginModal = signal(false);
   protected readonly showRegisterModal = signal(false);
+  protected readonly mobileMenuOpen = signal(false);
+  protected readonly searchDropdownOpen = signal(false);
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
@@ -62,5 +64,21 @@ export class Header {
   protected switchToLogin(): void {
     this.showRegisterModal.set(false);
     this.showLoginModal.set(true);
+  }
+
+  protected toggleMobileMenu(): void {
+    this.mobileMenuOpen.update(open => !open);
+  }
+
+  protected closeMobileMenu(): void {
+    this.mobileMenuOpen.set(false);
+  }
+
+  protected toggleSearchDropdown(): void {
+    this.searchDropdownOpen.update(open => !open);
+  }
+
+  protected closeSearchDropdown(): void {
+    this.searchDropdownOpen.set(false);
   }
 }

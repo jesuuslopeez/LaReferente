@@ -1,0 +1,132 @@
+// ===============================================================================
+// COMPONENTE: TARJETA (Card)
+// Archivo: 05-components/_tarjeta.scss
+// ===============================================================================
+
+@use '../01-tools/mixins' as *;
+
+// ---------------------------------------------------------------------------
+// Clase base de la tarjeta
+// ---------------------------------------------------------------------------
+.tarjeta {
+  @include tarjeta-base;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+// ---------------------------------------------------------------------------
+// Elementos de la tarjeta
+// ---------------------------------------------------------------------------
+.tarjeta__cabecera {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--spacing-4);
+}
+
+.tarjeta__imagen {
+  width: 100%;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-4);
+  object-fit: cover;
+}
+
+.tarjeta__titulo {
+  @include tipografia-titulo;
+  font-size: var(--font-xl);
+  color: var(--text-color);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.tarjeta__subtitulo {
+  @include tipografia-titulo;
+  font-size: var(--font-lg);
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.tarjeta__contenido {
+  @include tipografia-texto;
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-4) 0;
+}
+
+.tarjeta__info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+}
+
+.tarjeta__info-item {
+  @include flex-fila(var(--spacing-2));
+  align-items: center;
+}
+
+.tarjeta__info-icono {
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+  flex-shrink: 0;
+}
+
+.tarjeta__info-texto {
+  @include tipografia-texto;
+  font-size: var(--font-sm);
+  @include texto-truncado;
+}
+
+.tarjeta__precio {
+  @include tipografia-titulo;
+  font-size: var(--font-2xl);
+  color: var(--primary);
+}
+
+.tarjeta__acciones {
+  @include flex-centrar;
+  gap: var(--spacing-3);
+  margin-top: auto;
+  padding-top: var(--spacing-4);
+}
+
+.tarjeta__pie {
+  padding: var(--spacing-4);
+  border-top: var(--border-thin) solid var(--border-color);
+  margin-top: auto;
+}
+
+// ---------------------------------------------------------------------------
+// Modificadores
+// ---------------------------------------------------------------------------
+.tarjeta--destacada {
+  border: var(--border-medium) solid var(--primary);
+}
+
+.tarjeta--horizontal {
+  flex-direction: row;
+
+  .tarjeta__imagen {
+    width: 40%;
+    margin-bottom: 0;
+    margin-right: var(--spacing-4);
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+  }
+}
+
+.tarjeta--primaria {
+  background-color: var(--primary);
+  color: var(--white);
+
+  .tarjeta__titulo,
+  .tarjeta__subtitulo,
+  .tarjeta__contenido,
+  .tarjeta__info-texto {
+    color: var(--white);
+  }
+
+  .tarjeta__info-icono {
+    color: var(--white);
+  }
+}

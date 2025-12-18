@@ -1,0 +1,256 @@
+// ===============================================================================
+// COMPONENTE: NAVEGACION
+// Archivo: 05-components/_navegacion.scss
+// ===============================================================================
+
+@use '../01-tools/mixins' as *;
+@use '../00-settings/variables' as *;
+
+// ---------------------------------------------------------------------------
+// Clase base de la navegacion
+// ---------------------------------------------------------------------------
+.navegacion {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-4);
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.navegacion__contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+  gap: var(--spacing-6);
+}
+
+// ---------------------------------------------------------------------------
+// Logo
+// ---------------------------------------------------------------------------
+.navegacion__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  text-decoration: none;
+  color: var(--white);
+  transition: opacity var(--duration-fast) var(--timing-ease-in-out);
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.navegacion__logo-imagen {
+  height: var(--spacing-12);
+  width: auto;
+  object-fit: contain;
+}
+
+.navegacion__logo-texto {
+  @include tipografia-titulo;
+  font-size: var(--font-xl);
+  color: var(--white);
+}
+
+// ---------------------------------------------------------------------------
+// Menu de navegacion
+// ---------------------------------------------------------------------------
+.navegacion__menu {
+  flex: 1;
+}
+
+.navegacion__lista {
+  display: flex;
+  list-style: none;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.navegacion__item {
+  // Estilos del item si son necesarios
+}
+
+.navegacion__enlace {
+  @include tipografia-texto;
+  display: block;
+  padding: var(--spacing-2) var(--spacing-4);
+  color: var(--white);
+  text-decoration: none;
+  font-size: var(--font-lg);
+  position: relative;
+  transition: all var(--duration-fast) var(--timing-ease-in-out);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: var(--spacing-1);
+    left: var(--spacing-4);
+    right: var(--spacing-4);
+    height: var(--border-medium);
+    background-color: var(--white);
+    transform: scaleX(0);
+    transition: transform var(--duration-fast) var(--timing-ease-in-out);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.navegacion__enlace--activo {
+  font-weight: var(--font-semibold);
+
+  &::after {
+    transform: scaleX(1);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Utilidades de navegacion
+// ---------------------------------------------------------------------------
+.navegacion__utilidades {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.navegacion__boton-icono {
+  @include flex-centrar;
+  width: var(--spacing-10);
+  height: var(--spacing-10);
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+  transition: opacity var(--duration-fast) var(--timing-ease-in-out);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.navegacion__icono {
+  width: var(--spacing-6);
+  height: var(--spacing-6);
+}
+
+// ---------------------------------------------------------------------------
+// Menu hamburguesa (movil)
+// ---------------------------------------------------------------------------
+.navegacion__hamburguesa {
+  display: none;
+  @include flex-columna(var(--spacing-1));
+  justify-content: space-around;
+  width: var(--spacing-8);
+  height: var(--spacing-6);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 101;
+
+  @include responsive('lg') {
+    display: none;
+  }
+}
+
+.navegacion__hamburguesa-linea {
+  width: 100%;
+  height: var(--border-thick);
+  background-color: var(--white);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-base) var(--timing-ease-in-out);
+  transform-origin: center;
+}
+
+.navegacion__hamburguesa--abierto {
+  .navegacion__hamburguesa-linea {
+    &:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    &:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+
+    &:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Menu movil
+// ---------------------------------------------------------------------------
+.navegacion__menu-movil {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--primary);
+  transform: translateX(-100%);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 100;
+  padding-top: var(--spacing-20);
+  overflow-y: auto;
+  transition: all var(--duration-base) var(--timing-ease-in-out);
+}
+
+.navegacion__menu-movil--abierto {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+// ---------------------------------------------------------------------------
+// Responsive
+// ---------------------------------------------------------------------------
+@media (max-width: #{$breakpoint-lg - 1px}) {
+  .navegacion__hamburguesa {
+    display: flex;
+  }
+
+  .navegacion__menu {
+    display: none;
+  }
+
+  .navegacion__utilidades {
+    display: none;
+  }
+
+  .navegacion__menu-movil {
+    display: block;
+  }
+
+  .navegacion__lista {
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-4);
+  }
+
+  .navegacion__enlace {
+    padding: var(--spacing-5) var(--spacing-4);
+    font-size: var(--font-xl);
+    width: 100%;
+    text-align: center;
+
+    &::after {
+      display: none;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
