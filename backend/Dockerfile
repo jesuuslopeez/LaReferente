@@ -2,7 +2,9 @@ FROM node:18 AS build
 WORKDIR /app
 # Copiar archivos de dependencias
 COPY package*.json ./
-RUN npm ci  # ← CAMBIO: npm ci en lugar de npm install
+RUN npm install
+# Instalar Angular CLI globalmente
+RUN npm install -g @angular/cli
 # Copiar código fuente
 COPY . .
 # Argumento para la URL del API (se pasa desde docker-compose)
