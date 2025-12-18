@@ -67,8 +67,8 @@ $info-text: #212f3c;
 
 $overlay-bg: rgba(0, 0, 0, 0.5);
 
-$z-toast: 10000;
-$z-modal: 1000;
+$z-toast: 200;
+$z-modal: 150;
 $z-header: 100;
 $z-dropdown: 50;
 
@@ -219,24 +219,24 @@ $z-dropdown: 50;
   // ---------------------------------------------------------------------------
   // SOMBRAS (puedes crear nuevas si son necesarias)
   // ---------------------------------------------------------------------------
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 0.625rem 0.9375rem -0.1875rem rgba(0, 0, 0, 0.1), 0 0.25rem 0.375rem -0.125rem rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 1.25rem 1.5625rem -0.3125rem rgba(0, 0, 0, 0.1), 0 0.625rem 0.625rem -0.3125rem rgba(0, 0, 0, 0.04);
 
   // ---------------------------------------------------------------------------
   // BORDES Y RADIOS (puedes crear nuevos si son necesarios)
   // ---------------------------------------------------------------------------
-  --border-thin: 1px;
-  --border-medium: 2px;
-  --border-thick: 4px;
+  --border-thin: 0.0625rem;
+  --border-medium: 0.125rem;
+  --border-thick: 0.25rem;
 
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-2xl: 16px;
-  --radius-full: 9999px;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999rem;
 
   // ---------------------------------------------------------------------------
   // TIEMPOS DE ANIMACION (puedes crear nuevos si son necesarios)
