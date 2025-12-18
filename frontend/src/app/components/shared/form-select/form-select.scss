@@ -1,4 +1,14 @@
-@import '../../../../styles/00-settings/variables';
+// ===============================================================================
+// COMPONENTE ANGULAR: Form Select
+// Los estilos principales estan en 05-components/_formulario.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+@use '../../../../styles/00-settings/variables' as *;
+
+:host {
+  display: block;
+}
 
 .form-field {
   display: flex;
@@ -7,9 +17,9 @@
   margin-bottom: var(--spacing-3);
 
   &__label {
-    font-family: var(--font-secondary);
+    font-family: var(--font-primary);
     font-weight: var(--font-medium);
-    font-size: var(--font-s);
+    font-size: var(--font-sm);
     color: var(--text-primary);
   }
 
@@ -29,9 +39,9 @@
     padding: var(--spacing-3) var(--spacing-10) var(--spacing-3) var(--spacing-4);
     border: var(--border-medium) solid var(--primary);
     border-radius: var(--radius-xl);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
     font-family: var(--font-primary);
-    background: white;
+    background: var(--white);
     color: var(--gray900);
     cursor: pointer;
     transition: all var(--duration-fast) var(--timing-ease-in-out);
@@ -57,7 +67,7 @@
     option {
       color: var(--primary);
       padding: var(--spacing-2);
-      background: white;
+      background: var(--white);
     }
   }
 

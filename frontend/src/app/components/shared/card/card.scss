@@ -1,8 +1,16 @@
-@import '../../../../styles/00-settings/variables';
+// ===============================================================================
+// COMPONENTE ANGULAR: Card (Tarjeta de jugador)
+// Los estilos principales estan en 05-components/_tarjeta.scss
+// Este archivo contiene los estilos especificos de la card de jugador
+// ===============================================================================
+
+:host {
+  display: block;
+}
 
 .card {
   width: 328px;
-  background: var(--primary);
+  background-color: var(--primary);
   border-radius: var(--radius-2xl);
   overflow: hidden;
   display: flex;
@@ -35,7 +43,7 @@
     position: absolute;
     bottom: calc(var(--spacing-2) * -1);
     left: 0;
-    background: white;
+    background-color: var(--white);
     padding: var(--spacing-2) var(--spacing-4);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
@@ -43,7 +51,7 @@
 
   &__player-name {
     font-family: var(--font-primary);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
     font-weight: var(--font-light);
     font-style: italic;
     color: var(--primary);
@@ -54,7 +62,7 @@
     font-family: var(--font-secondary);
     font-size: 4.5rem;
     font-weight: var(--font-bold);
-    color: white;
+    color: var(--white);
     line-height: var(--font-tight);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
@@ -75,15 +83,15 @@
   &__info-icon {
     width: var(--spacing-5);
     height: var(--spacing-5);
-    color: white;
+    color: var(--white);
     flex-shrink: 0;
   }
 
   &__info-text {
     font-family: var(--font-primary);
-    font-size: var(--font-s);
+    font-size: var(--font-sm);
     font-weight: var(--font-regular);
-    color: white;
+    color: var(--white);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -92,7 +100,7 @@
   &__actions {
     display: flex;
     gap: 0;
-    background: white;
+    background-color: var(--white);
     border: var(--border-thick) solid var(--primary);
     border-top: var(--border-thick) solid var(--primary);
     border-radius: 0 0 var(--radius-xl) var(--radius-xl);
@@ -104,11 +112,11 @@
     flex: 1;
     padding: var(--spacing-3) var(--spacing-4);
     font-family: var(--font-primary);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
     font-weight: var(--font-medium);
     border: none;
     border-radius: 0;
-    background: transparent;
+    background-color: transparent;
     color: var(--primary);
     cursor: pointer;
     transition: all var(--duration-fast) var(--timing-ease-in-out);
@@ -131,17 +139,11 @@
       border-right: var(--border-thick) solid var(--primary);
     }
 
-    &--primary {
-      &:hover {
-        background: var(--primary);
-        color: white;
-      }
-    }
-
+    &--primary,
     &--secondary {
       &:hover {
-        background: var(--primary);
-        color: white;
+        background-color: var(--primary);
+        color: var(--white);
       }
     }
   }

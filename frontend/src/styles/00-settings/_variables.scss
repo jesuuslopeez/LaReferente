@@ -1,6 +1,23 @@
+// ===============================================================================
+// VARIABLES SCSS (Solo las que NECESITAN ser SCSS)
+// Archivo: 00-settings/_variables.scss
+// Este archivo solo contiene variables que NO pueden ser CSS custom properties
+// ===============================================================================
+
+// ---------------------------------------------------------------------------
+// BREAKPOINTS (necesarios para @media queries en SCSS)
+// ---------------------------------------------------------------------------
 $breakpoint-sm: 640px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;
 $breakpoint-xl: 1280px;
+$breakpoint-2xl: 1400px;
 
-
+// Mapa de breakpoints para usar en mixins
+$breakpoints: (
+  'sm': $breakpoint-sm,
+  'md': $breakpoint-md,
+  'lg': $breakpoint-lg,
+  'xl': $breakpoint-xl,
+  '2xl': $breakpoint-2xl
+);

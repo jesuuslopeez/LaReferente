@@ -1,4 +1,14 @@
-@import '../../../../styles/00-settings/variables';
+// ===============================================================================
+// COMPONENTE ANGULAR: Form Checkbox
+// Los estilos principales estan en 05-components/_formulario.scss
+// Este archivo contiene los estilos especificos de este componente
+// ===============================================================================
+
+@use '../../../../styles/00-settings/variables' as *;
+
+:host {
+  display: block;
+}
 
 .form-checkbox {
   display: flex;
@@ -70,7 +80,7 @@
   &__text {
     color: var(--checkbox-text-color, var(--text-color));
     font-family: var(--font-primary);
-    font-size: var(--checkbox-text-size, var(--font-m));
+    font-size: var(--checkbox-text-size, var(--font-base));
     font-weight: var(--font-regular);
     line-height: var(--font-normal);
     padding-top: calc(var(--spacing-1) / 2);
@@ -83,7 +93,7 @@
 
   &__help {
     font-family: var(--font-primary);
-    font-size: var(--font-s);
+    font-size: var(--font-sm);
     font-weight: var(--font-regular);
     color: var(--text-secondary);
     margin: 0;

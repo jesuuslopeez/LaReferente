@@ -1,0 +1,101 @@
+// ===============================================================================
+// ESTILOS BASE DE TIPOGRAFIA
+// Archivo: 03-elements/_typography.scss
+// IMPORTANTE: Usa las variables de tipografia EXISTENTES, no crear nuevas
+// ===============================================================================
+
+// ---------------------------------------------------------------------------
+// TITULOS (usan --font-secondary - variable existente)
+// Esta tipografia esta enfocada a titulos y encabezados
+// ---------------------------------------------------------------------------
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-bold);
+  line-height: var(--font-tight);
+  color: var(--text-color);
+  margin: 0 0 var(--spacing-4) 0;
+}
+
+h1 {
+  font-size: var(--font-4xl);
+}
+
+h2 {
+  font-size: var(--font-3xl);
+}
+
+h3 {
+  font-size: var(--font-2xl);
+}
+
+h4 {
+  font-size: var(--font-xl);
+}
+
+h5 {
+  font-size: var(--font-lg);
+}
+
+h6 {
+  font-size: var(--font-base);
+}
+
+// ---------------------------------------------------------------------------
+// TEXTOS (usan --font-primary - variable existente)
+// Esta tipografia esta enfocada a textos y contenido general
+// ---------------------------------------------------------------------------
+body {
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
+  font-weight: var(--font-regular);
+  line-height: var(--font-normal);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
+
+p {
+  font-family: var(--font-primary);
+  font-size: var(--font-base);
+  line-height: var(--font-normal);
+  margin: 0 0 var(--spacing-4) 0;
+}
+
+span {
+  font-family: var(--font-primary);
+}
+
+small {
+  font-family: var(--font-primary);
+  font-size: var(--font-sm);
+}
+
+strong, b {
+  font-family: var(--font-primary);
+  font-weight: var(--font-bold);
+}
+
+em, i {
+  font-family: var(--font-primary);
+  font-style: italic;
+}
+
+// ---------------------------------------------------------------------------
+// CODIGO
+// ---------------------------------------------------------------------------
+code, pre, kbd, samp {
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: var(--font-sm);
+}
+
+pre {
+  background-color: var(--gray100);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+}
+
+code {
+  background-color: var(--gray100);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+}

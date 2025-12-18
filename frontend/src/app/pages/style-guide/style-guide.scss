@@ -1,3 +1,14 @@
+// ===============================================================================
+// PAGINA: Style Guide
+// Este archivo contiene los estilos de la pagina de guia de estilos
+// ===============================================================================
+
+@use '../../../styles/00-settings/variables' as *;
+
+:host {
+  display: block;
+}
+
 .style-guide {
   max-width: 1400px;
   margin: 0 auto;
@@ -7,7 +18,7 @@
     text-align: center;
     margin-bottom: var(--spacing-8);
     padding-bottom: var(--spacing-6);
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: var(--border-medium) solid var(--border-color);
   }
 
   &__title {
@@ -19,8 +30,8 @@
   }
 
   &__subtitle {
-    font-size: var(--font-l);
-    font-family: var(--font-secondary);
+    font-size: var(--font-lg);
+    font-family: var(--font-primary);
     color: var(--text-secondary);
   }
 
@@ -42,14 +53,14 @@
     text-decoration: none;
     color: var(--text-color);
     font-family: var(--font-primary);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
     font-weight: var(--font-medium);
     transition: all var(--duration-base) var(--timing-ease-in-out);
-    border: 1px solid var(--border-color);
+    border: var(--border-thin) solid var(--border-color);
 
     &:hover {
       background: var(--primary);
-      color: white;
+      color: var(--white);
       border-color: var(--primary);
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
@@ -68,14 +79,14 @@
     color: var(--text-color);
     margin-bottom: var(--spacing-2);
     padding-bottom: var(--spacing-3);
-    border-bottom: 2px solid var(--primary);
+    border-bottom: var(--border-medium) solid var(--primary);
     display: inline-block;
   }
 
   &__section-desc {
     color: var(--text-secondary);
     font-family: var(--font-primary);
-    font-size: var(--font-m);
+    font-size: var(--font-base);
     margin-bottom: var(--spacing-6);
   }
 
@@ -84,7 +95,7 @@
     padding: var(--spacing-6);
     background: var(--bg-secondary);
     border-radius: var(--radius-lg);
-    border: 1px solid var(--border-color);
+    border: var(--border-thin) solid var(--border-color);
   }
 
   &__component-title {
@@ -113,7 +124,7 @@
     align-items: center;
     gap: var(--spacing-2);
     padding: var(--spacing-4);
-    border: 1px dashed var(--border-color);
+    border: var(--border-thin) dashed var(--border-color);
     border-radius: var(--radius-md);
     background: var(--bg-color);
     min-width: 150px;
@@ -121,7 +132,7 @@
 
   &__label {
     font-family: var(--font-primary);
-    font-size: var(--font-s);
+    font-size: var(--font-sm);
     font-weight: var(--font-medium);
     color: var(--text-secondary);
     text-align: center;
@@ -132,10 +143,10 @@
     padding: var(--spacing-4);
     background: var(--bg-color);
     border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
+    border: var(--border-thin) solid var(--border-color);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-md) {
     padding: var(--spacing-4) var(--spacing-2);
 
     &__title {
@@ -143,7 +154,7 @@
     }
 
     &__subtitle {
-      font-size: var(--font-md);
+      font-size: var(--font-base);
     }
 
     &__nav {
@@ -153,7 +164,7 @@
 
     &__nav-link {
       padding: var(--spacing-1) var(--spacing-3);
-      font-size: var(--font-s);
+      font-size: var(--font-sm);
     }
 
     &__section-title {

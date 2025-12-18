@@ -1,0 +1,143 @@
+// ===============================================================================
+// COMPONENTE: MODAL
+// Archivo: 05-components/_modal.scss
+// ===============================================================================
+
+@use '../01-tools/mixins' as *;
+
+// ---------------------------------------------------------------------------
+// Overlay del modal
+// ---------------------------------------------------------------------------
+.modal {
+  @include overlay;
+  @include flex-centrar;
+}
+
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay-bg);
+  @include flex-centrar;
+  z-index: var(--z-modal);
+}
+
+// ---------------------------------------------------------------------------
+// Contenido del modal
+// ---------------------------------------------------------------------------
+.modal__contenido {
+  position: relative;
+  background-color: var(--bg-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-8);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+}
+
+.modal__contenido--grande {
+  max-width: 800px;
+}
+
+.modal__contenido--pequeno {
+  max-width: 400px;
+}
+
+.modal__contenido--primario {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+// ---------------------------------------------------------------------------
+// Elementos del modal
+// ---------------------------------------------------------------------------
+.modal__cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-6);
+}
+
+.modal__titulo {
+  @include tipografia-titulo;
+  font-size: var(--font-xl);
+  margin: 0;
+}
+
+.modal__cerrar {
+  @include flex-centrar;
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  background-color: transparent;
+  border: none;
+  font-size: var(--font-3xl);
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color var(--duration-fast) var(--timing-ease-in-out);
+  padding: 0;
+
+  &:hover {
+    color: var(--text-color);
+  }
+}
+
+.modal__contenido--primario .modal__cerrar {
+  color: rgba(255, 255, 255, 0.7);
+
+  &:hover {
+    color: var(--white);
+  }
+}
+
+.modal__cuerpo {
+  @include tipografia-texto;
+  margin-bottom: var(--spacing-6);
+}
+
+.modal__pie {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-4);
+  padding-top: var(--spacing-4);
+  border-top: var(--border-thin) solid var(--border-color);
+}
+
+.modal__contenido--primario .modal__pie {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+// ---------------------------------------------------------------------------
+// Animacion del modal
+// ---------------------------------------------------------------------------
+.modal--animado {
+  animation: modalFadeIn var(--duration-base) var(--timing-ease-in-out);
+
+  .modal__contenido {
+    animation: modalSlideIn var(--duration-base) var(--timing-ease-in-out);
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

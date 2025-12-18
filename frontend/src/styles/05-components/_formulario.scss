@@ -1,0 +1,189 @@
+// ===============================================================================
+// COMPONENTE: FORMULARIO
+// Archivo: 05-components/_formulario.scss
+// ===============================================================================
+
+@use '../01-tools/mixins' as *;
+
+// ---------------------------------------------------------------------------
+// Clase base del formulario
+// ---------------------------------------------------------------------------
+.formulario {
+  @include flex-columna(var(--spacing-4));
+}
+
+.formulario__grupo {
+  @include flex-columna(var(--spacing-2));
+}
+
+.formulario__fila {
+  @include flex-fila(var(--spacing-4));
+  flex-wrap: wrap;
+
+  > * {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Elementos del formulario
+// ---------------------------------------------------------------------------
+.formulario__titulo {
+  @include tipografia-titulo;
+  font-size: var(--font-xl);
+  margin: 0 0 var(--spacing-6) 0;
+}
+
+.formulario__etiqueta {
+  @include tipografia-texto;
+  font-size: var(--font-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-color);
+}
+
+.formulario__requerido {
+  color: var(--error);
+  margin-left: var(--spacing-1);
+}
+
+.formulario__campo {
+  @include input-base;
+  border-radius: var(--radius-full);
+}
+
+.formulario__campo--error {
+  border-color: var(--error);
+
+  &:focus {
+    border-color: var(--error);
+    box-shadow: 0 0 0 var(--border-medium) var(--error-bg);
+  }
+}
+
+.formulario__campo--exito {
+  border-color: var(--success);
+
+  &:focus {
+    border-color: var(--success);
+    box-shadow: 0 0 0 var(--border-medium) var(--success-bg);
+  }
+}
+
+.formulario__contenedor-campo {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.formulario__icono {
+  position: absolute;
+  left: var(--spacing-4);
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+  color: var(--primary);
+  pointer-events: none;
+}
+
+.formulario__campo--con-icono {
+  padding-left: var(--spacing-12);
+}
+
+.formulario__ayuda {
+  @include tipografia-texto;
+  font-size: var(--font-xs);
+  color: var(--text-secondary);
+  padding-left: var(--spacing-4);
+}
+
+.formulario__mensaje-error {
+  @include tipografia-texto;
+  font-size: var(--font-xs);
+  color: var(--error);
+  padding-left: var(--spacing-4);
+}
+
+.formulario__mensaje-exito {
+  @include tipografia-texto;
+  font-size: var(--font-xs);
+  color: var(--success);
+  padding-left: var(--spacing-4);
+}
+
+.formulario__acciones {
+  @include flex-centrar;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-6);
+}
+
+.formulario__pie {
+  @include tipografia-texto;
+  font-size: var(--font-sm);
+  text-align: center;
+  color: var(--text-secondary);
+  margin-top: var(--spacing-4);
+}
+
+.formulario__enlace {
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: inherit;
+  padding: 0;
+
+  &:hover {
+    color: var(--primary-hover);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Checkbox y Radio
+// ---------------------------------------------------------------------------
+.formulario__checkbox,
+.formulario__radio {
+  @include flex-fila(var(--spacing-2));
+  align-items: center;
+  cursor: pointer;
+}
+
+.formulario__checkbox-input,
+.formulario__radio-input {
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.formulario__checkbox-texto,
+.formulario__radio-texto {
+  @include tipografia-texto;
+  font-size: var(--font-base);
+  color: var(--text-color);
+}
+
+// ---------------------------------------------------------------------------
+// Select personalizado
+// ---------------------------------------------------------------------------
+.formulario__select {
+  @include input-base;
+  border-radius: var(--radius-full);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23525252'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--spacing-4) center;
+  background-size: var(--spacing-5);
+  padding-right: var(--spacing-12);
+}
+
+// ---------------------------------------------------------------------------
+// Textarea
+// ---------------------------------------------------------------------------
+.formulario__textarea {
+  @include input-base;
+  border-radius: var(--radius-lg);
+  resize: vertical;
+  min-height: 120px;
+}
