@@ -35,7 +35,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:-L4R3F3R3N73VLTR4S3CVR1TYBYY115VS}
       JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
     ports:
-      - "8081:8080"
+      - "8081:8080"  # Backend accesible en localhost:8081
     depends_on:
       postgres:
         condition: service_healthy
@@ -52,7 +52,7 @@ services:
       dockerfile: Dockerfile
     container_name: lareferente-frontend-prod
     ports:
-      - "80:80"
+      - "8082:80"  # ← CAMBIO: Frontend accesible en localhost:8082
     networks:
       - lareferente-network
     depends_on:
