@@ -1,28 +1,39 @@
 // ===============================================================================
 // COMPONENTE ANGULAR: Card (Tarjeta de jugador)
-// Los estilos principales estan en 05-components/_tarjeta.scss
-// Este archivo contiene los estilos especificos de la card de jugador
+// Estrategia: Mobile-First + Container Queries
 // ===============================================================================
+
+@use '00-settings/variables' as *;
 
 :host {
   display: block;
+  width: 100%;
+  container-type: inline-size;
+  container-name: card;
 }
 
 .card {
-  width: 328px;
+  width: 100%;
+  max-width: 328px;
   background-color: var(--primary);
   border-radius: var(--radius-2xl);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 
   &__header {
     position: relative;
-    height: 170px;
+    height: 140px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: var(--spacing-4);
+    padding: var(--spacing-3);
+
+    @media (min-width: $breakpoint-sm) {
+      height: 170px;
+      padding: var(--spacing-4);
+    }
   }
 
   &__player {
@@ -33,10 +44,15 @@
   }
 
   &__player-image {
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
     border-radius: var(--radius-full);
     object-fit: cover;
+
+    @media (min-width: $breakpoint-sm) {
+      width: 130px;
+      height: 130px;
+    }
   }
 
   &__player-name-badge {
@@ -44,34 +60,52 @@
     bottom: calc(var(--spacing-2) * -1);
     left: 0;
     background-color: var(--white);
-    padding: var(--spacing-2) var(--spacing-4);
+    padding: var(--spacing-1) var(--spacing-3);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
+
+    @media (min-width: $breakpoint-sm) {
+      padding: var(--spacing-2) var(--spacing-4);
+    }
   }
 
   &__player-name {
     font-family: var(--font-primary);
-    font-size: var(--font-base);
+    font-size: var(--font-sm);
     font-weight: var(--font-light);
     font-style: italic;
     color: var(--primary);
     white-space: nowrap;
+
+    @media (min-width: $breakpoint-sm) {
+      font-size: var(--font-base);
+    }
   }
 
   &__dorsal {
     font-family: var(--font-secondary);
-    font-size: 4.5rem;
+    font-size: 3rem;
     font-weight: var(--font-bold);
     color: var(--white);
     line-height: var(--font-tight);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+    @media (min-width: $breakpoint-sm) {
+      font-size: 4.5rem;
+    }
   }
 
   &__info {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-3);
-    padding: var(--spacing-5) var(--spacing-4) var(--spacing-4);
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2);
+    padding: var(--spacing-4) var(--spacing-3);
+
+    @media (min-width: $breakpoint-sm) {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-3);
+      padding: var(--spacing-5) var(--spacing-4) var(--spacing-4);
+    }
   }
 
   &__info-item {
@@ -81,24 +115,34 @@
   }
 
   &__info-icon {
-    width: var(--spacing-5);
-    height: var(--spacing-5);
+    width: var(--spacing-4);
+    height: var(--spacing-4);
     color: var(--white);
     flex-shrink: 0;
+
+    @media (min-width: $breakpoint-sm) {
+      width: var(--spacing-5);
+      height: var(--spacing-5);
+    }
   }
 
   &__info-text {
     font-family: var(--font-primary);
-    font-size: var(--font-sm);
+    font-size: var(--font-xs);
     font-weight: var(--font-regular);
     color: var(--white);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    @media (min-width: $breakpoint-sm) {
+      font-size: var(--font-sm);
+    }
   }
 
   &__actions {
     display: flex;
+    flex-direction: column;
     gap: 0;
     background-color: var(--white);
     border: var(--border-thick) solid var(--primary);
@@ -106,13 +150,17 @@
     border-radius: 0 0 var(--radius-xl) var(--radius-xl);
     overflow: hidden;
     margin-top: auto;
+
+    @media (min-width: $breakpoint-sm) {
+      flex-direction: row;
+    }
   }
 
   &__button {
     flex: 1;
     padding: var(--spacing-3) var(--spacing-4);
     font-family: var(--font-primary);
-    font-size: var(--font-base);
+    font-size: var(--font-sm);
     font-weight: var(--font-medium);
     border: none;
     border-radius: 0;
@@ -126,6 +174,10 @@
     white-space: nowrap;
     min-height: 44px;
 
+    @media (min-width: $breakpoint-sm) {
+      font-size: var(--font-base);
+    }
+
     &:focus {
       outline: var(--border-medium) solid var(--primary);
       outline-offset: calc(var(--border-medium) * -1);
@@ -136,7 +188,12 @@
     }
 
     &:not(:last-child) {
-      border-right: var(--border-thick) solid var(--primary);
+      border-bottom: var(--border-thick) solid var(--primary);
+
+      @media (min-width: $breakpoint-sm) {
+        border-bottom: none;
+        border-right: var(--border-thick) solid var(--primary);
+      }
     }
 
     &--primary,
@@ -145,6 +202,107 @@
         background-color: var(--primary);
         color: var(--white);
       }
+    }
+  }
+}
+
+@container card (min-width: 300px) {
+  .card {
+    &__header {
+      height: 170px;
+      padding: var(--spacing-4);
+    }
+
+    &__player-image {
+      width: 130px;
+      height: 130px;
+    }
+
+    &__player-name-badge {
+      padding: var(--spacing-2) var(--spacing-4);
+    }
+
+    &__player-name {
+      font-size: var(--font-base);
+    }
+
+    &__dorsal {
+      font-size: 4.5rem;
+    }
+
+    &__info {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-3);
+      padding: var(--spacing-5) var(--spacing-4) var(--spacing-4);
+    }
+
+    &__info-icon {
+      width: var(--spacing-5);
+      height: var(--spacing-5);
+    }
+
+    &__info-text {
+      font-size: var(--font-sm);
+    }
+
+    &__actions {
+      flex-direction: row;
+    }
+
+    &__button {
+      font-size: var(--font-base);
+
+      &:not(:last-child) {
+        border-bottom: none;
+        border-right: var(--border-thick) solid var(--primary);
+      }
+    }
+  }
+}
+
+@container card (max-width: 250px) {
+  .card {
+    &__header {
+      height: 120px;
+      padding: var(--spacing-2);
+    }
+
+    &__player-image {
+      width: 80px;
+      height: 80px;
+    }
+
+    &__player-name-badge {
+      padding: var(--spacing-1) var(--spacing-2);
+    }
+
+    &__player-name {
+      font-size: var(--font-xs);
+    }
+
+    &__dorsal {
+      font-size: 2.5rem;
+    }
+
+    &__info {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-1);
+      padding: var(--spacing-3) var(--spacing-2);
+    }
+
+    &__info-icon {
+      width: var(--spacing-4);
+      height: var(--spacing-4);
+    }
+
+    &__info-text {
+      font-size: var(--font-xs);
+    }
+
+    &__button {
+      font-size: var(--font-xs);
+      padding: var(--spacing-2) var(--spacing-3);
+      min-height: 38px;
     }
   }
 }

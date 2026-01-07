@@ -1919,3 +1919,251 @@ Para acceder al Style Guide, navegar a la ruta `/style-guide` en la aplicacion o
 
 ---
 
+## Seccion 4: Responsive Design y Container Queries
+
+### 4.1 Breakpoints
+
+El sistema de breakpoints define los puntos de ruptura donde el diseno se adapta a diferentes tamanos de pantalla.
+
+| Breakpoint | Valor | Dispositivos objetivo |
+|------------|-------|----------------------|
+| `sm` | 640px | Moviles grandes |
+| `md` | 768px | Tablets en vertical |
+| `lg` | 1024px | Tablets horizontales, laptops |
+| `xl` | 1280px | Escritorios |
+| `2xl` | 1400px | Pantallas grandes |
+
+Estos valores se eligieron porque cubren los dispositivos mas comunes del mercado. El breakpoint de 768px coincide con el iPad en vertical, 1024px con tablets en horizontal y laptops pequenos, y 1280px es la resolucion tipica de monitores de escritorio.
+
+```scss
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+$breakpoint-2xl: 1400px;
+
+$breakpoints: (
+  'sm': $breakpoint-sm,
+  'md': $breakpoint-md,
+  'lg': $breakpoint-lg,
+  'xl': $breakpoint-xl,
+  '2xl': $breakpoint-2xl
+);
+```
+
+---
+
+### 4.2 Estrategia Mobile-First
+
+Se ha utilizado Mobile-First porque obliga a priorizar el contenido esencial y los estilos se van ampliando progresivamente en lugar de ir recortando. El codigo queda mas limpio y los moviles cargan menos CSS.
+
+El mixin `responsive` encapsula las media queries:
+
+```scss
+@mixin responsive($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+}
+```
+
+Ejemplo en la pagina de competiciones:
+
+```scss
+.competitions__grid {
+  // Base: 1 columna en movil
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+
+  // 2 columnas desde 640px
+  @include responsive('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // 3 columnas desde 1024px
+  @include responsive('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  // 4 columnas desde 1280px
+  @include responsive('xl') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+```
+
+---
+
+### 4.3 Container Queries
+
+Container Queries permite que los componentes respondan al tamano de su contenedor en lugar del viewport. Esto los hace reutilizables en cualquier contexto sin tener que crear variantes con clases.
+
+#### Card (Tarjeta de jugador)
+
+```scss
+:host {
+  display: block;
+  container-type: inline-size;
+  container-name: card;
+}
+
+.card {
+  // Estilos base para contenedores estrechos
+  &__info {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Cuando el contenedor tiene al menos 300px
+@container card (min-width: 300px) {
+  .card {
+    &__info {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    &__player-image {
+      width: 130px;
+      height: 130px;
+    }
+  }
+}
+```
+
+#### CompetitionCard (Tarjeta de competicion)
+
+```scss
+:host {
+  display: block;
+  container-type: inline-size;
+  container-name: competition-card;
+}
+
+.competition-card {
+  &__header {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+// Layout horizontal cuando hay espacio
+@container competition-card (min-width: 240px) {
+  .competition-card {
+    &__header {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    &__title {
+      text-align: left;
+    }
+  }
+}
+```
+
+---
+
+### 4.4 Tabla de Adaptaciones
+
+| Seccion | Mobile (< 640px) | Tablet (768px) | Desktop (>= 1024px) |
+|---------|------------------|----------------|---------------------|
+| Header | Hamburguesa visible, nav oculto | Hamburguesa visible | Nav horizontal, buscador visible |
+| Grid de cards | 1 columna | 2 columnas | 3-4 columnas |
+| Competition cards | Layout vertical, 1 columna | 2 columnas, badges en fila | 3-4 columnas, header horizontal |
+| Filtros | Scroll horizontal | Scroll horizontal | Wrap en multiples lineas |
+| Paginacion | Botones pequenos, gap reducido | Botones medianos | Botones grandes |
+| Titulos | font-2xl | font-3xl | font-4xl |
+
+---
+
+### 4.5 Paginas Responsive
+
+| Pagina | Ruta | Descripcion |
+|--------|------|-------------|
+| Home | `/` | Pagina principal con cards de jugadores, competiciones y formularios de demo |
+| Style Guide | `/style-guide` | Catalogo de componentes con todas las variantes |
+| Competiciones | `/competiciones` | Listado de competiciones con filtros por categoria y paginacion |
+
+#### Competiciones (`/competiciones`)
+
+Pagina que muestra las competiciones de futbol con:
+
+- Buscador y filtros por categoria (Todas, Senior, Juvenil, Cadete, etc.)
+- Grid responsive que pasa de 1 a 4 columnas segun el viewport
+- Tarjetas con Container Queries que adaptan su layout interno
+- Paginacion responsive
+
+```scss
+.competitions {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-4);
+
+  @include responsive('md') {
+    padding: var(--spacing-6);
+  }
+
+  &__toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+
+    @include responsive('lg') {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+}
+```
+
+---
+
+### 4.6 Capturas Comparativas
+
+#### Home
+
+**Mobile (375px):**
+
+![Home 375px](../screenshots/home-375px.png)
+
+**Tablet (768px):**
+
+![Home 768px](../screenshots/home-768px.png)
+
+**Desktop (1280px):**
+
+![Home 1280px](../screenshots/home-1280px.png)
+
+#### Competiciones
+
+**Mobile (375px):**
+
+![Competiciones 375px](../screenshots/competitions-375px.png)
+
+**Tablet (768px):**
+
+![Competiciones 768px](../screenshots/competitions-768px.png)
+
+**Desktop (1280px):**
+
+![Competiciones 1280px](../screenshots/competitions-1280px.png)
+
+#### Style Guide
+
+**Mobile (375px):**
+
+![Style Guide 375px](../screenshots/styleguide-375px.png)
+
+**Tablet (768px):**
+
+![Style Guide 768px](../screenshots/styleguide-768px.png)
+
+**Desktop (1280px):**
+
+![Style Guide 1280px](../screenshots/styleguide-1280px.png)
+
+---
+

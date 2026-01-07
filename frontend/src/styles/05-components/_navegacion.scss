@@ -1,6 +1,7 @@
 // ===============================================================================
 // COMPONENTE: NAVEGACION
 // Archivo: 05-components/_navegacion.scss
+// Estrategia: Mobile-First
 // ===============================================================================
 
 @use '../01-tools/mixins' as *;
@@ -12,9 +13,13 @@
 .navegacion {
   display: flex;
   align-items: center;
-  padding: var(--spacing-4);
+  padding: var(--spacing-3);
   background-color: var(--primary);
   color: var(--white);
+
+  @include responsive('md') {
+    padding: var(--spacing-4);
+  }
 }
 
 .navegacion__contenedor {
@@ -24,8 +29,13 @@
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 var(--spacing-4);
-  gap: var(--spacing-6);
+  padding: 0 var(--spacing-3);
+  gap: var(--spacing-4);
+
+  @include responsive('md') {
+    padding: 0 var(--spacing-4);
+    gap: var(--spacing-6);
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -34,10 +44,14 @@
 .navegacion__logo {
   display: flex;
   align-items: center;
-  gap: var(--spacing-3);
+  gap: var(--spacing-2);
   text-decoration: none;
   color: var(--white);
   transition: opacity var(--duration-fast) var(--timing-ease-in-out);
+
+  @include responsive('md') {
+    gap: var(--spacing-3);
+  }
 
   &:hover {
     opacity: 0.9;
@@ -45,79 +59,130 @@
 }
 
 .navegacion__logo-imagen {
-  height: var(--spacing-12);
+  height: var(--spacing-10);
   width: auto;
   object-fit: contain;
+
+  @include responsive('md') {
+    height: var(--spacing-12);
+  }
 }
 
 .navegacion__logo-texto {
   @include tipografia-titulo;
-  font-size: var(--font-xl);
+  font-size: var(--font-lg);
   color: var(--white);
+
+  @include responsive('md') {
+    font-size: var(--font-xl);
+  }
 }
 
 // ---------------------------------------------------------------------------
-// Menu de navegacion
+// Menu de navegacion (Mobile-First)
 // ---------------------------------------------------------------------------
 .navegacion__menu {
-  flex: 1;
+  display: none;
+
+  @include responsive('lg') {
+    display: block;
+    flex: 1;
+  }
 }
 
 .navegacion__lista {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   list-style: none;
-  gap: var(--spacing-2);
+  gap: 0;
   margin: 0;
-  padding: 0;
-  justify-content: center;
+  padding: var(--spacing-4);
+
+  @include responsive('lg') {
+    flex-direction: row;
+    gap: var(--spacing-2);
+    padding: 0;
+    justify-content: center;
+  }
 }
 
 .navegacion__item {
-  // Estilos del item si son necesarios
+  width: 100%;
+
+  @include responsive('lg') {
+    width: auto;
+  }
 }
 
 .navegacion__enlace {
   @include tipografia-texto;
   display: block;
-  padding: var(--spacing-2) var(--spacing-4);
+  padding: var(--spacing-4) var(--spacing-4);
   color: var(--white);
   text-decoration: none;
   font-size: var(--font-lg);
+  width: 100%;
+  text-align: center;
   position: relative;
   transition: all var(--duration-fast) var(--timing-ease-in-out);
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: var(--spacing-1);
-    left: var(--spacing-4);
-    right: var(--spacing-4);
-    height: var(--border-medium);
-    background-color: var(--white);
-    transform: scaleX(0);
-    transition: transform var(--duration-fast) var(--timing-ease-in-out);
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
   }
 
-  &:hover::after {
-    transform: scaleX(1);
+  @include responsive('lg') {
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-lg);
+    width: auto;
+    text-align: left;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: var(--spacing-1);
+      left: var(--spacing-4);
+      right: var(--spacing-4);
+      height: var(--border-medium);
+      background-color: var(--white);
+      transform: scaleX(0);
+      transition: transform var(--duration-fast) var(--timing-ease-in-out);
+    }
+
+    &:hover {
+      background-color: transparent;
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
   }
 }
 
 .navegacion__enlace--activo {
   font-weight: var(--font-semibold);
+  background-color: rgba(255, 255, 255, 0.15);
 
-  &::after {
-    transform: scaleX(1);
+  @include responsive('lg') {
+    background-color: transparent;
+
+    &::after {
+      transform: scaleX(1);
+    }
   }
 }
 
 // ---------------------------------------------------------------------------
-// Utilidades de navegacion
+// Utilidades de navegacion (Mobile-First)
 // ---------------------------------------------------------------------------
 .navegacion__utilidades {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3);
+  display: none;
+
+  @include responsive('lg') {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
 }
 
 .navegacion__boton-icono {
@@ -137,15 +202,20 @@
 }
 
 .navegacion__icono {
-  width: var(--spacing-6);
-  height: var(--spacing-6);
+  width: var(--spacing-5);
+  height: var(--spacing-5);
+
+  @include responsive('md') {
+    width: var(--spacing-6);
+    height: var(--spacing-6);
+  }
 }
 
 // ---------------------------------------------------------------------------
-// Menu hamburguesa (movil)
+// Menu hamburguesa (Mobile-First)
 // ---------------------------------------------------------------------------
 .navegacion__hamburguesa {
-  display: none;
+  display: flex;
   @include flex-columna(var(--spacing-1));
   justify-content: space-around;
   width: var(--spacing-8);
@@ -188,10 +258,10 @@
 }
 
 // ---------------------------------------------------------------------------
-// Menu movil
+// Menu movil (Mobile-First)
 // ---------------------------------------------------------------------------
 .navegacion__menu-movil {
-  display: none;
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -205,52 +275,14 @@
   padding-top: var(--spacing-20);
   overflow-y: auto;
   transition: all var(--duration-base) var(--timing-ease-in-out);
+
+  @include responsive('lg') {
+    display: none;
+  }
 }
 
 .navegacion__menu-movil--abierto {
   transform: translateX(0);
   opacity: 1;
   visibility: visible;
-}
-
-// ---------------------------------------------------------------------------
-// Responsive
-// ---------------------------------------------------------------------------
-@media (max-width: #{$breakpoint-lg - 1px}) {
-  .navegacion__hamburguesa {
-    display: flex;
-  }
-
-  .navegacion__menu {
-    display: none;
-  }
-
-  .navegacion__utilidades {
-    display: none;
-  }
-
-  .navegacion__menu-movil {
-    display: block;
-  }
-
-  .navegacion__lista {
-    flex-direction: column;
-    align-items: center;
-    padding: var(--spacing-4);
-  }
-
-  .navegacion__enlace {
-    padding: var(--spacing-5) var(--spacing-4);
-    font-size: var(--font-xl);
-    width: 100%;
-    text-align: center;
-
-    &::after {
-      display: none;
-    }
-
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-  }
 }

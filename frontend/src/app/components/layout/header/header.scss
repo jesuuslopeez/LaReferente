@@ -1,8 +1,10 @@
 // ===============================================================================
 // COMPONENTE ANGULAR: Header
 // Los estilos principales estan en 05-components/_navegacion.scss
-// Este archivo contiene los estilos especificos del header
+// Estrategia: Mobile-First
 // ===============================================================================
+
+@use '00-settings/variables' as *;
 
 :host {
   display: block;
@@ -21,26 +23,41 @@
   &__container {
     max-width: 100%;
     margin: 0;
-    padding: var(--spacing-3) var(--spacing-8);
+    padding: var(--spacing-3) var(--spacing-4);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: var(--spacing-6);
+    gap: var(--spacing-3);
     flex-wrap: nowrap;
 
-    @media (max-width: 1700px) { padding: var(--spacing-3) var(--spacing-7); gap: var(--spacing-5); }
-    @media (max-width: 1550px) { padding: var(--spacing-3) var(--spacing-6); gap: var(--spacing-4); }
-    @media (max-width: 1400px) { padding: var(--spacing-3) var(--spacing-5); gap: var(--spacing-3); }
-    @media (max-width: 1200px) { padding: var(--spacing-3) var(--spacing-4); gap: var(--spacing-3); }
+    @media (min-width: $breakpoint-md) {
+      padding: var(--spacing-3) var(--spacing-5);
+      gap: var(--spacing-4);
+    }
+
+    @media (min-width: $breakpoint-lg) {
+      padding: var(--spacing-3) var(--spacing-6);
+      gap: var(--spacing-5);
+    }
+
+    @media (min-width: $breakpoint-xl) {
+      padding: var(--spacing-3) var(--spacing-8);
+      gap: var(--spacing-6);
+    }
   }
 
   &__logo {
     display: flex;
     align-items: center;
-    gap: var(--spacing-3);
+    gap: var(--spacing-2);
     text-decoration: none;
     color: var(--white);
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);
+    flex-shrink: 0;
+
+    @media (min-width: $breakpoint-md) {
+      gap: var(--spacing-3);
+    }
 
     &:hover {
       opacity: 0.9;
@@ -48,15 +65,17 @@
   }
 
   &__logo-img {
-    height: calc(var(--spacing-17) + var(--spacing-1));
+    height: calc(var(--spacing-12) + var(--spacing-2));
     width: auto;
     object-fit: contain;
 
-    @media (max-width: 1200px) { height: calc(var(--spacing-12) + var(--spacing-2)); }
+    @media (min-width: $breakpoint-lg) {
+      height: calc(var(--spacing-17) + var(--spacing-1));
+    }
   }
 
   &__hamburger {
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
     width: calc(var(--spacing-7) + var(--spacing-1));
@@ -67,7 +86,9 @@
     padding: 0;
     z-index: 101;
 
-    @media (max-width: 1200px) { display: flex; }
+    @media (min-width: $breakpoint-lg) {
+      display: none;
+    }
   }
 
   &__hamburger-line {
@@ -95,149 +116,201 @@
   }
 
   &__nav {
-    flex: 1 1 auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--primary);
+    transform: translateX(-100%);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 100;
+    padding-top: var(--spacing-20);
+    overflow-y: auto;
     transition: all var(--duration-base) var(--timing-ease-in-out);
 
-    @media (max-width: 1200px) {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background-color: var(--primary);
-      transform: translateX(-100%);
-      opacity: 0;
-      visibility: hidden;
-      z-index: 100;
-      padding-top: var(--spacing-20);
-      overflow-y: auto;
+    @media (min-width: $breakpoint-lg) {
+      position: static;
+      width: auto;
+      height: auto;
+      background-color: transparent;
+      transform: none;
+      opacity: 1;
+      visibility: visible;
+      padding-top: 0;
+      overflow-y: visible;
+      flex: 1 1 auto;
+      min-width: 0;
     }
 
     &--open {
-      @media (max-width: 1200px) {
-        transform: translateX(0);
-        opacity: 1;
-        visibility: visible;
-      }
+      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
     }
   }
 
   &__nav-list {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
     list-style: none;
     margin: 0;
-    padding: 0;
-    gap: var(--spacing-1);
-    justify-content: center;
+    padding: var(--spacing-4);
 
-    @media (max-width: 1200px) { flex-direction: column; align-items: center; gap: 0; padding: var(--spacing-4); }
+    @media (min-width: $breakpoint-lg) {
+      flex-direction: row;
+      gap: var(--spacing-1);
+      padding: 0;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
   }
 
   &__nav-item {
-    @media (max-width: 1200px) {
-      width: 100%;
-      text-align: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-      &:last-child {
-        border-bottom: none;
-      }
+    &:last-child {
+      border-bottom: none;
+    }
+
+    @media (min-width: $breakpoint-lg) {
+      width: auto;
+      text-align: left;
+      border-bottom: none;
     }
   }
 
   &__nav-link {
     display: block;
-    padding: var(--spacing-2) var(--spacing-4);
+    padding: var(--spacing-5) var(--spacing-4);
     color: var(--white);
     text-decoration: none;
-    font-size: var(--font-lg);
+    font-size: var(--font-xl);
     font-weight: var(--font-regular);
     white-space: nowrap;
+    width: 100%;
+    text-align: center;
     position: relative;
     transition: all var(--duration-fast) var(--timing-ease-in-out);
 
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: var(--spacing-1);
-      left: var(--spacing-4);
-      right: var(--spacing-4);
-      height: var(--border-medium);
-      background-color: var(--white);
-      transform: scaleX(0);
-      transition: transform var(--duration-fast) var(--timing-ease-in-out);
-    }
-
-    &:hover::after {
-      transform: scaleX(1);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     &--active {
       font-weight: var(--font-semibold);
-      &::after { transform: scaleX(1); }
+      background-color: rgba(255, 255, 255, 0.2);
     }
 
-    @media (max-width: 1700px) { padding: var(--spacing-2) var(--spacing-4); }
-    @media (max-width: 1550px) { padding: var(--spacing-2) var(--spacing-3); }
-    @media (max-width: 1400px) { padding: var(--spacing-2) var(--spacing-3); }
-    @media (max-width: 1300px) { padding: var(--spacing-2) var(--spacing-2); }
+    @media (min-width: $breakpoint-lg) {
+      padding: var(--spacing-2) var(--spacing-2);
+      font-size: var(--font-base);
+      width: auto;
+      text-align: left;
 
-    @media (max-width: 1200px) {
-      padding: var(--spacing-5) var(--spacing-4);
-      font-size: var(--font-xl);
-      width: 100%;
-      text-align: center;
-      &::after { display: none; }
-      &:hover { background-color: rgba(255, 255, 255, 0.1); }
-      &--active { background-color: rgba(255, 255, 255, 0.2); }
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: var(--spacing-1);
+        left: var(--spacing-2);
+        right: var(--spacing-2);
+        height: var(--border-medium);
+        background-color: var(--white);
+        transform: scaleX(0);
+        transition: transform var(--duration-fast) var(--timing-ease-in-out);
+      }
+
+      &:hover {
+        background-color: transparent;
+
+        &::after {
+          transform: scaleX(1);
+        }
+      }
+
+      &--active {
+        background-color: transparent;
+
+        &::after {
+          transform: scaleX(1);
+        }
+      }
+    }
+
+    @media (min-width: $breakpoint-xl) {
+      padding: var(--spacing-2) var(--spacing-3);
+      font-size: var(--font-lg);
+
+      &::after {
+        left: var(--spacing-3);
+        right: var(--spacing-3);
+      }
+    }
+
+    @media (min-width: $breakpoint-2xl) {
+      padding: var(--spacing-2) var(--spacing-4);
     }
   }
 
   &__utilities {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-3);
-    flex-shrink: 0;
+    display: none;
 
-    @media (max-width: 1200px) { display: none; }
+    @media (min-width: $breakpoint-lg) {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2);
+      flex-shrink: 0;
+    }
+
+    @media (min-width: $breakpoint-xl) {
+      gap: var(--spacing-3);
+    }
   }
 
   &__search {
-    display: flex;
-    align-items: center;
-    background-color: var(--white);
-    border-radius: var(--radius-full);
-    overflow: hidden;
-    height: var(--spacing-10);
-    transition: all var(--duration-base) var(--timing-ease-in-out);
+    display: none;
 
-    @media (max-width: 1400px) {
-      display: none;
+    @media (min-width: $breakpoint-xl) {
+      display: flex;
+      align-items: center;
+      background-color: var(--white);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      height: var(--spacing-10);
+      transition: all var(--duration-base) var(--timing-ease-in-out);
     }
   }
 
   &__search-toggle {
     display: none;
-    align-items: center;
-    justify-content: center;
-    width: var(--spacing-10);
-    height: var(--spacing-10);
-    padding: 0;
-    background-color: var(--white);
-    border: none;
-    border-radius: 50%;
-    color: var(--gray700);
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: all var(--duration-fast) var(--timing-ease-in-out);
 
-    &:hover { color: var(--primary); background-color: rgba(255, 255, 255, 0.9); }
-
-    @media (max-width: 1400px) {
+    @media (min-width: $breakpoint-lg) {
       display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--spacing-10);
+      height: var(--spacing-10);
+      padding: 0;
+      background-color: var(--white);
+      border: none;
+      border-radius: 50%;
+      color: var(--gray700);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all var(--duration-fast) var(--timing-ease-in-out);
+
+      &:hover {
+        color: var(--primary);
+        background-color: rgba(255, 255, 255, 0.9);
+      }
     }
 
-    @media (max-width: 1200px) {
+    @media (min-width: $breakpoint-xl) {
       display: none;
     }
   }
@@ -256,7 +329,7 @@
 
   &__search-input {
     flex: 1;
-    min-width: 200px;
+    min-width: 120px;
     padding: 0 var(--spacing-3);
     border: none;
     background-color: var(--white);
@@ -265,7 +338,13 @@
     font-family: var(--font-primary);
     outline: none;
 
-    &::placeholder { color: var(--gray500); }
+    @media (min-width: $breakpoint-2xl) {
+      min-width: 180px;
+    }
+
+    &::placeholder {
+      color: var(--gray500);
+    }
   }
 
   &__search-btn {
@@ -279,10 +358,15 @@
     color: var(--gray700);
     transition: color var(--duration-fast) var(--timing-ease-in-out);
 
-    &:hover { color: var(--primary); }
+    &:hover {
+      color: var(--primary);
+    }
   }
 
-  &__search-icon { width: var(--spacing-5); height: var(--spacing-5); }
+  &__search-icon {
+    width: var(--spacing-5);
+    height: var(--spacing-5);
+  }
 
   &__theme-btn {
     display: flex;
@@ -298,43 +382,69 @@
     transition: opacity var(--duration-fast) var(--timing-ease-in-out);
     flex-shrink: 0;
 
-    &:hover { opacity: 0.8; }
+    &:hover {
+      opacity: 0.8;
+    }
   }
 
-  &__theme-icon { width: var(--spacing-6); height: var(--spacing-6); }
+  &__theme-icon {
+    width: var(--spacing-6);
+    height: var(--spacing-6);
+  }
 
   &__account-btn {
     display: flex;
     align-items: center;
-    gap: var(--spacing-2);
-    padding: var(--spacing-2) var(--spacing-4);
+    gap: var(--spacing-1);
+    padding: var(--spacing-2);
+    width: var(--spacing-10);
+    height: var(--spacing-10);
     background-color: var(--white);
     border: var(--border-medium) solid transparent;
-    border-radius: var(--radius-full);
+    border-radius: 50%;
     color: var(--primary);
     cursor: pointer;
-    font-size: var(--font-base);
+    font-size: var(--font-sm);
     font-family: var(--font-primary);
     transition: all var(--duration-fast) var(--timing-ease-in-out);
     flex-shrink: 0;
     white-space: nowrap;
 
-    &:hover { background-color: var(--primary); border-color: var(--white); color: var(--white); }
+    span {
+      display: none;
+    }
 
-    @media (max-width: 1550px) { padding: var(--spacing-2) var(--spacing-4); font-size: var(--font-base); }
-    @media (max-width: 1450px) { padding: var(--spacing-2) var(--spacing-3); font-size: var(--font-sm); gap: var(--spacing-1); }
-    @media (max-width: 1420px) {
-      padding: var(--spacing-2);
-      width: var(--spacing-10);
-      height: var(--spacing-10);
-      border-radius: 50%;
-      span { display: none; }
+    &:hover {
+      background-color: var(--primary);
+      border-color: var(--white);
+      color: var(--white);
+    }
+
+    @media (min-width: $breakpoint-2xl) {
+      padding: var(--spacing-2) var(--spacing-3);
+      width: auto;
+      height: auto;
+      border-radius: var(--radius-full);
+      font-size: var(--font-base);
+
+      span {
+        display: inline;
+      }
     }
   }
 
-  &__account-btn:hover &__account-icon { color: var(--white); }
-  &__account-icon { width: var(--spacing-5); height: var(--spacing-5); }
-  &__account-text { white-space: nowrap; }
+  &__account-btn:hover &__account-icon {
+    color: var(--white);
+  }
+
+  &__account-icon {
+    width: var(--spacing-5);
+    height: var(--spacing-5);
+  }
+
+  &__account-text {
+    white-space: nowrap;
+  }
 
   &__account {
     position: relative;
@@ -368,20 +478,25 @@
     font-weight: var(--font-medium);
     transition: all var(--duration-fast) var(--timing-ease-in-out);
 
-    &:hover { background-color: rgba(255, 255, 255, 0.1); }
-    &:not(:last-child) { border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
   }
 
   &__mobile-utilities {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+    padding: var(--spacing-6) var(--spacing-4);
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    margin-top: var(--spacing-4);
 
-    @media (max-width: 1200px) {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-3);
-      padding: var(--spacing-6) var(--spacing-4);
-      border-top: 2px solid rgba(255, 255, 255, 0.2);
-      margin-top: var(--spacing-4);
+    @media (min-width: $breakpoint-lg) {
+      display: none;
     }
   }
 
@@ -415,7 +530,9 @@
     font-family: var(--font-primary);
     outline: none;
 
-    &::placeholder { color: var(--gray500); }
+    &::placeholder {
+      color: var(--gray500);
+    }
   }
 
   &__mobile-search-btn {
@@ -428,7 +545,9 @@
     cursor: pointer;
     color: var(--white);
 
-    &:hover { opacity: 0.9; }
+    &:hover {
+      opacity: 0.9;
+    }
   }
 
   &__mobile-theme-btn,
@@ -460,7 +579,6 @@
   }
 }
 
-// Modal overlay
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -472,22 +590,27 @@
   align-items: center;
   justify-content: center;
   z-index: 1001;
+  padding: var(--spacing-4);
 }
 
 .modal-content {
   position: relative;
   background-color: var(--white);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-8);
+  padding: var(--spacing-6);
   max-width: 500px;
-  width: 90%;
+  width: 100%;
   box-shadow: var(--shadow-xl);
+
+  @media (min-width: $breakpoint-md) {
+    padding: var(--spacing-8);
+  }
 }
 
 .modal-close {
   position: absolute;
-  top: var(--spacing-4);
-  right: var(--spacing-4);
+  top: var(--spacing-3);
+  right: var(--spacing-3);
   width: var(--spacing-8);
   height: var(--spacing-8);
   background-color: transparent;
@@ -498,13 +621,18 @@
   cursor: pointer;
   transition: color var(--duration-fast) var(--timing-ease-in-out);
 
+  @media (min-width: $breakpoint-md) {
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+  }
+
   &:hover {
     color: var(--gray900);
   }
 }
 
-// Search dropdown
 .search-dropdown {
+  display: none;
   background-color: var(--primary);
   box-shadow: var(--shadow-md);
   width: 100%;
@@ -512,20 +640,20 @@
   animation: slideDown var(--duration-base) var(--timing-ease-in-out);
   font-family: var(--font-primary);
 
-  @media (min-width: 1401px) {
-    display: none;
+  @media (min-width: $breakpoint-lg) {
+    display: block;
   }
 
-  @media (max-width: 1200px) {
+  @media (min-width: $breakpoint-xl) {
     display: none;
   }
 
   &__container {
     max-width: 100%;
-    padding: var(--spacing-4) var(--spacing-8);
+    padding: var(--spacing-4) var(--spacing-6);
 
-    @media (max-width: 1300px) {
-      padding: var(--spacing-4) var(--spacing-6);
+    @media (min-width: $breakpoint-xl) {
+      padding: var(--spacing-4) var(--spacing-8);
     }
   }
 
