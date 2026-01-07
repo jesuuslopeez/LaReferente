@@ -1,6 +1,7 @@
 // ===============================================================================
 // COMPONENTE: TARJETA (Card)
 // Archivo: 05-components/_tarjeta.scss
+// Estrategia: Mobile-First
 // ===============================================================================
 
 @use '../01-tools/mixins' as *;
@@ -16,49 +17,80 @@
 }
 
 // ---------------------------------------------------------------------------
-// Elementos de la tarjeta
+// Elementos de la tarjeta (Mobile-First)
 // ---------------------------------------------------------------------------
 .tarjeta__cabecera {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  padding: var(--spacing-4);
+  padding: var(--spacing-3);
+  gap: var(--spacing-2);
+
+  @include responsive('sm') {
+    flex-direction: row;
+    padding: var(--spacing-4);
+    gap: var(--spacing-3);
+  }
 }
 
 .tarjeta__imagen {
   width: 100%;
   border-radius: var(--radius-md);
-  margin-bottom: var(--spacing-4);
+  margin-bottom: var(--spacing-3);
   object-fit: cover;
+
+  @include responsive('md') {
+    margin-bottom: var(--spacing-4);
+  }
 }
 
 .tarjeta__titulo {
   @include tipografia-titulo;
-  font-size: var(--font-xl);
+  font-size: var(--font-lg);
   color: var(--text-color);
   margin: 0 0 var(--spacing-2) 0;
+
+  @include responsive('md') {
+    font-size: var(--font-xl);
+  }
 }
 
 .tarjeta__subtitulo {
   @include tipografia-titulo;
-  font-size: var(--font-lg);
+  font-size: var(--font-base);
   color: var(--text-secondary);
   margin: 0 0 var(--spacing-2) 0;
+
+  @include responsive('md') {
+    font-size: var(--font-lg);
+  }
 }
 
 .tarjeta__contenido {
   @include tipografia-texto;
-  font-size: var(--font-base);
+  font-size: var(--font-sm);
   color: var(--text-secondary);
-  margin: 0 0 var(--spacing-4) 0;
+  margin: 0 0 var(--spacing-3) 0;
+
+  @include responsive('md') {
+    font-size: var(--font-base);
+    margin: 0 0 var(--spacing-4) 0;
+  }
 }
 
 .tarjeta__info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-3);
-  padding: var(--spacing-4);
+  grid-template-columns: 1fr;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3);
+
+  @include responsive('sm') {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4);
+  }
 }
 
 .tarjeta__info-item {
@@ -67,51 +99,86 @@
 }
 
 .tarjeta__info-icono {
-  width: var(--spacing-5);
-  height: var(--spacing-5);
+  width: var(--spacing-4);
+  height: var(--spacing-4);
   flex-shrink: 0;
+
+  @include responsive('sm') {
+    width: var(--spacing-5);
+    height: var(--spacing-5);
+  }
 }
 
 .tarjeta__info-texto {
   @include tipografia-texto;
-  font-size: var(--font-sm);
+  font-size: var(--font-xs);
   @include texto-truncado;
+
+  @include responsive('sm') {
+    font-size: var(--font-sm);
+  }
 }
 
 .tarjeta__precio {
   @include tipografia-titulo;
-  font-size: var(--font-2xl);
+  font-size: var(--font-xl);
   color: var(--primary);
+
+  @include responsive('md') {
+    font-size: var(--font-2xl);
+  }
 }
 
 .tarjeta__acciones {
   @include flex-centrar;
-  gap: var(--spacing-3);
+  flex-direction: column;
+  gap: var(--spacing-2);
   margin-top: auto;
-  padding-top: var(--spacing-4);
+  padding-top: var(--spacing-3);
+
+  @include responsive('sm') {
+    flex-direction: row;
+    gap: var(--spacing-3);
+    padding-top: var(--spacing-4);
+  }
 }
 
 .tarjeta__pie {
-  padding: var(--spacing-4);
+  padding: var(--spacing-3);
   border-top: var(--border-thin) solid var(--border-color);
   margin-top: auto;
+
+  @include responsive('md') {
+    padding: var(--spacing-4);
+  }
 }
 
 // ---------------------------------------------------------------------------
-// Modificadores
+// Modificadores (Mobile-First)
 // ---------------------------------------------------------------------------
 .tarjeta--destacada {
   border: var(--border-medium) solid var(--primary);
 }
 
 .tarjeta--horizontal {
-  flex-direction: row;
+  flex-direction: column;
+
+  @include responsive('md') {
+    flex-direction: row;
+  }
 
   .tarjeta__imagen {
-    width: 40%;
-    margin-bottom: 0;
-    margin-right: var(--spacing-4);
-    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    width: 100%;
+    margin-bottom: var(--spacing-3);
+    margin-right: 0;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+
+    @include responsive('md') {
+      width: 40%;
+      margin-bottom: 0;
+      margin-right: var(--spacing-4);
+      border-radius: var(--radius-md) 0 0 var(--radius-md);
+    }
   }
 }
 
