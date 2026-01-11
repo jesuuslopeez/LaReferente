@@ -69,11 +69,11 @@
 
   
   <section class="competition-card__actions">
-    <button class="competition-card__button competition-card__button--primary">
-      Ver competición
-    </button>
-    <button class="competition-card__button competition-card__button--secondary">
+    <a [routerLink]="['/competiciones', slug()]" class="competition-card__button competition-card__button--primary">
+      Ver competicion
+    </a>
+    <a [routerLink]="['/competiciones', slug()]" class="competition-card__button competition-card__button--secondary">
       Ver calendario
-    </button>
+    </a>
   </section>
 </article>

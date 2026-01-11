@@ -1,23 +1,31 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ValidationService {
-  private usedEmails = ['admin@lareferente.com', 'user@test.com', 'info@example.com'];
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = 'http://localhost:8080/api';
+
   private usedUsernames = ['admin', 'root', 'user', 'test'];
 
   checkEmailUnique(email: string): Observable<boolean> {
     if (!email) return of(true);
-    const isUnique = !this.usedEmails.includes(email.toLowerCase());
-    return of(isUnique).pipe(delay(800));
+
+    return this.http.get<boolean>(`${this.apiUrl}/auth/check-email`, {
+      params: { email }
+    }).pipe(
+      map(exists => !exists),
+      catchError(() => of(true))
+    );
   }
 
   checkUsernameAvailable(username: string): Observable<boolean> {
     if (!username || username.length < 3) return of(true);
     const isAvailable = !this.usedUsernames.includes(username.toLowerCase());
-    return of(isAvailable).pipe(delay(600));
+    return of(isAvailable);
   }
 }

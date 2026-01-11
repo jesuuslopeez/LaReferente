@@ -9,6 +9,7 @@ import { ToastService } from '../../../shared/services/toast';
 import { FormInput } from '../form-input/form-input';
 import { FormCheckbox } from '../form-checkbox/form-checkbox';
 import { FormModalButton } from '../form-modal-button/form-modal-button';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register-form',
@@ -18,13 +19,16 @@ import { FormModalButton } from '../form-modal-button/form-modal-button';
 })
 export class RegisterForm {
   @Output() switchToLogin = new EventEmitter<void>();
+  @Output() registerSuccess = new EventEmitter<void>();
 
   private fb = inject(FormBuilder);
   private validationService = inject(ValidationService);
   private toastService = inject(ToastService);
+  private authService = inject(AuthService);
 
   registerForm: FormGroup;
   submitted = signal(false);
+  cargando = signal(false);
 
   constructor() {
     this.registerForm = this.fb.group(
@@ -38,6 +42,7 @@ export class RegisterForm {
           },
         ],
         nombre: ['', [Validators.required, Validators.minLength(2)]],
+        apellidos: ['', [Validators.required, Validators.minLength(2)]],
         password: ['', [Validators.required, passwordStrength()]],
         confirmPassword: ['', Validators.required],
         terms: [false, Validators.requiredTrue],
@@ -51,6 +56,9 @@ export class RegisterForm {
   }
   get nombre() {
     return this.registerForm.get('nombre') as FormControl;
+  }
+  get apellidos() {
+    return this.registerForm.get('apellidos') as FormControl;
   }
   get password() {
     return this.registerForm.get('password') as FormControl;
@@ -67,10 +75,10 @@ export class RegisterForm {
     if (!errors) return [];
 
     const messages: string[] = [];
-    if (errors['noUppercase']) messages.push('Debe contener al menos una mayúscula');
-    if (errors['noLowercase']) messages.push('Debe contener al menos una minúscula');
-    if (errors['noNumber']) messages.push('Debe contener al menos un número');
-    if (errors['noSpecial']) messages.push('Debe contener al menos un carácter especial');
+    if (errors['noUppercase']) messages.push('Debe contener al menos una mayuscula');
+    if (errors['noLowercase']) messages.push('Debe contener al menos una minuscula');
+    if (errors['noNumber']) messages.push('Debe contener al menos un numero');
+    if (errors['noSpecial']) messages.push('Debe contener al menos un caracter especial');
     if (errors['minLength']) messages.push('Debe tener al menos 12 caracteres');
 
     return messages;
@@ -90,9 +98,27 @@ export class RegisterForm {
       return;
     }
 
-    this.toastService.success('Registro completado correctamente');
-    console.log('Register form submitted:', this.registerForm.value);
-    this.registerForm.reset();
-    this.submitted.set(false);
+    this.cargando.set(true);
+
+    this.authService
+      .registro({
+        email: this.registerForm.value.email,
+        password: this.registerForm.value.password,
+        nombre: this.registerForm.value.nombre,
+        apellidos: this.registerForm.value.apellidos,
+      })
+      .subscribe({
+        next: () => {
+          this.cargando.set(false);
+          this.toastService.success('Registro completado correctamente');
+          this.registerForm.reset();
+          this.submitted.set(false);
+          this.registerSuccess.emit();
+        },
+        error: (err) => {
+          this.cargando.set(false);
+          this.toastService.error(err.error?.message || 'Error al registrarse');
+        },
+      });
   }
 }

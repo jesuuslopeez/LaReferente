@@ -476,6 +476,56 @@ export class Header {
 
 ---
 
+## Tabla de Compatibilidad de Navegadores
+
+La siguiente tabla muestra la compatibilidad de los eventos DOM utilizados en el proyecto con los principales navegadores:
+
+| Evento | Chrome | Firefox | Safari | Edge | Opera | iOS Safari | Android |
+|--------|--------|---------|--------|------|-------|------------|---------|
+| `click` | 1+ | 1+ | 1+ | 12+ | 4+ | 1+ | 1+ |
+| `dblclick` | 1+ | 1+ | 1+ | 12+ | 4+ | 1+ | 1+ |
+| `mouseenter` | 30+ | 10+ | 7+ | 12+ | 17+ | 7+ | 4.4+ |
+| `mouseleave` | 30+ | 10+ | 7+ | 12+ | 17+ | 7+ | 4.4+ |
+| `keydown` | 1+ | 1+ | 1.2+ | 12+ | 12.1+ | 1+ | 1+ |
+| `keyup` | 1+ | 1+ | 1.2+ | 12+ | 12.1+ | 1+ | 1+ |
+| `keyup.enter` (Angular) | 1+ | 1+ | 1.2+ | 12+ | 12.1+ | 1+ | 1+ |
+| `focus` | 1+ | 1+ | 1+ | 12+ | 7+ | 1+ | 1+ |
+| `blur` | 1+ | 1+ | 1+ | 12+ | 7+ | 1+ | 1+ |
+| `submit` | 1+ | 1+ | 1+ | 12+ | 4+ | 1+ | 1+ |
+| `input` | 1+ | 1+ | 3.1+ | 12+ | 10+ | 3.2+ | 2.3+ |
+| `change` | 1+ | 1+ | 1+ | 12+ | 4+ | 1+ | 1+ |
+
+### APIs de Eventos Utilizadas
+
+| API | Chrome | Firefox | Safari | Edge | Opera | iOS Safari | Android |
+|-----|--------|---------|--------|------|-------|------------|---------|
+| `event.preventDefault()` | 1+ | 1+ | 1+ | 12+ | 4+ | 1+ | 1+ |
+| `event.stopPropagation()` | 1+ | 1+ | 1+ | 12+ | 4+ | 1+ | 1+ |
+| `EventTarget.addEventListener()` | 1+ | 1+ | 1+ | 12+ | 7+ | 1+ | 1+ |
+| `window.matchMedia()` | 9+ | 6+ | 5.1+ | 12+ | 12.1+ | 5+ | 3+ |
+| `localStorage` | 4+ | 3.5+ | 4+ | 12+ | 10.5+ | 3.2+ | 2.1+ |
+
+### APIs del DOM Utilizadas (Renderer2)
+
+| API | Chrome | Firefox | Safari | Edge | Opera | iOS Safari | Android |
+|-----|--------|---------|--------|------|-------|------------|---------|
+| `document.createElement()` | 1+ | 1+ | 1+ | 12+ | 4+ | 1+ | 1+ |
+| `Node.appendChild()` | 1+ | 1+ | 1+ | 12+ | 4+ | 1+ | 1+ |
+| `Node.removeChild()` | 1+ | 1+ | 1+ | 12+ | 4+ | 1+ | 1+ |
+| `Element.classList` | 8+ | 3.6+ | 5.1+ | 12+ | 11.5+ | 5+ | 3+ |
+| `Node.contains()` | 1+ | 1+ | 1.1+ | 12+ | 7+ | 1+ | 1+ |
+
+### Notas de Compatibilidad
+
+- **Soporte minimo recomendado**: Chrome 60+, Firefox 55+, Safari 12+, Edge 79+
+- **Angular 17+**: Requiere navegadores modernos con soporte ES2022
+- **Signals**: Caracteristica de Angular, transpilada a JavaScript compatible
+- **@HostListener**: Decorador de Angular, compatible con todos los navegadores soportados por Angular
+
+Todos los eventos y APIs utilizados en este proyecto tienen soporte universal en navegadores modernos. No se requieren polyfills adicionales para las funcionalidades implementadas.
+
+---
+
 ## Tecnologias y Patrones Utilizados
 
 - **Angular Signals**: Estado reactivo moderno (`signal`, `computed`, `effect`)
