@@ -73,19 +73,35 @@
           }
         </button>
 
-        <button class="header__mobile-account-btn" (click)="openLoginModal(); closeMobileMenu()">
-          <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-          </svg>
-          <span>Iniciar sesión</span>
-        </button>
+        @if (authService.usuario()) {
+          <a routerLink="/usuario" class="header__mobile-account-btn" (click)="closeMobileMenu()">
+            <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span>{{ authService.usuario()?.nombre }}</span>
+          </a>
 
-        <button class="header__mobile-account-btn" (click)="openRegisterModal(); closeMobileMenu()">
-          <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-          </svg>
-          <span>Registrarse</span>
-        </button>
+          <button class="header__mobile-account-btn header__mobile-account-btn--danger" (click)="cerrarSesion(); closeMobileMenu()">
+            <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span>Cerrar sesion</span>
+          </button>
+        } @else {
+          <button class="header__mobile-account-btn" (click)="openLoginModal(); closeMobileMenu()">
+            <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span>Iniciar sesion</span>
+          </button>
+
+          <button class="header__mobile-account-btn" (click)="openRegisterModal(); closeMobileMenu()">
+            <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+            <span>Registrarse</span>
+          </button>
+        }
       </section>
     </nav>
 
@@ -128,17 +144,33 @@
           <svg class="header__account-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
-          <span class="header__account-text">Cuenta</span>
+          @if (authService.usuario()) {
+            <span class="header__account-text">{{ authService.usuario()?.nombre }}</span>
+          } @else {
+            <span class="header__account-text">Cuenta</span>
+          }
         </button>
 
         @if (accountMenuOpen()) {
           <section class="header__account-dropdown">
-            <button class="header__account-dropdown-item" (click)="openLoginModal()">
-              Iniciar sesión
-            </button>
-            <button class="header__account-dropdown-item" (click)="openRegisterModal()">
-              Registrarse
-            </button>
+            @if (authService.usuario()) {
+              <a routerLink="/usuario" class="header__account-dropdown-item" (click)="accountMenuOpen.set(false)">
+                Mi perfil
+              </a>
+              <a routerLink="/usuario/favoritos" class="header__account-dropdown-item" (click)="accountMenuOpen.set(false)">
+                Mis favoritos
+              </a>
+              <button class="header__account-dropdown-item header__account-dropdown-item--danger" (click)="cerrarSesion()">
+                Cerrar sesion
+              </button>
+            } @else {
+              <button class="header__account-dropdown-item" (click)="openLoginModal()">
+                Iniciar sesion
+              </button>
+              <button class="header__account-dropdown-item" (click)="openRegisterModal()">
+                Registrarse
+              </button>
+            }
           </section>
         }
       </section>
@@ -173,13 +205,13 @@
 }
 
 @if (showLoginModal()) {
-  <app-account-modal title="Iniciar sesión" (close)="closeLoginModal()">
-    <app-login-form (switchToRegister)="switchToRegister()" />
+  <app-account-modal title="Iniciar sesion" (close)="closeLoginModal()">
+    <app-login-form (switchToRegister)="switchToRegister()" (loginSuccess)="onLoginSuccess()" />
   </app-account-modal>
 }
 
 @if (showRegisterModal()) {
   <app-account-modal title="Registrarse" (close)="closeRegisterModal()">
-    <app-register-form (switchToLogin)="switchToLogin()" />
+    <app-register-form (switchToLogin)="switchToLogin()" (registerSuccess)="onRegisterSuccess()" />
   </app-account-modal>
 }

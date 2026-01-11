@@ -1,13 +1,31 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withPreloading, PreloadAllModules, withInMemoryScrolling } from '@angular/router';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { authInterceptor, errorInterceptor, loggingInterceptor } from './core/interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes), provideClientHydration(withEventReplay())
-  ]
+    provideRouter(
+      routes,
+      withPreloading(PreloadAllModules),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled',
+      })
+    ),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([
+        authInterceptor,    // Añade token de autenticación
+        errorInterceptor,   // Manejo global de errores
+        loggingInterceptor  // Logging en desarrollo
+      ])
+    ),
+    provideClientHydration(withEventReplay()),
+  ],
 };

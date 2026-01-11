@@ -1,6 +1,7 @@
 import { Component, inject, computed, signal, HostListener, ElementRef } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeService } from '../../../services/theme.service';
+import { AuthService } from '../../../services/auth.service';
 import { AccountModal } from '../../shared/account-modal/account-modal';
 import { LoginForm } from '../../shared/login-form/login-form';
 import { RegisterForm } from '../../shared/register-form/register-form';
@@ -14,6 +15,7 @@ import { RegisterForm } from '../../shared/register-form/register-form';
 export class Header {
   private readonly themeService = inject(ThemeService);
   private readonly elementRef = inject(ElementRef);
+  protected readonly authService = inject(AuthService);
 
   protected readonly isDarkMode = computed(() => this.themeService.theme() === 'dark');
   protected readonly accountMenuOpen = signal(false);
@@ -35,7 +37,7 @@ export class Header {
   }
 
   protected toggleAccountMenu(): void {
-    this.accountMenuOpen.update(open => !open);
+    this.accountMenuOpen.update((open) => !open);
   }
 
   protected openLoginModal(): void {
@@ -66,8 +68,16 @@ export class Header {
     this.showLoginModal.set(true);
   }
 
+  protected onLoginSuccess(): void {
+    this.showLoginModal.set(false);
+  }
+
+  protected onRegisterSuccess(): void {
+    this.showRegisterModal.set(false);
+  }
+
   protected toggleMobileMenu(): void {
-    this.mobileMenuOpen.update(open => !open);
+    this.mobileMenuOpen.update((open) => !open);
   }
 
   protected closeMobileMenu(): void {
@@ -75,10 +85,15 @@ export class Header {
   }
 
   protected toggleSearchDropdown(): void {
-    this.searchDropdownOpen.update(open => !open);
+    this.searchDropdownOpen.update((open) => !open);
   }
 
   protected closeSearchDropdown(): void {
     this.searchDropdownOpen.set(false);
+  }
+
+  protected cerrarSesion(): void {
+    this.authService.cerrarSesion();
+    this.accountMenuOpen.set(false);
   }
 }

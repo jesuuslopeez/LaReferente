@@ -1,6 +1,7 @@
 // ===============================================================================
 // LAYOUT - Sistema de Grid y Flexbox
 // Archivo: 04-layout/_layout.scss
+// Estrategia: Mobile-First
 // ===============================================================================
 
 @use '../00-settings/variables' as *;
@@ -16,6 +17,21 @@
   padding-right: var(--spacing-4);
   padding-left: var(--spacing-4);
 
+  @include responsive('sm') {
+    max-width: 640px;
+  }
+
+  @include responsive('md') {
+    max-width: 768px;
+  }
+
+  @include responsive('lg') {
+    max-width: 1024px;
+  }
+
+  @include responsive('xl') {
+    max-width: 1280px;
+  }
   @include responsive('sm') { max-width: 40rem; }
   @include responsive('md') { max-width: 48rem; }
   @include responsive('lg') { max-width: 64rem; }
@@ -27,21 +43,38 @@
 }
 
 .contenedor--estrecho {
+  max-width: 100%;
+
+  @include responsive('md') {
+    max-width: 800px;
+  }
   max-width: 50rem;
 }
 
 // ---------------------------------------------------------------------------
-// GRID
+// GRID (Mobile-First)
 // ---------------------------------------------------------------------------
 .fila-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: 1fr;
   gap: var(--spacing-4);
+
+  @include responsive('sm') {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @include responsive('md') {
+    grid-template-columns: repeat(12, 1fr);
+  }
 }
 
 @for $i from 1 through 12 {
   .col-#{$i} {
-    grid-column: span $i;
+    grid-column: 1 / -1;
+
+    @include responsive('md') {
+      grid-column: span $i;
+    }
   }
 }
 
@@ -62,31 +95,137 @@
 }
 
 // ---------------------------------------------------------------------------
-// FLEXBOX UTILITIES
+// RESPONSIVE GRID COLUMNS
+// ---------------------------------------------------------------------------
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6 {
+  grid-column: 1 / -1;
+}
+
+@include responsive('sm') {
+  @for $i from 1 through 6 {
+    .col-sm-#{$i} {
+      grid-column: span $i;
+    }
+  }
+}
+
+@include responsive('md') {
+  @for $i from 1 through 12 {
+    .col-md-#{$i} {
+      grid-column: span $i;
+    }
+  }
+}
+
+@include responsive('lg') {
+  @for $i from 1 through 12 {
+    .col-lg-#{$i} {
+      grid-column: span $i;
+    }
+  }
+}
+
+@include responsive('xl') {
+  @for $i from 1 through 12 {
+    .col-xl-#{$i} {
+      grid-column: span $i;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// FLEXBOX UTILITIES (Mobile-First)
 // ---------------------------------------------------------------------------
 .flex {
   display: flex;
 }
 
-.flex-columna { flex-direction: column; }
-.flex-fila { flex-direction: row; }
-.flex-envolver { flex-wrap: wrap; }
+.flex-columna {
+  flex-direction: column;
+}
 
-.items-centro { align-items: center; }
-.items-inicio { align-items: flex-start; }
-.items-fin { align-items: flex-end; }
-.items-estirar { align-items: stretch; }
+.flex-fila {
+  flex-direction: column;
 
-.justificar-inicio { justify-content: flex-start; }
-.justificar-centro { justify-content: center; }
-.justificar-fin { justify-content: flex-end; }
-.justificar-entre { justify-content: space-between; }
-.justificar-alrededor { justify-content: space-around; }
+  @include responsive('md') {
+    flex-direction: row;
+  }
+}
 
-.gap-2 { gap: var(--spacing-2); }
-.gap-4 { gap: var(--spacing-4); }
-.gap-6 { gap: var(--spacing-6); }
-.gap-8 { gap: var(--spacing-8); }
+.flex-fila-siempre {
+  flex-direction: row;
+}
+
+.flex-envolver {
+  flex-wrap: wrap;
+}
+
+.items-centro {
+  align-items: center;
+}
+
+.items-inicio {
+  align-items: flex-start;
+}
+
+.items-fin {
+  align-items: flex-end;
+}
+
+.items-estirar {
+  align-items: stretch;
+}
+
+.justificar-inicio {
+  justify-content: flex-start;
+}
+
+.justificar-centro {
+  justify-content: center;
+}
+
+.justificar-fin {
+  justify-content: flex-end;
+}
+
+.justificar-entre {
+  justify-content: space-between;
+}
+
+.justificar-alrededor {
+  justify-content: space-around;
+}
+
+.gap-2 {
+  gap: var(--spacing-2);
+}
+
+.gap-4 {
+  gap: var(--spacing-4);
+}
+
+.gap-6 {
+  gap: var(--spacing-6);
+}
+
+.gap-8 {
+  gap: var(--spacing-8);
+}
+
+// ---------------------------------------------------------------------------
+// RESPONSIVE GAP
+// ---------------------------------------------------------------------------
+.gap-responsive {
+  gap: var(--spacing-3);
+
+  @include responsive('md') {
+    gap: var(--spacing-4);
+  }
+
+  @include responsive('lg') {
+    gap: var(--spacing-6);
+  }
+}
 
 // ---------------------------------------------------------------------------
 // LAYOUT PRINCIPAL
@@ -102,24 +241,149 @@
 }
 
 // ---------------------------------------------------------------------------
-// SECCION
+// SECCION (Mobile-First)
 // ---------------------------------------------------------------------------
 .seccion {
-  padding: var(--spacing-12) 0;
+  padding: var(--spacing-8) 0;
+
+  @include responsive('md') {
+    padding: var(--spacing-12) 0;
+  }
 }
 
 .seccion--pequena {
-  padding: var(--spacing-6) 0;
+  padding: var(--spacing-4) 0;
+
+  @include responsive('md') {
+    padding: var(--spacing-6) 0;
+  }
 }
 
 .seccion--grande {
-  padding: var(--spacing-16) 0;
+  padding: var(--spacing-12) 0;
+
+  @include responsive('md') {
+    padding: var(--spacing-16) 0;
+  }
+
+  @include responsive('lg') {
+    padding: var(--spacing-20) 0;
+  }
 }
 
 // ---------------------------------------------------------------------------
-// ESPACIADORES
+// ESPACIADORES (Mobile-First)
 // ---------------------------------------------------------------------------
-.espaciador-4 { height: var(--spacing-4); }
-.espaciador-8 { height: var(--spacing-8); }
-.espaciador-12 { height: var(--spacing-12); }
-.espaciador-16 { height: var(--spacing-16); }
+.espaciador-4 {
+  height: var(--spacing-2);
+
+  @include responsive('md') {
+    height: var(--spacing-4);
+  }
+}
+
+.espaciador-8 {
+  height: var(--spacing-4);
+
+  @include responsive('md') {
+    height: var(--spacing-8);
+  }
+}
+
+.espaciador-12 {
+  height: var(--spacing-8);
+
+  @include responsive('md') {
+    height: var(--spacing-12);
+  }
+}
+
+.espaciador-16 {
+  height: var(--spacing-10);
+
+  @include responsive('md') {
+    height: var(--spacing-16);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// RESPONSIVE VISIBILITY
+// ---------------------------------------------------------------------------
+.oculto-movil {
+  display: none;
+
+  @include responsive('md') {
+    display: block;
+  }
+}
+
+.oculto-tablet {
+  display: block;
+
+  @include responsive('md') {
+    display: none;
+  }
+
+  @include responsive('lg') {
+    display: block;
+  }
+}
+
+.oculto-desktop {
+  display: block;
+
+  @include responsive('lg') {
+    display: none;
+  }
+}
+
+.solo-movil {
+  display: block;
+
+  @include responsive('md') {
+    display: none;
+  }
+}
+
+.solo-tablet {
+  display: none;
+
+  @include responsive('md') {
+    display: block;
+  }
+
+  @include responsive('lg') {
+    display: none;
+  }
+}
+
+.solo-desktop {
+  display: none;
+
+  @include responsive('lg') {
+    display: block;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// RESPONSIVE TEXT ALIGNMENT
+// ---------------------------------------------------------------------------
+.texto-centro-movil {
+  text-align: center;
+
+  @include responsive('md') {
+    text-align: left;
+  }
+}
+
+.texto-centro {
+  text-align: center;
+}
+
+.texto-izquierda {
+  text-align: left;
+}
+
+.texto-derecha {
+  text-align: right;
+}

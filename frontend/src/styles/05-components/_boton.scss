@@ -1,20 +1,29 @@
 // ===============================================================================
 // COMPONENTE: BOTON
 // Archivo: 05-components/_boton.scss
-// Se usa en: formularios, modales, cards, navegacion
+// Estrategia: Mobile-First
 // ===============================================================================
 
 @use '../01-tools/mixins' as *;
 
 // ---------------------------------------------------------------------------
-// Clase base del boton
+// Clase base del boton (Mobile-First)
 // ---------------------------------------------------------------------------
 .boton {
   @include boton-base;
   font-family: var(--font-primary);
-  font-size: var(--font-base);
+  font-size: var(--font-sm);
   font-weight: var(--font-medium);
   border: var(--border-medium) solid transparent;
+  padding: var(--spacing-2) var(--spacing-4);
+  width: 100%;
+  min-height: 44px;
+
+  @include responsive('sm') {
+    font-size: var(--font-base);
+    padding: var(--spacing-3) var(--spacing-6);
+    width: auto;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -87,40 +96,69 @@
 }
 
 // ---------------------------------------------------------------------------
-// Modificadores de tamano
+// Modificadores de tamano (Mobile-First)
 // ---------------------------------------------------------------------------
 .boton--pequeno {
-  padding: var(--spacing-2) var(--spacing-4);
-  font-size: var(--font-sm);
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-xs);
   border-radius: var(--radius-xl);
+
+  @include responsive('sm') {
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--font-sm);
+  }
 }
 
 .boton--mediano {
-  padding: var(--spacing-3) var(--spacing-6);
-  font-size: var(--font-base);
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-sm);
   border-radius: var(--radius-2xl);
+
+  @include responsive('sm') {
+    padding: var(--spacing-3) var(--spacing-6);
+    font-size: var(--font-base);
+  }
 }
 
 .boton--grande {
-  padding: var(--spacing-4) var(--spacing-8);
-  font-size: var(--font-lg);
+  padding: var(--spacing-3) var(--spacing-6);
+  font-size: var(--font-base);
   border-radius: var(--radius-2xl);
+
+  @include responsive('sm') {
+    padding: var(--spacing-4) var(--spacing-8);
+    font-size: var(--font-lg);
+  }
 }
 
 .boton--completo {
   width: 100%;
 }
 
+.boton--auto {
+  width: auto;
+}
+
 // ---------------------------------------------------------------------------
 // Elementos del boton
 // ---------------------------------------------------------------------------
 .boton__icono {
-  margin-right: var(--spacing-2);
-  width: var(--spacing-5);
-  height: var(--spacing-5);
+  margin-right: var(--spacing-1);
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+
+  @include responsive('sm') {
+    margin-right: var(--spacing-2);
+    width: var(--spacing-5);
+    height: var(--spacing-5);
+  }
 }
 
 .boton__icono--derecha {
   margin-right: 0;
-  margin-left: var(--spacing-2);
+  margin-left: var(--spacing-1);
+
+  @include responsive('sm') {
+    margin-left: var(--spacing-2);
+  }
 }

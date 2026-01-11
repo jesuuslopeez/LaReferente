@@ -1,0 +1,78 @@
+<section class="login">
+  <div class="login__card">
+    <h1 class="login__title">
+      {{ modoRegistro() ? 'Crear cuenta' : 'Iniciar sesion' }}
+    </h1>
+
+    @if (error()) {
+      <div class="login__error">{{ error() }}</div>
+    }
+
+    <form class="login__form" (ngSubmit)="enviar()">
+      @if (modoRegistro()) {
+        <div class="login__field">
+          <label class="login__label" for="nombre">Nombre</label>
+          <input
+            id="nombre"
+            type="text"
+            class="login__input"
+            [(ngModel)]="nombre"
+            name="nombre"
+            required
+          />
+        </div>
+
+        <div class="login__field">
+          <label class="login__label" for="apellidos">Apellidos</label>
+          <input
+            id="apellidos"
+            type="text"
+            class="login__input"
+            [(ngModel)]="apellidos"
+            name="apellidos"
+            required
+          />
+        </div>
+      }
+
+      <div class="login__field">
+        <label class="login__label" for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          class="login__input"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+      </div>
+
+      <div class="login__field">
+        <label class="login__label" for="password">Contrasena</label>
+        <input
+          id="password"
+          type="password"
+          class="login__input"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="login__btn"
+        [disabled]="cargando()"
+      >
+        {{ cargando() ? 'Cargando...' : (modoRegistro() ? 'Registrarse' : 'Entrar') }}
+      </button>
+    </form>
+
+    <p class="login__switch">
+      {{ modoRegistro() ? 'Ya tienes cuenta?' : 'No tienes cuenta?' }}
+      <button type="button" class="login__switch-btn" (click)="cambiarModo()">
+        {{ modoRegistro() ? 'Iniciar sesion' : 'Registrarse' }}
+      </button>
+    </p>
+  </div>
+</section>
