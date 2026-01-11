@@ -1,6 +1,6 @@
 # La Referente
 
-Aplicacion web sobre futbol espanol que permite explorar jugadores, competiciones y estadisticas de las principales ligas.
+Aplicacion web sobre futbol español que permite explorar jugadores, competiciones y estadisticas de las principales ligas.
 
 ## Tecnologias
 

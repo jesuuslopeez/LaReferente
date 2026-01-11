@@ -32,6 +32,10 @@
   @include responsive('xl') {
     max-width: 1280px;
   }
+  @include responsive('sm') { max-width: 40rem; }
+  @include responsive('md') { max-width: 48rem; }
+  @include responsive('lg') { max-width: 64rem; }
+  @include responsive('xl') { max-width: 80rem; }
 }
 
 .contenedor--fluido {
@@ -44,6 +48,7 @@
   @include responsive('md') {
     max-width: 800px;
   }
+  max-width: 50rem;
 }
 
 // ---------------------------------------------------------------------------

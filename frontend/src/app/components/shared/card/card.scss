@@ -15,6 +15,7 @@
 .card {
   width: 100%;
   max-width: 328px;
+  width: 20.5rem;
   background-color: var(--primary);
   border-radius: var(--radius-2xl);
   overflow: hidden;
@@ -25,6 +26,7 @@
   &__header {
     position: relative;
     height: 140px;
+    height: 10.625rem;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -46,6 +48,8 @@
   &__player-image {
     width: 100px;
     height: 100px;
+    width: 8.125rem;
+    height: 8.125rem;
     border-radius: var(--radius-full);
     object-fit: cover;
 
@@ -93,6 +97,7 @@
     @media (min-width: $breakpoint-sm) {
       font-size: 4.5rem;
     }
+    text-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
   }
 
   &__info {
@@ -172,7 +177,7 @@
     align-items: center;
     justify-content: center;
     white-space: nowrap;
-    min-height: 44px;
+    min-height: 2.75rem;
 
     @media (min-width: $breakpoint-sm) {
       font-size: var(--font-base);
