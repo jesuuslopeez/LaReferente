@@ -12,6 +12,7 @@
 
 .form-field {
   &__textarea {
+    max-width: 100%;
     max-width: 31.25rem;
     width: 100%;
     padding: var(--spacing-3) var(--spacing-4);

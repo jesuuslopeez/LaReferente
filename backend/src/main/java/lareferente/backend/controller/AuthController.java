@@ -24,4 +24,9 @@ public class AuthController {
     public ResponseEntity<LoginResponseDTO> register(@RequestBody RegisterRequestDTO registerRequest) {
         return ResponseEntity.ok(authService.register(registerRequest));
     }
+
+    @GetMapping("/check-email")
+    public ResponseEntity<Boolean> checkEmailExists(@RequestParam String email) {
+        return ResponseEntity.ok(authService.emailExists(email));
+    }
 }

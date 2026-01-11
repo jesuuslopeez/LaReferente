@@ -76,4 +76,8 @@ public class AuthService {
                 savedUser.getRol().name()
         );
     }
+
+    public boolean emailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }

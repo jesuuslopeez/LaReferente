@@ -1,0 +1,87 @@
+@use '../../../styles/00-settings/variables' as *;
+@use '../../../styles/01-tools/mixins' as *;
+
+:host {
+  display: block;
+}
+
+.comp-group {
+  margin-top: var(--spacing-6);
+  background-color: var(--bg-color);
+  border: var(--border-medium) solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-5);
+    padding-bottom: var(--spacing-4);
+    border-bottom: var(--border-thin) solid var(--border-color);
+  }
+
+  &__title {
+    font-family: var(--font-secondary);
+    font-size: var(--font-xl);
+    font-weight: var(--font-bold);
+    color: var(--text-color);
+  }
+
+  &__teams {
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+  }
+
+  &__subtitle {
+    font-family: var(--font-secondary);
+    font-size: var(--font-lg);
+    font-weight: var(--font-semibold);
+    color: var(--text-color);
+    margin-bottom: var(--spacing-4);
+  }
+
+  &__table-container {
+    overflow-x: auto;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: var(--spacing-3);
+      text-align: center;
+      border-bottom: var(--border-thin) solid var(--border-color);
+    }
+
+    th {
+      font-size: var(--font-sm);
+      font-weight: var(--font-semibold);
+      color: var(--text-secondary);
+      background-color: var(--bg-secondary);
+    }
+
+    td {
+      font-size: var(--font-sm);
+      color: var(--text-color);
+    }
+
+    td:nth-child(2) {
+      text-align: left;
+    }
+
+    tbody tr:hover {
+      background-color: var(--bg-secondary);
+    }
+  }
+
+  &__note {
+    margin-top: var(--spacing-4);
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: center;
+  }
+}

@@ -108,6 +108,9 @@ Documentacion sobre la implementacion Angular, servicios y formularios.
 | [Componentes Interactivos](docs/dwec/componentes-interactivos.md) | Theme switcher, menu mobile, modales, tabs, tooltips y dropdowns con eventos |
 | [Arquitectura de Servicios](docs/dwec/arquitectura-servicios.md) | Comunicacion entre componentes, sistema de notificaciones, loading states y separacion logica-presentacion |
 | [Formularios y Validadores](docs/dwec/formularios-validadores.md) | Formularios reactivos, validadores sincronos y asincronos, FormArray y feedback visual |
+| [Sistema de Rutas](docs/dwec/sistema-rutas.md) | Rutas con parametros, rutas hijas, lazy loading, guards y resolvers |
+| [Servicios HTTP](docs/dwec/servicios-http.md) | ApiService CRUD, interceptores, modelos tipados y patron RequestState |
+| [Gestion de Estado](docs/dwec/gestion-estado.md) | Stores con Signals, paginacion, busqueda con debounce y optimizaciones |
 
 ## Caracteristicas principales
 
