@@ -12,9 +12,9 @@
   position: fixed;
   top: var(--spacing-5);
   right: var(--spacing-5);
-  z-index: 10000;
-  min-width: 300px;
-  max-width: 500px;
+  z-index: var(--z-toast);
+  min-width: 18.75rem;
+  max-width: 31.25rem;
   padding: var(--spacing-4) var(--spacing-12) var(--spacing-4) var(--spacing-4);
   border-radius: var(--radius-lg);
   color: var(--white);
