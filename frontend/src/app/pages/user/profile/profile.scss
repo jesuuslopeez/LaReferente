@@ -1,0 +1,82 @@
+@use '../../../../styles/00-settings/variables' as *;
+@use '../../../../styles/01-tools/mixins' as *;
+
+.profile {
+  background-color: var(--bg-color);
+  border: var(--border-medium) solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+
+  &__title {
+    font-family: var(--font-secondary);
+    font-size: var(--font-xl);
+    font-weight: var(--font-bold);
+    color: var(--text-color);
+    margin-bottom: var(--spacing-5);
+  }
+
+  &__message {
+    background-color: #d1fae5;
+    border: 1px solid #a7f3d0;
+    color: #047857;
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-4);
+    font-size: var(--font-sm);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  &__label {
+    font-size: var(--font-sm);
+    font-weight: var(--font-medium);
+    color: var(--text-color);
+  }
+
+  &__input {
+    padding: var(--spacing-3) var(--spacing-4);
+    border: var(--border-medium) solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: var(--font-base);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+  }
+
+  &__actions {
+    padding-top: var(--spacing-4);
+  }
+
+  &__btn {
+    padding: var(--spacing-3) var(--spacing-6);
+    background-color: var(--primary);
+    color: var(--white);
+    font-weight: var(--font-semibold);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background-color: var(--primary-dark);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}

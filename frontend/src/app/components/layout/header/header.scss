@@ -476,6 +476,7 @@
     font-size: var(--font-base);
     font-family: var(--font-primary);
     font-weight: var(--font-medium);
+    text-decoration: none;
     transition: all var(--duration-fast) var(--timing-ease-in-out);
 
     &:hover {
@@ -484,6 +485,15 @@
 
     &:not(:last-child) {
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    &--danger {
+      color: #fca5a5;
+
+      &:hover {
+        background-color: rgba(239, 68, 68, 0.2);
+        color: #fecaca;
+      }
     }
   }
 
@@ -564,12 +574,24 @@
     font-size: var(--font-lg);
     font-family: var(--font-primary);
     font-weight: var(--font-medium);
+    text-decoration: none;
     cursor: pointer;
     transition: all var(--duration-fast) var(--timing-ease-in-out);
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.2);
       border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    &--danger {
+      background-color: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #fecaca;
+
+      &:hover {
+        background-color: rgba(239, 68, 68, 0.3);
+        border-color: rgba(239, 68, 68, 0.7);
+      }
     }
   }
 

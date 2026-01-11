@@ -344,11 +344,12 @@
     justify-items: center;
 
     @include responsive('sm') {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 350px));
+      justify-content: center;
     }
 
     @include responsive('lg') {
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 350px));
     }
   }
 

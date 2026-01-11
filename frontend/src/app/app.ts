@@ -11,7 +11,6 @@ import { Main } from './components/layout/main/main';
 import { Footer } from './components/layout/footer/footer';
 import { Toast } from './shared/components/toast/toast';
 import { Loading } from './shared/components/loading/loading';
-
 @Component({
   selector: 'app-root',
   imports: [
@@ -25,7 +24,7 @@ import { Loading } from './shared/components/loading/loading';
     Main,
     Footer,
     Toast,
-    Loading
+    Loading,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'

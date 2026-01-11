@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FormInput } from '../form-input/form-input';
 import { FormModalButton } from '../form-modal-button/form-modal-button';
 import { ToastService } from '../../../shared/services/toast';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -13,11 +14,14 @@ import { ToastService } from '../../../shared/services/toast';
 })
 export class LoginForm {
   @Output() switchToRegister = new EventEmitter<void>();
+  @Output() loginSuccess = new EventEmitter<void>();
 
   private fb = inject(FormBuilder);
   private toastService = inject(ToastService);
+  private authService = inject(AuthService);
 
   loginForm: FormGroup;
+  cargando = signal(false);
 
   constructor() {
     this.loginForm = this.fb.group({
@@ -45,7 +49,23 @@ export class LoginForm {
       return;
     }
 
-    console.log('Login form submitted', this.loginForm.value);
-    this.toastService.success('Inicio de sesión exitoso');
+    this.cargando.set(true);
+
+    this.authService
+      .login({
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password,
+      })
+      .subscribe({
+        next: () => {
+          this.cargando.set(false);
+          this.toastService.success('Inicio de sesion exitoso');
+          this.loginSuccess.emit();
+        },
+        error: (err) => {
+          this.cargando.set(false);
+          this.toastService.error(err.error?.message || 'Credenciales incorrectas');
+        },
+      });
   }
 }

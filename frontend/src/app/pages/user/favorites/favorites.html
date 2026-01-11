@@ -1,0 +1,26 @@
+<div class="favorites">
+  <h2 class="favorites__title">Mis favoritos</h2>
+
+  @if (favoritos.length === 0) {
+    <div class="favorites__empty">
+      <p>No tienes favoritos guardados</p>
+      <a routerLink="/competiciones" class="favorites__link">Explorar competiciones</a>
+    </div>
+  } @else {
+    <ul class="favorites__list">
+      @for (fav of favoritos; track fav.slug) {
+        <li class="favorites__item">
+          <a [routerLink]="['/competiciones', fav.slug]" class="favorites__item-link">
+            <span class="favorites__item-name">{{ fav.nombre }}</span>
+            <span class="favorites__item-type">{{ fav.tipo }}</span>
+          </a>
+          <button class="favorites__remove" (click)="eliminar(fav.slug)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>
