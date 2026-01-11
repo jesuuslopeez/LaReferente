@@ -173,10 +173,6 @@
     width: 100%;
     text-align: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    @media (max-width: 1200px) {
-      width: 100%;
-      text-align: center;
-      border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.1);
 
     &:last-child {
       border-bottom: none;
@@ -609,9 +605,10 @@
     }
   }
 
-  &__mobile-icon {
-    width: var(--spacing-6);
-    height: var(--spacing-6);
+    &__mobile-icon {
+      width: var(--spacing-6);
+      height: var(--spacing-6);
+    }
   }
 }
 
