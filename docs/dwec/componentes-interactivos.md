@@ -240,7 +240,7 @@ export class AccountModal {
 
 ## 4. Tabs (Pestanas)
 
-Componente de navegacion por pestanas para mostrar contenido categorizado.
+Componente de navegacion por pestanas con soporte completo de teclado y accesibilidad.
 
 ### Implementacion
 
@@ -248,54 +248,39 @@ Componente de navegacion por pestanas para mostrar contenido categorizado.
 
 ```typescript
 type TabId = 'detalles' | 'especificaciones' | 'opiniones';
+const TABS: TabId[] = ['detalles', 'especificaciones', 'opiniones'];
 
 @Component({
   selector: 'app-tabs',
   template: `
     <section class="tabs">
-      <nav class="tabs-nav">
+      <nav class="tabs-nav" role="tablist" #tabList>
         <button
+          #tabButton
           (click)="selectTab('detalles')"
+          (keydown.arrowright)="focusNextTab($event, 0)"
+          (keydown.arrowleft)="focusPrevTab($event, 0)"
+          (keydown.home)="focusFirstTab($event)"
+          (keydown.end)="focusLastTab($event)"
           [class.active]="activeTab() === 'detalles'"
+          [attr.aria-selected]="activeTab() === 'detalles'"
+          [attr.tabindex]="activeTab() === 'detalles' ? 0 : -1"
+          role="tab"
+          aria-controls="panel-detalles"
           type="button">
           Detalles
         </button>
-        <button
-          (click)="selectTab('especificaciones')"
-          [class.active]="activeTab() === 'especificaciones'"
-          type="button">
-          Especificaciones
-        </button>
-        <button
-          (click)="selectTab('opiniones')"
-          [class.active]="activeTab() === 'opiniones'"
-          type="button">
-          Opiniones
-        </button>
+        <!-- Mas botones con la misma estructura -->
       </nav>
 
       <article class="tabs-content">
         @if (activeTab() === 'detalles') {
-          <section>
+          <section role="tabpanel" id="panel-detalles" aria-labelledby="tab-detalles">
             <h3>Detalles del Producto</h3>
             <p>Informacion detallada sobre el producto.</p>
           </section>
         }
-        @if (activeTab() === 'especificaciones') {
-          <section>
-            <h3>Especificaciones Tecnicas</h3>
-            <ul>
-              <li>Caracteristica 1</li>
-              <li>Caracteristica 2</li>
-            </ul>
-          </section>
-        }
-        @if (activeTab() === 'opiniones') {
-          <section>
-            <h3>Opiniones de Clientes</h3>
-            <p>Aqui van las resenas y comentarios.</p>
-          </section>
-        }
+        <!-- Mas paneles -->
       </article>
     </section>
   `
@@ -303,8 +288,54 @@ type TabId = 'detalles' | 'especificaciones' | 'opiniones';
 export class TabsComponent {
   protected readonly activeTab = signal<TabId>('detalles');
 
+  // Referencias para navegacion por teclado
+  @ViewChildren('tabButton') tabButtons!: QueryList<ElementRef>;
+  @ViewChild('tabList') tabList!: ElementRef;
+
   protected selectTab(tab: TabId): void {
     this.activeTab.set(tab);
+  }
+
+  // Navegacion: siguiente tab (ArrowRight)
+  protected focusNextTab(event: Event, currentIndex: number): void {
+    event.preventDefault();
+    const buttons = this.tabButtons?.toArray();
+    if (buttons) {
+      const nextIndex = (currentIndex + 1) % buttons.length;
+      buttons[nextIndex].nativeElement.focus();
+      this.activeTab.set(TABS[nextIndex]);
+    }
+  }
+
+  // Navegacion: tab anterior (ArrowLeft)
+  protected focusPrevTab(event: Event, currentIndex: number): void {
+    event.preventDefault();
+    const buttons = this.tabButtons?.toArray();
+    if (buttons) {
+      const prevIndex = currentIndex === 0 ? buttons.length - 1 : currentIndex - 1;
+      buttons[prevIndex].nativeElement.focus();
+      this.activeTab.set(TABS[prevIndex]);
+    }
+  }
+
+  // Navegacion: primer tab (Home)
+  protected focusFirstTab(event: Event): void {
+    event.preventDefault();
+    const buttons = this.tabButtons?.toArray();
+    if (buttons?.[0]) {
+      buttons[0].nativeElement.focus();
+      this.activeTab.set(TABS[0]);
+    }
+  }
+
+  // Navegacion: ultimo tab (End)
+  protected focusLastTab(event: Event): void {
+    event.preventDefault();
+    const buttons = this.tabButtons?.toArray();
+    if (buttons?.length) {
+      buttons[buttons.length - 1].nativeElement.focus();
+      this.activeTab.set(TABS[buttons.length - 1]);
+    }
   }
 }
 ```
@@ -314,96 +345,156 @@ export class TabsComponent {
 | Evento | Elemento | Accion |
 |--------|----------|--------|
 | `click` | Botones de pestana | Cambia la pestana activa |
+| `keydown.arrowright` | Botones de pestana | Navega al siguiente tab |
+| `keydown.arrowleft` | Botones de pestana | Navega al tab anterior |
+| `keydown.home` | Botones de pestana | Navega al primer tab |
+| `keydown.end` | Botones de pestana | Navega al ultimo tab |
 
 ### Caracteristicas
 
 - Estado con Angular Signals
-- Clases dinamicas para indicar pestana activa (`[class.active]`)
+- Navegacion completa por teclado (ArrowLeft, ArrowRight, Home, End)
+- ViewChild y ViewChildren para referencias al DOM
+- Accesibilidad completa: `role="tablist"`, `role="tab"`, `aria-selected`, `aria-controls`
+- Clases dinamicas para indicar pestana activa
 - Renderizado condicional con `@if`
-- Tipado estricto con TypeScript (`TabId`)
 
 ---
 
 ## 5. Tooltip (Directiva)
 
-Directiva que muestra informacion contextual al pasar el cursor sobre un elemento.
+Directiva tooltip con delay configurable, posicionamiento dinamico (top, bottom, left, right), flecha indicadora y soporte para accesibilidad.
 
 ### Implementacion
 
 **Directiva** (`tooltip.directive.ts`):
 
 ```typescript
+export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
+
 @Directive({
   selector: '[appTooltip]'
 })
-export class TooltipDirective {
+export class TooltipDirective implements OnDestroy {
   @Input() appTooltip = '';
+  @Input() tooltipPosition: TooltipPosition = 'top';
+  @Input() tooltipDelay = 300; // Delay en milisegundos
+
   private tooltipElement: HTMLElement | null = null;
+  private arrowElement: HTMLElement | null = null;
+  private showTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     private el: ElementRef,
     private renderer: Renderer2
   ) {}
 
+  ngOnDestroy(): void {
+    this.clearTimeouts();
+    this.hideTooltip();
+  }
+
+  // Evento mouse: muestra tooltip con delay
   @HostListener('mouseenter')
   onMouseEnter(): void {
-    if (!this.tooltipElement) {
-      this.showTooltip();
-    }
+    this.clearTimeouts();
+    this.showTimeout = setTimeout(() => {
+      if (!this.tooltipElement) this.showTooltip();
+    }, this.tooltipDelay);
   }
 
   @HostListener('mouseleave')
   onMouseLeave(): void {
-    if (this.tooltipElement) {
-      this.hideTooltip();
-    }
+    this.clearTimeouts();
+    this.hideTooltip();
+  }
+
+  // Evento focus: soporte para accesibilidad
+  @HostListener('focusin')
+  onFocusIn(): void {
+    this.clearTimeouts();
+    this.showTimeout = setTimeout(() => {
+      if (!this.tooltipElement) this.showTooltip();
+    }, this.tooltipDelay);
+  }
+
+  @HostListener('focusout')
+  onFocusOut(): void {
+    this.clearTimeouts();
+    this.hideTooltip();
   }
 
   private showTooltip(): void {
+    // Crear tooltip con Renderer2
     this.tooltipElement = this.renderer.createElement('span');
     this.renderer.setProperty(this.tooltipElement, 'innerText', this.appTooltip);
+    this.renderer.setAttribute(this.tooltipElement, 'role', 'tooltip');
 
-    this.renderer.setStyle(this.tooltipElement, 'position', 'absolute');
-    this.renderer.setStyle(this.tooltipElement, 'backgroundColor', '#333');
-    this.renderer.setStyle(this.tooltipElement, 'color', 'white');
-    this.renderer.setStyle(this.tooltipElement, 'padding', '5px 10px');
-    this.renderer.setStyle(this.tooltipElement, 'borderRadius', '4px');
-    this.renderer.setStyle(this.tooltipElement, 'bottom', '100%');
-    this.renderer.setStyle(this.tooltipElement, 'left', '50%');
-    this.renderer.setStyle(this.tooltipElement, 'transform', 'translateX(-50%)');
+    // Crear flecha indicadora
+    this.arrowElement = this.renderer.createElement('span');
+    this.applyPosition(); // Aplicar posicion segun tooltipPosition
 
-    this.renderer.setStyle(this.el.nativeElement, 'position', 'relative');
+    // Animacion fade-in
+    this.renderer.setStyle(this.tooltipElement, 'opacity', '0');
+    this.renderer.setStyle(this.tooltipElement, 'transition', 'opacity 0.2s ease');
+    this.renderer.appendChild(this.tooltipElement, this.arrowElement);
     this.renderer.appendChild(this.el.nativeElement, this.tooltipElement);
+
+    setTimeout(() => {
+      this.renderer.setStyle(this.tooltipElement, 'opacity', '1');
+    }, 10);
+  }
+
+  private applyPosition(): void {
+    // Posicionamiento dinamico segun tooltipPosition (top, bottom, left, right)
+    // Incluye flecha apuntando hacia el elemento
   }
 
   private hideTooltip(): void {
     if (this.tooltipElement) {
-      this.renderer.removeChild(this.el.nativeElement, this.tooltipElement);
-      this.tooltipElement = null;
+      this.renderer.setStyle(this.tooltipElement, 'opacity', '0');
+      setTimeout(() => {
+        this.renderer.removeChild(this.el.nativeElement, this.tooltipElement);
+        this.tooltipElement = null;
+      }, 200);
     }
   }
 }
 ```
 
-**Uso**:
+**Uso basico**:
 
 ```html
-<button appTooltip="Este es el texto del tooltip">Hover aqui</button>
+<button appTooltip="Texto del tooltip">Hover aqui</button>
+```
+
+**Uso con opciones**:
+
+```html
+<button appTooltip="Texto" tooltipPosition="bottom" tooltipDelay="500">
+  Con delay y posicion
+</button>
 ```
 
 ### Eventos utilizados
 
 | Evento | Elemento | Accion |
 |--------|----------|--------|
-| `mouseenter` | Elemento con directiva | Muestra el tooltip |
-| `mouseleave` | Elemento con directiva | Oculta el tooltip |
+| `mouseenter` | Elemento con directiva | Inicia timer para mostrar tooltip |
+| `mouseleave` | Elemento con directiva | Oculta tooltip con animacion |
+| `focusin` | Elemento con directiva | Muestra tooltip (accesibilidad) |
+| `focusout` | Elemento con directiva | Oculta tooltip |
 
 ### Caracteristicas
 
-- Usa `@HostListener` para escuchar eventos del elemento host
-- Creacion dinamica de elementos con `Renderer2`
-- Posicionamiento automatico sobre el elemento
-- Limpieza del DOM al ocultar
+- Delay configurable (default 300ms) para evitar tooltips accidentales
+- Posicionamiento dinamico: top, bottom, left, right
+- Flecha indicadora que apunta al elemento
+- Soporte de accesibilidad con eventos focus
+- Animacion fade-in/fade-out suave
+- Creacion dinamica de elementos con Renderer2
+- Limpieza en ngOnDestroy para evitar memory leaks
+- Atributo `role="tooltip"` para lectores de pantalla
 
 ---
 
@@ -463,16 +554,139 @@ export class Header {
 
 ---
 
+## 7. Accordion
+
+Componente accordion con navegacion completa por teclado y animaciones CSS.
+
+### Implementacion
+
+**Componente** (`accordion.component.ts`):
+
+```typescript
+interface AccordionItem {
+  id: string;
+  title: string;
+  content: string;
+}
+
+@Component({
+  selector: 'app-accordion',
+  template: `
+    <section class="accordion" #accordionContainer>
+      @for (item of items; track item.id; let i = $index) {
+        <article class="accordion__item">
+          <button
+            #accordionButton
+            class="accordion__header"
+            [class.accordion__header--open]="openItemId() === item.id"
+            [attr.aria-expanded]="openItemId() === item.id"
+            [attr.aria-controls]="'panel-' + item.id"
+            (click)="toggle(item.id)"
+            (keydown.arrowdown)="focusNextItem($event, i)"
+            (keydown.arrowup)="focusPrevItem($event, i)"
+            (keydown.home)="focusFirstItem($event)"
+            (keydown.end)="focusLastItem($event)"
+            (keydown.enter)="toggle(item.id)"
+            (keydown.space)="onSpacePress($event, item.id)"
+            type="button">
+            <span>{{ item.title }}</span>
+            <span class="accordion__icon" [class.accordion__icon--open]="openItemId() === item.id">
+              <!-- Icono chevron -->
+            </span>
+          </button>
+          <section
+            class="accordion__panel"
+            [class.accordion__panel--open]="openItemId() === item.id"
+            [id]="'panel-' + item.id"
+            role="region">
+            <p>{{ item.content }}</p>
+          </section>
+        </article>
+      }
+    </section>
+  `
+})
+export class AccordionComponent {
+  protected readonly openItemId = signal<string | null>(null);
+
+  // Referencias para navegacion por teclado
+  @ViewChildren('accordionButton') accordionButtons!: QueryList<ElementRef>;
+  @ViewChild('accordionContainer') accordionContainer!: ElementRef;
+
+  protected toggle(itemId: string): void {
+    this.openItemId.update(current => current === itemId ? null : itemId);
+  }
+
+  protected onSpacePress(event: Event, itemId: string): void {
+    event.preventDefault(); // Prevenir scroll
+    this.toggle(itemId);
+  }
+
+  protected focusNextItem(event: Event, currentIndex: number): void {
+    event.preventDefault();
+    const buttons = this.accordionButtons?.toArray();
+    if (buttons?.[currentIndex + 1]) {
+      buttons[currentIndex + 1].nativeElement.focus();
+    }
+  }
+
+  protected focusPrevItem(event: Event, currentIndex: number): void {
+    event.preventDefault();
+    const buttons = this.accordionButtons?.toArray();
+    if (buttons?.[currentIndex - 1]) {
+      buttons[currentIndex - 1].nativeElement.focus();
+    }
+  }
+
+  protected focusFirstItem(event: Event): void {
+    event.preventDefault();
+    const buttons = this.accordionButtons?.toArray();
+    buttons?.[0]?.nativeElement.focus();
+  }
+
+  protected focusLastItem(event: Event): void {
+    event.preventDefault();
+    const buttons = this.accordionButtons?.toArray();
+    buttons?.[buttons.length - 1]?.nativeElement.focus();
+  }
+}
+```
+
+### Eventos utilizados
+
+| Evento | Elemento | Accion |
+|--------|----------|--------|
+| `click` | Header del accordion | Expande/colapsa seccion |
+| `keydown.enter` | Header del accordion | Expande/colapsa seccion |
+| `keydown.space` | Header del accordion | Expande/colapsa seccion (con preventDefault) |
+| `keydown.arrowdown` | Header del accordion | Mueve foco al siguiente item |
+| `keydown.arrowup` | Header del accordion | Mueve foco al item anterior |
+| `keydown.home` | Header del accordion | Mueve foco al primer item |
+| `keydown.end` | Header del accordion | Mueve foco al ultimo item |
+
+### Caracteristicas
+
+- Solo una seccion abierta a la vez (modo accordion)
+- Navegacion completa por teclado (ArrowUp, ArrowDown, Home, End, Enter, Space)
+- Animacion CSS con max-height transition
+- Icono chevron que rota 180 grados al abrir
+- ViewChild y ViewChildren para referencias al DOM
+- Accesibilidad: `aria-expanded`, `aria-controls`, `role="region"`
+- preventDefault en Space para evitar scroll de pagina
+
+---
+
 ## Resumen de Eventos por Componente
 
 | Componente | Eventos | Descripcion |
 |------------|---------|-------------|
-| Theme Switcher | `click` | Alterna tema claro/oscuro |
-| Menu Mobile | `click` | Abre/cierra menu, navega |
-| Modal | `click`, `stopPropagation` | Cierra en overlay, evita cierre en contenido |
-| Tabs | `click` | Cambia pestana activa |
-| Tooltip | `mouseenter`, `mouseleave` | Muestra/oculta tooltip |
-| Dropdown | `click`, `document:click` | Abre/cierra, detecta click externo |
+| Theme Switcher | `click`, `matchMedia:change` | Alterna tema, detecta cambios del sistema |
+| Menu Mobile | `click`, `keydown.escape`, `document:click` | Abre/cierra menu, navega |
+| Modal | `click`, `keydown.escape`, `keydown.enter`, `blur`, `stopPropagation` | Cierra en overlay/ESC, evita cierre en contenido |
+| Tabs | `click`, `keydown.arrowright`, `keydown.arrowleft`, `keydown.home`, `keydown.end` | Cambia pestana con click y teclado |
+| Tooltip | `mouseenter`, `mouseleave`, `focusin`, `focusout` | Muestra/oculta tooltip con mouse y foco |
+| Dropdown | `click`, `document:click`, `document:keydown.escape` | Abre/cierra, detecta click/ESC externo |
+| Accordion | `click`, `keydown.enter`, `keydown.space`, `keydown.arrowup`, `keydown.arrowdown`, `keydown.home`, `keydown.end` | Expande/colapsa con navegacion por teclado |
 
 ---
 
@@ -650,11 +864,12 @@ onContentClick(event: MouseEvent): void {
 
 | Componente | Eventos | Descripcion |
 |------------|---------|-------------|
-| Header | `click`, `document:click` | Toggle menus, cierre externo |
+| Header | `click`, `document:click`, `document:keydown.escape` | Toggle menus, cierre externo y con ESC |
 | Modal | `click`, `keydown.escape`, `keydown.enter`, `blur` | Apertura, cierre, accesibilidad |
 | Menu | `click`, `keydown.enter`, `keydown.arrowdown`, `keydown.arrowup`, `keydown.escape`, `document:click` | Navegacion completa por teclado |
 | Tooltip | `mouseenter`, `mouseleave`, `focusin`, `focusout` | Mostrar/ocultar con mouse y focus |
-| Tabs | `click` | Cambio de pestana |
+| Tabs | `click`, `keydown.arrowright`, `keydown.arrowleft`, `keydown.home`, `keydown.end` | Cambio de pestana con teclado |
+| Accordion | `click`, `keydown.enter`, `keydown.space`, `keydown.arrowup`, `keydown.arrowdown`, `keydown.home`, `keydown.end` | Expandir/colapsar con teclado |
 | Formularios | `submit`, `input`, `blur`, `focus` | Validacion y envio |
 | Theme Switcher | `click`, `matchMedia:change` | Toggle y deteccion del sistema |
 

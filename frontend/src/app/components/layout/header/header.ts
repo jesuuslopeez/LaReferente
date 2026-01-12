@@ -1,4 +1,4 @@
-import { Component, inject, computed, signal, HostListener, ElementRef } from '@angular/core';
+import { Component, inject, computed, signal, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeService } from '../../../services/theme.service';
 import { AuthService } from '../../../services/auth.service';
@@ -6,6 +6,10 @@ import { AccountModal } from '../../shared/account-modal/account-modal';
 import { LoginForm } from '../../shared/login-form/login-form';
 import { RegisterForm } from '../../shared/register-form/register-form';
 
+/**
+ * Componente Header con menu mobile, modales y dropdown de cuenta
+ * Demuestra: @HostListener (document:click, document:keydown.escape), ViewChild, ElementRef
+ */
 @Component({
   selector: 'app-header',
   imports: [RouterLink, RouterLinkActive, AccountModal, LoginForm, RegisterForm],
@@ -24,11 +28,33 @@ export class Header {
   protected readonly mobileMenuOpen = signal(false);
   protected readonly searchDropdownOpen = signal(false);
 
+  // Referencias al DOM mediante ViewChild
+  @ViewChild('hamburgerButton') hamburgerButton!: ElementRef;
+  @ViewChild('accountButton') accountButton!: ElementRef;
+
+  // Evento global: cierra menus y modales con click fuera
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const clickedInside = this.elementRef.nativeElement.contains(event.target);
     if (!clickedInside && this.accountMenuOpen()) {
       this.accountMenuOpen.set(false);
+    }
+  }
+
+  // Evento global: cierra menus y modales con tecla ESC
+  @HostListener('document:keydown.escape')
+  onEscapePress(): void {
+    if (this.mobileMenuOpen()) {
+      this.mobileMenuOpen.set(false);
+      // Devolver foco al boton hamburguesa
+      this.hamburgerButton?.nativeElement?.focus();
+    }
+    if (this.accountMenuOpen()) {
+      this.accountMenuOpen.set(false);
+      this.accountButton?.nativeElement?.focus();
+    }
+    if (this.searchDropdownOpen()) {
+      this.searchDropdownOpen.set(false);
     }
   }
 
