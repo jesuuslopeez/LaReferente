@@ -1,8 +1,9 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
 
 /**
- * Directiva Tooltip que muestra información al pasar el mouse
- * Demuestra: eventos mouse (mouseenter, mouseleave), creación dinámica de elementos
+ * Directiva Tooltip que muestra información al pasar el mouse o al recibir foco
+ * Demuestra: eventos mouse (mouseenter, mouseleave), eventos focus (focusin, focusout),
+ * creación dinámica de elementos con Renderer2
  *
  * Uso: <button appTooltip="Texto del tooltip">Hover me</button>
  */
@@ -18,6 +19,7 @@ export class TooltipDirective {
     private renderer: Renderer2
   ) {}
 
+  // Evento mouse: muestra tooltip al pasar el cursor
   @HostListener('mouseenter')
   onMouseEnter(): void {
     if (!this.tooltipElement) {
@@ -25,8 +27,25 @@ export class TooltipDirective {
     }
   }
 
+  // Evento mouse: oculta tooltip al salir el cursor
   @HostListener('mouseleave')
   onMouseLeave(): void {
+    if (this.tooltipElement) {
+      this.hideTooltip();
+    }
+  }
+
+  // Evento focus: muestra tooltip cuando el elemento recibe foco (accesibilidad)
+  @HostListener('focusin')
+  onFocusIn(): void {
+    if (!this.tooltipElement) {
+      this.showTooltip();
+    }
+  }
+
+  // Evento focus: oculta tooltip cuando el elemento pierde el foco
+  @HostListener('focusout')
+  onFocusOut(): void {
     if (this.tooltipElement) {
       this.hideTooltip();
     }

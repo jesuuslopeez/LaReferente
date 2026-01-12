@@ -535,3 +535,266 @@ Todos los eventos y APIs utilizados en este proyecto tienen soporte universal en
 - **Event binding**: Sintaxis `(evento)="metodo()"`
 - **stopPropagation()**: Control de propagacion de eventos
 - **Content projection**: `<ng-content>` para componentes flexibles
+
+---
+
+## Arquitectura de Eventos en Angular
+
+### Introduccion al Sistema de Eventos
+
+Angular implementa un sistema de eventos basado en el patron de flujo de datos unidireccional. Los eventos fluyen desde el DOM hacia los componentes, donde se procesan y pueden modificar el estado de la aplicacion. Este enfoque facilita el seguimiento del flujo de datos y la depuracion.
+
+### Tipos de Event Binding
+
+En Angular existen varios mecanismos para manejar eventos:
+
+#### 1. Event Binding en Templates
+
+La sintaxis `(evento)="handler($event)"` permite vincular eventos del DOM directamente a metodos del componente:
+
+```html
+<!-- Evento click basico -->
+<button (click)="onClick()">Hacer click</button>
+
+<!-- Con acceso al objeto evento -->
+<input (input)="onInput($event)">
+
+<!-- Eventos de teclado especificos -->
+<input (keydown.enter)="onEnter()" (keydown.escape)="onEscape()">
+
+<!-- Eventos de mouse -->
+<div (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+
+<!-- Eventos de focus -->
+<input (focus)="onFocus()" (blur)="onBlur()">
+```
+
+#### 2. @HostListener para Eventos Globales
+
+El decorador `@HostListener` permite escuchar eventos a nivel de documento o window:
+
+```typescript
+// Escuchar clicks en todo el documento
+@HostListener('document:click', ['$event'])
+onDocumentClick(event: MouseEvent): void {
+  // Detectar clicks fuera del componente
+  const clickedInside = this.elementRef.nativeElement.contains(event.target);
+  if (!clickedInside) {
+    this.close();
+  }
+}
+
+// Escuchar tecla ESC globalmente
+@HostListener('document:keydown.escape')
+onEscapePress(): void {
+  this.closeModal();
+}
+
+// Escuchar cambios de tamano de ventana
+@HostListener('window:resize', ['$event'])
+onResize(event: Event): void {
+  this.updateLayout();
+}
+```
+
+#### 3. Renderer2 para Manipulacion Segura
+
+Renderer2 proporciona una capa de abstraccion para manipular el DOM de forma segura:
+
+```typescript
+// Crear elementos dinamicamente
+const element = this.renderer.createElement('div');
+this.renderer.appendChild(parent, element);
+
+// Modificar estilos
+this.renderer.setStyle(element, 'color', 'red');
+this.renderer.addClass(element, 'active');
+
+// Eliminar elementos
+this.renderer.removeChild(parent, element);
+```
+
+### Prevencion y Propagacion de Eventos
+
+#### preventDefault()
+
+Evita el comportamiento por defecto del navegador:
+
+```typescript
+onSubmit(event: Event): void {
+  event.preventDefault(); // Evita recarga de pagina
+  this.processForm();
+}
+```
+
+#### stopPropagation()
+
+Detiene la propagacion del evento hacia elementos padres:
+
+```typescript
+// En el contenido del modal, evitar que el click cierre el modal
+onContentClick(event: MouseEvent): void {
+  event.stopPropagation();
+}
+```
+
+### Buenas Practicas
+
+1. **Usar event binding en lugar de onclick**: La sintaxis `(click)` es mas segura y facilita el testing
+2. **Preferir @HostListener para eventos globales**: Evitar `document.addEventListener` directo
+3. **Usar Renderer2 para manipulacion del DOM**: Garantiza compatibilidad con SSR
+4. **Limpiar listeners en ngOnDestroy**: Evitar memory leaks
+5. **Verificar null/undefined en ViewChild**: Usar optional chaining o verificaciones antes de acceder
+
+### Tabla de Eventos Implementados por Componente
+
+| Componente | Eventos | Descripcion |
+|------------|---------|-------------|
+| Header | `click`, `document:click` | Toggle menus, cierre externo |
+| Modal | `click`, `keydown.escape`, `keydown.enter`, `blur` | Apertura, cierre, accesibilidad |
+| Menu | `click`, `keydown.enter`, `keydown.arrowdown`, `keydown.arrowup`, `keydown.escape`, `document:click` | Navegacion completa por teclado |
+| Tooltip | `mouseenter`, `mouseleave`, `focusin`, `focusout` | Mostrar/ocultar con mouse y focus |
+| Tabs | `click` | Cambio de pestana |
+| Formularios | `submit`, `input`, `blur`, `focus` | Validacion y envio |
+| Theme Switcher | `click`, `matchMedia:change` | Toggle y deteccion del sistema |
+
+---
+
+## Diagrama de Flujo de Eventos
+
+El siguiente diagrama muestra el flujo de eventos desde la interaccion del usuario hasta la actualizacion de la vista:
+
+```
++------------------+     +-------------------+     +------------------+
+|                  |     |                   |     |                  |
+|  Usuario         |     |  DOM (Browser)    |     |  Angular         |
+|  (Interaccion)   |     |  (Evento Nativo)  |     |  (Event Binding) |
+|                  |     |                   |     |                  |
++--------+---------+     +---------+---------+     +--------+---------+
+         |                         |                        |
+         | 1. Click/Keypress       |                        |
+         +------------------------>|                        |
+                                   |                        |
+                                   | 2. Event Dispatch      |
+                                   +----------------------->|
+                                                            |
+                        +-----------------------------------+
+                        |
+                        v
+         +-----------------------------+
+         |                             |
+         |  Component Handler          |
+         |  (click)="onAction($event)" |
+         |                             |
+         +-------------+---------------+
+                       |
+                       | 3. Process Event
+                       |
+         +-------------v---------------+
+         |                             |
+         |  preventDefault() ?         |
+         |  stopPropagation() ?        |
+         |                             |
+         +-------------+---------------+
+                       |
+                       | 4. Update State
+                       |
+         +-------------v---------------+
+         |                             |
+         |  Signal / Service Update    |
+         |  this.isOpen.set(true)      |
+         |                             |
+         +-------------+---------------+
+                       |
+                       | 5. Change Detection
+                       |
+         +-------------v---------------+
+         |                             |
+         |  View Re-render             |
+         |  @if / [class] / etc.       |
+         |                             |
+         +-----------------------------+
+```
+
+### Flujo Detallado de Ejemplo: Click en Boton de Menu
+
+```
+Usuario hace click en boton hamburguesa
+              |
+              v
++------------------------------------------+
+| 1. DOM dispara evento 'click' nativo     |
++------------------------------------------+
+              |
+              v
++------------------------------------------+
+| 2. Angular intercepta via (click)        |
+|    <button (click)="toggle()">           |
++------------------------------------------+
+              |
+              v
++------------------------------------------+
+| 3. Se ejecuta toggle() en componente     |
+|    this.isOpen.update(v => !v)           |
++------------------------------------------+
+              |
+              v
++------------------------------------------+
+| 4. Signal notifica cambio de estado      |
+|    isOpen: false -> true                 |
++------------------------------------------+
+              |
+              v
++------------------------------------------+
+| 5. Change Detection actualiza vista      |
+|    @if (isOpen()) { ... } se evalua      |
++------------------------------------------+
+              |
+              v
++------------------------------------------+
+| 6. DOM se actualiza mostrando menu       |
+|    <nav class="nav--open">               |
++------------------------------------------+
+```
+
+### Flujo de Eventos Globales con @HostListener
+
+```
+Usuario presiona tecla ESC en cualquier parte
+              |
+              v
++------------------------------------------+
+| 1. DOM dispara 'keydown' en document     |
++------------------------------------------+
+              |
+              v
++------------------------------------------+
+| 2. @HostListener('document:keydown.esc') |
+|    intercepta el evento                  |
++------------------------------------------+
+              |
+              v
++------------------------------------------+
+| 3. Angular filtra por tecla 'Escape'     |
++------------------------------------------+
+              |
+              v
++------------------------------------------+
+| 4. Se ejecuta onEscapePress()            |
+|    if (this.isOpen()) this.close()       |
++------------------------------------------+
+              |
+              v
++------------------------------------------+
+| 5. Estado actualizado, vista re-renderiza|
++------------------------------------------+
+```
+
+---
+
+## Referencias
+
+- [Angular Event Binding](https://angular.dev/guide/templates/event-binding)
+- [Angular HostListener](https://angular.dev/api/core/HostListener)
+- [Renderer2 API](https://angular.dev/api/core/Renderer2)
+- [MDN Event Reference](https://developer.mozilla.org/en-US/docs/Web/Events)
