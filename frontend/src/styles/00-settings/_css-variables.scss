@@ -65,7 +65,37 @@ $info: #34495e;
 $info-bg: #ebedef;
 $info-text: #212f3c;
 
+$danger: #dc2626;
+$danger-bg: #fee2e2;
+$danger-text: #991b1b;
+$danger-border: #fecaca;
+$danger-light: #fca5a5;
+$danger-hover: #ef4444;
+
 $overlay-bg: rgba(0, 0, 0, 0.5);
+$white-alpha-5: rgba(255, 255, 255, 0.05);
+$white-alpha-10: rgba(255, 255, 255, 0.1);
+$white-alpha-15: rgba(255, 255, 255, 0.15);
+$white-alpha-20: rgba(255, 255, 255, 0.2);
+$white-alpha-30: rgba(255, 255, 255, 0.3);
+$white-alpha-60: rgba(255, 255, 255, 0.6);
+$white-alpha-70: rgba(255, 255, 255, 0.7);
+$white-alpha-80: rgba(255, 255, 255, 0.8);
+$white-alpha-85: rgba(255, 255, 255, 0.85);
+$white-alpha-90: rgba(255, 255, 255, 0.9);
+$black-alpha-10: rgba(0, 0, 0, 0.1);
+$black-alpha-20: rgba(0, 0, 0, 0.2);
+$black-alpha-70: rgba(0, 0, 0, 0.7);
+$primary-alpha-10: rgba(30, 200, 91, 0.1);
+$primary-alpha-20: rgba(30, 200, 91, 0.2);
+$focus-ring-primary: rgba(34, 139, 34, 0.2);
+$focus-ring-blue: rgba(0, 123, 255, 0.1);
+$focus-ring-red: rgba(244, 67, 54, 0.1);
+$focus-ring-green: rgba(76, 175, 80, 0.1);
+$success-alpha-15: rgba(46, 204, 113, 0.15);
+$error-alpha-15: rgba(192, 57, 43, 0.15);
+$warning-alpha-15: rgba(243, 156, 18, 0.15);
+$info-alpha-15: rgba(52, 73, 94, 0.15);
 
 $z-toast: 200;
 $z-modal: 150;
@@ -146,10 +176,42 @@ $z-dropdown: 50;
   --info-bg: #{$info-bg};
   --info-text: #{$info-text};
 
+  --danger: #{$danger};
+  --danger-bg: #{$danger-bg};
+  --danger-text: #{$danger-text};
+  --danger-border: #{$danger-border};
+  --danger-light: #{$danger-light};
+  --danger-hover: #{$danger-hover};
+
   // Colores auxiliares
   --white: #ffffff;
   --black: #000000;
   --overlay-bg: #{$overlay-bg};
+
+  // Colores con transparencia
+  --white-alpha-5: #{$white-alpha-5};
+  --white-alpha-10: #{$white-alpha-10};
+  --white-alpha-15: #{$white-alpha-15};
+  --white-alpha-20: #{$white-alpha-20};
+  --white-alpha-30: #{$white-alpha-30};
+  --white-alpha-60: #{$white-alpha-60};
+  --white-alpha-70: #{$white-alpha-70};
+  --white-alpha-80: #{$white-alpha-80};
+  --white-alpha-85: #{$white-alpha-85};
+  --white-alpha-90: #{$white-alpha-90};
+  --black-alpha-10: #{$black-alpha-10};
+  --black-alpha-20: #{$black-alpha-20};
+  --black-alpha-70: #{$black-alpha-70};
+  --primary-alpha-10: #{$primary-alpha-10};
+  --primary-alpha-20: #{$primary-alpha-20};
+  --focus-ring-primary: #{$focus-ring-primary};
+  --focus-ring-blue: #{$focus-ring-blue};
+  --focus-ring-red: #{$focus-ring-red};
+  --focus-ring-green: #{$focus-ring-green};
+  --success-alpha-15: #{$success-alpha-15};
+  --error-alpha-15: #{$error-alpha-15};
+  --warning-alpha-15: #{$warning-alpha-15};
+  --info-alpha-15: #{$info-alpha-15};
 
   // Z-index
   --z-toast: #{$z-toast};

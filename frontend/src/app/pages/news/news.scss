@@ -5,7 +5,7 @@
 }
 
 .news-page {
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
   padding: var(--spacing-4);
 
@@ -59,9 +59,9 @@
   }
 
   &__spinner {
-    width: 48px;
-    height: 48px;
-    border: 4px solid rgba(30, 200, 91, 0.2);
+    width: var(--spacing-12);
+    height: var(--spacing-12);
+    border: var(--border-thick) solid var(--primary-alpha-20);
     border-top-color: var(--primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -95,8 +95,8 @@
   }
 
   &__error-icon {
-    width: 64px;
-    height: 64px;
+    width: var(--spacing-16);
+    height: var(--spacing-16);
     color: var(--error);
     margin-bottom: var(--spacing-4);
   }
@@ -139,8 +139,8 @@
   }
 
   &__empty-icon {
-    width: 64px;
-    height: 64px;
+    width: var(--spacing-16);
+    height: var(--spacing-16);
     color: var(--text-secondary);
     margin-bottom: var(--spacing-4);
   }
@@ -170,24 +170,24 @@
   transition: transform var(--duration-fast), box-shadow var(--duration-fast);
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-0.25rem);
     box-shadow: var(--shadow-lg);
   }
 
   &__image {
     width: 100%;
-    height: 200px;
+    height: 12.5rem;
     object-fit: cover;
 
     &--placeholder {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(255, 255, 255, 0.05);
+      background-color: var(--white-alpha-5);
 
       svg {
-        width: 48px;
-        height: 48px;
+        width: var(--spacing-12);
+        height: var(--spacing-12);
         color: var(--text-secondary);
       }
     }

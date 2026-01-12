@@ -66,10 +66,10 @@
     <p class="dwec__section-desc">Añade o elimina teléfonos dinámicamente</p>
 
     <form [formGroup]="phonesForm" (ngSubmit)="onSubmitPhones()" class="dwec__phones-form">
-      <div class="dwec__form-field">
+      <section class="dwec__form-field">
         <label class="dwec__form-label">Nombre</label>
-        <input 
-          formControlName="name" 
+        <input
+          formControlName="name"
           placeholder="Tu nombre"
           class="dwec__form-input"
           [class.dwec__form-input--error]="phonesForm.get('name')?.invalid && phonesForm.get('name')?.touched"
@@ -77,21 +77,21 @@
         @if (phonesForm.get('name')?.invalid && phonesForm.get('name')?.touched) {
           <small class="dwec__form-error">Nombre requerido (mínimo 2 caracteres)</small>
         }
-      </div>
+      </section>
 
-      <div formArrayName="phones" class="dwec__phones-list">
+      <section formArrayName="phones" class="dwec__phones-list">
         <label class="dwec__form-label">Teléfonos</label>
         @for (phone of phones.controls; track $index) {
-          <div [formGroupName]="$index" class="dwec__phone-row">
-            <input 
-              formControlName="number" 
+          <section [formGroupName]="$index" class="dwec__phone-row">
+            <input
+              formControlName="number"
               placeholder="6XXXXXXXX o 7XXXXXXXX"
               class="dwec__form-input dwec__form-input--phone"
               [class.dwec__form-input--error]="phone.get('number')?.invalid && phone.get('number')?.touched"
             />
-            <button 
-              type="button" 
-              (click)="removePhone($index)" 
+            <button
+              type="button"
+              (click)="removePhone($index)"
               class="dwec__phone-remove"
               [disabled]="phones.length === 1"
             >
@@ -100,12 +100,12 @@
             @if (phone.get('number')?.invalid && phone.get('number')?.touched) {
               <small class="dwec__form-error dwec__form-error--full">Teléfono inválido (debe empezar por 6 o 7 y tener 9 dígitos)</small>
             }
-          </div>
+          </section>
         }
         <button type="button" (click)="addPhone()" class="dwec__phone-add">
           + Añadir teléfono
         </button>
-      </div>
+      </section>
 
       <button type="submit" class="dwec__form-submit" [disabled]="phonesForm.invalid">
         Guardar teléfonos

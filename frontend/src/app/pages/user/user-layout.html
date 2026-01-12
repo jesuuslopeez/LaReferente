@@ -1,14 +1,14 @@
 <section class="user-layout">
   <aside class="user-layout__sidebar">
-    <div class="user-layout__user">
-      <div class="user-layout__avatar">
+    <section class="user-layout__user">
+      <section class="user-layout__avatar">
         {{ authService.usuario()?.nombre?.charAt(0) || 'U' }}
-      </div>
-      <div class="user-layout__user-info">
+      </section>
+      <section class="user-layout__user-info">
         <span class="user-layout__name">{{ authService.usuario()?.nombre }}</span>
         <span class="user-layout__email">{{ authService.usuario()?.email }}</span>
-      </div>
-    </div>
+      </section>
+    </section>
 
     <nav class="user-layout__nav">
       <a routerLink="perfil" routerLinkActive="user-layout__nav-link--active" class="user-layout__nav-link">

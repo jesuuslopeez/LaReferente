@@ -10,7 +10,7 @@
   flex-direction: column;
   gap: var(--spacing-6);
   padding: var(--spacing-4);
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
 
   @include responsive('lg') {
@@ -29,7 +29,7 @@
     padding: var(--spacing-5);
 
     @include responsive('lg') {
-      width: 280px;
+      width: 17.5rem;
       flex-shrink: 0;
       position: sticky;
       top: var(--spacing-4);
@@ -46,8 +46,8 @@
   }
 
   &__avatar {
-    width: 48px;
-    height: 48px;
+    width: var(--spacing-12);
+    height: var(--spacing-12);
     background-color: var(--primary);
     color: var(--white);
     border-radius: var(--radius-full);
@@ -112,8 +112,8 @@
   }
 
   &__nav-icon {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
   &__logout {
@@ -125,13 +125,13 @@
     margin-top: auto;
     background: none;
     border: none;
-    color: #dc2626;
+    color: var(--danger);
     border-radius: var(--radius-md);
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color var(--duration-fast);
 
     &:hover {
-      background-color: #fee2e2;
+      background-color: var(--danger-bg);
     }
   }
 

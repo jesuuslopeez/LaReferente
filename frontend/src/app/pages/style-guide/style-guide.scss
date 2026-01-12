@@ -111,14 +111,12 @@
 
   &__section {
     margin-bottom: var(--spacing-8);
-    scroll-margin-top: 100px;
+    scroll-margin-top: 6.25rem;
 
     @include responsive('md') {
       margin-bottom: var(--spacing-12);
-      scroll-margin-top: 120px;
+      scroll-margin-top: 7.5rem;
     }
-    margin-bottom: var(--spacing-12);
-    scroll-margin-top: 7.5rem;
   }
 
   &__section-title {
@@ -193,9 +191,8 @@
       max-width: 100%;
 
       @include responsive('md') {
-        max-width: 600px;
+        max-width: 37.5rem;
       }
-      max-width: 37.5rem;
     }
   }
 
@@ -211,10 +208,9 @@
     min-width: 100%;
 
     @include responsive('sm') {
-      min-width: 150px;
+      min-width: 9.375rem;
       padding: var(--spacing-4);
     }
-    min-width: 9.375rem;
   }
 
   &__label {

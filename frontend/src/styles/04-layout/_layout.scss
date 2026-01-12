@@ -18,24 +18,20 @@
   padding-left: var(--spacing-4);
 
   @include responsive('sm') {
-    max-width: 640px;
+    max-width: 40rem;
   }
 
   @include responsive('md') {
-    max-width: 768px;
+    max-width: 48rem;
   }
 
   @include responsive('lg') {
-    max-width: 1024px;
+    max-width: 64rem;
   }
 
   @include responsive('xl') {
-    max-width: 1280px;
+    max-width: 80rem;
   }
-  @include responsive('sm') { max-width: 40rem; }
-  @include responsive('md') { max-width: 48rem; }
-  @include responsive('lg') { max-width: 64rem; }
-  @include responsive('xl') { max-width: 80rem; }
 }
 
 .contenedor--fluido {
@@ -46,9 +42,8 @@
   max-width: 100%;
 
   @include responsive('md') {
-    max-width: 800px;
+    max-width: 50rem;
   }
-  max-width: 50rem;
 }
 
 // ---------------------------------------------------------------------------
