@@ -103,6 +103,34 @@ $z-header: 100;
 $z-dropdown: 50;
 
 // ---------------------------------------------------------------------------
+// TRANSICIONES SUAVES PARA CAMBIO DE TEMA
+// ---------------------------------------------------------------------------
+:root {
+  // Transición suave al cambiar entre temas (150-300ms)
+  transition:
+    background-color var(--duration-base, 300ms) ease-in-out,
+    color var(--duration-base, 300ms) ease-in-out;
+}
+
+// Aplicar transiciones a elementos principales del documento
+html,
+body {
+  transition:
+    background-color var(--duration-base, 300ms) ease-in-out,
+    color var(--duration-base, 300ms) ease-in-out;
+}
+
+// Respetar preferencia de usuario para movimiento reducido
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  html,
+  body,
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // TEMA CLARO (por defecto)
 // ---------------------------------------------------------------------------
 :root,
