@@ -13,7 +13,6 @@ import { AuthService } from '../../../services/auth.service';
 import { AccountModal } from '../../shared/account-modal/account-modal';
 import { LoginForm } from '../../shared/login-form/login-form';
 import { RegisterForm } from '../../shared/register-form/register-form';
-import { Icon } from '../../shared/icon/icon';
 
 /**
  * Componente Header con menu mobile, modales y dropdown de cuenta
@@ -21,7 +20,7 @@ import { Icon } from '../../shared/icon/icon';
  */
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, AccountModal, LoginForm, RegisterForm, Icon],
+  imports: [RouterLink, RouterLinkActive, AccountModal, LoginForm, RegisterForm],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
