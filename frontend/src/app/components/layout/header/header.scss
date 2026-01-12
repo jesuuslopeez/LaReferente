@@ -87,7 +87,7 @@
     position: relative;
     z-index: 101;
 
-    @media (min-width: $breakpoint-lg) {
+    @media (min-width: $breakpoint-xl) {
       display: none;
     }
   }
@@ -139,7 +139,7 @@
     flex-direction: column;
     transition: all var(--duration-base) var(--timing-ease-in-out);
 
-    @media (min-width: $breakpoint-lg) {
+    @media (min-width: $breakpoint-xl) {
       position: static;
       width: auto;
       height: auto;
@@ -169,12 +169,12 @@
     margin: 0;
     padding: var(--spacing-6) var(--spacing-4);
 
-    @media (min-width: $breakpoint-lg) {
+    @media (min-width: $breakpoint-xl) {
       flex-direction: row;
       gap: var(--spacing-1);
       padding: 0;
       justify-content: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
   }
 
@@ -194,7 +194,7 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     }
 
-    @media (min-width: $breakpoint-lg) {
+    @media (min-width: $breakpoint-xl) {
       width: auto;
 
       &:not(:last-child)::after {
@@ -225,7 +225,7 @@
       font-weight: var(--font-semibold);
     }
 
-    @media (min-width: $breakpoint-lg) {
+    @media (min-width: $breakpoint-xl) {
       padding: var(--spacing-2) var(--spacing-2);
       font-size: var(--font-base);
       width: auto;
@@ -256,32 +256,28 @@
       }
     }
 
-    @media (min-width: $breakpoint-xl) {
-      padding: var(--spacing-2) var(--spacing-3);
+    @media (min-width: $breakpoint-2xl) {
+      padding: var(--spacing-2) var(--spacing-4);
       font-size: var(--font-lg);
 
       &::after {
-        left: var(--spacing-3);
-        right: var(--spacing-3);
+        left: var(--spacing-4);
+        right: var(--spacing-4);
       }
-    }
-
-    @media (min-width: $breakpoint-2xl) {
-      padding: var(--spacing-2) var(--spacing-4);
     }
   }
 
   &__utilities {
     display: none;
 
-    @media (min-width: $breakpoint-lg) {
+    @media (min-width: $breakpoint-xl) {
       display: flex;
       align-items: center;
       gap: var(--spacing-2);
       flex-shrink: 0;
     }
 
-    @media (min-width: $breakpoint-xl) {
+    @media (min-width: $breakpoint-2xl) {
       gap: var(--spacing-3);
     }
   }
@@ -289,7 +285,7 @@
   &__search {
     display: none;
 
-    @media (min-width: $breakpoint-xl) {
+    @media (min-width: 1536px) {
       display: flex;
       align-items: center;
       background-color: var(--white);
@@ -303,7 +299,7 @@
   &__search-toggle {
     display: none;
 
-    @media (min-width: $breakpoint-lg) {
+    @media (min-width: $breakpoint-xl) {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -324,37 +320,41 @@
       }
     }
 
-    @media (min-width: $breakpoint-xl) {
+    @media (min-width: 1536px) {
       display: none;
     }
   }
 
   &__search-dropdown {
-    padding: 0 var(--spacing-3);
+    padding: 0 var(--spacing-2);
     border: none;
     border-right: 0.0625rem solid var(--gray300);
     background-color: var(--white);
     color: var(--primary);
-    font-size: var(--font-base);
+    font-size: var(--font-sm);
     font-family: var(--font-primary);
     cursor: pointer;
     outline: none;
+
+    @media (min-width: $breakpoint-2xl) {
+      padding: 0 var(--spacing-3);
+    }
   }
 
   &__search-input {
     flex: 1;
-    min-width: 120px;
-    min-width: 12.5rem;
-    padding: 0 var(--spacing-3);
+    min-width: 6rem;
+    padding: 0 var(--spacing-2);
     border: none;
     background-color: var(--white);
     color: var(--gray900);
-    font-size: var(--font-base);
+    font-size: var(--font-sm);
     font-family: var(--font-primary);
     outline: none;
 
     @media (min-width: $breakpoint-2xl) {
-      min-width: 180px;
+      min-width: 12rem;
+      padding: 0 var(--spacing-3);
     }
 
     &::placeholder {
@@ -525,7 +525,7 @@
     border-top: 2px solid rgba(255, 255, 255, 0.2);
     margin-top: var(--spacing-4);
 
-    @media (min-width: $breakpoint-lg) {
+    @media (min-width: $breakpoint-xl) {
       display: none;
     }
   }
@@ -701,7 +701,7 @@
 }
 
 .search-dropdown {
-  display: none;
+  display: block;
   background-color: var(--primary);
   box-shadow: var(--shadow-md);
   width: 100%;
@@ -709,11 +709,7 @@
   animation: slideDown var(--duration-base) var(--timing-ease-in-out);
   font-family: var(--font-primary);
 
-  @media (min-width: $breakpoint-lg) {
-    display: block;
-  }
-
-  @media (min-width: $breakpoint-xl) {
+  @media (min-width: 1536px) {
     display: none;
   }
 
