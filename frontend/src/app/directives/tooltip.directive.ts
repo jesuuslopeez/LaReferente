@@ -74,6 +74,14 @@ export class TooltipDirective implements OnDestroy {
     }, 100);
   }
 
+  // Evento window:resize - oculta tooltip si se redimensiona la ventana
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    if (this.tooltipElement) {
+      this.hideTooltip();
+    }
+  }
+
   private clearTimeouts(): void {
     if (this.showTimeout) {
       clearTimeout(this.showTimeout);
