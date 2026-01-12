@@ -17,7 +17,7 @@
   border: var(--border-medium) solid transparent;
   padding: var(--spacing-2) var(--spacing-4);
   width: 100%;
-  min-height: 44px;
+  min-height: 2.75rem;
 
   @include responsive('sm') {
     font-size: var(--font-base);

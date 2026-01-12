@@ -31,12 +31,12 @@
     gap: var(--spacing-3);
     padding: var(--spacing-4) var(--spacing-3);
     // Altura fija para consistencia
-    min-height: 140px;
+    min-height: 8.75rem;
 
     @media (min-width: $breakpoint-sm) {
       gap: var(--spacing-4);
       padding: var(--spacing-5) var(--spacing-4);
-      min-height: 160px;
+      min-height: 10rem;
     }
   }
 
@@ -44,14 +44,13 @@
     width: var(--spacing-14);
     height: var(--spacing-14);
     object-fit: contain;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 0.125rem 0.5rem var(--black-alpha-20));
     flex-shrink: 0;
 
     @media (min-width: $breakpoint-sm) {
       width: var(--spacing-16);
       height: var(--spacing-16);
     }
-    filter: drop-shadow(0 0.125rem 0.5rem rgba(0, 0, 0, 0.2));
   }
 
   &__title {
@@ -61,12 +60,11 @@
     color: var(--white);
     text-align: center;
     margin: 0;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 0.125rem 0.25rem var(--black-alpha-20);
 
     @media (min-width: $breakpoint-sm) {
       font-size: var(--font-lg);
     }
-    text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
   }
 
   &__info {
@@ -78,12 +76,12 @@
     padding: var(--spacing-2) var(--spacing-3);
     flex-wrap: wrap;
     // Altura fija para consistencia entre cards con 1 o 2 badges
-    min-height: 52px;
+    min-height: 3.25rem;
 
     @media (min-width: $breakpoint-sm) {
       gap: var(--spacing-3);
       padding: var(--spacing-3) var(--spacing-4);
-      min-height: 56px;
+      min-height: 3.5rem;
     }
   }
 
@@ -218,7 +216,7 @@
 // CONTAINER QUERIES
 // Layout horizontal en desktop como en Figma
 // ---------------------------------------------------------------------------
-@container competition-card (min-width: 240px) {
+@container competition-card (min-width: 15rem) {
   .competition-card {
     &__header {
       flex-direction: row;
@@ -268,7 +266,7 @@
   }
 }
 
-@container competition-card (min-width: 300px) {
+@container competition-card (min-width: 18.75rem) {
   .competition-card {
     &__header {
       gap: var(--spacing-4);

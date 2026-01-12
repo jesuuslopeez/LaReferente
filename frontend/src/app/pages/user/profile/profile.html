@@ -1,12 +1,12 @@
-<div class="profile">
+<section class="profile">
   <h2 class="profile__title">Mi perfil</h2>
 
   @if (mensaje()) {
-    <div class="profile__message">{{ mensaje() }}</div>
+    <article class="profile__message">{{ mensaje() }}</article>
   }
 
   <form class="profile__form" (ngSubmit)="guardar()">
-    <div class="profile__field">
+    <section class="profile__field">
       <label class="profile__label" for="nombre">Nombre</label>
       <input
         id="nombre"
@@ -16,9 +16,9 @@
         name="nombre"
         (input)="marcarCambio()"
       />
-    </div>
+    </section>
 
-    <div class="profile__field">
+    <section class="profile__field">
       <label class="profile__label" for="email">Email</label>
       <input
         id="email"
@@ -28,9 +28,9 @@
         name="email"
         (input)="marcarCambio()"
       />
-    </div>
+    </section>
 
-    <div class="profile__actions">
+    <section class="profile__actions">
       <button
         type="submit"
         class="profile__btn"
@@ -38,6 +38,6 @@
       >
         {{ guardando() ? 'Guardando...' : 'Guardar cambios' }}
       </button>
-    </div>
+    </section>
   </form>
-</div>
+</section>

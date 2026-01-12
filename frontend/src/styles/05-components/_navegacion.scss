@@ -128,7 +128,7 @@
   transition: all var(--duration-fast) var(--timing-ease-in-out);
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--white-alpha-10);
   }
 
   @include responsive('lg') {
@@ -161,7 +161,7 @@
 
 .navegacion__enlace--activo {
   font-weight: var(--font-semibold);
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: var(--white-alpha-15);
 
   @include responsive('lg') {
     background-color: transparent;

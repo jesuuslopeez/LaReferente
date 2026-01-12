@@ -16,9 +16,9 @@
   }
 
   &__message {
-    background-color: #d1fae5;
-    border: 1px solid #a7f3d0;
-    color: #047857;
+    background-color: var(--success-bg);
+    border: var(--border-thin) solid var(--success);
+    color: var(--success-text);
     padding: var(--spacing-3) var(--spacing-4);
     border-radius: var(--radius-md);
     margin-bottom: var(--spacing-4);

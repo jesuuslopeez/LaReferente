@@ -10,7 +10,7 @@
   flex-direction: column;
   gap: var(--spacing-6);
   padding: var(--spacing-4);
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
 
   @include responsive('md') {
@@ -34,13 +34,13 @@
   }
 
   &__logo {
-    width: 100px;
-    height: 100px;
+    width: 6.25rem;
+    height: 6.25rem;
     object-fit: contain;
 
     @include responsive('md') {
-      width: 120px;
-      height: 120px;
+      width: 7.5rem;
+      height: 7.5rem;
     }
   }
 
@@ -136,7 +136,7 @@
 
     &:hover {
       border-color: var(--primary);
-      transform: translateY(-2px);
+      transform: translateY(-0.125rem);
     }
   }
 

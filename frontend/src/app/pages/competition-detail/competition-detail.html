@@ -2,47 +2,47 @@
   <!-- Cabecera -->
   <header class="comp-detail__header">
     <img [src]="competicion.logo" [alt]="competicion.nombre" class="comp-detail__logo" loading="eager" decoding="async" />
-    <div class="comp-detail__info">
+    <section class="comp-detail__info">
       <h1 class="comp-detail__title">{{ competicion.nombre }}</h1>
-      <div class="comp-detail__meta">
+      <section class="comp-detail__meta">
         <span class="comp-detail__badge">{{ competicion.categoria }}</span>
         <span class="comp-detail__date">{{ competicion.fechaInicio }} - {{ competicion.fechaFin }}</span>
-      </div>
-    </div>
+      </section>
+    </section>
   </header>
 
   <!-- Grupos si los tiene -->
   @if (competicion.grupos && competicion.grupos.length > 0) {
-    <div class="comp-detail__section">
+    <section class="comp-detail__section">
       <h2 class="comp-detail__subtitle">Grupos</h2>
-      <div class="comp-detail__groups">
+      <section class="comp-detail__groups">
         @for (grupo of competicion.grupos; track grupo.slug) {
           <a [routerLink]="['grupo', grupo.slug]" class="comp-detail__group-card">
             <span class="comp-detail__group-name">{{ grupo.nombre }}</span>
             <span class="comp-detail__group-teams">{{ grupo.equipos }} equipos</span>
           </a>
         }
-      </div>
-    </div>
+      </section>
+    </section>
   } @else {
     <!-- Contenido para competiciones sin grupos -->
-    <div class="comp-detail__section">
+    <section class="comp-detail__section">
       <h2 class="comp-detail__subtitle">Informacion</h2>
-      <div class="comp-detail__stats">
-        <div class="comp-detail__stat">
+      <section class="comp-detail__stats">
+        <article class="comp-detail__stat">
           <span class="comp-detail__stat-value">{{ competicion.equipos }}</span>
           <span class="comp-detail__stat-label">Equipos</span>
-        </div>
-        <div class="comp-detail__stat">
+        </article>
+        <article class="comp-detail__stat">
           <span class="comp-detail__stat-value">38</span>
           <span class="comp-detail__stat-label">Jornadas</span>
-        </div>
-        <div class="comp-detail__stat">
+        </article>
+        <article class="comp-detail__stat">
           <span class="comp-detail__stat-value">380</span>
           <span class="comp-detail__stat-label">Partidos</span>
-        </div>
-      </div>
-    </div>
+        </article>
+      </section>
+    </section>
   }
 
   <!-- Outlet para rutas hijas (grupos) -->

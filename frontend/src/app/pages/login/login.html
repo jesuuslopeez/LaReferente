@@ -1,16 +1,16 @@
 <section class="login">
-  <div class="login__card">
+  <article class="login__card">
     <h1 class="login__title">
       {{ modoRegistro() ? 'Crear cuenta' : 'Iniciar sesion' }}
     </h1>
 
     @if (error()) {
-      <div class="login__error">{{ error() }}</div>
+      <article class="login__error">{{ error() }}</article>
     }
 
     <form class="login__form" (ngSubmit)="enviar()">
       @if (modoRegistro()) {
-        <div class="login__field">
+        <section class="login__field">
           <label class="login__label" for="nombre">Nombre</label>
           <input
             id="nombre"
@@ -20,9 +20,9 @@
             name="nombre"
             required
           />
-        </div>
+        </section>
 
-        <div class="login__field">
+        <section class="login__field">
           <label class="login__label" for="apellidos">Apellidos</label>
           <input
             id="apellidos"
@@ -32,10 +32,10 @@
             name="apellidos"
             required
           />
-        </div>
+        </section>
       }
 
-      <div class="login__field">
+      <section class="login__field">
         <label class="login__label" for="email">Email</label>
         <input
           id="email"
@@ -45,9 +45,9 @@
           name="email"
           required
         />
-      </div>
+      </section>
 
-      <div class="login__field">
+      <section class="login__field">
         <label class="login__label" for="password">Contrasena</label>
         <input
           id="password"
@@ -57,7 +57,7 @@
           name="password"
           required
         />
-      </div>
+      </section>
 
       <button
         type="submit"
@@ -74,5 +74,5 @@
         {{ modoRegistro() ? 'Iniciar sesion' : 'Registrarse' }}
       </button>
     </p>
-  </div>
+  </article>
 </section>

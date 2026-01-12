@@ -77,23 +77,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: var(--spacing-8);
+    height: var(--spacing-8);
     background: none;
     border: none;
     color: var(--text-secondary);
     cursor: pointer;
     border-radius: var(--radius-md);
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color var(--duration-fast), color var(--duration-fast);
 
     &:hover {
-      background-color: #fee2e2;
-      color: #dc2626;
+      background-color: var(--danger-bg);
+      color: var(--danger);
     }
 
     svg {
-      width: 18px;
-      height: 18px;
+      width: 1.125rem;
+      height: 1.125rem;
     }
   }
 }

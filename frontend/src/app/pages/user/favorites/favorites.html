@@ -1,11 +1,11 @@
-<div class="favorites">
+<section class="favorites">
   <h2 class="favorites__title">Mis favoritos</h2>
 
   @if (favoritos.length === 0) {
-    <div class="favorites__empty">
+    <article class="favorites__empty">
       <p>No tienes favoritos guardados</p>
       <a routerLink="/competiciones" class="favorites__link">Explorar competiciones</a>
-    </div>
+    </article>
   } @else {
     <ul class="favorites__list">
       @for (fav of favoritos; track fav.slug) {
@@ -23,4 +23,4 @@
       }
     </ul>
   }
-</div>
+</section>
