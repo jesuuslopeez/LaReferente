@@ -2566,3 +2566,313 @@ Todas las duraciones estan entre 150ms y 500ms como recomienda la guia, garantiz
 
 ---
 
+## Seccion 6: Sistema de Temas y Modo Oscuro
+
+### 6.1 Variables de Tema
+
+El sistema de temas se implementa mediante CSS Custom Properties que cambian su valor segun el tema activo. Las variables se definen en el archivo `_css-variables.scss`.
+
+#### Variables SCSS Base
+
+Primero se definen las variables SCSS que contienen los colores para cada tema:
+
+```scss
+// Colores para tema claro
+$primary-light: #388e3c;
+$primary-hover-light: #328036;
+$primary-active-light: #2d7230;
+
+$secondary-light: #039be5;
+$secondary-hover-light: #038cce;
+$secondary-active-light: #027cb7;
+
+$bg-primary-light: #ffffff;
+$bg-secondary-light: $gray50;      // #f5f5f5
+$text-primary-light: $gray900;      // #222222
+$text-secondary-light: $gray600;    // #6b6b6b
+$border-color-light: $gray200;      // #cfcfcf
+$bg-hover-light: $gray50;           // #f5f5f5
+
+// Colores para tema oscuro
+$primary-dark: #2a6b2d;
+$primary-hover-dark: #225524;
+$primary-active-dark: #19401b;
+
+$secondary-dark: #0274ac;
+$secondary-hover-dark: #025d89;
+$secondary-active-dark: #014667;
+
+$bg-primary-dark: $gray900;         // #222222
+$bg-secondary-dark: $gray800;       // #3b3b3b
+$text-primary-dark: #ffffff;
+$text-secondary-dark: $gray300;     // #b6b6b6
+$border-color-dark: $gray700;       // #525252
+$bg-hover-dark: $gray800;           // #3b3b3b
+```
+
+#### CSS Custom Properties por Tema
+
+Las variables CSS se definen en `:root` y cambian segun la clase aplicada al elemento `<html>`:
+
+```scss
+// Transiciones suaves para cambio de tema
+:root {
+  transition:
+    background-color var(--duration-base, 300ms) ease-in-out,
+    color var(--duration-base, 300ms) ease-in-out;
+}
+
+// Tema claro (por defecto)
+:root,
+:root.theme-light {
+  --primary: #{$primary-light};
+  --primary-hover: #{$primary-hover-light};
+  --primary-active: #{$primary-active-light};
+
+  --secondary: #{$secondary-light};
+  --secondary-hover: #{$secondary-hover-light};
+  --secondary-active: #{$secondary-active-light};
+
+  --bg-color: #{$bg-primary-light};
+  --bg-secondary: #{$bg-secondary-light};
+  --text-color: #{$text-primary-light};
+  --text-secondary: #{$text-secondary-light};
+  --border-color: #{$border-color-light};
+  --bg-hover: #{$bg-hover-light};
+}
+
+// Tema oscuro
+:root.theme-dark {
+  --primary: #{$primary-dark};
+  --primary-hover: #{$primary-hover-dark};
+  --primary-active: #{$primary-active-dark};
+
+  --secondary: #{$secondary-dark};
+  --secondary-hover: #{$secondary-hover-dark};
+  --secondary-active: #{$secondary-active-dark};
+
+  --bg-color: #{$bg-primary-dark};
+  --bg-secondary: #{$bg-secondary-dark};
+  --text-color: #{$text-primary-dark};
+  --text-secondary: #{$text-secondary-dark};
+  --border-color: #{$border-color-dark};
+  --bg-hover: #{$bg-hover-dark};
+}
+```
+
+#### Transiciones Suaves entre Temas
+
+Se implementan transiciones CSS para que el cambio de tema sea suave y no abrupto:
+
+```scss
+// Transicion suave al cambiar entre temas (150-300ms)
+:root {
+  transition:
+    background-color var(--duration-base, 300ms) ease-in-out,
+    color var(--duration-base, 300ms) ease-in-out;
+}
+
+// Aplicar transiciones a elementos principales
+html,
+body {
+  transition:
+    background-color var(--duration-base, 300ms) ease-in-out,
+    color var(--duration-base, 300ms) ease-in-out;
+}
+
+// Respetar preferencia de movimiento reducido (accesibilidad)
+@media (prefers-reduced-motion: reduce) {
+  :root,
+  html,
+  body,
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+---
+
+### 6.2 Implementacion del Theme Switcher
+
+El Theme Switcher se implementa como un boton en el header que permite alternar entre modo claro y oscuro.
+
+#### Componente Visual (Header)
+
+El boton de cambio de tema se encuentra en el header, tanto en version desktop como mobile:
+
+```html
+<!-- Version Desktop -->
+<button
+  class="header__theme-btn"
+  (click)="toggleTheme()"
+  [attr.aria-label]="isDarkMode() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+>
+  @if (isDarkMode()) {
+    <!-- Icono Sol (indica que se puede cambiar a modo claro) -->
+    <svg class="header__theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42..."/>
+    </svg>
+  } @else {
+    <!-- Icono Luna (indica que se puede cambiar a modo oscuro) -->
+    <svg class="header__theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  }
+</button>
+```
+
+#### Servicio ThemeService
+
+El servicio `ThemeService` gestiona el estado del tema, la persistencia y la deteccion de preferencias:
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class ThemeService implements OnDestroy {
+  private readonly THEME_KEY = 'app-theme';
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
+
+  // Signal reactivo con el tema actual
+  private themeSignal = signal<Theme>(this.getInitialTheme());
+  readonly theme = this.themeSignal.asReadonly();
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    // Efecto que aplica y guarda el tema cuando cambia
+    effect(() => {
+      const theme = this.themeSignal();
+      this.applyTheme(theme);
+      this.saveTheme(theme);
+    });
+
+    // Configura listener para cambios en preferencias del sistema
+    this.setupSystemThemeListener();
+  }
+
+  // Obtiene el tema inicial con prioridad:
+  // 1. localStorage (preferencia guardada del usuario)
+  // 2. prefers-color-scheme (preferencia del sistema)
+  // 3. 'light' (por defecto)
+  private getInitialTheme(): Theme {
+    if (!this.isBrowser) return 'light';
+
+    const savedTheme = localStorage.getItem(this.THEME_KEY) as Theme | null;
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme;
+    }
+
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  // Alterna entre temas
+  toggleTheme(): void {
+    this.themeSignal.update(current => current === 'light' ? 'dark' : 'light');
+  }
+
+  // Aplica el tema al DOM
+  private applyTheme(theme: Theme): void {
+    if (!this.isBrowser) return;
+    const root = document.documentElement;
+    root.classList.remove('theme-light', 'theme-dark');
+    root.classList.add(`theme-${theme}`);
+  }
+
+  // Guarda en localStorage
+  private saveTheme(theme: Theme): void {
+    if (!this.isBrowser) return;
+    localStorage.setItem(this.THEME_KEY, theme);
+  }
+
+  // Escucha cambios en prefers-color-scheme
+  private setupSystemThemeListener(): void {
+    if (!this.isBrowser) return;
+
+    // Solo escuchar si el usuario no ha elegido manualmente
+    const savedTheme = localStorage.getItem(this.THEME_KEY);
+    if (savedTheme) return;
+
+    this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    this.mediaQueryHandler = (event: MediaQueryListEvent) => {
+      this.themeSignal.set(event.matches ? 'dark' : 'light');
+    };
+    this.mediaQuery.addEventListener('change', this.mediaQueryHandler);
+  }
+}
+```
+
+#### Flujo de Prioridades
+
+El sistema sigue esta jerarquia al determinar el tema:
+
+1. **localStorage** - Si el usuario ha seleccionado manualmente un tema, se respeta esa preferencia
+2. **prefers-color-scheme** - Si no hay preferencia guardada, se usa la configuracion del sistema operativo
+3. **Tema claro** - Si no hay ninguna preferencia, se usa el tema claro por defecto
+
+#### Uso en Componentes
+
+Los componentes acceden al tema mediante inyeccion del servicio:
+
+```typescript
+@Component({ ... })
+export class HeaderComponent {
+  private themeService = inject(ThemeService);
+
+  // Computed que indica si estamos en modo oscuro
+  protected readonly isDarkMode = computed(() => this.themeService.theme() === 'dark');
+
+  // Metodo para alternar el tema
+  protected toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+}
+```
+
+---
+
+### 6.3 Capturas de Pantalla
+
+A continuacion se muestran capturas de las principales paginas en ambos modos (claro y oscuro).
+
+#### Pagina Home
+
+**Modo Claro:**
+
+![Home Modo Claro](../screenshots/home-light.png)
+
+**Modo Oscuro:**
+
+![Home Modo Oscuro](../screenshots/home-dark.png)
+
+#### Pagina de Competiciones
+
+**Modo Claro:**
+
+![Competiciones Modo Claro](../screenshots/competitions-light.png)
+
+**Modo Oscuro:**
+
+![Competiciones Modo Oscuro](../screenshots/competitions-dark.png)
+
+#### Pagina de Noticias
+
+**Modo Claro:**
+
+![Noticias Modo Claro](../screenshots/news-light.png)
+
+**Modo Oscuro:**
+
+![Noticias Modo Oscuro](../screenshots/news-dark.png)
+
+#### Style Guide
+
+**Modo Claro:**
+
+![Style Guide Modo Claro](../screenshots/styleguide-light.png)
+
+**Modo Oscuro:**
+
+![Style Guide Modo Oscuro](../screenshots/styleguide-dark.png)
+
+---
+
