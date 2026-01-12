@@ -1,8 +1,18 @@
 <section class="account-modal__overlay" (click)="onOverlayClick()">
-  <section class="account-modal__content" (click)="onContentClick($event)">
-    <button class="account-modal__close" (click)="onClose()" aria-label="Cerrar">×</button>
+  <section
+    #modalContent
+    class="account-modal__content"
+    (click)="onContentClick($event)"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="'modal-title'">
+    <button
+      #closeButton
+      class="account-modal__close"
+      (click)="onClose()"
+      aria-label="Cerrar modal">×</button>
 
-    <h2 class="account-modal__title">{{ title }}</h2>
+    <h2 id="modal-title" class="account-modal__title">{{ title }}</h2>
 
     <ng-content></ng-content>
   </section>
