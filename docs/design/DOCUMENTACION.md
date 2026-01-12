@@ -2167,3 +2167,402 @@ Pagina que muestra las competiciones de futbol con:
 
 ---
 
+## Seccion 5: Optimizacion Multimedia
+
+### 5.1 Formatos Elegidos
+
+El proyecto utiliza formatos de imagen modernos optimizados para la web:
+
+| Formato | Uso | Justificacion |
+|---------|-----|---------------|
+| **WebP** | Imagenes principales (jugadores, competiciones, logos) | Excelente compresion con calidad visual alta. Soportado por todos los navegadores modernos (97%+ de soporte). Reduce el peso entre 25-35% respecto a JPEG manteniendo calidad. |
+| **SVG** | Iconos, graficos vectoriales | Escalable sin perdida de calidad. Peso minimo para graficos simples. Ideal para iconos que necesitan cambiar de color con CSS (`currentColor`). |
+| **PNG** | Solo como fallback o imagenes con transparencia compleja | Mayor peso pero maxima compatibilidad. Se mantienen versiones PNG originales como respaldo. |
+
+**Criterio de seleccion:**
+- **WebP** se usa como formato principal por su balance optimo entre compresion y calidad
+- Los logos de competiciones y fotos de jugadores usan WebP por su capacidad de mantener detalles con menor peso
+- Los iconos de la interfaz (heroicons, redes sociales) usan SVG para permitir personalizacion via CSS
+
+---
+
+### 5.2 Herramientas Utilizadas
+
+| Herramienta | Proposito | Uso en el proyecto |
+|-------------|-----------|-------------------|
+| **Squoosh** | Conversion y optimizacion de imagenes | Conversion de PNG a WebP, ajuste de calidad (75-85%), redimensionado a multiples tamanos |
+| **SVGO/SVGOMG** | Optimizacion de SVGs | Eliminacion de metadatos innecesarios, minificacion de paths, reduccion de decimales |
+| **Sharp (Node.js)** | Procesamiento batch de imagenes | Generacion automatizada de variantes small/medium/large |
+
+**Proceso de optimizacion:**
+1. Imagenes originales procesadas con Squoosh para conversion a WebP
+2. Generacion de 3 tamanos por imagen (400px, 800px, 1200px de ancho)
+3. SVGs pasados por SVGOMG con configuracion de precision 2 decimales
+4. Verificacion de que cada archivo pesa menos de 200KB
+
+---
+
+### 5.3 Resultados de Optimizacion
+
+#### Imagenes de Competiciones
+
+| Imagen | Original (PNG) | WebP Large | WebP Medium | WebP Small | Reduccion |
+|--------|---------------|------------|-------------|------------|-----------|
+| LaLiga EA Sports | 291 KB | 104 KB | 64 KB | 28 KB | **64%** |
+| Division de Honor | 109 KB | 128 KB | 80 KB | 32 KB | - |
+| Primera Federacion | 25 KB | 108 KB | 72 KB | 32 KB | - |
+| Segunda Federacion | 58 KB | 112 KB | 68 KB | 24 KB | - |
+| Tercera Federacion | 189 KB | 84 KB | 64 KB | 28 KB | **55%** |
+| Copa del Rey | 62 KB | 80 KB | 52 KB | 20 KB | - |
+| LaLiga Hypermotion | 67 KB | 56 KB | 40 KB | 20 KB | **16%** |
+| RFAF | 1.6 MB | 76 KB | 44 KB | 17 KB | **95%** |
+
+#### Imagenes de Jugadores
+
+| Imagen | WebP Large | WebP Medium | WebP Small |
+|--------|------------|-------------|------------|
+| Lamine Yamal | 76 KB | 48 KB | 24 KB |
+| Pedri | 72 KB | 44 KB | 20 KB |
+| Nico Williams | 104 KB | 64 KB | 32 KB |
+| Placeholder | 48 KB | 24 KB | 4 KB |
+
+**Nota:** Todas las imagenes optimizadas estan por debajo del limite de 200KB.
+
+#### SVGs Optimizados
+
+| Icono | Tamano |
+|-------|--------|
+| moon.svg | 393 bytes |
+| sun.svg | 406 bytes |
+| user.svg | 361 bytes |
+| magnifying-glass.svg | 290 bytes |
+| chevron-down.svg | 240 bytes |
+| x-mark.svg | 234 bytes |
+| instagram.svg | 2.1 KB |
+| facebook.svg | 542 bytes |
+| x.svg | 299 bytes |
+
+---
+
+### 5.4 Tecnologias Implementadas
+
+#### Elemento `<picture>` con `srcset` y `sizes`
+
+Se implementa en los componentes de tarjetas para servir la imagen optima segun el viewport:
+
+**Card (Tarjeta de jugador) - `card.html`:**
+
+```html
+@if (isLocalImage()) {
+  <picture>
+    <source
+      type="image/webp"
+      [srcset]="imageSrcset()"
+      [sizes]="imageSizes()"
+    />
+    <img
+      [src]="imageSrc()"
+      [alt]="playerName()"
+      class="card__player-image"
+      loading="lazy"
+      decoding="async"
+    />
+  </picture>
+} @else {
+  <img
+    [src]="imageSrc()"
+    [alt]="playerName()"
+    class="card__player-image"
+    loading="lazy"
+    decoding="async"
+  />
+}
+```
+
+**Logica en el componente (`card.ts`):**
+
+```typescript
+// Srcset para imagenes responsive
+imageSrcset = computed(() => {
+  if (!this.playerSlug()) return '';
+  const slug = this.playerSlug();
+  return `assets/images/players/small/${slug}.webp 400w,
+          assets/images/players/medium/${slug}.webp 800w,
+          assets/images/players/large/${slug}.webp 1200w`;
+});
+
+// Sizes para indicar al navegador que tamano usar
+imageSizes = computed(() => {
+  return '(max-width: 640px) 120px, 150px';
+});
+```
+
+**CompetitionCard (Tarjeta de competicion) - `competition-card.html`:**
+
+```html
+@if (isLocalImage() && logoSlug()) {
+  <picture>
+    <source
+      type="image/webp"
+      [srcset]="logoSrcset()"
+      [sizes]="logoSizes()"
+    />
+    <img
+      [src]="logo()"
+      [alt]="name()"
+      class="competition-card__logo"
+      loading="lazy"
+      decoding="async"
+    />
+  </picture>
+} @else {
+  <img
+    [src]="logo()"
+    [alt]="name()"
+    class="competition-card__logo"
+    loading="lazy"
+    decoding="async"
+  />
+}
+```
+
+#### Atributo `loading="lazy"`
+
+Implementado en todas las imagenes que no son criticas para el primer renderizado:
+
+| Componente | Archivo | loading |
+|------------|---------|---------|
+| Header logo | header.html | `eager` (critico) |
+| Footer logo | footer.html | `lazy` |
+| Card jugador | card.html | `lazy` |
+| Card competicion | competition-card.html | `lazy` |
+| Noticias | news.html | `lazy` |
+| Detalle competicion | competition-detail.html | `eager` (cabecera) |
+
+**Ejemplo:**
+```html
+<img
+  [src]="imageSrc()"
+  [alt]="playerName()"
+  class="card__player-image"
+  loading="lazy"
+  decoding="async"
+/>
+```
+
+#### Atributo `decoding="async"`
+
+Se anade junto con `loading="lazy"` para permitir que el navegador decodifique las imagenes de forma asincrona, evitando bloquear el hilo principal.
+
+---
+
+### 5.5 Animaciones CSS
+
+El proyecto implementa animaciones CSS optimizadas siguiendo las mejores practicas de rendimiento.
+
+#### Regla de oro: Solo animar `transform` y `opacity`
+
+Estas propiedades son las unicas que pueden ser animadas por el compositor del navegador sin provocar repintado (repaint) ni reflujo (reflow). Animar otras propiedades como `width`, `height`, `margin` o `background-color` fuerza al navegador a recalcular el layout, degradando el rendimiento.
+
+#### Animacion 1: Loading Spinner
+
+Spinner de carga usado en estados de espera:
+
+```scss
+// loading.scss
+.loading__spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--gray200);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: loading-spin 0.8s linear infinite;
+}
+
+@keyframes loading-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+```
+
+**Uso:** Componente `<app-loading>`, pagina de noticias durante carga.
+
+#### Animacion 2: Slide Down (Header dropdown)
+
+Animacion de entrada para el dropdown de busqueda:
+
+```scss
+// header.scss
+.search-dropdown {
+  animation: slideDown var(--duration-base) var(--timing-ease-in-out);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+```
+
+**Duracion:** 200ms (var(--duration-base))
+
+#### Animacion 3: Modal Fade In
+
+Entrada suave del overlay y contenido del modal:
+
+```scss
+// _modal.scss
+.modal__overlay {
+  animation: modalFadeIn var(--duration-base) var(--timing-ease-in-out);
+}
+
+.modal__content {
+  animation: modalSlideIn var(--duration-base) var(--timing-ease-in-out);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+```
+
+#### Animacion 4: Toast/Notificacion Slide In
+
+Entrada de notificaciones desde el borde:
+
+```scss
+// toast.scss
+.toast {
+  animation: toast-slideIn var(--duration-base) var(--timing-ease-in-out);
+}
+
+@keyframes toast-slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+```
+
+#### Animacion 5: Alerta Entrar
+
+Animacion de entrada para componentes de alerta:
+
+```scss
+// _alerta.scss
+.alerta {
+  animation: alertaEntrar var(--duration-fast) var(--timing-ease-in-out);
+}
+
+@keyframes alertaEntrar {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+```
+
+#### Transiciones Hover/Focus (5+ elementos)
+
+Todas las transiciones utilizan `transform` y `opacity` cuando es posible:
+
+```scss
+// Botones
+.button {
+  transition: all var(--duration-fast) var(--timing-ease-in-out);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+// Enlaces de navegacion
+.header__nav-link {
+  transition: color var(--duration-fast) var(--timing-ease-in-out);
+
+  &::after {
+    transition: transform var(--duration-fast) var(--timing-ease-in-out);
+    transform: scaleX(0);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+// Tarjetas
+.card {
+  transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+// Inputs
+.form-field__input {
+  transition: box-shadow var(--duration-fast) var(--timing-ease-in-out);
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(56, 142, 60, 0.2);
+  }
+}
+
+// Iconos sociales
+.footer__social-link {
+  transition: background var(--duration-fast) var(--timing-ease-in-out);
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+```
+
+#### Variables de Duracion
+
+```scss
+--duration-fast: 150ms;   // Transiciones rapidas (hover, focus)
+--duration-base: 200ms;   // Animaciones estandar (modales, dropdowns)
+--timing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+```
+
+Todas las duraciones estan entre 150ms y 500ms como recomienda la guia, garantizando que las animaciones sean perceptibles pero no lentas.
+
+---
+

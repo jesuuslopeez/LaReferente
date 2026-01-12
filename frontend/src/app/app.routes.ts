@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
+import { Dwec } from './pages/dwec/dwec';
 import { StyleGuide } from './pages/style-guide/style-guide';
 import { Competitions } from './pages/competitions/competitions';
 import { CompetitionDetail } from './pages/competition-detail/competition-detail';
@@ -21,6 +22,12 @@ export const routes: Routes = [
   {
     path: 'style-guide',
     component: StyleGuide,
+  },
+
+  // DWEC - Ejemplos y Demos
+  {
+    path: 'dwec',
+    component: Dwec,
   },
 
   // Login

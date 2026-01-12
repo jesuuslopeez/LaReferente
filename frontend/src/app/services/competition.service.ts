@@ -25,7 +25,7 @@ export class CompetitionService {
   private competiciones: Competicion[] = [
     {
       slug: 'laliga-ea-sports',
-      logo: 'images/competitions/laliga-ea.png',
+      logo: 'assets/images/competitions/medium/laliga_ea.webp',
       nombre: 'LaLiga EA Sports',
       equipos: 20,
       fechaInicio: 'Agosto 2025',
@@ -34,7 +34,7 @@ export class CompetitionService {
     },
     {
       slug: 'laliga-hypermotion',
-      logo: 'images/competitions/laliga-hypermotion.png',
+      logo: 'assets/images/competitions/medium/laliga_hypermotion.webp',
       nombre: 'LaLiga Hypermotion',
       equipos: 22,
       fechaInicio: 'Agosto 2025',
@@ -43,7 +43,7 @@ export class CompetitionService {
     },
     {
       slug: 'primera-federacion',
-      logo: 'images/competitions/primera-federacion.png',
+      logo: 'assets/images/competitions/medium/primera_federacion.webp',
       nombre: 'Primera Federación',
       equipos: 20,
       grupos: [
@@ -56,7 +56,7 @@ export class CompetitionService {
     },
     {
       slug: 'segunda-federacion',
-      logo: 'images/competitions/segunda-federacion.png',
+      logo: 'assets/images/competitions/medium/segunda_federacion.webp',
       nombre: 'Segunda Federación',
       equipos: 90,
       grupos: [
@@ -72,7 +72,7 @@ export class CompetitionService {
     },
     {
       slug: 'tercera-federacion',
-      logo: 'images/competitions/tercera-federacion.png',
+      logo: 'assets/images/competitions/medium/tercera_federacion.webp',
       nombre: 'Tercera Federación',
       equipos: 324,
       grupos: Array.from({ length: 18 }, (_, i) => ({
@@ -86,7 +86,7 @@ export class CompetitionService {
     },
     {
       slug: 'division-honor',
-      logo: 'images/competitions/division-honor.png',
+      logo: 'assets/images/competitions/medium/division_honor.webp',
       nombre: 'División de Honor',
       equipos: 112,
       grupos: Array.from({ length: 7 }, (_, i) => ({
@@ -100,7 +100,7 @@ export class CompetitionService {
     },
     {
       slug: 'primera-andaluza',
-      logo: 'images/competitions/rfaf.png',
+      logo: 'assets/images/competitions/medium/rfaf.webp',
       nombre: 'Primera Andaluza',
       equipos: 128,
       grupos: [
@@ -119,7 +119,7 @@ export class CompetitionService {
     },
     {
       slug: 'segunda-andaluza',
-      logo: 'images/competitions/rfaf.png',
+      logo: 'assets/images/competitions/medium/rfaf.webp',
       nombre: 'Segunda Andaluza',
       equipos: 192,
       grupos: [
