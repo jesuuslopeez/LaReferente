@@ -1,28 +1,40 @@
-import { Component, signal, HostListener } from '@angular/core';
+import { Component, signal, HostListener, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
 
 /**
  * Componente Modal con cierre mediante tecla ESC y click en backdrop
- * Demuestra: eventos de teclado, @HostListener, prevención de propagación
+ * Demuestra: eventos de teclado (keydown.escape), @HostListener, prevención de propagación,
+ * ViewChild para referencias al DOM, Renderer2 para manipulación segura
  */
 @Component({
   selector: 'app-modal',
   imports: [],
   template: `
-    <button (click)="open()">Abrir Modal</button>
+    <button (click)="open()" (keydown.enter)="open()">Abrir Modal</button>
 
     @if (isOpen()) {
       <section class="modal-backdrop" (click)="onBackdropClick()">
-        <article class="modal-content" (click)="$event.stopPropagation()">
+        <article
+          #modalContent
+          class="modal-content"
+          (click)="$event.stopPropagation()"
+          (keydown.escape)="close()"
+          tabindex="-1"
+          role="dialog"
+          aria-modal="true">
           <header>
             <h2>Modal de Ejemplo</h2>
-            <button (click)="close()" aria-label="Cerrar modal">×</button>
+            <button
+              #closeButton
+              (click)="close()"
+              (keydown.enter)="close()"
+              aria-label="Cerrar modal">×</button>
           </header>
           <main>
             <p>Este es el contenido del modal.</p>
             <p>Presiona ESC o haz click fuera para cerrar.</p>
           </main>
           <footer>
-            <button (click)="close()">Cerrar</button>
+            <button (click)="close()" (blur)="onButtonBlur()">Cerrar</button>
           </footer>
         </article>
       </section>
@@ -64,8 +76,21 @@ import { Component, signal, HostListener } from '@angular/core';
 export class ModalComponent {
   protected readonly isOpen = signal(false);
 
+  // Referencias al DOM mediante ViewChild
+  @ViewChild('modalContent') modalContent!: ElementRef;
+  @ViewChild('closeButton') closeButton!: ElementRef;
+
+  constructor(private renderer: Renderer2) {}
+
   protected open(): void {
     this.isOpen.set(true);
+    // Usar setTimeout para esperar a que el modal se renderice
+    setTimeout(() => {
+      if (this.modalContent?.nativeElement) {
+        // Dar foco al modal para accesibilidad
+        this.renderer.selectRootElement(this.modalContent.nativeElement).focus();
+      }
+    });
   }
 
   protected close(): void {
@@ -76,6 +101,12 @@ export class ModalComponent {
     this.close();
   }
 
+  // Evento blur: detecta cuando se pierde el foco del boton
+  protected onButtonBlur(): void {
+    console.log('Boton perdio el foco');
+  }
+
+  // Evento global de teclado: cierra modal con ESC
   @HostListener('document:keydown.escape')
   onEscapePress(): void {
     if (this.isOpen()) {
