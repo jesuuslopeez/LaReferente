@@ -4,180 +4,25 @@
     <p class="home__description">Tu fuente de información sobre fútbol español</p>
   </header>
 
-  <section class="home__alerts">
-    <app-alert
-      type="info"
-      message="Bienvenido a La Referente. Explora los mejores jugadores y competiciones del fútbol español."
-    />
+  <section class="home__hero">
+    <p class="home__intro">
+      Explora los mejores jugadores, equipos y competiciones del fútbol español.
+      Mantente al día con las últimas noticias y estadísticas.
+    </p>
   </section>
 
-  <section class="home__demo">
-    <h2 class="home__section-title">Prueba los Servicios</h2>
-    <p class="home__section-desc">Interactúa con los servicios de notificaciones y loading implementados</p>
-
-    <section class="home__demo-buttons">
-      <app-button
-        text="Toast Success"
-        variant="primary"
-        size="sm"
-        (click)="showSuccessToast()"
-      />
-      <app-button
-        text="Toast Error"
-        variant="danger"
-        size="sm"
-        (click)="showErrorToast()"
-      />
-      <app-button
-        text="Toast Info"
-        variant="secondary"
-        size="sm"
-        (click)="showInfoToast()"
-      />
-      <app-button
-        text="Toast Warning"
-        variant="ghost"
-        size="sm"
-        (click)="showWarningToast()"
-      />
-      <app-button
-        [text]="isLoading() ? 'Cargando...' : 'Simular Loading'"
-        variant="primary"
-        size="sm"
-        [disabled]="isLoading()"
-        (click)="simulateLoading()"
-      />
-      <app-button
-        text="Enviar Notificación"
-        variant="secondary"
-        size="sm"
-        (click)="sendNotification()"
-      />
-    </section>
-
-    @if (lastMessage()) {
-      <p class="home__last-message">Último mensaje: <strong>{{ lastMessage() }}</strong></p>
-    }
-  </section>
-
-  <!-- Ejemplo de FormArray -->
-  <section class="home__form-array">
-    <h2 class="home__section-title">Ejemplo FormArray - Lista Dinámica de Teléfonos</h2>
-    <p class="home__section-desc">Añade o elimina teléfonos dinámicamente</p>
-
-    <form [formGroup]="phonesForm" (ngSubmit)="onSubmitPhones()" class="home__phones-form">
-      <fieldset class="home__form-field">
-        <label class="home__form-label">Nombre</label>
-        <input
-          formControlName="name"
-          placeholder="Tu nombre"
-          class="home__form-input"
-          [class.home__form-input--error]="phonesForm.get('name')?.invalid && phonesForm.get('name')?.touched"
-        />
-        @if (phonesForm.get('name')?.invalid && phonesForm.get('name')?.touched) {
-          <small class="home__form-error">Nombre requerido (mínimo 2 caracteres)</small>
-        }
-      </fieldset>
-
-      <fieldset formArrayName="phones" class="home__phones-list">
-        <legend class="home__form-label">Teléfonos</legend>
-        @for (phone of phones.controls; track $index) {
-          <article [formGroupName]="$index" class="home__phone-row">
-            <input
-              formControlName="number"
-              placeholder="6XXXXXXXX o 7XXXXXXXX"
-              class="home__form-input home__form-input--phone"
-              [class.home__form-input--error]="phone.get('number')?.invalid && phone.get('number')?.touched"
-            />
-            <button
-              type="button"
-              (click)="removePhone($index)"
-              class="home__phone-remove"
-              [disabled]="phones.length === 1"
-            >
-              ×
-            </button>
-            @if (phone.get('number')?.invalid && phone.get('number')?.touched) {
-              <small class="home__form-error home__form-error--full">Teléfono inválido (debe empezar por 6 o 7 y tener 9 dígitos)</small>
-            }
-          </article>
-        }
-        <button type="button" (click)="addPhone()" class="home__phone-add">
-          + Añadir teléfono
-        </button>
-      </fieldset>
-
-      <button type="submit" class="home__form-submit" [disabled]="phonesForm.invalid">
-        Guardar teléfonos
-      </button>
-    </form>
-  </section>
-
-  <section class="home__featured">
-    <h2 class="home__section-title">Jugadores Destacados</h2>
-    <section class="home__cards">
-      <app-card
-        playerName="Lamine Yamal"
-        playerImage="https://www.thesportsdb.com/images/media/player/cutout/m9n4ja1761512633.png/medium"
-        [dorsalNumber]="10"
-        clubName="FC Barcelona"
-        clubLogo="https://r2.thesportsdb.com/images/media/team/badge/wq9sir1639406443.png/medium"
-        country="España"
-        [age]="18"
-        position="Extremo"
-      />
-      <app-card
-        playerName="Pedri González"
-        playerImage="https://r2.thesportsdb.com/images/media/player/cutout/82xtuu1726509836.png/medium"
-        [dorsalNumber]="8"
-        clubName="FC Barcelona"
-        clubLogo="https://r2.thesportsdb.com/images/media/team/badge/wq9sir1639406443.png/medium"
-        country="España"
-        [age]="22"
-        position="Centrocampista"
-      />
-      <app-card
-        playerName="Nico Williams"
-        playerImage="https://r2.thesportsdb.com/images/media/player/cutout/8lg7941629190551.png/medium"
-        [dorsalNumber]="10"
-        clubName="Athletic Club"
-        clubLogo="https://r2.thesportsdb.com/images/media/team/badge/68w7fe1639408210.png/medium"
-        country="España"
-        [age]="22"
-        position="Extremo"
-      />
-    </section>
-  </section>
-
-  <section class="home__competitions">
-    <h2 class="home__section-title">Competiciones</h2>
-    <section class="home__competition-cards">
-      <app-competition-card
-        logo="images/competitions/laliga-ea.png"
-        name="LaLiga EA Sports"
-        slug="laliga-ea-sports"
-        [totalTeams]="20"
-        startDate="Agosto 2025"
-        endDate="Mayo 2026"
-      />
-      <app-competition-card
-        logo="images/competitions/laliga-hypermotion.png"
-        name="LaLiga Hypermotion"
-        slug="laliga-hypermotion"
-        [totalTeams]="22"
-        startDate="Agosto 2025"
-        endDate="Mayo 2026"
-      />
-    </section>
-  </section>
-
-
-  <section class="home__actions">
-    <app-button
-      text="Ver Guía de Componentes"
-      variant="primary"
-      size="lg"
-      (click)="navigateToStyleGuide()"
-    />
-  </section>
+  <nav class="home__nav">
+    <a routerLink="/competiciones" class="home__nav-link">
+      <span class="home__nav-icon">⚽</span>
+      <span class="home__nav-text">Competiciones</span>
+    </a>
+    <a routerLink="/noticias" class="home__nav-link">
+      <span class="home__nav-icon">📰</span>
+      <span class="home__nav-text">Noticias</span>
+    </a>
+    <a routerLink="/dwec" class="home__nav-link home__nav-link--dev">
+      <span class="home__nav-icon">🛠️</span>
+      <span class="home__nav-text">DWEC Demos</span>
+    </a>
+  </nav>
 </section>

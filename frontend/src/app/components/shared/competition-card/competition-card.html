@@ -1,7 +1,31 @@
 <article class="competition-card">
-  
+
   <section class="competition-card__header">
-    <img [src]="logo()" [alt]="name()" class="competition-card__logo" />
+    <!-- Imagen responsive con picture, srcset y loading lazy -->
+    @if (isLocalImage() && logoSlug()) {
+      <picture>
+        <source
+          type="image/webp"
+          [srcset]="logoSrcset()"
+          [sizes]="logoSizes()"
+        />
+        <img
+          [src]="logo()"
+          [alt]="name()"
+          class="competition-card__logo"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+    } @else {
+      <img
+        [src]="logo()"
+        [alt]="name()"
+        class="competition-card__logo"
+        loading="lazy"
+        decoding="async"
+      />
+    }
     <h3 class="competition-card__title">{{ name() }}</h3>
   </section>
 

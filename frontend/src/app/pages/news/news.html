@@ -47,6 +47,8 @@
               [src]="noticia.imagenPrincipalUrl"
               [alt]="noticia.titulo"
               class="news-card__image"
+              loading="lazy"
+              decoding="async"
             />
           } @else {
             <div class="news-card__image news-card__image--placeholder">

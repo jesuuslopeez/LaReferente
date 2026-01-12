@@ -1,12 +1,17 @@
 @if (visible()) {
-  <aside class="alert alert--{{ type() }}" role="alert">
-    <span class="alert__message">{{ message() }}</span>
-    @if (closable()) {
-      <button class="alert__close" (click)="onClose()" aria-label="Cerrar">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    }
-  </aside>
+<aside class="alert alert--{{ type() }}" role="alert">
+  <span class="alert__message">{{ message() }}</span>
+  @if (closable()) {
+  <button class="alert__close" (click)="onClose()" aria-label="Cerrar">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+  </button>
+  }
+</aside>
 }

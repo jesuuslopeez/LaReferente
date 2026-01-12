@@ -1,10 +1,19 @@
-import { Component, inject, computed, signal, HostListener, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  computed,
+  signal,
+  HostListener,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeService } from '../../../services/theme.service';
 import { AuthService } from '../../../services/auth.service';
 import { AccountModal } from '../../shared/account-modal/account-modal';
 import { LoginForm } from '../../shared/login-form/login-form';
 import { RegisterForm } from '../../shared/register-form/register-form';
+import { Icon } from '../../shared/icon/icon';
 
 /**
  * Componente Header con menu mobile, modales y dropdown de cuenta
@@ -12,7 +21,7 @@ import { RegisterForm } from '../../shared/register-form/register-form';
  */
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, AccountModal, LoginForm, RegisterForm],
+  imports: [RouterLink, RouterLinkActive, AccountModal, LoginForm, RegisterForm, Icon],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })

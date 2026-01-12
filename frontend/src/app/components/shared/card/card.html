@@ -1,8 +1,32 @@
 <article class="card">
-  
+
   <section class="card__header">
     <section class="card__player">
-      <img [src]="playerImage()" [alt]="playerName()" class="card__player-image" />
+      <!-- Imagen responsive con picture, srcset y loading lazy -->
+      @if (isLocalImage()) {
+        <picture>
+          <source
+            type="image/webp"
+            [srcset]="imageSrcset()"
+            [sizes]="imageSizes()"
+          />
+          <img
+            [src]="imageSrc()"
+            [alt]="playerName()"
+            class="card__player-image"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      } @else {
+        <img
+          [src]="imageSrc()"
+          [alt]="playerName()"
+          class="card__player-image"
+          loading="lazy"
+          decoding="async"
+        />
+      }
       <section class="card__player-name-badge">
         <span class="card__player-name">{{ playerName() }}</span>
       </section>
@@ -12,9 +36,9 @@
 
   
   <section class="card__info">
-    
+
     <section class="card__info-item">
-      <img [src]="clubLogo()" [alt]="clubName()" class="card__info-icon" />
+      <img [src]="clubLogo()" [alt]="clubName()" class="card__info-icon" loading="lazy" />
       <span class="card__info-text">{{ clubName() }}</span>
     </section>
 
