@@ -1,14 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
-export interface CompetitionCardData {
-  logo: string;
-  name: string;
-  totalTeams: number;
-  groups?: number;
-  startDate: string;
-  endDate: string;
-}
+import { CompetitionType } from '../../../core/models';
 
 @Component({
   selector: 'app-competition-card',
@@ -17,43 +9,38 @@ export interface CompetitionCardData {
   styleUrl: './competition-card.scss',
 })
 export class CompetitionCard {
-  logo = input.required<string>();
-  name = input.required<string>();
-  slug = input.required<string>();
-  totalTeams = input.required<number>();
-  groups = input<number>();
-  startDate = input.required<string>();
-  endDate = input.required<string>();
+  id = input.required<number>();
+  nombre = input.required<string>();
+  nombreCompleto = input<string | null>();
+  tipo = input.required<CompetitionType>();
+  temporada = input.required<string>();
+  logoUrl = input<string | null>();
+  fechaInicio = input<string | null>();
+  fechaFin = input<string | null>();
 
-  get isMultiGroup(): boolean {
-    return this.groups() !== undefined && this.groups()! > 1;
+  // Logo con fallback
+  get logoSrc(): string {
+    return this.logoUrl() || 'assets/images/competitions/default.webp';
   }
 
-  // Detecta si es imagen local (para usar srcset)
-  isLocalImage = computed(() => {
-    const logo = this.logo();
-    return logo.startsWith('assets/') || logo.startsWith('/assets/');
-  });
+  // Tipo formateado
+  get tipoFormateado(): string {
+    return this.tipo() === 'LIGA' ? 'Liga' : 'Copa';
+  }
 
-  // Extrae el slug de la imagen del logo para construir srcset
-  logoSlug = computed(() => {
-    const logo = this.logo();
-    // Extrae nombre del archivo sin extension ni tamaño
-    // Ej: assets/images/competitions/medium/laliga_ea.webp -> laliga_ea
-    const match = logo.match(/\/([^/]+)\.webp$/);
-    return match ? match[1] : '';
-  });
+  // Fechas formateadas
+  get fechasFormateadas(): string {
+    const inicio = this.fechaInicio();
+    const fin = this.fechaFin();
+    if (!inicio || !fin) return this.temporada();
 
-  // Srcset para imagenes responsive de competiciones
-  logoSrcset = computed(() => {
-    const slug = this.logoSlug();
-    if (!slug) return '';
-    return `assets/images/competitions/small/${slug}.webp 400w, assets/images/competitions/medium/${slug}.webp 800w, assets/images/competitions/large/${slug}.webp 1200w`;
-  });
+    const formatearFecha = (fecha: string) => {
+      const date = new Date(fecha);
+      const mes = date.toLocaleDateString('es-ES', { month: 'long' });
+      const anio = date.getFullYear();
+      return `${mes.charAt(0).toUpperCase() + mes.slice(1)} ${anio}`;
+    };
 
-  // Sizes para el logo de competicion
-  logoSizes = computed(() => {
-    // Logo ocupa ~60px en mobile, ~80px en desktop
-    return '(max-width: 640px) 60px, 80px';
-  });
+    return `${formatearFecha(inicio)} - ${formatearFecha(fin)}`;
+  }
 }

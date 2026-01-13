@@ -3,11 +3,7 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 export const serverRoutes: ServerRoute[] = [
   // Rutas con parametros dinamicos - render en cliente
   {
-    path: 'competiciones/:slug',
-    renderMode: RenderMode.Client,
-  },
-  {
-    path: 'competiciones/:slug/grupo/:grupo',
+    path: 'competiciones/:id',
     renderMode: RenderMode.Client,
   },
   {

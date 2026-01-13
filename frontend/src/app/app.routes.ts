@@ -5,11 +5,14 @@ import { StyleGuide } from './pages/style-guide/style-guide';
 import { Competitions } from './pages/competitions/competitions';
 import { CompetitionDetail } from './pages/competition-detail/competition-detail';
 import { CompetitionGroup } from './pages/competition-group/competition-group';
+import { Teams } from './pages/teams/teams';
+import { Players } from './pages/players/players';
+import { Calendar } from './pages/calendar/calendar';
 import { Login } from './pages/login/login';
 import { NotFound } from './pages/not-found/not-found';
 import { NewsPage } from './pages/news/news';
 import { authGuard } from './guards/auth.guard';
-import { competitionResolver, groupResolver } from './resolvers/competition.resolver';
+import { competitionResolver } from './resolvers/competition.resolver';
 
 export const routes: Routes = [
   // Inicio
@@ -42,7 +45,25 @@ export const routes: Routes = [
     component: NewsPage,
   },
 
-  // Competiciones (rutas con parámetros y rutas hijas)
+  // Equipos
+  {
+    path: 'equipos',
+    component: Teams,
+  },
+
+  // Jugadores
+  {
+    path: 'jugadores',
+    component: Players,
+  },
+
+  // Calendario
+  {
+    path: 'calendario',
+    component: Calendar,
+  },
+
+  // Competiciones
   {
     path: 'competiciones',
     children: [
@@ -51,16 +72,9 @@ export const routes: Routes = [
         component: Competitions,
       },
       {
-        path: ':slug',
+        path: ':id',
         component: CompetitionDetail,
         resolve: { competicion: competitionResolver },
-        children: [
-          {
-            path: 'grupo/:grupo',
-            component: CompetitionGroup,
-            resolve: { grupoData: groupResolver },
-          },
-        ],
       },
     ],
   },

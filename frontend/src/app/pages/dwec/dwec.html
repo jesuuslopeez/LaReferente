@@ -156,21 +156,24 @@
     <h2 class="dwec__section-title">Competiciones</h2>
     <section class="dwec__competition-cards">
       <app-competition-card
-        slug="laliga"
-        logo="https://r2.thesportsdb.com/images/media/league/badge/ja4it51687628717.png/medium"
-        name="LaLiga EA Sports"
-        [totalTeams]="20"
-        startDate="Agosto 2024"
-        endDate="Mayo 2025"
+        [id]="1"
+        nombre="LaLiga EA Sports"
+        nombreCompleto="LaLiga EA Sports"
+        tipo="LIGA"
+        temporada="2025-2026"
+        logoUrl="https://r2.thesportsdb.com/images/media/league/badge/ja4it51687628717.png/medium"
+        fechaInicio="2025-08-15"
+        fechaFin="2026-05-24"
       />
       <app-competition-card
-        slug="copa-del-rey"
-        logo="https://r2.thesportsdb.com/images/media/league/badge/2ikh3a1671782958.png/medium"
-        name="Copa del Rey"
-        [totalTeams]="116"
-        [groups]="0"
-        startDate="Octubre 2024"
-        endDate="Abril 2025"
+        [id]="2"
+        nombre="Copa del Rey"
+        nombreCompleto="Copa de S.M. El Rey"
+        tipo="COPA"
+        temporada="2025-2026"
+        logoUrl="https://r2.thesportsdb.com/images/media/league/badge/2ikh3a1671782958.png/medium"
+        fechaInicio="2025-10-01"
+        fechaFin="2026-04-26"
       />
     </section>
   </section>

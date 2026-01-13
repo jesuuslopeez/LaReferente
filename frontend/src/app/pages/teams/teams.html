@@ -1,0 +1,108 @@
+<section class="teams">
+  <!-- Cabecera -->
+  <header class="teams__header">
+    <h1 class="teams__title">Equipos</h1>
+    <p class="teams__description">
+      Descubre todos los equipos del fútbol español
+    </p>
+  </header>
+
+  <!-- Buscador y filtros -->
+  <section class="teams__toolbar">
+    <section class="teams__search">
+      <svg class="teams__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+      <input
+        type="text"
+        class="teams__search-input"
+        placeholder="Buscar equipos..."
+        [formControl]="busquedaControl"
+      />
+    </section>
+
+    <section class="teams__filters">
+      @for (pais of paisesDisponibles; track pais) {
+        <button
+          class="teams__filter-btn"
+          [class.teams__filter-btn--active]="filtroPais() === pais.toLowerCase() || (pais === 'Todos' && filtroPais() === 'todos')"
+          (click)="setFiltroPais(pais)">
+          {{ pais }}
+        </button>
+      }
+    </section>
+  </section>
+
+  <!-- Grid de equipos -->
+  <section class="teams__grid">
+    @for (equipo of equiposPaginados; track equipo.id) {
+      <app-team-card
+        [id]="equipo.id"
+        [nombre]="equipo.nombre"
+        [nombreCompleto]="equipo.nombreCompleto"
+        [logoUrl]="equipo.logoUrl"
+        [ciudad]="equipo.ciudad"
+        [estadio]="equipo.estadio"
+        [fundacion]="equipo.fundacion"
+        [pais]="equipo.pais"
+      />
+    } @empty {
+      <p class="teams__empty">No se encontraron equipos para esta búsqueda.</p>
+    }
+  </section>
+
+  <!-- Paginacion -->
+  @if (totalPaginas > 1) {
+    <nav class="teams__pagination">
+      <button
+        class="teams__pagination-btn"
+        [class.teams__pagination-btn--disabled]="paginaActual() === 1"
+        [disabled]="paginaActual() === 1"
+        (click)="paginaAnterior()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+
+      @if (paginas[0] > 1) {
+        <button class="teams__pagination-number" (click)="irAPagina(1)">1</button>
+        @if (paginas[0] > 2) {
+          <span class="teams__pagination-dots">...</span>
+        }
+      }
+
+      @for (pagina of paginas; track pagina) {
+        <button
+          class="teams__pagination-number"
+          [class.teams__pagination-number--active]="paginaActual() === pagina"
+          (click)="irAPagina(pagina)">
+          {{ pagina }}
+        </button>
+      }
+
+      @if (paginas[paginas.length - 1] < totalPaginas) {
+        @if (paginas[paginas.length - 1] < totalPaginas - 1) {
+          <span class="teams__pagination-dots">...</span>
+        }
+        <button class="teams__pagination-number" (click)="irAPagina(totalPaginas)">
+          {{ totalPaginas }}
+        </button>
+      }
+
+      <button
+        class="teams__pagination-btn"
+        [class.teams__pagination-btn--disabled]="paginaActual() === totalPaginas"
+        [disabled]="paginaActual() === totalPaginas"
+        (click)="paginaSiguiente()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </nav>
+  }
+
+  <!-- Info de resultados -->
+  <p class="teams__info">
+    Mostrando {{ equiposPaginados.length }} de {{ equiposFiltrados.length }} equipos
+  </p>
+</section>

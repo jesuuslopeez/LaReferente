@@ -1,50 +1,38 @@
 <section class="comp-detail">
   <!-- Cabecera -->
   <header class="comp-detail__header">
-    <img [src]="competicion.logo" [alt]="competicion.nombre" class="comp-detail__logo" loading="eager" decoding="async" />
+    <img [src]="competicion.logoUrl || 'assets/images/competitions/default.webp'" [alt]="competicion.nombre" class="comp-detail__logo" loading="eager" decoding="async" />
     <section class="comp-detail__info">
       <h1 class="comp-detail__title">{{ competicion.nombre }}</h1>
       <section class="comp-detail__meta">
-        <span class="comp-detail__badge">{{ competicion.categoria }}</span>
-        <span class="comp-detail__date">{{ competicion.fechaInicio }} - {{ competicion.fechaFin }}</span>
+        <span class="comp-detail__badge">{{ competicion.tipo === 'LIGA' ? 'Liga' : 'Copa' }}</span>
+        <span class="comp-detail__date">{{ competicion.temporada }}</span>
       </section>
     </section>
   </header>
 
-  <!-- Grupos si los tiene -->
-  @if (competicion.grupos && competicion.grupos.length > 0) {
-    <section class="comp-detail__section">
-      <h2 class="comp-detail__subtitle">Grupos</h2>
-      <section class="comp-detail__groups">
-        @for (grupo of competicion.grupos; track grupo.slug) {
-          <a [routerLink]="['grupo', grupo.slug]" class="comp-detail__group-card">
-            <span class="comp-detail__group-name">{{ grupo.nombre }}</span>
-            <span class="comp-detail__group-teams">{{ grupo.equipos }} equipos</span>
-          </a>
-        }
-      </section>
+  <!-- Informacion de la competicion -->
+  <section class="comp-detail__section">
+    <h2 class="comp-detail__subtitle">Informacion</h2>
+    <section class="comp-detail__stats">
+      <article class="comp-detail__stat">
+        <span class="comp-detail__stat-value">{{ competicion.pais || 'España' }}</span>
+        <span class="comp-detail__stat-label">Pais</span>
+      </article>
+      <article class="comp-detail__stat">
+        <span class="comp-detail__stat-value">{{ competicion.temporada }}</span>
+        <span class="comp-detail__stat-label">Temporada</span>
+      </article>
+      <article class="comp-detail__stat">
+        <span class="comp-detail__stat-value">{{ competicion.activa ? 'Si' : 'No' }}</span>
+        <span class="comp-detail__stat-label">Activa</span>
+      </article>
     </section>
-  } @else {
-    <!-- Contenido para competiciones sin grupos -->
-    <section class="comp-detail__section">
-      <h2 class="comp-detail__subtitle">Informacion</h2>
-      <section class="comp-detail__stats">
-        <article class="comp-detail__stat">
-          <span class="comp-detail__stat-value">{{ competicion.equipos }}</span>
-          <span class="comp-detail__stat-label">Equipos</span>
-        </article>
-        <article class="comp-detail__stat">
-          <span class="comp-detail__stat-value">38</span>
-          <span class="comp-detail__stat-label">Jornadas</span>
-        </article>
-        <article class="comp-detail__stat">
-          <span class="comp-detail__stat-value">380</span>
-          <span class="comp-detail__stat-label">Partidos</span>
-        </article>
-      </section>
-    </section>
-  }
+    @if (competicion.descripcion) {
+      <p class="comp-detail__description">{{ competicion.descripcion }}</p>
+    }
+  </section>
 
-  <!-- Outlet para rutas hijas (grupos) -->
+  <!-- Outlet para rutas hijas -->
   <router-outlet></router-outlet>
 </section>

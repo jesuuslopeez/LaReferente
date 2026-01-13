@@ -2,40 +2,45 @@ import { Component, signal, inject, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { CompetitionCard } from '../../components/shared/competition-card/competition-card';
-import { CompetitionService } from '../../services/competition.service';
-import { Competition } from '../../core/models';
+import { TeamCard } from '../../components/shared/team-card/team-card';
+import { TeamService } from '../../core/services/team.service';
+import { Team } from '../../core/models';
 
 @Component({
-  selector: 'app-competitions',
-  imports: [CompetitionCard, ReactiveFormsModule],
-  templateUrl: './competitions.html',
-  styleUrl: './competitions.scss',
+  selector: 'app-teams',
+  imports: [TeamCard, ReactiveFormsModule],
+  templateUrl: './teams.html',
+  styleUrl: './teams.scss',
 })
-export class Competitions {
+export class Teams {
   private destroyRef = inject(DestroyRef);
-  private competitionService = inject(CompetitionService);
+  private teamService = inject(TeamService);
 
   // Estado
-  filtroActivo = signal('todas');
-  filtros = ['Todas', 'Liga', 'Copa'];
-  competiciones = signal<Competition[]>([]);
+  equipos = signal<Team[]>([]);
   busqueda = signal('');
+  filtroPais = signal('todos');
 
   // Paginacion
   paginaActual = signal(1);
-  itemsPorPagina = 6;
+  itemsPorPagina = 8;
 
   // Control del input de busqueda
   busquedaControl = new FormControl('');
 
+  // Paises disponibles (se calculan de los equipos cargados)
+  get paisesDisponibles(): string[] {
+    const paises = new Set(this.equipos().map((e) => e.pais));
+    return ['Todos', ...Array.from(paises).sort()];
+  }
+
   constructor() {
-    // Cargar competiciones
-    this.competitionService
-      .obtenerTodas()
+    // Cargar equipos activos
+    this.teamService
+      .getActive()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((comps) => {
-        this.competiciones.set(comps);
+      .subscribe((equipos) => {
+        this.equipos.set(equipos);
       });
 
     // Busqueda con debounce
@@ -51,37 +56,40 @@ export class Competitions {
       });
   }
 
-  // Competiciones filtradas por tipo y busqueda
-  get competicionesFiltradas(): Competition[] {
-    const filtro = this.filtroActivo();
+  // Equipos filtrados por pais y busqueda
+  get equiposFiltrados(): Team[] {
+    const filtro = this.filtroPais();
     const texto = this.busqueda().toLowerCase().trim();
-    let resultado = this.competiciones();
+    let resultado = this.equipos();
 
-    // Filtrar por tipo
-    if (filtro !== 'todas') {
-      resultado = resultado.filter((c) => c.tipo.toLowerCase() === filtro.toLowerCase());
+    // Filtrar por pais
+    if (filtro !== 'todos') {
+      resultado = resultado.filter((e) => e.pais === filtro);
     }
 
     // Filtrar por texto de busqueda
     if (texto) {
-      resultado = resultado.filter((c) =>
-        c.nombre.toLowerCase().includes(texto)
+      resultado = resultado.filter(
+        (e) =>
+          e.nombre.toLowerCase().includes(texto) ||
+          e.nombreCompleto.toLowerCase().includes(texto) ||
+          e.ciudad.toLowerCase().includes(texto)
       );
     }
 
     return resultado;
   }
 
-  // Competiciones de la pagina actual
-  get competicionesPaginadas(): Competition[] {
+  // Equipos de la pagina actual
+  get equiposPaginados(): Team[] {
     const inicio = (this.paginaActual() - 1) * this.itemsPorPagina;
     const fin = inicio + this.itemsPorPagina;
-    return this.competicionesFiltradas.slice(inicio, fin);
+    return this.equiposFiltrados.slice(inicio, fin);
   }
 
   // Total de paginas
   get totalPaginas(): number {
-    return Math.ceil(this.competicionesFiltradas.length / this.itemsPorPagina);
+    return Math.ceil(this.equiposFiltrados.length / this.itemsPorPagina);
   }
 
   // Array de numeros de pagina para mostrar
@@ -90,11 +98,9 @@ export class Competitions {
     const actual = this.paginaActual();
     const paginas: number[] = [];
 
-    // Mostrar maximo 5 paginas
     let inicio = Math.max(1, actual - 2);
     let fin = Math.min(total, inicio + 4);
 
-    // Ajustar si estamos cerca del final
     if (fin - inicio < 4) {
       inicio = Math.max(1, fin - 4);
     }
@@ -106,8 +112,8 @@ export class Competitions {
     return paginas;
   }
 
-  setFiltro(filtro: string): void {
-    this.filtroActivo.set(filtro.toLowerCase());
+  setFiltroPais(pais: string): void {
+    this.filtroPais.set(pais.toLowerCase() === 'todos' ? 'todos' : pais);
     this.paginaActual.set(1);
   }
 

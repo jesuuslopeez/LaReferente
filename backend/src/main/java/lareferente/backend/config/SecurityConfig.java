@@ -38,7 +38,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/teams/active", "/api/teams/{id}").permitAll()
                         .requestMatchers("/api/players/active", "/api/players/{id}").permitAll()
                         .requestMatchers("/api/news/published", "/api/news/featured", "/api/news/{id}").permitAll()
-                        .requestMatchers("/api/matches/upcoming", "/api/matches/{id}").permitAll()
+                        .requestMatchers("/api/matches/**").permitAll()
+                        .requestMatchers("/api/competitions/active", "/api/competitions/{id}").permitAll()
                         .requestMatchers("/api/comments/news/{newsId}").permitAll()
                         .requestMatchers("/api/files/**").permitAll()
                         // Swagger y Actuator
