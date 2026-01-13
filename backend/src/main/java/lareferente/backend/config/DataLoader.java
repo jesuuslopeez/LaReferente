@@ -86,6 +86,7 @@ public class DataLoader implements CommandLineRunner {
     private void loadCompetitions() {
         List<Competition> competitions = List.of(
             createCompetition("LaLiga", "LaLiga EA Sports", "España", CompetitionType.LIGA, "2025-2026", "2025-08-15", "2026-05-24"),
+            createCompetition("Segunda RFEF G4", "Segunda RFEF Grupo IV", "España", CompetitionType.LIGA, "2025-2026", "2025-09-07", "2026-05-02"),
             createCompetition("Copa del Rey", "Copa de S.M. El Rey", "España", CompetitionType.COPA, "2025-2026", "2025-10-01", "2026-04-26"),
             createCompetition("Supercopa España", "Supercopa de España", "España", CompetitionType.COPA, "2025-2026", "2026-01-08", "2026-01-12")
         );
@@ -123,7 +124,8 @@ public class DataLoader implements CommandLineRunner {
             createTeam("Villarreal", "Villarreal Club de Fútbol", "España", "Villarreal", "Estadio de la Cerámica", 1923),
             createTeam("Getafe", "Getafe Club de Fútbol", "España", "Getafe", "Coliseum Alfonso Pérez", 1983),
             createTeam("Celta", "Real Club Celta de Vigo", "España", "Vigo", "Abanca-Balaídos", 1923),
-            createTeam("Osasuna", "Club Atlético Osasuna", "España", "Pamplona", "El Sadar", 1920)
+            createTeam("Osasuna", "Club Atlético Osasuna", "España", "Pamplona", "El Sadar", 1920),
+            createTeam("Xerez", "Xerez Club Deportivo", "España", "Jerez de la Frontera", "Municipal de Chapín", 1947)
         );
         List<Team> saved = teamRepository.saveAll(teams);
         // Actualizar URLs con IDs generados
@@ -156,6 +158,7 @@ public class DataLoader implements CommandLineRunner {
         Team valencia = teams.stream().filter(t -> t.getNombre().equals("Valencia")).findFirst().orElse(null);
         Team athletic = teams.stream().filter(t -> t.getNombre().equals("Athletic Club")).findFirst().orElse(null);
         Team realSociedad = teams.stream().filter(t -> t.getNombre().equals("Real Sociedad")).findFirst().orElse(null);
+        Team xerez = teams.stream().filter(t -> t.getNombre().equals("Xerez")).findFirst().orElse(null);
 
         List<Player> players = List.of(
             // Real Madrid
@@ -180,16 +183,11 @@ public class DataLoader implements CommandLineRunner {
             createPlayer("Koke", "Resurrección", "1992-01-08", "España", PlayerPosition.CENTROCAMPISTA, 6, 176, 71, atletico),
             createPlayer("Antoine", "Griezmann", "1991-03-21", "Francia", PlayerPosition.DELANTERO, 7, 176, 73, atletico),
 
-            // Sevilla
-            createPlayer("Yassine", "Bounou", "1991-04-05", "Marruecos", PlayerPosition.PORTERO, 13, 192, 82, sevilla),
-            createPlayer("Jesús", "Navas", "1985-11-21", "España", PlayerPosition.DEFENSA, 16, 172, 60, sevilla),
-
             // Real Betis
-            createPlayer("Rui", "Silva", "1994-02-07", "Portugal", PlayerPosition.PORTERO, 13, 191, 85, betis),
+            createPlayer("Antony", "dos Santos", "2000-02-24", "Brasil", PlayerPosition.DELANTERO, 7, 174, 63, betis),
             createPlayer("Isco", "Alarcón", "1992-04-21", "España", PlayerPosition.CENTROCAMPISTA, 22, 176, 76, betis),
 
             // Valencia
-            createPlayer("Giorgi", "Mamardashvili", "2000-09-29", "Georgia", PlayerPosition.PORTERO, 25, 197, 89, valencia),
             createPlayer("Hugo", "Duro", "1999-11-10", "España", PlayerPosition.DELANTERO, 9, 179, 74, valencia),
 
             // Athletic Club
@@ -198,12 +196,16 @@ public class DataLoader implements CommandLineRunner {
 
             // Real Sociedad
             createPlayer("Álex", "Remiro", "1995-03-24", "España", PlayerPosition.PORTERO, 1, 188, 84, realSociedad),
-            createPlayer("Mikel", "Oyarzabal", "1997-04-21", "España", PlayerPosition.DELANTERO, 10, 181, 78, realSociedad)
+            createPlayer("Mikel", "Oyarzabal", "1997-04-21", "España", PlayerPosition.DELANTERO, 10, 181, 78, realSociedad),
+
+            // Xerez
+            createPlayer("Mati", "Castillo", "2001-07-22", "España", PlayerPosition.DELANTERO, 11, 169, 65, xerez),
+            createPlayer("Charaf", "Taoualy", "1999-03-14", "Marruecos", PlayerPosition.CENTROCAMPISTA, 10, 180, 70, xerez)
         );
 
         List<Player> saved = playerRepository.saveAll(players);
         // Actualizar URLs con IDs generados
-        saved.forEach(p -> p.setFotoUrl("assets/images/players/" + p.getId() + ".webp"));
+        saved.forEach(p -> p.setFotoUrl("assets/images/players/medium/" + p.getId() + ".webp"));
         playerRepository.saveAll(saved);
         log.info("Cargados {} jugadores", saved.size());
     }
@@ -246,6 +248,7 @@ public class DataLoader implements CommandLineRunner {
         Team valencia = teams.stream().filter(t -> t.getNombre().equals("Valencia")).findFirst().orElse(null);
         Team athletic = teams.stream().filter(t -> t.getNombre().equals("Athletic Club")).findFirst().orElse(null);
         Team realSociedad = teams.stream().filter(t -> t.getNombre().equals("Real Sociedad")).findFirst().orElse(null);
+        Team xerez = teams.stream().filter(t -> t.getNombre().equals("Xerez")).findFirst().orElse(null);
 
         if (realMadrid == null || barcelona == null) {
             log.warn("No se encontraron los equipos principales");
@@ -253,6 +256,9 @@ public class DataLoader implements CommandLineRunner {
         }
 
         List<Match> matches = List.of(
+            // Jornada 32 (2009-10) - Finalizados
+            createMatch(laliga, atletico, xerez, "2010-04-14T19:00:00", atletico.getEstadio(), 32, 1, 2, MatchStatus.FINALIZADO),
+
             // Jornada 17 - Finalizados
             createMatch(laliga, barcelona, atletico, "2026-01-13T21:00:00", barcelona.getEstadio(), 17, 2, 1, MatchStatus.FINALIZADO),
             createMatch(laliga, sevilla, realMadrid, "2026-01-13T18:30:00", sevilla.getEstadio(), 17, 0, 3, MatchStatus.FINALIZADO),
