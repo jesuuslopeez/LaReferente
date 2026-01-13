@@ -1,0 +1,109 @@
+<section class="players">
+  <!-- Cabecera -->
+  <header class="players__header">
+    <h1 class="players__title">Jugadores</h1>
+    <p class="players__description">
+      Explora los jugadores del fútbol español
+    </p>
+  </header>
+
+  <!-- Buscador y filtros -->
+  <section class="players__toolbar">
+    <section class="players__search">
+      <svg class="players__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+      <input
+        type="text"
+        class="players__search-input"
+        placeholder="Buscar jugadores..."
+        [formControl]="busquedaControl"
+      />
+    </section>
+
+    <section class="players__filters">
+      @for (pos of posiciones; track pos.valor) {
+        <button
+          class="players__filter-btn"
+          [class.players__filter-btn--active]="filtroPosicion() === pos.valor"
+          (click)="setFiltroPosicion(pos.valor)">
+          {{ pos.texto }}
+        </button>
+      }
+    </section>
+  </section>
+
+  <!-- Grid de jugadores -->
+  <section class="players__grid">
+    @for (jugador of jugadoresPaginados; track jugador.id) {
+      <app-player-card
+        [id]="jugador.id"
+        [nombre]="jugador.nombre"
+        [apellidos]="jugador.apellidos"
+        [posicion]="jugador.posicion"
+        [dorsal]="jugador.dorsal"
+        [edad]="jugador.edad"
+        [nacionalidad]="jugador.nacionalidad"
+        [fotoUrl]="jugador.fotoUrl"
+        [equipoNombre]="jugador.equipoNombre"
+      />
+    } @empty {
+      <p class="players__empty">No se encontraron jugadores para esta búsqueda.</p>
+    }
+  </section>
+
+  <!-- Paginacion -->
+  @if (totalPaginas > 1) {
+    <nav class="players__pagination">
+      <button
+        class="players__pagination-btn"
+        [class.players__pagination-btn--disabled]="paginaActual() === 1"
+        [disabled]="paginaActual() === 1"
+        (click)="paginaAnterior()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+
+      @if (paginas[0] > 1) {
+        <button class="players__pagination-number" (click)="irAPagina(1)">1</button>
+        @if (paginas[0] > 2) {
+          <span class="players__pagination-dots">...</span>
+        }
+      }
+
+      @for (pagina of paginas; track pagina) {
+        <button
+          class="players__pagination-number"
+          [class.players__pagination-number--active]="paginaActual() === pagina"
+          (click)="irAPagina(pagina)">
+          {{ pagina }}
+        </button>
+      }
+
+      @if (paginas[paginas.length - 1] < totalPaginas) {
+        @if (paginas[paginas.length - 1] < totalPaginas - 1) {
+          <span class="players__pagination-dots">...</span>
+        }
+        <button class="players__pagination-number" (click)="irAPagina(totalPaginas)">
+          {{ totalPaginas }}
+        </button>
+      }
+
+      <button
+        class="players__pagination-btn"
+        [class.players__pagination-btn--disabled]="paginaActual() === totalPaginas"
+        [disabled]="paginaActual() === totalPaginas"
+        (click)="paginaSiguiente()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </nav>
+  }
+
+  <!-- Info de resultados -->
+  <p class="players__info">
+    Mostrando {{ jugadoresPaginados.length }} de {{ jugadoresFiltrados.length }} jugadores
+  </p>
+</section>

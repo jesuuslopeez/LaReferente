@@ -2,40 +2,48 @@ import { Component, signal, inject, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { CompetitionCard } from '../../components/shared/competition-card/competition-card';
-import { CompetitionService } from '../../services/competition.service';
-import { Competition } from '../../core/models';
+import { PlayerCard } from '../../components/shared/player-card/player-card';
+import { PlayerService } from '../../core/services/player.service';
+import { Player, PlayerPosition } from '../../core/models';
 
 @Component({
-  selector: 'app-competitions',
-  imports: [CompetitionCard, ReactiveFormsModule],
-  templateUrl: './competitions.html',
-  styleUrl: './competitions.scss',
+  selector: 'app-players',
+  imports: [PlayerCard, ReactiveFormsModule],
+  templateUrl: './players.html',
+  styleUrl: './players.scss',
 })
-export class Competitions {
+export class Players {
   private destroyRef = inject(DestroyRef);
-  private competitionService = inject(CompetitionService);
+  private playerService = inject(PlayerService);
 
   // Estado
-  filtroActivo = signal('todas');
-  filtros = ['Todas', 'Liga', 'Copa'];
-  competiciones = signal<Competition[]>([]);
+  jugadores = signal<Player[]>([]);
   busqueda = signal('');
+  filtroPosicion = signal<PlayerPosition | 'todas'>('todas');
+
+  // Filtros de posición
+  posiciones: { valor: PlayerPosition | 'todas'; texto: string }[] = [
+    { valor: 'todas', texto: 'Todas' },
+    { valor: 'PORTERO', texto: 'Porteros' },
+    { valor: 'DEFENSA', texto: 'Defensas' },
+    { valor: 'CENTROCAMPISTA', texto: 'Centrocampistas' },
+    { valor: 'DELANTERO', texto: 'Delanteros' },
+  ];
 
   // Paginacion
   paginaActual = signal(1);
-  itemsPorPagina = 6;
+  itemsPorPagina = 12;
 
   // Control del input de busqueda
   busquedaControl = new FormControl('');
 
   constructor() {
-    // Cargar competiciones
-    this.competitionService
-      .obtenerTodas()
+    // Cargar jugadores activos
+    this.playerService
+      .getActive()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((comps) => {
-        this.competiciones.set(comps);
+      .subscribe((jugadores) => {
+        this.jugadores.set(jugadores);
       });
 
     // Busqueda con debounce
@@ -51,37 +59,40 @@ export class Competitions {
       });
   }
 
-  // Competiciones filtradas por tipo y busqueda
-  get competicionesFiltradas(): Competition[] {
-    const filtro = this.filtroActivo();
+  // Jugadores filtrados por posicion y busqueda
+  get jugadoresFiltrados(): Player[] {
+    const filtro = this.filtroPosicion();
     const texto = this.busqueda().toLowerCase().trim();
-    let resultado = this.competiciones();
+    let resultado = this.jugadores();
 
-    // Filtrar por tipo
+    // Filtrar por posicion
     if (filtro !== 'todas') {
-      resultado = resultado.filter((c) => c.tipo.toLowerCase() === filtro.toLowerCase());
+      resultado = resultado.filter((j) => j.posicion === filtro);
     }
 
     // Filtrar por texto de busqueda
     if (texto) {
-      resultado = resultado.filter((c) =>
-        c.nombre.toLowerCase().includes(texto)
+      resultado = resultado.filter(
+        (j) =>
+          j.nombre.toLowerCase().includes(texto) ||
+          j.apellidos.toLowerCase().includes(texto) ||
+          (j.equipoNombre && j.equipoNombre.toLowerCase().includes(texto))
       );
     }
 
     return resultado;
   }
 
-  // Competiciones de la pagina actual
-  get competicionesPaginadas(): Competition[] {
+  // Jugadores de la pagina actual
+  get jugadoresPaginados(): Player[] {
     const inicio = (this.paginaActual() - 1) * this.itemsPorPagina;
     const fin = inicio + this.itemsPorPagina;
-    return this.competicionesFiltradas.slice(inicio, fin);
+    return this.jugadoresFiltrados.slice(inicio, fin);
   }
 
   // Total de paginas
   get totalPaginas(): number {
-    return Math.ceil(this.competicionesFiltradas.length / this.itemsPorPagina);
+    return Math.ceil(this.jugadoresFiltrados.length / this.itemsPorPagina);
   }
 
   // Array de numeros de pagina para mostrar
@@ -90,11 +101,9 @@ export class Competitions {
     const actual = this.paginaActual();
     const paginas: number[] = [];
 
-    // Mostrar maximo 5 paginas
     let inicio = Math.max(1, actual - 2);
     let fin = Math.min(total, inicio + 4);
 
-    // Ajustar si estamos cerca del final
     if (fin - inicio < 4) {
       inicio = Math.max(1, fin - 4);
     }
@@ -106,8 +115,8 @@ export class Competitions {
     return paginas;
   }
 
-  setFiltro(filtro: string): void {
-    this.filtroActivo.set(filtro.toLowerCase());
+  setFiltroPosicion(posicion: PlayerPosition | 'todas'): void {
+    this.filtroPosicion.set(posicion);
     this.paginaActual.set(1);
   }
 

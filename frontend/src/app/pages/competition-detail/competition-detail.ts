@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-import { Competicion } from '../../services/competition.service';
+import { Competition } from '../../core/models';
 
 @Component({
   selector: 'app-competition-detail',
@@ -9,7 +9,7 @@ import { Competicion } from '../../services/competition.service';
   styleUrl: './competition-detail.scss',
 })
 export class CompetitionDetail {
-  competicion: Competicion;
+  competicion: Competition;
 
   constructor(private route: ActivatedRoute) {
     this.competicion = this.route.snapshot.data['competicion'];

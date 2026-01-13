@@ -1,0 +1,50 @@
+<article class="player-card" [class]="posicionClass()">
+  <header class="player-card__header">
+    @if (dorsal()) {
+      <span class="player-card__dorsal">{{ dorsal() }}</span>
+    }
+    <img
+      class="player-card__photo"
+      [src]="fotoSrc"
+      [alt]="nombreCompleto"
+      loading="lazy"
+    />
+  </header>
+
+  <section class="player-card__body">
+    <h3 class="player-card__name">{{ nombreCompleto }}</h3>
+
+    <section class="player-card__info">
+      <article class="player-card__badge player-card__badge--position">
+        <svg class="player-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+        </svg>
+        <span class="player-card__badge-text">{{ posicionTexto() }}</span>
+      </article>
+
+      @if (edad()) {
+        <article class="player-card__badge">
+          <svg class="player-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span class="player-card__badge-text">{{ edad() }} años</span>
+        </article>
+      }
+    </section>
+
+    @if (equipoNombre()) {
+      <p class="player-card__team">
+        <svg class="player-card__team-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
+        </svg>
+        {{ equipoNombre() }}
+      </p>
+    }
+  </section>
+
+  <section class="player-card__actions">
+    <a [routerLink]="['/jugadores', id()]" class="player-card__button">
+      Ver perfil
+    </a>
+  </section>
+</article>

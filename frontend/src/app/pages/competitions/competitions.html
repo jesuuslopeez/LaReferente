@@ -35,15 +35,16 @@
 
   <!-- Grid de competiciones -->
   <section class="competitions__grid">
-    @for (comp of competicionesPaginadas; track comp.slug) {
+    @for (comp of competicionesPaginadas; track comp.id) {
       <app-competition-card
-        [logo]="comp.logo"
-        [name]="comp.nombre"
-        [slug]="comp.slug"
-        [totalTeams]="comp.equipos"
-        [groups]="comp.grupos?.length"
-        [startDate]="comp.fechaInicio"
-        [endDate]="comp.fechaFin"
+        [id]="comp.id"
+        [nombre]="comp.nombre"
+        [nombreCompleto]="comp.nombreCompleto"
+        [tipo]="comp.tipo"
+        [temporada]="comp.temporada"
+        [logoUrl]="comp.logoUrl"
+        [fechaInicio]="comp.fechaInicio"
+        [fechaFin]="comp.fechaFin"
       />
     } @empty {
       <p class="competitions__empty">No se encontraron competiciones para esta busqueda.</p>
