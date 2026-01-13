@@ -49,26 +49,21 @@
       }
     </section>
 
-    <section class="admin-form__row">
-      <section class="admin-form__field">
-        <label for="categoria" class="admin-form__label">Categoría *</label>
-        <select id="categoria" formControlName="categoria" class="admin-form__select">
-          @for (cat of categorias; track cat.valor) {
-            <option [value]="cat.valor">{{ cat.texto }}</option>
-          }
-        </select>
-      </section>
+    <section class="admin-form__field">
+      <label for="categoria" class="admin-form__label">Categoría *</label>
+      <select id="categoria" formControlName="categoria" class="admin-form__select">
+        @for (cat of categorias; track cat.valor) {
+          <option [value]="cat.valor">{{ cat.texto }}</option>
+        }
+      </select>
+    </section>
 
-      <section class="admin-form__field">
-        <label for="imagenPrincipalUrl" class="admin-form__label">URL de imagen</label>
-        <input
-          type="text"
-          id="imagenPrincipalUrl"
-          formControlName="imagenPrincipalUrl"
-          class="admin-form__input"
-          placeholder="https://ejemplo.com/imagen.jpg"
-        />
-      </section>
+    <section class="admin-form__field">
+      <app-image-upload
+        label="Imagen principal"
+        (imageUploaded)="onImageUploaded($event)"
+        (imageRemoved)="onImageRemoved()"
+      />
     </section>
 
     <section class="admin-form__row">

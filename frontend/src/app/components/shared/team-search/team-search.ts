@@ -34,8 +34,9 @@ export class TeamSearch implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['categoria'] && !changes['categoria'].firstChange) {
-      // Si cambia la categoría, limpiar selección
+      // Si cambia la categoría, limpiar selección y resultados
       this.clearSelection();
+      this.results.set([]);
     }
     if (changes['selectedTeamId'] && this.selectedTeamId) {
       this.loadSelectedTeam();
@@ -61,9 +62,8 @@ export class TeamSearch implements OnChanges {
 
   onFocus(): void {
     this.isOpen.set(true);
-    if (this.results().length === 0) {
-      this.performSearch('');
-    }
+    // Siempre buscar al hacer focus para asegurar resultados actualizados
+    this.performSearch('');
   }
 
   onBlur(): void {
