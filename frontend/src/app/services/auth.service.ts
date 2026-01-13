@@ -148,4 +148,9 @@ export class AuthService {
     const usuario = this.usuario();
     return usuario?.rol === 'ADMIN';
   }
+
+  esEditor(): boolean {
+    const usuario = this.usuario();
+    return usuario?.rol === 'EDITOR' || usuario?.rol === 'ADMIN';
+  }
 }

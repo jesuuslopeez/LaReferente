@@ -1,0 +1,56 @@
+<section class="image-upload">
+  <label class="image-upload__label">{{ label }}</label>
+
+  @if (displayUrl) {
+    <section class="image-upload__preview">
+      <img [src]="displayUrl" alt="Preview" class="image-upload__image" />
+      <button type="button" class="image-upload__remove" (click)="removeImage()" [disabled]="isUploading()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      @if (isUploading()) {
+        <section class="image-upload__loading">
+          <span class="image-upload__spinner"></span>
+        </section>
+      }
+    </section>
+  } @else {
+    <section
+      class="image-upload__dropzone"
+      [class.image-upload__dropzone--dragging]="isDragging()"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+    >
+      <input
+        type="file"
+        accept="image/*"
+        class="image-upload__input"
+        (change)="onFileSelected($event)"
+        [disabled]="isUploading()"
+      />
+      <section class="image-upload__content">
+        <svg class="image-upload__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+        @if (isUploading()) {
+          <p class="image-upload__text">Subiendo...</p>
+          <span class="image-upload__spinner"></span>
+        } @else {
+          <p class="image-upload__text">Arrastra una imagen o haz clic para seleccionar</p>
+          <p class="image-upload__hint">PNG, JPG o WEBP (max 5MB)</p>
+        }
+      </section>
+    </section>
+  }
+
+  @if (error()) {
+    <span class="image-upload__error">{{ error() }}</span>
+  }
+</section>

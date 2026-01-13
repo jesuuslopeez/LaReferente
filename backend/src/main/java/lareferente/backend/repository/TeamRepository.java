@@ -32,6 +32,14 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     @Query("SELECT t FROM Team t WHERE LOWER(t.nombre) LIKE LOWER(CONCAT('%', :nombre, '%')) AND t.activo = true")
     List<Team> searchByName(@Param("nombre") String nombre);
 
+    // Buscar por categoría
+    @Query("SELECT t FROM Team t WHERE t.categoria = :categoria AND t.activo = true ORDER BY t.nombre ASC")
+    List<Team> findByCategoria(@Param("categoria") lareferente.backend.enums.AgeCategory categoria);
+
+    // Buscar por nombre parcial y categoría
+    @Query("SELECT t FROM Team t WHERE LOWER(t.nombre) LIKE LOWER(CONCAT('%', :nombre, '%')) AND t.categoria = :categoria AND t.activo = true ORDER BY t.nombre ASC")
+    List<Team> searchByNameAndCategoria(@Param("nombre") String nombre, @Param("categoria") lareferente.backend.enums.AgeCategory categoria);
+
     // Contar jugadores por equipo
     @Query("SELECT COUNT(p) FROM Player p WHERE p.equipo.id = :teamId AND p.activo = true")
     Long countPlayersByTeam(@Param("teamId") Long teamId);

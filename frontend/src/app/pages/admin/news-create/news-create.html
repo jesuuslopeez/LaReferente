@@ -1,0 +1,101 @@
+<section class="admin-form">
+  <header class="admin-form__header">
+    <a routerLink="/noticias" class="admin-form__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Volver
+    </a>
+    <h1 class="admin-form__title">Añadir noticia</h1>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="admin-form__form">
+    <section class="admin-form__field">
+      <label for="titulo" class="admin-form__label">Título *</label>
+      <input
+        type="text"
+        id="titulo"
+        formControlName="titulo"
+        class="admin-form__input"
+        placeholder="Título de la noticia"
+      />
+      @if (form.get('titulo')?.invalid && form.get('titulo')?.touched) {
+        <span class="admin-form__error">El título es obligatorio (mínimo 5 caracteres)</span>
+      }
+    </section>
+
+    <section class="admin-form__field">
+      <label for="subtitulo" class="admin-form__label">Subtítulo</label>
+      <input
+        type="text"
+        id="subtitulo"
+        formControlName="subtitulo"
+        class="admin-form__input"
+        placeholder="Subtítulo opcional"
+      />
+    </section>
+
+    <section class="admin-form__field">
+      <label for="contenido" class="admin-form__label">Contenido *</label>
+      <textarea
+        id="contenido"
+        formControlName="contenido"
+        class="admin-form__textarea"
+        rows="10"
+        placeholder="Escribe el contenido de la noticia..."
+      ></textarea>
+      @if (form.get('contenido')?.invalid && form.get('contenido')?.touched) {
+        <span class="admin-form__error">El contenido es obligatorio (mínimo 20 caracteres)</span>
+      }
+    </section>
+
+    <section class="admin-form__row">
+      <section class="admin-form__field">
+        <label for="categoria" class="admin-form__label">Categoría *</label>
+        <select id="categoria" formControlName="categoria" class="admin-form__select">
+          @for (cat of categorias; track cat.valor) {
+            <option [value]="cat.valor">{{ cat.texto }}</option>
+          }
+        </select>
+      </section>
+
+      <section class="admin-form__field">
+        <label for="imagenPrincipalUrl" class="admin-form__label">URL de imagen</label>
+        <input
+          type="text"
+          id="imagenPrincipalUrl"
+          formControlName="imagenPrincipalUrl"
+          class="admin-form__input"
+          placeholder="https://ejemplo.com/imagen.jpg"
+        />
+      </section>
+    </section>
+
+    <section class="admin-form__row">
+      <section class="admin-form__field admin-form__field--checkbox">
+        <label class="admin-form__checkbox-label">
+          <input type="checkbox" formControlName="destacada" class="admin-form__checkbox" />
+          <span>Noticia destacada</span>
+        </label>
+      </section>
+
+      <section class="admin-form__field admin-form__field--checkbox">
+        <label class="admin-form__checkbox-label">
+          <input type="checkbox" formControlName="publicada" class="admin-form__checkbox" />
+          <span>Publicar inmediatamente</span>
+        </label>
+      </section>
+    </section>
+
+    <section class="admin-form__actions">
+      <a routerLink="/noticias" class="admin-form__btn admin-form__btn--secondary">Cancelar</a>
+      <button type="submit" class="admin-form__btn admin-form__btn--primary" [disabled]="cargando">
+        @if (cargando) {
+          Guardando...
+        } @else {
+          Crear noticia
+        }
+      </button>
+    </section>
+  </form>
+</section>

@@ -1,20 +1,23 @@
 import { Component, signal, inject, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { PlayerCard } from '../../components/shared/player-card/player-card';
 import { PlayerService } from '../../core/services/player.service';
 import { Player, PlayerPosition } from '../../core/models';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-players',
-  imports: [PlayerCard, ReactiveFormsModule],
+  imports: [PlayerCard, ReactiveFormsModule, RouterLink],
   templateUrl: './players.html',
   styleUrl: './players.scss',
 })
 export class Players {
   private destroyRef = inject(DestroyRef);
   private playerService = inject(PlayerService);
+  protected readonly authService = inject(AuthService);
 
   // Estado
   jugadores = signal<Player[]>([]);
@@ -32,7 +35,7 @@ export class Players {
 
   // Paginacion
   paginaActual = signal(1);
-  itemsPorPagina = 12;
+  itemsPorPagina = 8;
 
   // Control del input de busqueda
   busquedaControl = new FormControl('');

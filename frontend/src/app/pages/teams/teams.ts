@@ -1,20 +1,23 @@
 import { Component, signal, inject, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { TeamCard } from '../../components/shared/team-card/team-card';
 import { TeamService } from '../../core/services/team.service';
 import { Team } from '../../core/models';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-teams',
-  imports: [TeamCard, ReactiveFormsModule],
+  imports: [TeamCard, ReactiveFormsModule, RouterLink],
   templateUrl: './teams.html',
   styleUrl: './teams.scss',
 })
 export class Teams {
   private destroyRef = inject(DestroyRef);
   private teamService = inject(TeamService);
+  protected readonly authService = inject(AuthService);
 
   // Estado
   equipos = signal<Team[]>([]);

@@ -1,0 +1,90 @@
+<section class="team-detail">
+  @if (loading()) {
+    <section class="team-detail__loading">
+      <span class="team-detail__spinner"></span>
+      <p>Cargando equipo...</p>
+    </section>
+  } @else if (error()) {
+    <section class="team-detail__error">
+      <p>{{ error() }}</p>
+      <a routerLink="/equipos" class="team-detail__btn">Volver a equipos</a>
+    </section>
+  } @else if (team()) {
+    <header class="team-detail__header">
+      <a routerLink="/equipos" class="team-detail__back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Volver
+      </a>
+    </header>
+
+    <section class="team-detail__hero">
+      <img
+        [src]="getLogoUrl(team()!)"
+        [alt]="team()!.nombre"
+        class="team-detail__logo"
+        (error)="onImageError($event)"
+      />
+      <section class="team-detail__hero-info">
+        <h1 class="team-detail__name">{{ getDisplayName(team()!) }}</h1>
+        @if (team()!.nombreCompleto) {
+          <p class="team-detail__full-name">{{ team()!.nombreCompleto }}</p>
+        }
+        <span class="team-detail__category">{{ getCategoriaTexto(team()!.categoria) }}</span>
+      </section>
+    </section>
+
+    <section class="team-detail__info-grid">
+      @if (team()!.ciudad) {
+        <section class="team-detail__info-item">
+          <span class="team-detail__info-label">Ciudad</span>
+          <span class="team-detail__info-value">{{ team()!.ciudad }}</span>
+        </section>
+      }
+
+      <section class="team-detail__info-item">
+        <span class="team-detail__info-label">País</span>
+        <span class="team-detail__info-value">{{ team()!.pais }}</span>
+      </section>
+
+      @if (team()!.estadio) {
+        <section class="team-detail__info-item">
+          <span class="team-detail__info-label">Estadio</span>
+          <span class="team-detail__info-value">{{ team()!.estadio }}</span>
+        </section>
+      }
+
+      @if (team()!.fundacion) {
+        <section class="team-detail__info-item">
+          <span class="team-detail__info-label">Fundación</span>
+          <span class="team-detail__info-value">{{ team()!.fundacion }}</span>
+        </section>
+      }
+    </section>
+
+    @if (team()!.descripcion) {
+      <section class="team-detail__description">
+        <h2 class="team-detail__section-title">Descripción</h2>
+        <p class="team-detail__description-text">{{ team()!.descripcion }}</p>
+      </section>
+    }
+
+    @if (players().length > 0) {
+      <section class="team-detail__players">
+        <h2 class="team-detail__section-title">Plantilla</h2>
+        <section class="team-detail__players-grid">
+          @for (player of players(); track player.id) {
+            <app-player-card
+              [id]="player.id"
+              [nombre]="player.nombre"
+              [apellidos]="player.apellidos"
+              [posicion]="player.posicion"
+              [dorsal]="player.dorsal"
+            />
+          }
+        </section>
+      </section>
+    }
+  }
+</section>

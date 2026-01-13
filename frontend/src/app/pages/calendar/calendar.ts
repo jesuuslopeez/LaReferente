@@ -1,18 +1,21 @@
 import { Component, signal, inject, DestroyRef, computed } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { MatchService } from '../../core/services/match.service';
 import { Match, MatchStatus } from '../../core/models';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-calendar',
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './calendar.html',
   styleUrl: './calendar.scss',
 })
 export class Calendar {
   private destroyRef = inject(DestroyRef);
   private matchService = inject(MatchService);
+  protected readonly authService = inject(AuthService);
 
   // Estado
   partidos = signal<Match[]>([]);

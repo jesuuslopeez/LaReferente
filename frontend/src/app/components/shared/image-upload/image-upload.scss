@@ -1,0 +1,150 @@
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2, var(--space-xs));
+
+  &__label {
+    font-size: var(--font-sm, var(--font-size-sm));
+    font-weight: var(--font-medium, 500);
+    color: var(--text-color, var(--color-text-primary));
+  }
+
+  &__dropzone {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    border: 2px dashed var(--border-color, var(--color-border));
+    border-radius: var(--radius-md);
+    background-color: var(--card-bg, var(--color-bg-secondary));
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: var(--primary, var(--color-primary));
+      background-color: var(--bg-secondary, var(--color-bg-tertiary));
+    }
+
+    &--dragging {
+      border-color: var(--primary, var(--color-primary));
+      background-color: var(--primary-alpha-20, rgba(0, 112, 243, 0.1));
+      border-width: 3px;
+    }
+  }
+
+  &__input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-md);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    color: var(--text-secondary, var(--color-text-tertiary));
+  }
+
+  &__text {
+    font-size: var(--font-sm, var(--font-size-sm));
+    color: var(--text-secondary, var(--color-text-secondary));
+    margin: 0;
+  }
+
+  &__hint {
+    font-size: var(--font-xs, var(--font-size-xs));
+    color: var(--text-secondary, var(--color-text-tertiary));
+    margin: 0;
+  }
+
+  &__preview {
+    position: relative;
+    display: inline-block;
+    max-width: 200px;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  &__remove {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--color-error);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: var(--radius-md);
+  }
+
+  &__spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--color-bg-secondary);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  &__error {
+    font-size: var(--font-size-xs);
+    color: var(--color-error);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

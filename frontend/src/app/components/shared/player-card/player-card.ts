@@ -1,4 +1,4 @@
-import { Component, input, computed } from '@angular/core';
+import { Component, input, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PlayerPosition } from '../../../core/models';
 
@@ -18,31 +18,25 @@ export class PlayerCard {
   nacionalidad = input<string>();
   fotoUrl = input<string | null>();
   equipoNombre = input<string | null>();
+  equipoId = input<number | null>();
+
+  private readonly fallbackImage = 'assets/images/players/medium/no_cutout.webp';
+  fotoError = signal(false);
 
   get fotoSrc(): string {
-    return this.fotoUrl() || 'assets/images/players/default-player.webp';
+    if (this.fotoError()) {
+      return this.fallbackImage;
+    }
+    return `assets/images/players/medium/${this.id()}.webp`;
+  }
+
+  onImageError(): void {
+    this.fotoError.set(true);
   }
 
   get nombreCompleto(): string {
     return `${this.nombre()} ${this.apellidos()}`;
   }
-
-  // Color basado en posición
-  posicionClass = computed(() => {
-    const pos = this.posicion();
-    switch (pos) {
-      case 'PORTERO':
-        return 'player-card--portero';
-      case 'DEFENSA':
-        return 'player-card--defensa';
-      case 'CENTROCAMPISTA':
-        return 'player-card--centrocampista';
-      case 'DELANTERO':
-        return 'player-card--delantero';
-      default:
-        return '';
-    }
-  });
 
   // Texto legible de posición
   posicionTexto = computed(() => {

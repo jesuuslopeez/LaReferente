@@ -1,5 +1,6 @@
 package lareferente.backend.dto;
 
+import lareferente.backend.enums.AgeCategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,8 @@ public class TeamDTO {
     private Long id;
     private String nombre;
     private String nombreCompleto;
+    private AgeCategory categoria;
+    private String letra;
     private String pais;
     private String ciudad;
     private String estadio;

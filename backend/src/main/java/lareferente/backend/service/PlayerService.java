@@ -62,6 +62,7 @@ public class PlayerService {
         player.setFechaNacimiento(playerDTO.getFechaNacimiento());
         player.setNacionalidad(playerDTO.getNacionalidad());
         player.setPosicion(playerDTO.getPosicion());
+        player.setCategoria(playerDTO.getCategoria() != null ? playerDTO.getCategoria() : lareferente.backend.enums.AgeCategory.SENIOR);
         player.setDorsal(playerDTO.getDorsal());
         player.setAltura(playerDTO.getAltura());
         player.setPeso(playerDTO.getPeso());
@@ -96,6 +97,7 @@ public class PlayerService {
         player.setFechaNacimiento(playerDTO.getFechaNacimiento());
         player.setNacionalidad(playerDTO.getNacionalidad());
         player.setPosicion(playerDTO.getPosicion());
+        player.setCategoria(playerDTO.getCategoria() != null ? playerDTO.getCategoria() : player.getCategoria());
         player.setDorsal(playerDTO.getDorsal());
         player.setAltura(playerDTO.getAltura());
         player.setPeso(playerDTO.getPeso());
@@ -121,6 +123,7 @@ public class PlayerService {
         dto.setFechaNacimiento(player.getFechaNacimiento());
         dto.setNacionalidad(player.getNacionalidad());
         dto.setPosicion(player.getPosicion());
+        dto.setCategoria(player.getCategoria());
         dto.setDorsal(player.getDorsal());
         dto.setAltura(player.getAltura());
         dto.setPeso(player.getPeso());

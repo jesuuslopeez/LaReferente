@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, ReactiveFormsModule } 
 import { FormInput } from '../form-input/form-input';
 import { FormModalButton } from '../form-modal-button/form-modal-button';
 import { ToastService } from '../../../shared/services/toast';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -13,9 +14,11 @@ import { ToastService } from '../../../shared/services/toast';
 })
 export class LoginForm {
   @Output() switchToRegister = new EventEmitter<void>();
+  @Output() loginSuccess = new EventEmitter<void>();
 
   private fb = inject(FormBuilder);
   private toastService = inject(ToastService);
+  private authService = inject(AuthService);
 
   loginForm: FormGroup;
 
@@ -45,7 +48,15 @@ export class LoginForm {
       return;
     }
 
-    console.log('Login form submitted', this.loginForm.value);
-    this.toastService.success('Inicio de sesión exitoso');
+    this.authService.login(this.loginForm.value).subscribe({
+      next: () => {
+        this.toastService.success('Inicio de sesión exitoso');
+        this.loginSuccess.emit();
+      },
+      error: (error) => {
+        const mensaje = error.error?.message || 'Error al iniciar sesión';
+        this.toastService.error(mensaje);
+      },
+    });
   }
 }

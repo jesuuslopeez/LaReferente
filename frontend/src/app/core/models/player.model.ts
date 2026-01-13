@@ -1,3 +1,5 @@
+import { AgeCategory } from './competition.model';
+
 /**
  * Posiciones de jugador
  */
@@ -14,6 +16,7 @@ export interface Player {
   edad: number;
   nacionalidad: string;
   posicion: PlayerPosition;
+  categoria: AgeCategory;
   dorsal: number | null;
   altura: number | null;
   peso: number | null;
@@ -33,6 +36,7 @@ export interface CreatePlayerDto {
   fechaNacimiento: string;
   nacionalidad: string;
   posicion: PlayerPosition;
+  categoria: AgeCategory;
   dorsal?: number;
   altura?: number;
   peso?: number;

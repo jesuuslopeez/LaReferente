@@ -1,20 +1,23 @@
 import { Component, signal, inject, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { CompetitionCard } from '../../components/shared/competition-card/competition-card';
 import { CompetitionService } from '../../services/competition.service';
 import { Competition } from '../../core/models';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-competitions',
-  imports: [CompetitionCard, ReactiveFormsModule],
+  imports: [CompetitionCard, ReactiveFormsModule, RouterLink],
   templateUrl: './competitions.html',
   styleUrl: './competitions.scss',
 })
 export class Competitions {
   private destroyRef = inject(DestroyRef);
   private competitionService = inject(CompetitionService);
+  protected readonly authService = inject(AuthService);
 
   // Estado
   filtroActivo = signal('todas');

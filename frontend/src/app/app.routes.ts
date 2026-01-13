@@ -6,13 +6,21 @@ import { Competitions } from './pages/competitions/competitions';
 import { CompetitionDetail } from './pages/competition-detail/competition-detail';
 import { CompetitionGroup } from './pages/competition-group/competition-group';
 import { Teams } from './pages/teams/teams';
+import { TeamDetail } from './pages/team-detail/team-detail';
 import { Players } from './pages/players/players';
+import { PlayerDetail } from './pages/player-detail/player-detail';
 import { Calendar } from './pages/calendar/calendar';
 import { Login } from './pages/login/login';
 import { NotFound } from './pages/not-found/not-found';
 import { NewsPage } from './pages/news/news';
 import { authGuard } from './guards/auth.guard';
+import { editorGuard } from './guards/editor.guard';
 import { competitionResolver } from './resolvers/competition.resolver';
+import { NewsCreate } from './pages/admin/news-create/news-create';
+import { CompetitionCreate } from './pages/admin/competition-create/competition-create';
+import { TeamCreate } from './pages/admin/team-create/team-create';
+import { PlayerCreate } from './pages/admin/player-create/player-create';
+import { MatchCreate } from './pages/admin/match-create/match-create';
 
 export const routes: Routes = [
   // Inicio
@@ -48,13 +56,31 @@ export const routes: Routes = [
   // Equipos
   {
     path: 'equipos',
-    component: Teams,
+    children: [
+      {
+        path: '',
+        component: Teams,
+      },
+      {
+        path: ':id',
+        component: TeamDetail,
+      },
+    ],
   },
 
   // Jugadores
   {
     path: 'jugadores',
-    component: Players,
+    children: [
+      {
+        path: '',
+        component: Players,
+      },
+      {
+        path: ':id',
+        component: PlayerDetail,
+      },
+    ],
   },
 
   // Calendario
@@ -84,6 +110,19 @@ export const routes: Routes = [
     path: 'usuario',
     canActivate: [authGuard],
     loadChildren: () => import('./pages/user/user.routes').then((m) => m.userRoutes),
+  },
+
+  // Admin - Crear contenido (solo editores/admin)
+  {
+    path: 'admin',
+    canActivate: [editorGuard],
+    children: [
+      { path: 'noticias/nueva', component: NewsCreate },
+      { path: 'competiciones/nueva', component: CompetitionCreate },
+      { path: 'equipos/nuevo', component: TeamCreate },
+      { path: 'jugadores/nuevo', component: PlayerCreate },
+      { path: 'encuentros/nuevo', component: MatchCreate },
+    ],
   },
 
   // 404

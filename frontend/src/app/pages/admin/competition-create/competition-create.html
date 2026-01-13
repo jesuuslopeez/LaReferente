@@ -1,0 +1,155 @@
+<section class="admin-form">
+  <header class="admin-form__header">
+    <a routerLink="/competiciones" class="admin-form__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Volver
+    </a>
+    <h1 class="admin-form__title">Añadir competición</h1>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="admin-form__form">
+    <section class="admin-form__row">
+      <section class="admin-form__field">
+        <label for="nombre" class="admin-form__label">Nombre *</label>
+        <input
+          type="text"
+          id="nombre"
+          formControlName="nombre"
+          class="admin-form__input"
+          placeholder="Ej: La Liga"
+        />
+        @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
+          <span class="admin-form__error">El nombre es obligatorio</span>
+        }
+      </section>
+
+      <section class="admin-form__field">
+        <label for="nombreCompleto" class="admin-form__label">Nombre completo</label>
+        <input
+          type="text"
+          id="nombreCompleto"
+          formControlName="nombreCompleto"
+          class="admin-form__input"
+          placeholder="Ej: LaLiga EA Sports"
+        />
+      </section>
+    </section>
+
+    <section class="admin-form__row">
+      <section class="admin-form__field">
+        <label for="tipo" class="admin-form__label">Tipo *</label>
+        <select id="tipo" formControlName="tipo" class="admin-form__select">
+          @for (t of tipos; track t.valor) {
+            <option [value]="t.valor">{{ t.texto }}</option>
+          }
+        </select>
+      </section>
+
+      <section class="admin-form__field">
+        <label for="categoria" class="admin-form__label">Categoría *</label>
+        <select id="categoria" formControlName="categoria" class="admin-form__select">
+          @for (c of categorias; track c.valor) {
+            <option [value]="c.valor">{{ c.texto }}</option>
+          }
+        </select>
+      </section>
+    </section>
+
+    <section class="admin-form__row">
+      <section class="admin-form__field">
+        <label for="temporada" class="admin-form__label">Temporada *</label>
+        <input
+          type="text"
+          id="temporada"
+          formControlName="temporada"
+          class="admin-form__input"
+          placeholder="Ej: 2024-2025"
+        />
+      </section>
+
+      <section class="admin-form__field">
+        <label for="numEquipos" class="admin-form__label">Número de equipos</label>
+        <input
+          type="number"
+          id="numEquipos"
+          formControlName="numEquipos"
+          class="admin-form__input"
+          placeholder="Ej: 20"
+          min="2"
+        />
+      </section>
+    </section>
+
+    <section class="admin-form__row">
+      <section class="admin-form__field">
+        <label for="pais" class="admin-form__label">País</label>
+        <input
+          type="text"
+          id="pais"
+          formControlName="pais"
+          class="admin-form__input"
+          placeholder="Ej: España"
+        />
+      </section>
+
+      <section class="admin-form__field">
+        <label for="fechaInicio" class="admin-form__label">Fecha inicio</label>
+        <input
+          type="date"
+          id="fechaInicio"
+          formControlName="fechaInicio"
+          class="admin-form__input"
+        />
+      </section>
+
+      <section class="admin-form__field">
+        <label for="fechaFin" class="admin-form__label">Fecha fin</label>
+        <input
+          type="date"
+          id="fechaFin"
+          formControlName="fechaFin"
+          class="admin-form__input"
+        />
+      </section>
+    </section>
+
+    <section class="admin-form__field">
+      <app-image-upload
+        label="Logo de la competición"
+        (imageUploaded)="onImageUploaded($event)"
+        (imageRemoved)="onImageRemoved()"
+      />
+    </section>
+
+    <section class="admin-form__field">
+      <label for="descripcion" class="admin-form__label">Descripción</label>
+      <textarea
+        id="descripcion"
+        formControlName="descripcion"
+        class="admin-form__textarea"
+        rows="4"
+        placeholder="Descripción de la competición..."
+      ></textarea>
+    </section>
+
+    <section class="admin-form__field admin-form__field--checkbox">
+      <label class="admin-form__checkbox-label">
+        <input type="checkbox" formControlName="activa" class="admin-form__checkbox" />
+        <span>Competición activa</span>
+      </label>
+    </section>
+
+    <section class="admin-form__actions">
+      <a routerLink="/competiciones" class="admin-form__btn admin-form__btn--secondary">Cancelar</a>
+      <button type="submit" class="admin-form__btn admin-form__btn--primary" [disabled]="cargando">
+        @if (cargando) {
+          Guardando...
+        } @else {
+          Crear competición
+        }
+      </button>
+    </section>
+  </form>
+</section>
