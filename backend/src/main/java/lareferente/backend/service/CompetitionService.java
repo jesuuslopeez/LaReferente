@@ -39,6 +39,8 @@ public class CompetitionService {
         competition.setNombreCompleto(competitionDTO.getNombreCompleto());
         competition.setPais(competitionDTO.getPais());
         competition.setTipo(competitionDTO.getTipo());
+        competition.setCategoria(competitionDTO.getCategoria() != null ? competitionDTO.getCategoria() : lareferente.backend.enums.AgeCategory.SENIOR);
+        competition.setNumEquipos(competitionDTO.getNumEquipos());
         competition.setTemporada(competitionDTO.getTemporada());
         competition.setLogoUrl(competitionDTO.getLogoUrl());
         competition.setDescripcion(competitionDTO.getDescripcion());
@@ -58,6 +60,8 @@ public class CompetitionService {
         competition.setNombreCompleto(competitionDTO.getNombreCompleto());
         competition.setPais(competitionDTO.getPais());
         competition.setTipo(competitionDTO.getTipo());
+        competition.setCategoria(competitionDTO.getCategoria() != null ? competitionDTO.getCategoria() : competition.getCategoria());
+        competition.setNumEquipos(competitionDTO.getNumEquipos());
         competition.setTemporada(competitionDTO.getTemporada());
         competition.setLogoUrl(competitionDTO.getLogoUrl());
         competition.setDescripcion(competitionDTO.getDescripcion());
@@ -82,6 +86,8 @@ public class CompetitionService {
         dto.setNombreCompleto(competition.getNombreCompleto());
         dto.setPais(competition.getPais());
         dto.setTipo(competition.getTipo());
+        dto.setCategoria(competition.getCategoria());
+        dto.setNumEquipos(competition.getNumEquipos());
         dto.setTemporada(competition.getTemporada());
         dto.setLogoUrl(competition.getLogoUrl());
         dto.setDescripcion(competition.getDescripcion());

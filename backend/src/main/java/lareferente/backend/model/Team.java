@@ -1,6 +1,7 @@
 package lareferente.backend.model;
 
 import jakarta.persistence.*;
+import lareferente.backend.enums.AgeCategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,13 @@ public class Team {
 
     @Column(name = "nombre_completo", length = 255)
     private String nombreCompleto;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AgeCategory categoria = AgeCategory.SENIOR;
+
+    @Column(length = 5)
+    private String letra;
 
     @Column(nullable = false, length = 100)
     private String pais;

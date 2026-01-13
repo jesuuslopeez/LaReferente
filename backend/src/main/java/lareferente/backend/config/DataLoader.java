@@ -89,8 +89,11 @@ public class DataLoader implements CommandLineRunner {
             createCompetition("Copa del Rey", "Copa de S.M. El Rey", "España", CompetitionType.COPA, "2025-2026", "2025-10-01", "2026-04-26"),
             createCompetition("Supercopa España", "Supercopa de España", "España", CompetitionType.COPA, "2025-2026", "2026-01-08", "2026-01-12")
         );
-        competitionRepository.saveAll(competitions);
-        log.info("Cargadas {} competiciones", competitions.size());
+        List<Competition> saved = competitionRepository.saveAll(competitions);
+        // Actualizar URLs con IDs generados
+        saved.forEach(c -> c.setLogoUrl("assets/images/competitions/" + c.getId() + ".webp"));
+        competitionRepository.saveAll(saved);
+        log.info("Cargadas {} competiciones", saved.size());
     }
 
     private Competition createCompetition(String nombre, String nombreCompleto, String pais,
@@ -122,8 +125,11 @@ public class DataLoader implements CommandLineRunner {
             createTeam("Celta", "Real Club Celta de Vigo", "España", "Vigo", "Abanca-Balaídos", 1923),
             createTeam("Osasuna", "Club Atlético Osasuna", "España", "Pamplona", "El Sadar", 1920)
         );
-        teamRepository.saveAll(teams);
-        log.info("Cargados {} equipos", teams.size());
+        List<Team> saved = teamRepository.saveAll(teams);
+        // Actualizar URLs con IDs generados
+        saved.forEach(t -> t.setLogoUrl("assets/images/teams/" + t.getId() + ".webp"));
+        teamRepository.saveAll(saved);
+        log.info("Cargados {} equipos", saved.size());
     }
 
     private Team createTeam(String nombre, String nombreCompleto, String pais, String ciudad, String estadio, int fundacion) {
@@ -195,8 +201,11 @@ public class DataLoader implements CommandLineRunner {
             createPlayer("Mikel", "Oyarzabal", "1997-04-21", "España", PlayerPosition.DELANTERO, 10, 181, 78, realSociedad)
         );
 
-        playerRepository.saveAll(players);
-        log.info("Cargados {} jugadores", players.size());
+        List<Player> saved = playerRepository.saveAll(players);
+        // Actualizar URLs con IDs generados
+        saved.forEach(p -> p.setFotoUrl("assets/images/players/" + p.getId() + ".webp"));
+        playerRepository.saveAll(saved);
+        log.info("Cargados {} jugadores", saved.size());
     }
 
     private Player createPlayer(String nombre, String apellidos, String fechaNacimiento, String nacionalidad,
@@ -362,8 +371,11 @@ public class DataLoader implements CommandLineRunner {
             )
         );
 
-        newsRepository.saveAll(noticias);
-        log.info("Cargadas {} noticias", noticias.size());
+        List<News> saved = newsRepository.saveAll(noticias);
+        // Actualizar URLs con IDs generados
+        saved.forEach(n -> n.setImagenPrincipalUrl("assets/images/news/" + n.getId() + ".webp"));
+        newsRepository.saveAll(saved);
+        log.info("Cargadas {} noticias", saved.size());
     }
 
     private News createNews(String titulo, String subtitulo, String contenido,

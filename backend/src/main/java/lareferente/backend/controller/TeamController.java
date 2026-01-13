@@ -1,6 +1,7 @@
 package lareferente.backend.controller;
 
 import lareferente.backend.dto.TeamDTO;
+import lareferente.backend.enums.AgeCategory;
 import lareferente.backend.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,5 +46,12 @@ public class TeamController {
     public ResponseEntity<Void> deleteTeam(@PathVariable Long id) {
         teamService.deleteTeam(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<TeamDTO>> searchTeams(
+            @RequestParam(required = false) String nombre,
+            @RequestParam AgeCategory categoria) {
+        return ResponseEntity.ok(teamService.searchByNameAndCategoria(nombre, categoria));
     }
 }

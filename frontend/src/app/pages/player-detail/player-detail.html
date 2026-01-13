@@ -1,0 +1,91 @@
+<section class="player-detail">
+  @if (loading()) {
+    <section class="player-detail__loading">
+      <span class="player-detail__spinner"></span>
+      <p>Cargando jugador...</p>
+    </section>
+  } @else if (error()) {
+    <section class="player-detail__error">
+      <p>{{ error() }}</p>
+      <a routerLink="/jugadores" class="player-detail__btn">Volver a jugadores</a>
+    </section>
+  } @else if (player()) {
+    <header class="player-detail__header">
+      <a routerLink="/jugadores" class="player-detail__back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Volver
+      </a>
+    </header>
+
+    <section class="player-detail__content">
+      <section class="player-detail__photo-section">
+        <img
+          [src]="getImageUrl(player()!)"
+          [alt]="player()!.nombre + ' ' + player()!.apellidos"
+          class="player-detail__photo"
+          (error)="onImageError($event)"
+        />
+        @if (player()!.dorsal) {
+          <span class="player-detail__dorsal">{{ player()!.dorsal }}</span>
+        }
+      </section>
+
+      <section class="player-detail__info">
+        <h1 class="player-detail__name">{{ player()!.nombre }} {{ player()!.apellidos }}</h1>
+
+        <section class="player-detail__badges">
+          <span class="player-detail__badge player-detail__badge--position">
+            {{ getPosicionTexto(player()!.posicion) }}
+          </span>
+          <span class="player-detail__badge player-detail__badge--category">
+            {{ getCategoriaTexto(player()!.categoria) }}
+          </span>
+        </section>
+
+        <section class="player-detail__stats">
+          @if (player()!.equipoNombre) {
+            <section class="player-detail__stat">
+              <span class="player-detail__stat-label">Equipo</span>
+              <span class="player-detail__stat-value">
+                <a [routerLink]="['/equipos', player()!.equipoId]">{{ player()!.equipoNombre }}</a>
+              </span>
+            </section>
+          }
+
+          <section class="player-detail__stat">
+            <span class="player-detail__stat-label">Nacionalidad</span>
+            <span class="player-detail__stat-value">{{ player()!.nacionalidad }}</span>
+          </section>
+
+          <section class="player-detail__stat">
+            <span class="player-detail__stat-label">Edad</span>
+            <span class="player-detail__stat-value">{{ player()!.edad }} años</span>
+          </section>
+
+          @if (player()!.altura) {
+            <section class="player-detail__stat">
+              <span class="player-detail__stat-label">Altura</span>
+              <span class="player-detail__stat-value">{{ player()!.altura }} cm</span>
+            </section>
+          }
+
+          @if (player()!.peso) {
+            <section class="player-detail__stat">
+              <span class="player-detail__stat-label">Peso</span>
+              <span class="player-detail__stat-value">{{ player()!.peso }} kg</span>
+            </section>
+          }
+        </section>
+
+        @if (player()!.biografia) {
+          <section class="player-detail__bio">
+            <h2 class="player-detail__bio-title">Biografía</h2>
+            <p class="player-detail__bio-text">{{ player()!.biografia }}</p>
+          </section>
+        }
+      </section>
+    </section>
+  }
+</section>

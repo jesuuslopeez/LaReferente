@@ -1,5 +1,6 @@
 package lareferente.backend.dto;
 
+import lareferente.backend.enums.AgeCategory;
 import lareferente.backend.enums.CompetitionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,8 @@ public class CompetitionDTO {
     private String nombreCompleto;
     private String pais;
     private CompetitionType tipo;
+    private AgeCategory categoria;
+    private Integer numEquipos;
     private String temporada;
     private String logoUrl;
     private String descripcion;

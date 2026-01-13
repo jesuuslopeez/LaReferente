@@ -1,7 +1,17 @@
 <section class="news-page">
   <header class="news-page__header">
-    <h1 class="news-page__title">Noticias</h1>
-    <p class="news-page__subtitle">Últimas noticias del fútbol español</p>
+    <section class="news-page__header-content">
+      <h1 class="news-page__title">Noticias</h1>
+      <p class="news-page__subtitle">Últimas noticias del fútbol español</p>
+    </section>
+    @if (authService.esEditor()) {
+      <a routerLink="/admin/noticias/nueva" class="news-page__add-btn">
+        <svg class="news-page__add-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        Añadir noticia
+      </a>
+    }
   </header>
 
   <!-- Loading State -->
@@ -39,27 +49,32 @@
 
   <!-- Data State -->
   @if (hasData) {
-    <section class="news-page__grid">
+    <section class="news-page__list">
       @for (noticia of noticias; track noticia.id) {
         <article class="news-card">
-          @if (noticia.imagenPrincipalUrl) {
-            <img
-              [src]="noticia.imagenPrincipalUrl"
-              [alt]="noticia.titulo"
-              class="news-card__image"
-              loading="lazy"
-              decoding="async"
-            />
-          } @else {
-            <section class="news-card__image news-card__image--placeholder">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-            </section>
-          }
+          <section class="news-card__image-wrapper">
+            @if (noticia.imagenPrincipalUrl) {
+              <img
+                [src]="noticia.imagenPrincipalUrl"
+                [alt]="noticia.titulo"
+                class="news-card__image"
+                loading="lazy"
+                decoding="async"
+              />
+            } @else {
+              <section class="news-card__image news-card__image--placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                </svg>
+              </section>
+            }
+          </section>
 
           <section class="news-card__content">
-            <span class="news-card__category">{{ getCategoryLabel(noticia.categoria) }}</span>
+            <header class="news-card__header">
+              <span class="news-card__category">{{ getCategoryLabel(noticia.categoria) }}</span>
+              <span class="news-card__date">{{ formatDate(noticia.fechaPublicacion) }}</span>
+            </header>
 
             <h2 class="news-card__title">{{ noticia.titulo }}</h2>
 
@@ -68,13 +83,14 @@
             }
 
             <footer class="news-card__footer">
-              <span class="news-card__author">{{ noticia.autorNombre }}</span>
-              <span class="news-card__date">{{ formatDate(noticia.fechaPublicacion) }}</span>
+              <span class="news-card__author">Por {{ noticia.autorNombre }}</span>
+              <a [routerLink]="['/noticias', noticia.id]" class="news-card__link">
+                Leer noticia
+                <svg class="news-card__link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </a>
             </footer>
-
-            <a [routerLink]="['/noticias', noticia.id]" class="news-card__link">
-              Leer más
-            </a>
           </section>
         </article>
       }

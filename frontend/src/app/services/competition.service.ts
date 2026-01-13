@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from '../core/services/api.service';
-import { Competition } from '../core/models';
+import { Competition, CreateCompetitionDto, UpdateCompetitionDto } from '../core/models';
 
 @Injectable({
   providedIn: 'root',
@@ -16,5 +16,17 @@ export class CompetitionService {
 
   obtenerPorId(id: number): Observable<Competition> {
     return this.api.get<Competition>(`${this.endpoint}/${id}`);
+  }
+
+  create(dto: CreateCompetitionDto): Observable<Competition> {
+    return this.api.post<Competition>(this.endpoint, dto);
+  }
+
+  update(id: number, dto: UpdateCompetitionDto): Observable<Competition> {
+    return this.api.put<Competition>(`${this.endpoint}/${id}`, dto);
+  }
+
+  delete(id: number): Observable<void> {
+    return this.api.delete<void>(`${this.endpoint}/${id}`);
   }
 }

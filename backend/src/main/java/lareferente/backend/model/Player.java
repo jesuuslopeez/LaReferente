@@ -1,6 +1,7 @@
 package lareferente.backend.model;
 
 import jakarta.persistence.*;
+import lareferente.backend.enums.AgeCategory;
 import lareferente.backend.enums.PlayerPosition;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,6 +38,10 @@ public class Player {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PlayerPosition posicion;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AgeCategory categoria = AgeCategory.SENIOR;
 
     private Integer dorsal;
 

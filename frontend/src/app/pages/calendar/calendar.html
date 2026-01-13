@@ -1,10 +1,20 @@
 <section class="calendar">
   <!-- Cabecera -->
   <header class="calendar__header">
-    <h1 class="calendar__title">Calendario</h1>
-    <p class="calendar__description">
-      Próximos partidos y resultados del fútbol español
-    </p>
+    <section class="calendar__header-content">
+      <h1 class="calendar__title">Calendario</h1>
+      <p class="calendar__description">
+        Próximos partidos y resultados del fútbol español
+      </p>
+    </section>
+    @if (authService.esEditor()) {
+      <a routerLink="/admin/encuentros/nuevo" class="calendar__add-btn">
+        <svg class="calendar__add-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        Añadir encuentro
+      </a>
+    }
   </header>
 
   <!-- Filtros de estado -->

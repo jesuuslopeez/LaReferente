@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { Team, CreateTeamDto, UpdateTeamDto } from '../models';
+import { Team, CreateTeamDto, UpdateTeamDto, AgeCategory } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class TeamService {
@@ -48,5 +48,13 @@ export class TeamService {
    */
   delete(id: number): Observable<void> {
     return this.api.delete<void>(`${this.endpoint}/${id}`);
+  }
+
+  /**
+   * Buscar equipos por nombre y categoría
+   */
+  search(categoria: AgeCategory, nombre?: string): Observable<Team[]> {
+    const params = nombre ? `?categoria=${categoria}&nombre=${encodeURIComponent(nombre)}` : `?categoria=${categoria}`;
+    return this.api.get<Team[]>(`${this.endpoint}/search${params}`);
   }
 }

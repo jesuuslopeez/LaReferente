@@ -1,0 +1,64 @@
+<section class="team-search">
+  @if (label) {
+    <label class="team-search__label">{{ label }}</label>
+  }
+
+  @if (selectedTeam()) {
+    <section class="team-search__selected">
+      <span class="team-search__selected-name">{{ selectedTeam()!.nombre }}</span>
+      @if (selectedTeam()!.letra) {
+        <span class="team-search__selected-letra">{{ selectedTeam()!.letra }}</span>
+      }
+      <button type="button" class="team-search__clear" (click)="clearSelection()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </section>
+  } @else {
+    <section class="team-search__input-wrapper">
+      <input
+        type="text"
+        class="team-search__input"
+        [placeholder]="'Buscar equipo ' + getCategoriaTexto(categoria) + '...'"
+        [(ngModel)]="searchTerm"
+        (input)="onSearchInput()"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+      />
+      @if (isLoading()) {
+        <span class="team-search__spinner"></span>
+      } @else {
+        <svg class="team-search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      }
+    </section>
+
+    @if (isOpen()) {
+      <section class="team-search__dropdown">
+        @if (results().length === 0 && !isLoading()) {
+          <p class="team-search__empty">
+            No hay equipos {{ getCategoriaTexto(categoria) }} disponibles
+          </p>
+        } @else {
+          @for (team of results(); track team.id) {
+            <button type="button" class="team-search__option" (mousedown)="selectTeam(team)">
+              <span class="team-search__option-name">{{ team.nombre }}</span>
+              @if (team.letra) {
+                <span class="team-search__option-letra">{{ team.letra }}</span>
+              }
+            </button>
+          }
+        }
+      </section>
+    }
+  }
+
+  <p class="team-search__hint">Solo equipos de categoría {{ getCategoriaTexto(categoria) }}</p>
+</section>

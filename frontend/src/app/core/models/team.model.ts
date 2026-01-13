@@ -1,3 +1,5 @@
+import { AgeCategory } from './competition.model';
+
 /**
  * Equipo
  */
@@ -5,6 +7,8 @@ export interface Team {
   id: number;
   nombre: string;
   nombreCompleto: string;
+  categoria: AgeCategory;
+  letra: string | null;
   pais: string;
   ciudad: string;
   estadio: string;
@@ -20,6 +24,8 @@ export interface Team {
 export interface CreateTeamDto {
   nombre: string;
   nombreCompleto?: string;
+  categoria: AgeCategory;
+  letra?: string;
   pais: string;
   ciudad?: string;
   estadio?: string;

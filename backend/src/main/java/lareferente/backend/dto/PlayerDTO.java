@@ -1,5 +1,6 @@
 package lareferente.backend.dto;
 
+import lareferente.backend.enums.AgeCategory;
 import lareferente.backend.enums.PlayerPosition;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class PlayerDTO {
     private Integer edad;
     private String nacionalidad;
     private PlayerPosition posicion;
+    private AgeCategory categoria;
     private Integer dorsal;
     private BigDecimal altura;
     private BigDecimal peso;

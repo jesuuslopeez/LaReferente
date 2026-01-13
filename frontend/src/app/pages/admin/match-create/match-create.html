@@ -1,0 +1,125 @@
+<section class="admin-form">
+  <header class="admin-form__header">
+    <a routerLink="/calendario" class="admin-form__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Volver
+    </a>
+    <h1 class="admin-form__title">Añadir encuentro</h1>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="admin-form__form">
+    <section class="admin-form__field">
+      <label for="competicionId" class="admin-form__label">Competición *</label>
+      <select id="competicionId" formControlName="competicionId" class="admin-form__select">
+        <option [ngValue]="null" disabled>Selecciona una competición</option>
+        @for (comp of competiciones(); track comp.id) {
+          <option [ngValue]="comp.id">{{ comp.nombre }} ({{ comp.temporada }})</option>
+        }
+      </select>
+      @if (form.get('competicionId')?.invalid && form.get('competicionId')?.touched) {
+        <span class="admin-form__error">La competición es obligatoria</span>
+      }
+    </section>
+
+    <section class="admin-form__row">
+      <section class="admin-form__field">
+        <label for="equipoLocalId" class="admin-form__label">Equipo local *</label>
+        <select id="equipoLocalId" formControlName="equipoLocalId" class="admin-form__select">
+          <option [ngValue]="null" disabled>Selecciona equipo local</option>
+          @for (equipo of equipos(); track equipo.id) {
+            <option [ngValue]="equipo.id">{{ equipo.nombre }}</option>
+          }
+        </select>
+        @if (form.get('equipoLocalId')?.invalid && form.get('equipoLocalId')?.touched) {
+          <span class="admin-form__error">El equipo local es obligatorio</span>
+        }
+      </section>
+
+      <section class="admin-form__field">
+        <label for="equipoVisitanteId" class="admin-form__label">Equipo visitante *</label>
+        <select id="equipoVisitanteId" formControlName="equipoVisitanteId" class="admin-form__select">
+          <option [ngValue]="null" disabled>Selecciona equipo visitante</option>
+          @for (equipo of equipos(); track equipo.id) {
+            <option [ngValue]="equipo.id">{{ equipo.nombre }}</option>
+          }
+        </select>
+        @if (form.get('equipoVisitanteId')?.invalid && form.get('equipoVisitanteId')?.touched) {
+          <span class="admin-form__error">El equipo visitante es obligatorio</span>
+        }
+      </section>
+    </section>
+
+    <section class="admin-form__row">
+      <section class="admin-form__field">
+        <label for="fechaHora" class="admin-form__label">Fecha y hora *</label>
+        <input
+          type="datetime-local"
+          id="fechaHora"
+          formControlName="fechaHora"
+          class="admin-form__input"
+        />
+        @if (form.get('fechaHora')?.invalid && form.get('fechaHora')?.touched) {
+          <span class="admin-form__error">La fecha y hora son obligatorias</span>
+        }
+      </section>
+
+      <section class="admin-form__field">
+        <label for="estado" class="admin-form__label">Estado</label>
+        <select id="estado" formControlName="estado" class="admin-form__select">
+          @for (est of estados; track est.valor) {
+            <option [value]="est.valor">{{ est.texto }}</option>
+          }
+        </select>
+      </section>
+    </section>
+
+    <section class="admin-form__row">
+      <section class="admin-form__field">
+        <label for="estadio" class="admin-form__label">Estadio</label>
+        <input
+          type="text"
+          id="estadio"
+          formControlName="estadio"
+          class="admin-form__input"
+          placeholder="Ej: Camp Nou"
+        />
+      </section>
+
+      <section class="admin-form__field">
+        <label for="jornada" class="admin-form__label">Jornada</label>
+        <input
+          type="number"
+          id="jornada"
+          formControlName="jornada"
+          class="admin-form__input"
+          placeholder="Ej: 15"
+          min="1"
+        />
+      </section>
+    </section>
+
+    <section class="admin-form__field">
+      <label for="arbitro" class="admin-form__label">Árbitro</label>
+      <input
+        type="text"
+        id="arbitro"
+        formControlName="arbitro"
+        class="admin-form__input"
+        placeholder="Ej: Mateu Lahoz"
+      />
+    </section>
+
+    <section class="admin-form__actions">
+      <a routerLink="/calendario" class="admin-form__btn admin-form__btn--secondary">Cancelar</a>
+      <button type="submit" class="admin-form__btn admin-form__btn--primary" [disabled]="cargando">
+        @if (cargando) {
+          Guardando...
+        } @else {
+          Crear encuentro
+        }
+      </button>
+    </section>
+  </form>
+</section>

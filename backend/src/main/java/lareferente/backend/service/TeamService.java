@@ -37,6 +37,8 @@ public class TeamService {
         Team team = new Team();
         team.setNombre(teamDTO.getNombre());
         team.setNombreCompleto(teamDTO.getNombreCompleto());
+        team.setCategoria(teamDTO.getCategoria() != null ? teamDTO.getCategoria() : lareferente.backend.enums.AgeCategory.SENIOR);
+        team.setLetra(teamDTO.getLetra());
         team.setPais(teamDTO.getPais());
         team.setCiudad(teamDTO.getCiudad());
         team.setEstadio(teamDTO.getEstadio());
@@ -55,6 +57,8 @@ public class TeamService {
 
         team.setNombre(teamDTO.getNombre());
         team.setNombreCompleto(teamDTO.getNombreCompleto());
+        team.setCategoria(teamDTO.getCategoria() != null ? teamDTO.getCategoria() : team.getCategoria());
+        team.setLetra(teamDTO.getLetra());
         team.setPais(teamDTO.getPais());
         team.setCiudad(teamDTO.getCiudad());
         team.setEstadio(teamDTO.getEstadio());
@@ -73,11 +77,24 @@ public class TeamService {
         teamRepository.save(team);
     }
 
+    public List<TeamDTO> searchByNameAndCategoria(String nombre, lareferente.backend.enums.AgeCategory categoria) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return teamRepository.findByCategoria(categoria).stream()
+                    .map(this::convertToDTO)
+                    .collect(Collectors.toList());
+        }
+        return teamRepository.searchByNameAndCategoria(nombre.trim(), categoria).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     private TeamDTO convertToDTO(Team team) {
         TeamDTO dto = new TeamDTO();
         dto.setId(team.getId());
         dto.setNombre(team.getNombre());
         dto.setNombreCompleto(team.getNombreCompleto());
+        dto.setCategoria(team.getCategoria());
+        dto.setLetra(team.getLetra());
         dto.setPais(team.getPais());
         dto.setCiudad(team.getCiudad());
         dto.setEstadio(team.getEstadio());

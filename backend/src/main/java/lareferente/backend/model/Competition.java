@@ -1,6 +1,7 @@
 package lareferente.backend.model;
 
 import jakarta.persistence.*;
+import lareferente.backend.enums.AgeCategory;
 import lareferente.backend.enums.CompetitionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +34,13 @@ public class Competition {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CompetitionType tipo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AgeCategory categoria = AgeCategory.SENIOR;
+
+    @Column(name = "num_equipos")
+    private Integer numEquipos;
 
     @Column(nullable = false, length = 20)
     private String temporada;

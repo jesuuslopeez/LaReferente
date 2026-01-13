@@ -2,6 +2,7 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NewsService } from '../../core/services';
 import { News, RequestState } from '../../core/models';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-news',
@@ -11,6 +12,7 @@ import { News, RequestState } from '../../core/models';
 })
 export class NewsPage implements OnInit {
   private readonly newsService = inject(NewsService);
+  protected readonly authService = inject(AuthService);
 
   // Estado de la petición con loading, error y data
   state = signal<RequestState<News[]>>({
