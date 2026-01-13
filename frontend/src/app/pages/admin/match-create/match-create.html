@@ -10,41 +10,48 @@
   </header>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="admin-form__form">
-    <section class="admin-form__field">
-      <label for="competicionId" class="admin-form__label">Competición *</label>
-      <select id="competicionId" formControlName="competicionId" class="admin-form__select">
-        <option [ngValue]="null" disabled>Selecciona una competición</option>
-        @for (comp of competiciones(); track comp.id) {
-          <option [ngValue]="comp.id">{{ comp.nombre }} ({{ comp.temporada }})</option>
+    <section class="admin-form__row">
+      <section class="admin-form__field">
+        <label for="categoria" class="admin-form__label">Categoría *</label>
+        <select id="categoria" class="admin-form__select" (change)="onCategoriaChange($event)">
+          @for (cat of categorias; track cat.valor) {
+            <option [value]="cat.valor">{{ cat.texto }}</option>
+          }
+        </select>
+      </section>
+
+      <section class="admin-form__field">
+        <label for="competicionId" class="admin-form__label">Competición *</label>
+        <select id="competicionId" formControlName="competicionId" class="admin-form__select">
+          <option [ngValue]="null" disabled>Selecciona una competición</option>
+          @for (comp of competicionesFiltradas(); track comp.id) {
+            <option [ngValue]="comp.id">{{ comp.nombre }} ({{ comp.temporada }})</option>
+          }
+        </select>
+        @if (form.get('competicionId')?.invalid && form.get('competicionId')?.touched) {
+          <span class="admin-form__error">La competición es obligatoria</span>
         }
-      </select>
-      @if (form.get('competicionId')?.invalid && form.get('competicionId')?.touched) {
-        <span class="admin-form__error">La competición es obligatoria</span>
-      }
+      </section>
     </section>
 
     <section class="admin-form__row">
       <section class="admin-form__field">
-        <label for="equipoLocalId" class="admin-form__label">Equipo local *</label>
-        <select id="equipoLocalId" formControlName="equipoLocalId" class="admin-form__select">
-          <option [ngValue]="null" disabled>Selecciona equipo local</option>
-          @for (equipo of equipos(); track equipo.id) {
-            <option [ngValue]="equipo.id">{{ equipo.nombre }}</option>
-          }
-        </select>
+        <label class="admin-form__label">Equipo local *</label>
+        <app-team-search
+          [categoria]="categoriaActual()"
+          (teamSelected)="onEquipoLocalSelected($event)"
+        />
         @if (form.get('equipoLocalId')?.invalid && form.get('equipoLocalId')?.touched) {
           <span class="admin-form__error">El equipo local es obligatorio</span>
         }
       </section>
 
       <section class="admin-form__field">
-        <label for="equipoVisitanteId" class="admin-form__label">Equipo visitante *</label>
-        <select id="equipoVisitanteId" formControlName="equipoVisitanteId" class="admin-form__select">
-          <option [ngValue]="null" disabled>Selecciona equipo visitante</option>
-          @for (equipo of equipos(); track equipo.id) {
-            <option [ngValue]="equipo.id">{{ equipo.nombre }}</option>
-          }
-        </select>
+        <label class="admin-form__label">Equipo visitante *</label>
+        <app-team-search
+          [categoria]="categoriaActual()"
+          (teamSelected)="onEquipoVisitanteSelected($event)"
+        />
         @if (form.get('equipoVisitanteId')?.invalid && form.get('equipoVisitanteId')?.touched) {
           <span class="admin-form__error">El equipo visitante es obligatorio</span>
         }

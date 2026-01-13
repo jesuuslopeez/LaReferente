@@ -5,10 +5,11 @@ import { NewsService } from '../../../core/services';
 import { AuthService } from '../../../services/auth.service';
 import { ToastService } from '../../../shared/services/toast';
 import { NewsCategory } from '../../../core/models';
+import { ImageUpload } from '../../../components/shared/image-upload/image-upload';
 
 @Component({
   selector: 'app-news-create',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, ImageUpload],
   templateUrl: './news-create.html',
   styleUrl: './news-create.scss',
 })
@@ -38,6 +39,14 @@ export class NewsCreate {
   });
 
   cargando = false;
+
+  onImageUploaded(url: string): void {
+    this.form.patchValue({ imagenPrincipalUrl: url });
+  }
+
+  onImageRemoved(): void {
+    this.form.patchValue({ imagenPrincipalUrl: '' });
+  }
 
   onSubmit(): void {
     if (this.form.invalid) {
