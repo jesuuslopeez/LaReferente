@@ -63,7 +63,7 @@
     <a [routerLink]="['/jugadores', id()]" class="player-card__button player-card__button--primary">
       Ver perfil
     </a>
-    @if (equipoNombre()) {
+    @if (equipoNombre() && !hideTeamButton()) {
       <a [routerLink]="['/equipos', equipoId()]" class="player-card__button player-card__button--secondary">
         Ver equipo
       </a>
