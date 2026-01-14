@@ -148,6 +148,21 @@
     flex-shrink: 0;
   }
 
+  &__team-logo {
+    width: 1.125rem;
+    height: 1.125rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+  }
+
+  &__flag {
+    font-size: 0.875rem;
+    line-height: 1;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
   // Acciones - Mismo estilo que team-card
   &__actions {
     display: flex;

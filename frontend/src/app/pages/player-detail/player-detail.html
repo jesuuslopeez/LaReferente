@@ -20,6 +20,15 @@
 
     <!-- Hero Section -->
     <section class="player-detail__hero">
+      <!-- Botón Editar (solo editores y admin) -->
+      @if (authService.esEditor()) {
+        <button class="player-detail__edit-btn" (click)="openEditModal()" title="Editar jugador">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+        </button>
+      }
+
       <section class="player-detail__hero-content">
         <section class="player-detail__photo-container">
           <img
@@ -138,3 +147,190 @@
     }
   }
 </section>
+
+<!-- Modal de Edición -->
+@if (showEditModal()) {
+  <section class="modal-overlay" [class.modal-overlay--closing]="closingModal()" (click)="closeEditModal()">
+    <article class="modal" [class.modal--closing]="closingModal()" (click)="$event.stopPropagation()">
+      <header class="modal__header">
+        <svg class="modal__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+        </svg>
+        <h2 class="modal__title">Editar Jugador</h2>
+        <p class="modal__subtitle">Modifica los datos del jugador</p>
+      </header>
+
+      <section class="modal__body">
+        @if (saveError()) {
+          <p class="modal__error">{{ saveError() }}</p>
+        }
+
+        <form class="edit-form" (ngSubmit)="savePlayer()">
+          <section class="edit-form__row">
+            <label class="edit-form__field">
+              <span class="edit-form__label">Nombre</span>
+              <input
+                type="text"
+                class="edit-form__input"
+                [value]="editForm().nombre"
+                (input)="updateFormField('nombre', $any($event.target).value)"
+                required
+              />
+            </label>
+            <label class="edit-form__field">
+              <span class="edit-form__label">Apellidos</span>
+              <input
+                type="text"
+                class="edit-form__input"
+                [value]="editForm().apellidos"
+                (input)="updateFormField('apellidos', $any($event.target).value)"
+                required
+              />
+            </label>
+          </section>
+
+          <section class="edit-form__row">
+            <label class="edit-form__field">
+              <span class="edit-form__label">Fecha de nacimiento</span>
+              <input
+                type="date"
+                class="edit-form__input"
+                [value]="editForm().fechaNacimiento"
+                (input)="updateFormField('fechaNacimiento', $any($event.target).value)"
+                required
+              />
+            </label>
+            <label class="edit-form__field">
+              <span class="edit-form__label">Nacionalidad</span>
+              <select
+                class="edit-form__input"
+                (change)="updateFormField('nacionalidad', $any($event.target).value)"
+                required
+              >
+                @for (nac of nacionalidades; track nac) {
+                  <option [value]="nac" [selected]="editForm().nacionalidad === nac">{{ nac }}</option>
+                }
+              </select>
+            </label>
+          </section>
+
+          <section class="edit-form__row">
+            <label class="edit-form__field">
+              <span class="edit-form__label">Posición</span>
+              <select
+                class="edit-form__input"
+                (change)="updateFormField('posicion', $any($event.target).value)"
+                required
+              >
+                @for (pos of posiciones; track pos.value) {
+                  <option [value]="pos.value" [selected]="editForm().posicion === pos.value">{{ pos.label }}</option>
+                }
+              </select>
+            </label>
+            <label class="edit-form__field">
+              <span class="edit-form__label">Categoría</span>
+              <select
+                class="edit-form__input"
+                (change)="updateFormField('categoria', $any($event.target).value)"
+                required
+              >
+                @for (cat of categorias; track cat.value) {
+                  <option [value]="cat.value" [selected]="editForm().categoria === cat.value">{{ cat.label }}</option>
+                }
+              </select>
+            </label>
+          </section>
+
+          <section class="edit-form__row">
+            <label class="edit-form__field">
+              <span class="edit-form__label">Equipo</span>
+              <select
+                class="edit-form__input"
+                (change)="updateFormField('equipoId', +$any($event.target).value || undefined)"
+              >
+                <option value="" [selected]="!editForm().equipoId">Sin equipo</option>
+                @for (team of teams(); track team.id) {
+                  <option [value]="team.id" [selected]="editForm().equipoId === team.id">{{ team.nombre }}</option>
+                }
+              </select>
+            </label>
+            <label class="edit-form__field">
+              <span class="edit-form__label">Dorsal</span>
+              <input
+                type="number"
+                class="edit-form__input"
+                [value]="editForm().dorsal"
+                (input)="updateFormField('dorsal', +$any($event.target).value || undefined)"
+                min="1"
+                max="99"
+              />
+            </label>
+          </section>
+
+          <section class="edit-form__row">
+            <label class="edit-form__field">
+              <span class="edit-form__label">Altura (metros)</span>
+              <input
+                type="number"
+                class="edit-form__input"
+                [value]="editForm().altura"
+                (input)="updateFormField('altura', +$any($event.target).value || undefined)"
+                step="0.01"
+                min="1"
+                max="2.5"
+              />
+            </label>
+            <label class="edit-form__field">
+              <span class="edit-form__label">Peso (kg)</span>
+              <input
+                type="number"
+                class="edit-form__input"
+                [value]="editForm().peso"
+                (input)="updateFormField('peso', +$any($event.target).value || undefined)"
+                min="40"
+                max="150"
+              />
+            </label>
+          </section>
+
+          <label class="edit-form__field edit-form__field--full">
+            <span class="edit-form__label">Biografía</span>
+            <textarea
+              class="edit-form__input edit-form__input--textarea"
+              [value]="editForm().biografia || ''"
+              (input)="updateFormField('biografia', $any($event.target).value || undefined)"
+              rows="4"
+            ></textarea>
+          </label>
+
+          <label class="edit-form__checkbox">
+            <input
+              type="checkbox"
+              [checked]="editForm().activo"
+              (change)="updateFormField('activo', $any($event.target).checked)"
+            />
+            <span>Jugador activo</span>
+          </label>
+        </form>
+      </section>
+
+      <footer class="modal__footer">
+        <button type="button" class="modal__btn modal__btn--secondary" (click)="closeEditModal()">
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="modal__btn modal__btn--primary"
+          (click)="savePlayer()"
+          [disabled]="saving()"
+        >
+          @if (saving()) {
+            Guardando...
+          } @else {
+            Guardar cambios
+          }
+        </button>
+      </footer>
+    </article>
+  </section>
+}
