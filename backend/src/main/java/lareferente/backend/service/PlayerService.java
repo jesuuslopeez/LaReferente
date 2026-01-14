@@ -8,6 +8,8 @@ import lareferente.backend.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -134,6 +136,11 @@ public class PlayerService {
         if (player.getEquipo() != null) {
             dto.setEquipoId(player.getEquipo().getId());
             dto.setEquipoNombre(player.getEquipo().getNombre());
+        }
+
+        // Calcular edad a partir de fecha de nacimiento
+        if (player.getFechaNacimiento() != null) {
+            dto.setEdad(Period.between(player.getFechaNacimiento(), LocalDate.now()).getYears());
         }
 
         return dto;
