@@ -55,4 +55,37 @@ export class PlayerCard {
         return pos;
     }
   });
+
+  getTeamLogoSmall(equipoId: number | null): string {
+    if (!equipoId) return '';
+    return `assets/images/teams/small/${equipoId}.webp`;
+  }
+
+  onTeamLogoError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.style.display = 'none';
+  }
+
+  getFlagCode(nacionalidad: string | undefined): string {
+    if (!nacionalidad) return 'es';
+    const flagMap: Record<string, string> = {
+      'España': 'es',
+      'Francia': 'fr',
+      'Alemania': 'de',
+      'Italia': 'it',
+      'Portugal': 'pt',
+      'Inglaterra': 'gb-eng',
+      'Brasil': 'br',
+      'Argentina': 'ar',
+      'Uruguay': 'uy',
+      'Colombia': 'co',
+      'Marruecos': 'ma',
+      'Países Bajos': 'nl',
+      'Bélgica': 'be',
+      'Croacia': 'hr',
+      'Polonia': 'pl',
+      'Georgia': 'ge',
+    };
+    return flagMap[nacionalidad] || 'es';
+  }
 }

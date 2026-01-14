@@ -1,27 +1,74 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { PlayerService } from '../../core/services/player.service';
-import { Player, AgeCategory } from '../../core/models';
+import { TeamService } from '../../core/services/team.service';
+import { AuthService } from '../../services/auth.service';
+import { Player, Team, AgeCategory, PlayerPosition, UpdatePlayerDto } from '../../core/models';
 
 @Component({
   selector: 'app-player-detail',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FormsModule],
   templateUrl: './player-detail.html',
   styleUrl: './player-detail.scss',
 })
 export class PlayerDetail implements OnInit {
   private route = inject(ActivatedRoute);
   private playerService = inject(PlayerService);
+  private teamService = inject(TeamService);
+  authService = inject(AuthService);
 
   player = signal<Player | null>(null);
   loading = signal(true);
   error = signal<string | null>(null);
 
+  // Estado del modal de edición
+  showEditModal = signal(false);
+  closingModal = signal(false);
+  saving = signal(false);
+  saveError = signal<string | null>(null);
+  teams = signal<Team[]>([]);
+
+  // Datos del formulario de edición
+  editForm = signal<UpdatePlayerDto>({});
+
+  // Opciones para selects
+  posiciones: { value: PlayerPosition; label: string }[] = [
+    { value: 'PORTERO', label: 'Portero' },
+    { value: 'DEFENSA', label: 'Defensa' },
+    { value: 'CENTROCAMPISTA', label: 'Centrocampista' },
+    { value: 'DELANTERO', label: 'Delantero' },
+  ];
+
+  categorias: { value: AgeCategory; label: string }[] = [
+    { value: 'SENIOR', label: 'Senior' },
+    { value: 'JUVENIL', label: 'Juvenil' },
+    { value: 'CADETE', label: 'Cadete' },
+    { value: 'INFANTIL', label: 'Infantil' },
+    { value: 'ALEVIN', label: 'Alevín' },
+    { value: 'BENJAMIN', label: 'Benjamín' },
+    { value: 'PREBENJAMIN', label: 'Prebenjamín' },
+  ];
+
+  nacionalidades: string[] = [
+    'España', 'Francia', 'Alemania', 'Italia', 'Portugal', 'Inglaterra',
+    'Brasil', 'Argentina', 'Uruguay', 'Colombia', 'Marruecos',
+    'Países Bajos', 'Bélgica', 'Croacia', 'Polonia', 'Georgia'
+  ];
+
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadPlayer(+id);
+      this.loadTeams();
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.showEditModal() && !this.closingModal()) {
+      this.closeEditModal();
     }
   }
 
@@ -34,6 +81,67 @@ export class PlayerDetail implements OnInit {
       error: (err) => {
         this.error.set('No se pudo cargar el jugador');
         this.loading.set(false);
+      },
+    });
+  }
+
+  private loadTeams(): void {
+    this.teamService.getActive().subscribe({
+      next: (teams) => this.teams.set(teams),
+      error: () => {},
+    });
+  }
+
+  openEditModal(): void {
+    const p = this.player();
+    if (!p) return;
+
+    this.editForm.set({
+      nombre: p.nombre,
+      apellidos: p.apellidos,
+      fechaNacimiento: p.fechaNacimiento,
+      nacionalidad: p.nacionalidad,
+      posicion: p.posicion,
+      categoria: p.categoria,
+      dorsal: p.dorsal ?? undefined,
+      altura: p.altura ?? undefined,
+      peso: p.peso ?? undefined,
+      biografia: p.biografia ?? undefined,
+      equipoId: p.equipoId ?? undefined,
+      activo: p.activo,
+    });
+    this.saveError.set(null);
+    this.showEditModal.set(true);
+  }
+
+  closeEditModal(): void {
+    this.closingModal.set(true);
+    setTimeout(() => {
+      this.showEditModal.set(false);
+      this.closingModal.set(false);
+    }, 300);
+  }
+
+  updateFormField(field: keyof UpdatePlayerDto, value: any): void {
+    this.editForm.update(form => ({ ...form, [field]: value }));
+  }
+
+  savePlayer(): void {
+    const p = this.player();
+    if (!p) return;
+
+    this.saving.set(true);
+    this.saveError.set(null);
+
+    this.playerService.update(p.id, this.editForm()).subscribe({
+      next: (updatedPlayer) => {
+        this.player.set(updatedPlayer);
+        this.saving.set(false);
+        this.showEditModal.set(false);
+      },
+      error: (err) => {
+        this.saveError.set('Error al guardar los cambios');
+        this.saving.set(false);
       },
     });
   }

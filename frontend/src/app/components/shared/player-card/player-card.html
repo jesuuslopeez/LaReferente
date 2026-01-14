@@ -20,20 +20,21 @@
   <section class="player-card__body">
     <section class="player-card__info-grid">
       <!-- Fila 1: Equipo | Nacionalidad -->
-      @if (equipoNombre()) {
+      @if (equipoNombre() && equipoId()) {
         <article class="player-card__info-item">
-          <svg class="player-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
-          </svg>
+          <img
+            [src]="getTeamLogoSmall(equipoId()!)"
+            [alt]="equipoNombre()!"
+            class="player-card__team-logo"
+            (error)="onTeamLogoError($event)"
+          />
           <span>{{ equipoNombre() }}</span>
         </article>
       }
 
       @if (nacionalidad()) {
         <article class="player-card__info-item player-card__info-item--right">
-          <svg class="player-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
-          </svg>
+          <span [class]="'fi fi-' + getFlagCode(nacionalidad()) + ' player-card__flag'"></span>
           <span>{{ nacionalidad() }}</span>
         </article>
       }

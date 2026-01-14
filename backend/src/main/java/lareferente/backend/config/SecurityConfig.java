@@ -36,7 +36,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         // Endpoints públicos de consulta
                         .requestMatchers("/api/teams/active", "/api/teams/{id}").permitAll()
-                        .requestMatchers("/api/players/active", "/api/players/{id}").permitAll()
+                        .requestMatchers("/api/players/active", "/api/players/{id}", "/api/players/team/{teamId}").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/players/{id}").permitAll()
                         .requestMatchers("/api/news/published", "/api/news/featured", "/api/news/{id}").permitAll()
                         .requestMatchers("/api/matches/**").permitAll()
                         .requestMatchers("/api/competitions/active", "/api/competitions/{id}").permitAll()
