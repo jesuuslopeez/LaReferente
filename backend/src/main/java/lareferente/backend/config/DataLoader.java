@@ -87,12 +87,11 @@ public class DataLoader implements CommandLineRunner {
         List<Competition> competitions = List.of(
             createCompetition("LaLiga", "LaLiga EA Sports", "España", CompetitionType.LIGA, "2025-2026", "2025-08-15", "2026-05-24"),
             createCompetition("Segunda RFEF G4", "Segunda RFEF Grupo IV", "España", CompetitionType.LIGA, "2025-2026", "2025-09-07", "2026-05-02"),
-            createCompetition("Copa del Rey", "Copa de S.M. El Rey", "España", CompetitionType.COPA, "2025-2026", "2025-10-01", "2026-04-26"),
-            createCompetition("Supercopa España", "Supercopa de España", "España", CompetitionType.COPA, "2025-2026", "2026-01-08", "2026-01-12")
+            createCompetition("Copa del Rey", "Copa de S.M. El Rey", "España", CompetitionType.COPA, "2025-2026", "2025-10-01", "2026-04-26")
         );
         List<Competition> saved = competitionRepository.saveAll(competitions);
         // Actualizar URLs con IDs generados
-        saved.forEach(c -> c.setLogoUrl("assets/images/competitions/" + c.getId() + ".webp"));
+        saved.forEach(c -> c.setLogoUrl("assets/images/competitions/medium/" + c.getId() + ".webp"));
         competitionRepository.saveAll(saved);
         log.info("Cargadas {} competiciones", saved.size());
     }
@@ -129,7 +128,7 @@ public class DataLoader implements CommandLineRunner {
         );
         List<Team> saved = teamRepository.saveAll(teams);
         // Actualizar URLs con IDs generados
-        saved.forEach(t -> t.setLogoUrl("assets/images/teams/" + t.getId() + ".webp"));
+        saved.forEach(t -> t.setLogoUrl("assets/images/teams/medium/" + t.getId() + ".webp"));
         teamRepository.saveAll(saved);
         log.info("Cargados {} equipos", saved.size());
     }
