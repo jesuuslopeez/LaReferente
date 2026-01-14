@@ -218,6 +218,20 @@
     }
   }
 
+  &__team-logo {
+    width: 1.25rem;
+    height: 1.25rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+  }
+
+  &__flag {
+    font-size: 1rem;
+    line-height: 1;
+    border-radius: 2px;
+  }
+
   &__hero-actions {
     display: flex;
     gap: var(--spacing-3);
@@ -292,12 +306,14 @@
     text-align: center;
     padding: var(--spacing-6);
     background-color: var(--bg-secondary);
+    border: var(--border-thin) solid var(--border-color);
     border-radius: var(--radius-xl);
     transition: transform var(--duration-fast), box-shadow var(--duration-fast);
 
     &:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
     }
 
     &-icon {
@@ -316,9 +332,10 @@
 
     &-label {
       font-size: var(--font-sm);
-      color: var(--text-tertiary);
+      color: var(--text-secondary);
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      font-weight: var(--font-medium);
     }
   }
 

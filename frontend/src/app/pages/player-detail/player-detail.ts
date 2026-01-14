@@ -53,6 +53,11 @@ export class PlayerDetail implements OnInit {
     img.src = 'assets/images/players/medium/no_cutout.webp';
   }
 
+  onTeamLogoError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.style.display = 'none';
+  }
+
   getCategoriaTexto(categoria: AgeCategory): string {
     const map: Record<AgeCategory, string> = {
       SENIOR: 'Senior',
@@ -86,6 +91,34 @@ export class PlayerDetail implements OnInit {
   }
 
   getAlturaMetros(altura: number): string {
-    return (altura / 100).toFixed(2) + ' m';
+    // La altura ya viene en metros desde la BD
+    return altura.toFixed(2).replace('.', ',') + ' m';
+  }
+
+  getTeamLogoSmall(equipoId: number | null): string {
+    if (!equipoId) return '';
+    return `assets/images/teams/small/${equipoId}.webp`;
+  }
+
+  getFlagCode(nacionalidad: string): string {
+    const flagMap: Record<string, string> = {
+      'España': 'es',
+      'Francia': 'fr',
+      'Alemania': 'de',
+      'Italia': 'it',
+      'Portugal': 'pt',
+      'Inglaterra': 'gb-eng',
+      'Brasil': 'br',
+      'Argentina': 'ar',
+      'Uruguay': 'uy',
+      'Colombia': 'co',
+      'Marruecos': 'ma',
+      'Países Bajos': 'nl',
+      'Bélgica': 'be',
+      'Croacia': 'hr',
+      'Polonia': 'pl',
+      'Georgia': 'ge',
+    };
+    return flagMap[nacionalidad] || 'es';
   }
 }
