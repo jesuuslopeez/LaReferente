@@ -10,69 +10,92 @@
       <a routerLink="/equipos" class="team-detail__btn">Volver a equipos</a>
     </section>
   } @else if (team()) {
-    <header class="team-detail__header">
-      <a routerLink="/equipos" class="team-detail__back">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-        Volver
-      </a>
-    </header>
+    <!-- Botón volver -->
+    <a routerLink="/equipos" class="team-detail__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Volver a equipos
+    </a>
 
+    <!-- Hero Section con escudo -->
     <section class="team-detail__hero">
-      <img
-        [src]="getLogoUrl(team()!)"
-        [alt]="team()!.nombre"
-        class="team-detail__logo"
-        (error)="onImageError($event)"
-      />
-      <section class="team-detail__hero-info">
-        <h1 class="team-detail__name">{{ getDisplayName(team()!) }}</h1>
-        @if (team()!.nombreCompleto) {
-          <p class="team-detail__full-name">{{ team()!.nombreCompleto }}</p>
-        }
-        <span class="team-detail__category">{{ getCategoriaTexto(team()!.categoria) }}</span>
+      <section class="team-detail__hero-content">
+        <section class="team-detail__logo-container">
+          <img
+            [src]="getLogoUrl(team()!)"
+            [alt]="team()!.nombre"
+            class="team-detail__logo"
+            (error)="onImageError($event)"
+          />
+        </section>
+
+        <section class="team-detail__hero-info">
+          <span class="team-detail__category">{{ getCategoriaTexto(team()!.categoria) }}</span>
+          <h1 class="team-detail__name">{{ getDisplayName(team()!) }}</h1>
+          @if (team()!.nombreCompleto) {
+            <p class="team-detail__full-name">{{ team()!.nombreCompleto }}</p>
+          }
+
+          <section class="team-detail__hero-stats">
+            @if (team()!.fundacion) {
+              <article class="team-detail__stat">
+                <svg class="team-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <span>Fundado en {{ team()!.fundacion }}</span>
+              </article>
+            }
+            @if (team()!.estadio) {
+              <article class="team-detail__stat">
+                <svg class="team-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                </svg>
+                <span>{{ team()!.estadio }}</span>
+              </article>
+            }
+            @if (team()!.ciudad) {
+              <article class="team-detail__stat">
+                <svg class="team-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                <span>{{ team()!.ciudad }}, {{ team()!.pais }}</span>
+              </article>
+            }
+          </section>
+
+          <section class="team-detail__hero-actions">
+            <a routerLink="/competiciones" class="team-detail__action-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+              Ver competiciones
+            </a>
+            <a routerLink="/calendario" class="team-detail__action-btn team-detail__action-btn--outline">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              Ver calendario
+            </a>
+          </section>
+        </section>
       </section>
-    </section>
-
-    <section class="team-detail__info-grid">
-      @if (team()!.ciudad) {
-        <section class="team-detail__info-item">
-          <span class="team-detail__info-label">Ciudad</span>
-          <span class="team-detail__info-value">{{ team()!.ciudad }}</span>
-        </section>
-      }
-
-      <section class="team-detail__info-item">
-        <span class="team-detail__info-label">País</span>
-        <span class="team-detail__info-value">{{ team()!.pais }}</span>
-      </section>
-
-      @if (team()!.estadio) {
-        <section class="team-detail__info-item">
-          <span class="team-detail__info-label">Estadio</span>
-          <span class="team-detail__info-value">{{ team()!.estadio }}</span>
-        </section>
-      }
-
-      @if (team()!.fundacion) {
-        <section class="team-detail__info-item">
-          <span class="team-detail__info-label">Fundación</span>
-          <span class="team-detail__info-value">{{ team()!.fundacion }}</span>
-        </section>
-      }
     </section>
 
     @if (team()!.descripcion) {
       <section class="team-detail__description">
-        <h2 class="team-detail__section-title">Descripción</h2>
+        <h2 class="team-detail__section-title">Sobre el club</h2>
         <p class="team-detail__description-text">{{ team()!.descripcion }}</p>
       </section>
     }
 
     @if (players().length > 0) {
       <section class="team-detail__players">
-        <h2 class="team-detail__section-title">Plantilla</h2>
+        <header class="team-detail__players-header">
+          <h2 class="team-detail__section-title">Plantilla</h2>
+          <span class="team-detail__players-count">{{ players().length }} jugadores</span>
+        </header>
         <section class="team-detail__players-grid">
           @for (player of players(); track player.id) {
             <app-player-card
@@ -81,9 +104,19 @@
               [apellidos]="player.apellidos"
               [posicion]="player.posicion"
               [dorsal]="player.dorsal"
+              [edad]="player.edad"
+              [nacionalidad]="player.nacionalidad"
+              [hideTeamButton]="true"
             />
           }
         </section>
+      </section>
+    } @else {
+      <section class="team-detail__no-players">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+        <p>No hay jugadores registrados en este equipo</p>
       </section>
     }
   }

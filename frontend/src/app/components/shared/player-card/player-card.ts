@@ -19,6 +19,7 @@ export class PlayerCard {
   fotoUrl = input<string | null>();
   equipoNombre = input<string | null>();
   equipoId = input<number | null>();
+  hideTeamButton = input<boolean>(false);
 
   private readonly fallbackImage = 'assets/images/players/medium/no_cutout.webp';
   fotoError = signal(false);

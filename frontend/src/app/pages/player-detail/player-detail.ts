@@ -75,4 +75,17 @@ export class PlayerDetail implements OnInit {
     };
     return map[posicion] || posicion;
   }
+
+  formatDate(dateStr: string): string {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('es-ES', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+  }
+
+  getAlturaMetros(altura: number): string {
+    return (altura / 100).toFixed(2) + ' m';
+  }
 }

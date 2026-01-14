@@ -10,82 +10,130 @@
       <a routerLink="/jugadores" class="player-detail__btn">Volver a jugadores</a>
     </section>
   } @else if (player()) {
-    <header class="player-detail__header">
-      <a routerLink="/jugadores" class="player-detail__back">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-        Volver
-      </a>
-    </header>
+    <!-- Botón volver -->
+    <a routerLink="/jugadores" class="player-detail__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Volver a jugadores
+    </a>
 
-    <section class="player-detail__content">
-      <section class="player-detail__photo-section">
-        <img
-          [src]="getImageUrl(player()!)"
-          [alt]="player()!.nombre + ' ' + player()!.apellidos"
-          class="player-detail__photo"
-          (error)="onImageError($event)"
-        />
-        @if (player()!.dorsal) {
-          <span class="player-detail__dorsal">{{ player()!.dorsal }}</span>
-        }
-      </section>
-
-      <section class="player-detail__info">
-        <h1 class="player-detail__name">{{ player()!.nombre }} {{ player()!.apellidos }}</h1>
-
-        <section class="player-detail__badges">
-          <span class="player-detail__badge player-detail__badge--position">
-            {{ getPosicionTexto(player()!.posicion) }}
-          </span>
-          <span class="player-detail__badge player-detail__badge--category">
-            {{ getCategoriaTexto(player()!.categoria) }}
-          </span>
+    <!-- Hero Section -->
+    <section class="player-detail__hero">
+      <section class="player-detail__hero-content">
+        <section class="player-detail__photo-container">
+          <img
+            [src]="getImageUrl(player()!)"
+            [alt]="player()!.nombre + ' ' + player()!.apellidos"
+            class="player-detail__photo"
+            (error)="onImageError($event)"
+          />
         </section>
 
-        <section class="player-detail__stats">
-          @if (player()!.equipoNombre) {
-            <section class="player-detail__stat">
-              <span class="player-detail__stat-label">Equipo</span>
-              <span class="player-detail__stat-value">
-                <a [routerLink]="['/equipos', player()!.equipoId]">{{ player()!.equipoNombre }}</a>
-              </span>
-            </section>
-          }
-
-          <section class="player-detail__stat">
-            <span class="player-detail__stat-label">Nacionalidad</span>
-            <span class="player-detail__stat-value">{{ player()!.nacionalidad }}</span>
+        <section class="player-detail__hero-info">
+          <section class="player-detail__badges">
+            <span class="player-detail__badge">{{ getPosicionTexto(player()!.posicion) }}</span>
+            <span class="player-detail__badge player-detail__badge--outline">{{ getCategoriaTexto(player()!.categoria) }}</span>
           </section>
 
-          <section class="player-detail__stat">
-            <span class="player-detail__stat-label">Edad</span>
-            <span class="player-detail__stat-value">{{ player()!.edad }} años</span>
+          <h1 class="player-detail__name">{{ player()!.nombre }} {{ player()!.apellidos }}</h1>
+
+          @if (player()!.dorsal) {
+            <p class="player-detail__dorsal-text">Dorsal #{{ player()!.dorsal }}</p>
+          }
+
+          <section class="player-detail__hero-stats">
+            @if (player()!.equipoNombre) {
+              <article class="player-detail__stat">
+                <svg class="player-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
+                </svg>
+                <span>{{ player()!.equipoNombre }}</span>
+              </article>
+            }
+            <article class="player-detail__stat">
+              <svg class="player-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
+              </svg>
+              <span>{{ player()!.nacionalidad }}</span>
+            </article>
+            @if (player()!.edad) {
+              <article class="player-detail__stat">
+                <svg class="player-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <span>{{ player()!.edad }} años</span>
+              </article>
+            }
           </section>
 
-          @if (player()!.altura) {
-            <section class="player-detail__stat">
-              <span class="player-detail__stat-label">Altura</span>
-              <span class="player-detail__stat-value">{{ player()!.altura }} cm</span>
-            </section>
-          }
-
-          @if (player()!.peso) {
-            <section class="player-detail__stat">
-              <span class="player-detail__stat-label">Peso</span>
-              <span class="player-detail__stat-value">{{ player()!.peso }} kg</span>
-            </section>
-          }
+          <section class="player-detail__hero-actions">
+            @if (player()!.equipoId) {
+              <a [routerLink]="['/equipos', player()!.equipoId]" class="player-detail__action-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
+                </svg>
+                Ver equipo
+              </a>
+            }
+            <a routerLink="/calendario" class="player-detail__action-btn player-detail__action-btn--outline">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              Ver calendario
+            </a>
+          </section>
         </section>
-
-        @if (player()!.biografia) {
-          <section class="player-detail__bio">
-            <h2 class="player-detail__bio-title">Biografía</h2>
-            <p class="player-detail__bio-text">{{ player()!.biografia }}</p>
-          </section>
-        }
       </section>
     </section>
+
+    <!-- Stats Cards -->
+    <section class="player-detail__stats-section">
+      <h2 class="player-detail__section-title">Características físicas</h2>
+      <section class="player-detail__stats-grid">
+        @if (player()!.altura) {
+          <article class="player-detail__stats-card">
+            <svg class="player-detail__stats-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+            </svg>
+            <span class="player-detail__stats-card-value">{{ getAlturaMetros(player()!.altura!) }}</span>
+            <span class="player-detail__stats-card-label">Altura</span>
+          </article>
+        }
+        @if (player()!.peso) {
+          <article class="player-detail__stats-card">
+            <svg class="player-detail__stats-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+            </svg>
+            <span class="player-detail__stats-card-value">{{ player()!.peso }} kg</span>
+            <span class="player-detail__stats-card-label">Peso</span>
+          </article>
+        }
+        @if (player()!.fechaNacimiento) {
+          <article class="player-detail__stats-card">
+            <svg class="player-detail__stats-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"/>
+            </svg>
+            <span class="player-detail__stats-card-value">{{ formatDate(player()!.fechaNacimiento) }}</span>
+            <span class="player-detail__stats-card-label">Fecha de nacimiento</span>
+          </article>
+        }
+        <article class="player-detail__stats-card">
+          <svg class="player-detail__stats-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span class="player-detail__stats-card-value">{{ player()!.nacionalidad }}</span>
+          <span class="player-detail__stats-card-label">Nacionalidad</span>
+        </article>
+      </section>
+    </section>
+
+    @if (player()!.biografia) {
+      <section class="player-detail__bio">
+        <h2 class="player-detail__section-title">Biografía</h2>
+        <p class="player-detail__bio-text">{{ player()!.biografia }}</p>
+      </section>
+    }
   }
 </section>
