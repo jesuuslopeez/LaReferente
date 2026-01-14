@@ -109,6 +109,7 @@ export class PlayerDetail implements OnInit {
       biografia: p.biografia ?? undefined,
       equipoId: p.equipoId ?? undefined,
       activo: p.activo,
+      fotoUrl: p.fotoUrl ?? undefined,
     });
     this.saveError.set(null);
     this.showEditModal.set(true);

@@ -1,38 +1,296 @@
 <section class="comp-detail">
-  <!-- Cabecera -->
-  <header class="comp-detail__header">
-    <img [src]="competicion.logoUrl || 'assets/images/competitions/default.webp'" [alt]="competicion.nombre" class="comp-detail__logo" loading="eager" decoding="async" />
-    <section class="comp-detail__info">
-      <h1 class="comp-detail__title">{{ competicion.nombre }}</h1>
-      <section class="comp-detail__meta">
-        <span class="comp-detail__badge">{{ competicion.tipo === 'LIGA' ? 'Liga' : 'Copa' }}</span>
-        <span class="comp-detail__date">{{ competicion.temporada }}</span>
+  <!-- Botón volver -->
+  <a routerLink="/competiciones" class="comp-detail__back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+    Volver a competiciones
+  </a>
+
+  <!-- Hero Section -->
+  <section class="comp-detail__hero">
+    <!-- Botón Editar (solo editores y admin) -->
+    @if (authService.esEditor()) {
+      <button class="comp-detail__edit-btn" (click)="openEditModal()" title="Editar competición">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+        </svg>
+      </button>
+    }
+
+    <section class="comp-detail__hero-content">
+      <section class="comp-detail__logo-container">
+        <img
+          [src]="competicion.logoUrl || 'assets/images/competitions/default.webp'"
+          [alt]="competicion.nombre"
+          class="comp-detail__logo"
+        />
+      </section>
+
+      <section class="comp-detail__hero-info">
+        <section class="comp-detail__badges">
+          <span class="comp-detail__badge">{{ competicion.tipo === 'LIGA' ? 'Liga' : 'Copa' }}</span>
+          <span class="comp-detail__badge comp-detail__badge--outline">{{ getCategoriaTexto(competicion.categoria) }}</span>
+        </section>
+
+        <h1 class="comp-detail__name">{{ competicion.nombre }}</h1>
+
+        @if (competicion.nombreCompleto) {
+          <p class="comp-detail__full-name">{{ competicion.nombreCompleto }}</p>
+        }
+
+        <section class="comp-detail__hero-stats">
+          <article class="comp-detail__stat">
+            <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <span>{{ competicion.temporada }}</span>
+          </article>
+          @if (competicion.pais) {
+            <article class="comp-detail__stat">
+              <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <span>{{ competicion.pais }}</span>
+            </article>
+          }
+          @if (competicion.numEquipos) {
+            <article class="comp-detail__stat">
+              <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <span>{{ competicion.numEquipos }} equipos</span>
+            </article>
+          }
+          <article class="comp-detail__stat">
+            <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>{{ competicion.activa ? 'Activa' : 'Finalizada' }}</span>
+          </article>
+        </section>
+
+        <section class="comp-detail__hero-actions">
+          <a routerLink="/equipos" class="comp-detail__action-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
+            </svg>
+            Ver equipos
+          </a>
+          <a routerLink="/calendario" class="comp-detail__action-btn comp-detail__action-btn--outline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            Ver calendario
+          </a>
+        </section>
       </section>
     </section>
-  </header>
-
-  <!-- Informacion de la competicion -->
-  <section class="comp-detail__section">
-    <h2 class="comp-detail__subtitle">Informacion</h2>
-    <section class="comp-detail__stats">
-      <article class="comp-detail__stat">
-        <span class="comp-detail__stat-value">{{ competicion.pais || 'España' }}</span>
-        <span class="comp-detail__stat-label">Pais</span>
-      </article>
-      <article class="comp-detail__stat">
-        <span class="comp-detail__stat-value">{{ competicion.temporada }}</span>
-        <span class="comp-detail__stat-label">Temporada</span>
-      </article>
-      <article class="comp-detail__stat">
-        <span class="comp-detail__stat-value">{{ competicion.activa ? 'Si' : 'No' }}</span>
-        <span class="comp-detail__stat-label">Activa</span>
-      </article>
-    </section>
-    @if (competicion.descripcion) {
-      <p class="comp-detail__description">{{ competicion.descripcion }}</p>
-    }
   </section>
+
+  <!-- Información adicional -->
+  @if (competicion.fechaInicio || competicion.fechaFin) {
+    <section class="comp-detail__dates-section">
+      <h2 class="comp-detail__section-title">Fechas</h2>
+      <section class="comp-detail__dates-grid">
+        @if (competicion.fechaInicio) {
+          <article class="comp-detail__date-card">
+            <svg class="comp-detail__date-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <span class="comp-detail__date-card-value">{{ formatDate(competicion.fechaInicio) }}</span>
+            <span class="comp-detail__date-card-label">Fecha de inicio</span>
+          </article>
+        }
+        @if (competicion.fechaFin) {
+          <article class="comp-detail__date-card">
+            <svg class="comp-detail__date-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="comp-detail__date-card-value">{{ formatDate(competicion.fechaFin) }}</span>
+            <span class="comp-detail__date-card-label">Fecha de fin</span>
+          </article>
+        }
+      </section>
+    </section>
+  }
+
+  @if (competicion.descripcion) {
+    <section class="comp-detail__description">
+      <h2 class="comp-detail__section-title">Sobre la competición</h2>
+      <p class="comp-detail__description-text">{{ competicion.descripcion }}</p>
+    </section>
+  }
 
   <!-- Outlet para rutas hijas -->
   <router-outlet></router-outlet>
 </section>
+
+<!-- Modal de Edición -->
+@if (showEditModal()) {
+  <section class="modal-overlay" [class.modal-overlay--closing]="closingModal()" (click)="closeEditModal()">
+    <article class="modal" [class.modal--closing]="closingModal()" (click)="$event.stopPropagation()">
+      <header class="modal__header">
+        <svg class="modal__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+        </svg>
+        <h2 class="modal__title">Editar Competición</h2>
+        <p class="modal__subtitle">Modifica los datos de la competición</p>
+      </header>
+
+      <section class="modal__body">
+        @if (saveError()) {
+          <p class="modal__error">{{ saveError() }}</p>
+        }
+
+        <form class="edit-form" (ngSubmit)="saveCompetition()">
+          <section class="edit-form__row">
+            <label class="edit-form__field">
+              <span class="edit-form__label">Nombre</span>
+              <input
+                type="text"
+                class="edit-form__input"
+                [value]="editForm().nombre"
+                (input)="updateFormField('nombre', $any($event.target).value)"
+                required
+              />
+            </label>
+            <label class="edit-form__field">
+              <span class="edit-form__label">Temporada</span>
+              <input
+                type="text"
+                class="edit-form__input"
+                [value]="editForm().temporada"
+                (input)="updateFormField('temporada', $any($event.target).value)"
+                placeholder="2024-2025"
+                required
+              />
+            </label>
+          </section>
+
+          <label class="edit-form__field edit-form__field--full">
+            <span class="edit-form__label">Nombre completo</span>
+            <input
+              type="text"
+              class="edit-form__input"
+              [value]="editForm().nombreCompleto || ''"
+              (input)="updateFormField('nombreCompleto', $any($event.target).value || undefined)"
+            />
+          </label>
+
+          <section class="edit-form__row">
+            <label class="edit-form__field">
+              <span class="edit-form__label">Tipo</span>
+              <select
+                class="edit-form__input"
+                (change)="updateFormField('tipo', $any($event.target).value)"
+                required
+              >
+                @for (t of tipos; track t.value) {
+                  <option [value]="t.value" [selected]="editForm().tipo === t.value">{{ t.label }}</option>
+                }
+              </select>
+            </label>
+            <label class="edit-form__field">
+              <span class="edit-form__label">Categoría</span>
+              <select
+                class="edit-form__input"
+                (change)="updateFormField('categoria', $any($event.target).value)"
+                required
+              >
+                @for (cat of categorias; track cat.value) {
+                  <option [value]="cat.value" [selected]="editForm().categoria === cat.value">{{ cat.label }}</option>
+                }
+              </select>
+            </label>
+          </section>
+
+          <section class="edit-form__row">
+            <label class="edit-form__field">
+              <span class="edit-form__label">País</span>
+              <select
+                class="edit-form__input"
+                (change)="updateFormField('pais', $any($event.target).value || undefined)"
+              >
+                <option value="" [selected]="!editForm().pais">Sin especificar</option>
+                @for (p of paises; track p) {
+                  <option [value]="p" [selected]="editForm().pais === p">{{ p }}</option>
+                }
+              </select>
+            </label>
+            <label class="edit-form__field">
+              <span class="edit-form__label">Número de equipos</span>
+              <input
+                type="number"
+                class="edit-form__input"
+                [value]="editForm().numEquipos"
+                (input)="updateFormField('numEquipos', +$any($event.target).value || undefined)"
+                min="2"
+                max="100"
+              />
+            </label>
+          </section>
+
+          <section class="edit-form__row">
+            <label class="edit-form__field">
+              <span class="edit-form__label">Fecha de inicio</span>
+              <input
+                type="date"
+                class="edit-form__input"
+                [value]="editForm().fechaInicio"
+                (input)="updateFormField('fechaInicio', $any($event.target).value || undefined)"
+              />
+            </label>
+            <label class="edit-form__field">
+              <span class="edit-form__label">Fecha de fin</span>
+              <input
+                type="date"
+                class="edit-form__input"
+                [value]="editForm().fechaFin"
+                (input)="updateFormField('fechaFin', $any($event.target).value || undefined)"
+              />
+            </label>
+          </section>
+
+          <label class="edit-form__field edit-form__field--full">
+            <span class="edit-form__label">Descripción</span>
+            <textarea
+              class="edit-form__input edit-form__input--textarea"
+              [value]="editForm().descripcion || ''"
+              (input)="updateFormField('descripcion', $any($event.target).value || undefined)"
+              rows="4"
+            ></textarea>
+          </label>
+
+          <label class="edit-form__checkbox">
+            <input
+              type="checkbox"
+              [checked]="editForm().activa"
+              (change)="updateFormField('activa', $any($event.target).checked)"
+            />
+            <span>Competición activa</span>
+          </label>
+        </form>
+      </section>
+
+      <footer class="modal__footer">
+        <button type="button" class="modal__btn modal__btn--secondary" (click)="closeEditModal()">
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="modal__btn modal__btn--primary"
+          (click)="saveCompetition()"
+          [disabled]="saving()"
+        >
+          @if (saving()) {
+            Guardando...
+          } @else {
+            Guardar cambios
+          }
+        </button>
+      </footer>
+    </article>
+  </section>
+}
