@@ -2,7 +2,7 @@
   <section class="loading-overlay">
     <section class="loading-spinner">
       <section class="spinner"></section>
-      <p class="loading-text">Cargando...</p>
+      <p class="loading-text">{{ (message$ | async) || 'Cargando...' }}</p>
     </section>
   </section>
 }

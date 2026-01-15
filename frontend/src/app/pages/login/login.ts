@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, signal, inject, OnInit } from '@angular/core';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
@@ -9,7 +9,11 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
-export class Login {
+export class Login implements OnInit {
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+
   email = '';
   password = '';
   error = signal<string | null>(null);
@@ -17,10 +21,13 @@ export class Login {
   nombre = '';
   apellidos = '';
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  /** URL a la que redirigir después del login (si viene de una ruta protegida) */
+  private returnUrl = '/usuario';
+
+  ngOnInit(): void {
+    // Leer la URL de retorno desde queryParams
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/usuario';
+  }
 
   get cargando() {
     return this.authService.cargando;
@@ -43,7 +50,7 @@ export class Login {
           apellidos: this.apellidos,
         })
         .subscribe({
-          next: () => this.router.navigate(['/usuario']),
+          next: () => this.router.navigateByUrl(this.returnUrl),
           error: (err) => this.error.set(err.error?.message || 'Error al registrarse'),
         });
     } else {
@@ -53,7 +60,7 @@ export class Login {
           password: this.password,
         })
         .subscribe({
-          next: () => this.router.navigate(['/usuario']),
+          next: () => this.router.navigateByUrl(this.returnUrl),
           error: (err) => this.error.set(err.error?.message || 'Credenciales incorrectas'),
         });
     }

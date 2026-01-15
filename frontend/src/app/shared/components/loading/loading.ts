@@ -10,5 +10,10 @@ import { LoadingService } from '../../services/loading';
 })
 export class Loading {
   private loadingService = inject(LoadingService);
+
+  /** Observable del estado de carga */
   isLoading$ = this.loadingService.isLoading$;
+
+  /** Observable del mensaje de carga personalizado */
+  message$ = this.loadingService.message$;
 }
