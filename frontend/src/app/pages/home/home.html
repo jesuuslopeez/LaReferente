@@ -1,28 +1,230 @@
 <section class="home">
-  <header class="home__header">
-    <h1 class="home__title">Bienvenido a La Referente</h1>
-    <p class="home__description">Tu fuente de información sobre fútbol español</p>
-  </header>
+  <!-- Hero Slider -->
+  <section class="hero">
+    <section class="hero__slides">
+      @for (slide of heroSlides; track slide.id; let i = $index) {
+        <article
+          class="hero__slide"
+          [class.hero__slide--active]="currentSlide() === i"
+          [style.background-image]="'url(' + slide.image + ')'"
+        >
+          <section class="hero__overlay"></section>
+          <section class="hero__content">
+            <h1 class="hero__title">{{ slide.title }}</h1>
+            <p class="hero__subtitle">{{ slide.subtitle }}</p>
+            <a [routerLink]="slide.link" class="hero__btn">
+              {{ slide.linkText }}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </section>
+        </article>
+      }
+    </section>
 
-  <section class="home__hero">
-    <p class="home__intro">
-      Explora los mejores jugadores, equipos y competiciones del fútbol español.
-      Mantente al día con las últimas noticias y estadísticas.
-    </p>
+    <!-- Controles del slider -->
+    <button class="hero__nav hero__nav--prev" (click)="prevSlide()" aria-label="Anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <button class="hero__nav hero__nav--next" (click)="nextSlide()" aria-label="Siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <!-- Indicadores -->
+    <section class="hero__indicators">
+      @for (slide of heroSlides; track slide.id; let i = $index) {
+        <button
+          class="hero__indicator"
+          [class.hero__indicator--active]="currentSlide() === i"
+          (click)="goToSlide(i)"
+          [attr.aria-label]="'Ir a slide ' + (i + 1)"
+        ></button>
+      }
+    </section>
   </section>
 
-  <nav class="home__nav">
-    <a routerLink="/competiciones" class="home__nav-link">
-      <span class="home__nav-icon">⚽</span>
-      <span class="home__nav-text">Competiciones</span>
+  <!-- Noticias Destacadas -->
+  <section class="featured-news">
+    <header class="section-header">
+      <h2 class="section-header__title">Noticias Destacadas</h2>
+      <a routerLink="/noticias" class="section-header__link">Ver todas</a>
+    </header>
+
+    @if (loadingNews()) {
+      <section class="featured-news__loading">
+        <span class="spinner"></span>
+      </section>
+    } @else if (featuredNews().length === 0) {
+      <p class="featured-news__empty">No hay noticias destacadas</p>
+    } @else {
+      <section class="featured-news__grid">
+        @for (news of featuredNews(); track news.id) {
+          <a [routerLink]="['/noticias', news.id]" class="news-card">
+            <figure class="news-card__image-container">
+              @if (news.imagenPrincipalUrl) {
+                <img [src]="news.imagenPrincipalUrl" [alt]="news.titulo" class="news-card__image" />
+              } @else {
+                <section class="news-card__placeholder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                  </svg>
+                </section>
+              }
+              @if (news.destacada) {
+                <span class="news-card__badge">Destacada</span>
+              }
+            </figure>
+            <section class="news-card__content">
+              <span class="news-card__date">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                {{ formatDate(news.fechaPublicacion) }}
+              </span>
+              <h3 class="news-card__title">{{ news.titulo }}</h3>
+              @if (news.subtitulo) {
+                <p class="news-card__excerpt">{{ news.subtitulo }}</p>
+              }
+              <span class="news-card__read-more">
+                Leer más
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
+            </section>
+          </a>
+        }
+      </section>
+    }
+  </section>
+
+  <!-- Sección Destacados -->
+  <section class="highlights">
+    <header class="section-header section-header--center">
+      <h2 class="section-header__title">Destacados</h2>
+    </header>
+
+    <section class="highlights__grid">
+      <!-- Competiciones -->
+      <article class="highlight-card">
+        <header class="highlight-card__header">
+          <h3 class="highlight-card__title">Competiciones</h3>
+          <a routerLink="/competiciones" class="highlight-card__header-link">Ver todas</a>
+        </header>
+
+        @if (loadingCompetitions()) {
+          <section class="highlight-card__loading">
+            <span class="spinner spinner--small"></span>
+          </section>
+        } @else {
+          <section class="highlight-card__items highlight-card__items--grid">
+            @for (comp of competitions(); track comp.id) {
+              <a [routerLink]="['/competiciones', comp.id]" class="item-badge">
+                @if (comp.logoUrl) {
+                  <img [src]="comp.logoUrl" [alt]="comp.nombre" class="item-badge__logo" />
+                } @else {
+                  <span class="item-badge__placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                    </svg>
+                  </span>
+                }
+                <span class="item-badge__name">{{ comp.nombre }}</span>
+              </a>
+            }
+          </section>
+        }
+      </article>
+
+      <!-- Jugadores -->
+      <article class="highlight-card">
+        <header class="highlight-card__header">
+          <h3 class="highlight-card__title">Jugadores</h3>
+          <a routerLink="/jugadores" class="highlight-card__header-link">Ver todos</a>
+        </header>
+
+        @if (loadingPlayers()) {
+          <section class="highlight-card__loading">
+            <span class="spinner spinner--small"></span>
+          </section>
+        } @else {
+          <section class="highlight-card__items highlight-card__items--players">
+            @for (player of players(); track player.id) {
+              <a [routerLink]="['/jugadores', player.id]" class="player-mini">
+                <figure class="player-mini__photo">
+                  @if (player.fotoUrl) {
+                    <img [src]="player.fotoUrl" [alt]="player.nombre" />
+                  } @else {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  }
+                </figure>
+                <span class="player-mini__name">{{ player.nombre }}</span>
+              </a>
+            }
+          </section>
+        }
+      </article>
+
+      <!-- Equipos -->
+      <article class="highlight-card">
+        <header class="highlight-card__header">
+          <h3 class="highlight-card__title">Equipos</h3>
+          <a routerLink="/equipos" class="highlight-card__header-link">Ver todos</a>
+        </header>
+
+        @if (loadingTeams()) {
+          <section class="highlight-card__loading">
+            <span class="spinner spinner--small"></span>
+          </section>
+        } @else {
+          <section class="highlight-card__items highlight-card__items--grid">
+            @for (team of teams(); track team.id) {
+              <a [routerLink]="['/equipos', team.id]" class="item-badge">
+                @if (team.logoUrl) {
+                  <img [src]="team.logoUrl" [alt]="team.nombre" class="item-badge__logo" />
+                } @else {
+                  <span class="item-badge__placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                    </svg>
+                  </span>
+                }
+                <span class="item-badge__name">{{ team.nombre }}</span>
+              </a>
+            }
+          </section>
+        }
+      </article>
+    </section>
+  </section>
+
+  <!-- Calendario -->
+  <section class="calendar-section">
+    <header class="section-header">
+      <h2 class="section-header__title">Calendario</h2>
+      <a routerLink="/calendario" class="section-header__link">Ver completo</a>
+    </header>
+
+    <a routerLink="/calendario" class="calendar-card">
+      <section class="calendar-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </section>
+      <section class="calendar-card__content">
+        <h3 class="calendar-card__title">Próximos partidos</h3>
+        <p class="calendar-card__desc">Consulta el calendario completo de partidos, resultados y clasificaciones de todas las competiciones.</p>
+      </section>
+      <svg class="calendar-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
     </a>
-    <a routerLink="/noticias" class="home__nav-link">
-      <span class="home__nav-icon">📰</span>
-      <span class="home__nav-text">Noticias</span>
-    </a>
-    <a routerLink="/dwec" class="home__nav-link home__nav-link--dev">
-      <span class="home__nav-icon">🛠️</span>
-      <span class="home__nav-text">DWEC Demos</span>
-    </a>
-  </nav>
+  </section>
 </section>
