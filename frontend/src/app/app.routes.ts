@@ -16,6 +16,7 @@ import { NewsPage } from './pages/news/news';
 import { authGuard } from './guards/auth.guard';
 import { editorGuard } from './guards/editor.guard';
 import { competitionResolver } from './resolvers/competition.resolver';
+import { NewsDetail } from './pages/news-detail/news-detail';
 import { NewsCreate } from './pages/admin/news-create/news-create';
 import { CompetitionCreate } from './pages/admin/competition-create/competition-create';
 import { TeamCreate } from './pages/admin/team-create/team-create';
@@ -50,7 +51,16 @@ export const routes: Routes = [
   // Noticias (consume API real)
   {
     path: 'noticias',
-    component: NewsPage,
+    children: [
+      {
+        path: '',
+        component: NewsPage,
+      },
+      {
+        path: ':id',
+        component: NewsDetail,
+      },
+    ],
   },
 
   // Equipos

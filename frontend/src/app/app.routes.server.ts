@@ -7,6 +7,18 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Client,
   },
   {
+    path: 'equipos/:id',
+    renderMode: RenderMode.Client,
+  },
+  {
+    path: 'jugadores/:id',
+    renderMode: RenderMode.Client,
+  },
+  {
+    path: 'noticias/:id',
+    renderMode: RenderMode.Client,
+  },
+  {
     path: 'usuario/**',
     renderMode: RenderMode.Client,
   },

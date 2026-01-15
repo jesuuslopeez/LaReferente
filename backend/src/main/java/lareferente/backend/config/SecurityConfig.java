@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/players/{id}").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/teams/{id}").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/competitions/{id}").permitAll()
-                        .requestMatchers("/api/news/published", "/api/news/featured", "/api/news/{id}").permitAll()
+                        .requestMatchers("/api/news/published", "/api/news/featured", "/api/news/{id}", "/api/news/{id}/view").permitAll()
                         .requestMatchers("/api/matches/**").permitAll()
                         .requestMatchers("/api/competitions/active", "/api/competitions/{id}").permitAll()
                         .requestMatchers("/api/comments/news/{newsId}").permitAll()
