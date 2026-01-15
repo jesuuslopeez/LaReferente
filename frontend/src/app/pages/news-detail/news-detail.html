@@ -1,0 +1,95 @@
+<section class="news-detail">
+  <!-- Loading State -->
+  @if (loading()) {
+    <section class="news-detail__loading">
+      <span class="news-detail__spinner"></span>
+      <p>Cargando noticia...</p>
+    </section>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+    <section class="news-detail__error">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+      <h2>{{ error() }}</h2>
+      <a routerLink="/noticias" class="news-detail__btn">Volver a noticias</a>
+    </section>
+  }
+
+  <!-- Content -->
+  @if (noticia(); as n) {
+    <!-- Botón volver -->
+    <a routerLink="/noticias" class="news-detail__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Volver a noticias
+    </a>
+
+    <!-- Hero Section -->
+    <section class="news-detail__hero">
+      <section class="news-detail__hero-content">
+        <section class="news-detail__badges">
+          <span class="news-detail__badge">{{ getCategoryLabel(n.categoria) }}</span>
+          @if (n.destacada) {
+            <span class="news-detail__badge news-detail__badge--outline">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+              </svg>
+              Destacada
+            </span>
+          }
+        </section>
+
+        <h1 class="news-detail__title">{{ n.titulo }}</h1>
+
+        @if (n.subtitulo) {
+          <p class="news-detail__subtitle">{{ n.subtitulo }}</p>
+        }
+
+        <section class="news-detail__hero-stats">
+          <article class="news-detail__stat">
+            <svg class="news-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <span>{{ formatDateTime(n.fechaPublicacion) }}</span>
+          </article>
+          <article class="news-detail__stat">
+            <svg class="news-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span>{{ n.autorNombre }}</span>
+          </article>
+          <article class="news-detail__stat">
+            <svg class="news-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            <span>{{ n.visitas }} visitas</span>
+          </article>
+        </section>
+      </section>
+    </section>
+
+    <!-- Imagen principal -->
+    @if (n.imagenPrincipalUrl) {
+      <section class="news-detail__image-section">
+        <figure class="news-detail__image-container">
+          <img
+            [src]="n.imagenPrincipalUrl"
+            [alt]="n.titulo"
+            class="news-detail__image"
+          />
+        </figure>
+      </section>
+    }
+
+    <!-- Contenido -->
+    <section class="news-detail__content">
+      <h2 class="news-detail__section-title">Contenido</h2>
+      <article class="news-detail__text" [innerHTML]="n.contenido"></article>
+    </section>
+  }
+</section>
