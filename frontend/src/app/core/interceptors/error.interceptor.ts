@@ -6,7 +6,8 @@ import { ToastService } from '../../shared/services/toast';
 
 /**
  * Interceptor global para manejo de errores HTTP.
- * Muestra notificaciones al usuario y gestiona redirecciones.
+ * Muestra notificaciones solo para acciones del usuario (POST, PUT, DELETE)
+ * y errores críticos (401). Los errores en peticiones GET de carga se manejan silenciosamente.
  */
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
@@ -15,7 +16,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       let message = 'Error inesperado. Inténtalo de nuevo más tarde.';
-      let showToast = true;
+
+      // Solo mostrar toast para acciones del usuario (no GET) o errores críticos
+      const isUserAction = req.method !== 'GET';
+      let showToast = isUserAction;
 
       switch (error.status) {
         case 0:
@@ -32,6 +36,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           localStorage.removeItem('token');
           localStorage.removeItem('usuario');
           router.navigate(['/login']);
+          // 401 siempre muestra toast (sesión expirada es crítico)
+          showToast = true;
           break;
 
         case 403:
@@ -40,7 +46,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
         case 404:
           message = 'El recurso solicitado no existe.';
-          // No mostrar toast para 404, dejar que el componente lo maneje
+          // 404 nunca muestra toast
           showToast = false;
           break;
 

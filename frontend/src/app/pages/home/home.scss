@@ -88,12 +88,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: var(--spacing-10);
+    // Padding lateral suficiente para no solapar con los controles de navegación
+    padding: var(--spacing-10) var(--spacing-16);
     max-width: 75rem;
     margin: 0 auto;
 
     @media (max-width: $breakpoint-md) {
-      padding: var(--spacing-6);
+      padding: var(--spacing-8) var(--spacing-14);
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      padding: var(--spacing-6) var(--spacing-12);
+      align-items: center;
+      text-align: center;
     }
   }
 
@@ -121,8 +128,14 @@
     max-width: 32rem;
     line-height: 1.5;
 
-    @media (max-width: $breakpoint-sm) {
+    @media (max-width: $breakpoint-md) {
       font-size: var(--font-lg);
+      max-width: 28rem;
+    }
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: var(--font-base);
+      max-width: 100%;
     }
   }
 
