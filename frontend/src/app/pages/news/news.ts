@@ -1,12 +1,13 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NewsService } from '../../core/services';
 import { News, RequestState } from '../../core/models';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-news',
-  imports: [RouterLink],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './news.html',
   styleUrl: './news.scss',
 })
@@ -21,8 +22,28 @@ export class NewsPage implements OnInit {
     data: null,
   });
 
+  // Filtros
+  filtroActivo = signal('todas');
+  categorias = [
+    { valor: 'todas', texto: 'Todas' },
+    { valor: 'FICHAJES', texto: 'Fichajes' },
+    { valor: 'PARTIDOS', texto: 'Partidos' },
+    { valor: 'LESIONES', texto: 'Lesiones' },
+    { valor: 'RUEDAS_PRENSA', texto: 'Ruedas de prensa' },
+    { valor: 'GENERAL', texto: 'General' },
+  ];
+
+  // Búsqueda
+  busquedaControl = new FormControl('');
+  busqueda = signal('');
+
   ngOnInit(): void {
     this.loadNews();
+
+    // Búsqueda con debounce manual
+    this.busquedaControl.valueChanges.subscribe((valor) => {
+      this.busqueda.set(valor || '');
+    });
   }
 
   loadNews(): void {
@@ -42,6 +63,10 @@ export class NewsPage implements OnInit {
     });
   }
 
+  setFiltro(valor: string): void {
+    this.filtroActivo.set(valor);
+  }
+
   // Helpers para la plantilla
   get isLoading(): boolean {
     return this.state().loading;
@@ -55,8 +80,30 @@ export class NewsPage implements OnInit {
     return this.state().error || '';
   }
 
-  get noticias(): News[] {
+  get todasNoticias(): News[] {
     return this.state().data || [];
+  }
+
+  get noticias(): News[] {
+    const filtro = this.filtroActivo();
+    const texto = this.busqueda().toLowerCase().trim();
+    let resultado = this.todasNoticias;
+
+    // Filtrar por categoría
+    if (filtro !== 'todas') {
+      resultado = resultado.filter((n) => n.categoria === filtro);
+    }
+
+    // Filtrar por texto de búsqueda
+    if (texto) {
+      resultado = resultado.filter(
+        (n) =>
+          n.titulo.toLowerCase().includes(texto) ||
+          (n.subtitulo && n.subtitulo.toLowerCase().includes(texto))
+      );
+    }
+
+    return resultado;
   }
 
   get isEmpty(): boolean {

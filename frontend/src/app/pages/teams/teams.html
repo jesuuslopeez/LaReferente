@@ -32,12 +32,12 @@
     </section>
 
     <section class="teams__filters">
-      @for (pais of paisesDisponibles; track pais) {
+      @for (cat of categorias; track cat.valor) {
         <button
           class="teams__filter-btn"
-          [class.teams__filter-btn--active]="filtroPais() === pais.toLowerCase() || (pais === 'Todos' && filtroPais() === 'todos')"
-          (click)="setFiltroPais(pais)">
-          {{ pais }}
+          [class.teams__filter-btn--active]="filtroCategoria() === cat.valor"
+          (click)="setFiltroCategoria(cat.valor)">
+          {{ cat.texto }}
         </button>
       }
     </section>

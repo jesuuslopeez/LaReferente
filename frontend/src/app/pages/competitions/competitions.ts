@@ -21,7 +21,16 @@ export class Competitions {
 
   // Estado
   filtroActivo = signal('todas');
-  filtros = ['Todas', 'Liga', 'Copa'];
+  categorias = [
+    { valor: 'todas', texto: 'Todas' },
+    { valor: 'SENIOR', texto: 'Senior' },
+    { valor: 'JUVENIL', texto: 'Juvenil' },
+    { valor: 'CADETE', texto: 'Cadete' },
+    { valor: 'INFANTIL', texto: 'Infantil' },
+    { valor: 'ALEVIN', texto: 'Alevín' },
+    { valor: 'BENJAMIN', texto: 'Benjamín' },
+    { valor: 'PREBENJAMIN', texto: 'Prebenjamín' },
+  ];
   competiciones = signal<Competition[]>([]);
   busqueda = signal('');
 
@@ -54,15 +63,15 @@ export class Competitions {
       });
   }
 
-  // Competiciones filtradas por tipo y busqueda
+  // Competiciones filtradas por categoría y búsqueda
   get competicionesFiltradas(): Competition[] {
     const filtro = this.filtroActivo();
     const texto = this.busqueda().toLowerCase().trim();
     let resultado = this.competiciones();
 
-    // Filtrar por tipo
+    // Filtrar por categoría de edad
     if (filtro !== 'todas') {
-      resultado = resultado.filter((c) => c.tipo.toLowerCase() === filtro.toLowerCase());
+      resultado = resultado.filter((c) => c.categoria === filtro);
     }
 
     // Filtrar por texto de busqueda
@@ -109,8 +118,8 @@ export class Competitions {
     return paginas;
   }
 
-  setFiltro(filtro: string): void {
-    this.filtroActivo.set(filtro.toLowerCase());
+  setFiltro(valor: string): void {
+    this.filtroActivo.set(valor);
     this.paginaActual.set(1);
   }
 

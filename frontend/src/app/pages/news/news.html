@@ -14,6 +14,33 @@
     }
   </header>
 
+  <!-- Toolbar: Búsqueda y Filtros -->
+  <section class="news-page__toolbar">
+    <section class="news-page__search">
+      <svg class="news-page__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+      <input
+        type="text"
+        class="news-page__search-input"
+        placeholder="Buscar noticias..."
+        [formControl]="busquedaControl"
+      />
+    </section>
+
+    <section class="news-page__filters">
+      @for (cat of categorias; track cat.valor) {
+        <button
+          class="news-page__filter-btn"
+          [class.news-page__filter-btn--active]="filtroActivo() === cat.valor"
+          (click)="setFiltro(cat.valor)"
+        >
+          {{ cat.texto }}
+        </button>
+      }
+    </section>
+  </section>
+
   <!-- Loading State -->
   @if (isLoading) {
     <section class="news-page__loading">

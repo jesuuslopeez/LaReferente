@@ -82,6 +82,101 @@
     }
   }
 
+  // Toolbar
+  &__toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-6);
+
+    @include responsive('lg') {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: var(--spacing-6);
+    }
+  }
+
+  &__search {
+    position: relative;
+    width: 100%;
+
+    @include responsive('lg') {
+      max-width: 17.5rem;
+    }
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: var(--spacing-4);
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--spacing-5);
+    height: var(--spacing-5);
+    color: var(--gray500);
+    pointer-events: none;
+  }
+
+  &__search-input {
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-4) var(--spacing-3) var(--spacing-12);
+    border: var(--border-medium) solid var(--border-color);
+    border-radius: var(--radius-full);
+    font-size: var(--font-base);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+
+    &::placeholder {
+      color: var(--gray400);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+  }
+
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-2);
+
+    @include responsive('lg') {
+      justify-content: flex-start;
+    }
+  }
+
+  &__filter-btn {
+    flex-shrink: 0;
+    padding: var(--spacing-2) var(--spacing-4);
+    border: var(--border-medium) solid var(--border-color);
+    border-radius: var(--radius-full);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: var(--font-sm);
+    font-weight: var(--font-medium);
+    cursor: pointer;
+    white-space: nowrap;
+
+    @include responsive('md') {
+      font-size: var(--font-base);
+      padding: var(--spacing-2) var(--spacing-5);
+    }
+
+    &:hover:not(&--active) {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    &--active {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--white);
+    }
+  }
+
   // Loading State
   &__loading {
     display: flex;

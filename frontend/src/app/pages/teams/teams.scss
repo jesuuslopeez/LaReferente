@@ -26,18 +26,24 @@
   &__header {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--spacing-4);
+    margin-bottom: var(--spacing-2);
 
     @include responsive('md') {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: var(--spacing-4);
     }
   }
 
   &__header-content {
-    text-align: left;
+    text-align: center;
+
+    @include responsive('md') {
+      text-align: left;
+    }
   }
 
   &__add-btn {
@@ -91,11 +97,13 @@
   &__toolbar {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: var(--spacing-4);
 
     @include responsive('lg') {
       flex-direction: row;
       align-items: center;
+      justify-content: flex-start;
       gap: var(--spacing-6);
     }
   }
@@ -135,21 +143,18 @@
 
     &:focus {
       outline: none;
-      border-color: var(--secondary);
+      border-color: var(--primary);
     }
   }
 
   &__filters {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: var(--spacing-2);
-    overflow-x: auto;
-    padding-bottom: var(--spacing-2);
 
     @include responsive('lg') {
-      flex: 1;
-      flex-wrap: wrap;
-      overflow-x: visible;
-      padding-bottom: 0;
+      justify-content: flex-start;
     }
   }
 
@@ -171,13 +176,13 @@
     }
 
     &:hover:not(&--active) {
-      border-color: var(--secondary);
-      color: var(--secondary);
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
     &--active {
-      background-color: var(--secondary);
-      border-color: var(--secondary);
+      background-color: var(--primary);
+      border-color: var(--primary);
       color: var(--white);
     }
   }
@@ -185,19 +190,21 @@
   // Grid
   &__grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 22rem);
     gap: var(--spacing-4);
+    justify-content: center;
 
     @include responsive('sm') {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 22rem));
     }
 
     @include responsive('lg') {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 22rem));
+      justify-content: start;
     }
 
     @include responsive('xl') {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: var(--spacing-5);
     }
   }
@@ -239,8 +246,8 @@
     cursor: pointer;
 
     &:hover:not(&--active):not(&--disabled) {
-      border-color: var(--secondary);
-      color: var(--secondary);
+      border-color: var(--primary);
+      color: var(--primary);
     }
   }
 
@@ -262,8 +269,8 @@
     font-weight: var(--font-medium);
 
     &--active {
-      background-color: var(--secondary);
-      border-color: var(--secondary);
+      background-color: var(--primary);
+      border-color: var(--primary);
       color: var(--white);
     }
   }
@@ -281,5 +288,9 @@
     text-align: center;
     font-size: var(--font-sm);
     color: var(--text-secondary);
+
+    @include responsive('lg') {
+      text-align: left;
+    }
   }
 }

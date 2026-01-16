@@ -32,12 +32,12 @@
     </section>
 
     <section class="competitions__filters">
-      @for (filtro of filtros; track filtro) {
+      @for (cat of categorias; track cat.valor) {
         <button
           class="competitions__filter-btn"
-          [class.competitions__filter-btn--active]="filtroActivo() === filtro.toLowerCase()"
-          (click)="setFiltro(filtro)">
-          {{ filtro }}
+          [class.competitions__filter-btn--active]="filtroActivo() === cat.valor"
+          (click)="setFiltro(cat.valor)">
+          {{ cat.texto }}
         </button>
       }
     </section>

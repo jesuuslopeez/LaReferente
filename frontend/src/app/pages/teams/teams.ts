@@ -22,7 +22,17 @@ export class Teams {
   // Estado
   equipos = signal<Team[]>([]);
   busqueda = signal('');
-  filtroPais = signal('todos');
+  filtroCategoria = signal('todas');
+  categorias = [
+    { valor: 'todas', texto: 'Todas' },
+    { valor: 'SENIOR', texto: 'Senior' },
+    { valor: 'JUVENIL', texto: 'Juvenil' },
+    { valor: 'CADETE', texto: 'Cadete' },
+    { valor: 'INFANTIL', texto: 'Infantil' },
+    { valor: 'ALEVIN', texto: 'Alevín' },
+    { valor: 'BENJAMIN', texto: 'Benjamín' },
+    { valor: 'PREBENJAMIN', texto: 'Prebenjamín' },
+  ];
 
   // Paginacion
   paginaActual = signal(1);
@@ -30,12 +40,6 @@ export class Teams {
 
   // Control del input de busqueda
   busquedaControl = new FormControl('');
-
-  // Paises disponibles (se calculan de los equipos cargados)
-  get paisesDisponibles(): string[] {
-    const paises = new Set(this.equipos().map((e) => e.pais));
-    return ['Todos', ...Array.from(paises).sort()];
-  }
 
   constructor() {
     // Cargar equipos activos
@@ -59,15 +63,15 @@ export class Teams {
       });
   }
 
-  // Equipos filtrados por pais y busqueda
+  // Equipos filtrados por categoría y búsqueda
   get equiposFiltrados(): Team[] {
-    const filtro = this.filtroPais();
+    const filtro = this.filtroCategoria();
     const texto = this.busqueda().toLowerCase().trim();
     let resultado = this.equipos();
 
-    // Filtrar por pais
-    if (filtro !== 'todos') {
-      resultado = resultado.filter((e) => e.pais === filtro);
+    // Filtrar por categoría de edad
+    if (filtro !== 'todas') {
+      resultado = resultado.filter((e) => e.categoria === filtro);
     }
 
     // Filtrar por texto de busqueda
@@ -115,8 +119,8 @@ export class Teams {
     return paginas;
   }
 
-  setFiltroPais(pais: string): void {
-    this.filtroPais.set(pais.toLowerCase() === 'todos' ? 'todos' : pais);
+  setFiltroCategoria(valor: string): void {
+    this.filtroCategoria.set(valor);
     this.paginaActual.set(1);
   }
 
