@@ -94,8 +94,9 @@
 
   &__hamburger--open {
     position: fixed;
-    top: var(--spacing-4);
-    right: var(--spacing-4);
+    top: var(--spacing-5);
+    right: var(--spacing-5);
+    z-index: 101;
   }
 
   &__hamburger-line {
@@ -125,32 +126,44 @@
   &__nav {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
+    right: 0;
+    width: min(80vw, 18rem);
+    height: auto;
+    max-height: 100vh;
     background-color: var(--primary);
-    transform: translateX(-100%);
+    transform: translateX(100%);
     opacity: 0;
     visibility: hidden;
     z-index: 100;
-    padding-top: var(--spacing-20);
-    overflow-y: hidden;
+    padding-top: var(--spacing-14);
+    padding-bottom: var(--spacing-4);
+    overflow-x: hidden;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    transition: all var(--duration-base) var(--timing-ease-in-out);
+    transition: transform var(--duration-base) var(--timing-ease-in-out),
+                opacity var(--duration-fast) var(--timing-ease-in-out),
+                visibility var(--duration-base) var(--timing-ease-in-out);
+    box-shadow: var(--shadow-xl);
+    border-radius: 0 0 0 var(--radius-xl);
 
     @media (min-width: $breakpoint-xl) {
       position: static;
       width: auto;
       height: auto;
+      max-height: none;
       background-color: transparent;
       transform: none;
       opacity: 1;
       visibility: visible;
       padding-top: 0;
+      padding-bottom: 0;
+      overflow-x: visible;
       overflow-y: visible;
       flex: 1 1 auto;
       min-width: 0;
+      box-shadow: none;
+      border-radius: 0;
     }
 
     &--open {
@@ -160,17 +173,39 @@
     }
   }
 
+  // Overlay oscuro detrás del menú móvil
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    transition: opacity var(--duration-base) var(--timing-ease-in-out),
+                visibility var(--duration-base) var(--timing-ease-in-out);
+
+    &--visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (min-width: $breakpoint-xl) {
+      display: none;
+    }
+  }
+
   &__nav-list {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 0;
     list-style: none;
     margin: 0;
-    padding: var(--spacing-6) var(--spacing-4);
+    padding: var(--spacing-2) 0;
 
     @media (min-width: $breakpoint-xl) {
       flex-direction: row;
+      align-items: center;
       gap: var(--spacing-1);
       padding: 0;
       justify-content: center;
@@ -182,47 +217,47 @@
     width: 100%;
     position: relative;
 
-    // Linea divisoria entre enlaces
-    &:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 40%;
-      height: 0.0625rem;
-      background: linear-gradient(90deg, transparent, var(--white-alpha-30), transparent);
-    }
-
     @media (min-width: $breakpoint-xl) {
       width: auto;
-
-      &:not(:last-child)::after {
-        display: none;
-      }
     }
   }
 
   &__nav-link {
-    display: block;
-    padding: var(--spacing-4) var(--spacing-4);
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-3) var(--spacing-5);
     color: var(--white-alpha-85);
     text-decoration: none;
-    font-size: var(--font-xl);
-    font-weight: var(--font-regular);
+    font-size: var(--font-base);
+    font-weight: var(--font-medium);
     white-space: nowrap;
     width: 100%;
-    text-align: center;
+    text-align: left;
     position: relative;
-    transition: color var(--duration-fast) var(--timing-ease-in-out);
+    transition: background-color var(--duration-fast) var(--timing-ease-in-out),
+                color var(--duration-fast) var(--timing-ease-in-out);
 
     &:hover {
       color: var(--white);
+      background-color: var(--white-alpha-10);
     }
 
     &--active {
       color: var(--white);
+      background-color: var(--white-alpha-10);
       font-weight: var(--font-semibold);
+
+      // Indicador lateral activo
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: var(--spacing-2);
+        bottom: var(--spacing-2);
+        width: 3px;
+        background-color: var(--white);
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      }
     }
 
     @media (min-width: $breakpoint-xl) {
@@ -230,6 +265,18 @@
       font-size: var(--font-base);
       width: auto;
       text-align: left;
+
+      &:hover {
+        background-color: transparent;
+      }
+
+      &--active {
+        background-color: transparent;
+
+        &::before {
+          display: none;
+        }
+      }
 
       &::after {
         content: '';
@@ -521,8 +568,8 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-3);
-    padding: var(--spacing-6) var(--spacing-4);
-    border-top: var(--border-medium) solid var(--white-alpha-20);
+    padding: var(--spacing-5);
+    border-top: var(--border-thin) solid var(--white-alpha-20);
     margin-top: var(--spacing-4);
 
     @media (min-width: $breakpoint-xl) {
@@ -533,18 +580,18 @@
   &__mobile-search {
     display: flex;
     background-color: var(--white);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-full);
     overflow: hidden;
-    height: calc(var(--spacing-12) + var(--spacing-2));
+    height: var(--spacing-10);
   }
 
   &__mobile-search-dropdown {
-    padding: 0 var(--spacing-3);
+    padding: 0 var(--spacing-2);
     border: none;
     border-right: 0.0625rem solid var(--gray300);
     background-color: var(--white);
     color: var(--primary);
-    font-size: var(--font-base);
+    font-size: var(--font-sm);
     font-family: var(--font-primary);
     cursor: pointer;
     outline: none;
@@ -552,11 +599,11 @@
 
   &__mobile-search-input {
     flex: 1;
-    padding: 0 var(--spacing-3);
+    padding: 0 var(--spacing-2);
     border: none;
     background-color: var(--white);
     color: var(--gray900);
-    font-size: var(--font-base);
+    font-size: var(--font-sm);
     font-family: var(--font-primary);
     outline: none;
 
@@ -569,7 +616,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 var(--spacing-4);
+    padding: 0 var(--spacing-3);
     background-color: var(--primary);
     border: none;
     cursor: pointer;
@@ -584,13 +631,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-3);
-    padding: var(--spacing-3) var(--spacing-4);
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-4);
     background-color: transparent;
     border: var(--border-medium) solid var(--white);
     border-radius: var(--radius-full);
     color: var(--white);
-    font-size: var(--font-base);
+    font-size: var(--font-sm);
     font-family: var(--font-primary);
     font-weight: var(--font-medium);
     text-decoration: none;
@@ -607,13 +654,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-3);
-    padding: var(--spacing-3) var(--spacing-4);
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-4);
     background-color: var(--white);
     border: none;
     border-radius: var(--radius-full);
     color: var(--primary);
-    font-size: var(--font-base);
+    font-size: var(--font-sm);
     font-family: var(--font-primary);
     font-weight: var(--font-semibold);
     text-decoration: none;
@@ -622,12 +669,11 @@
 
     &:hover {
       background-color: var(--gray100);
-      transform: translateY(-0.0625rem);
     }
 
     &--danger {
       background-color: transparent;
-      border: var(--border-medium) solid var(--danger-hover);
+      border: var(--border-medium) solid var(--danger-light);
       color: var(--danger-light);
 
       &:hover {
@@ -638,8 +684,8 @@
   }
 
   &__mobile-icon {
-    width: var(--spacing-6);
-    height: var(--spacing-6);
+    width: var(--spacing-5);
+    height: var(--spacing-5);
     flex-shrink: 0;
   }
 }

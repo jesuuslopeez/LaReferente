@@ -16,6 +16,13 @@
       <span class="header__hamburger-line"></span>
     </button>
 
+    <!-- Overlay para cerrar el menú móvil -->
+    <section
+      class="header__overlay"
+      [class.header__overlay--visible]="mobileMenuOpen()"
+      (click)="closeMobileMenu()">
+    </section>
+
     <nav class="header__nav" [class.header__nav--open]="mobileMenuOpen()">
       <ul class="header__nav-list">
         <li class="header__nav-item">
