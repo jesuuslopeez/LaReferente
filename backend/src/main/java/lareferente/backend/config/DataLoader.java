@@ -378,7 +378,7 @@ public class DataLoader implements CommandLineRunner {
 
         List<News> saved = newsRepository.saveAll(noticias);
         // Actualizar URLs con IDs generados
-        saved.forEach(n -> n.setImagenPrincipalUrl("assets/images/news/" + n.getId() + ".webp"));
+        saved.forEach(n -> n.setImagenPrincipalUrl("assets/images/news/" + n.getId() + ".jpg"));
         newsRepository.saveAll(saved);
         log.info("Cargadas {} noticias", saved.size());
     }
