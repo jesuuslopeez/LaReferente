@@ -149,9 +149,6 @@ export class PlayerDetail implements OnInit {
 
   getImageUrl(player: Player): string {
     if (player.fotoUrl) {
-      if (player.fotoUrl.startsWith('/api')) {
-        return `http://localhost:8080${player.fotoUrl}`;
-      }
       return player.fotoUrl;
     }
     return `assets/images/players/medium/${player.id}.webp`;

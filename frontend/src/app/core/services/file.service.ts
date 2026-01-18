@@ -6,7 +6,7 @@ import { UploadResponse } from '../models';
 @Injectable({ providedIn: 'root' })
 export class FileService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = 'http://localhost:8080/api/files';
+  private readonly baseUrl = '/api/files';
 
   /**
    * Subir un archivo usando FormData

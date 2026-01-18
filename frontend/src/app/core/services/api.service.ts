@@ -6,7 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = 'http://localhost:8080/api';
+  private readonly baseUrl = '/api';
 
   /**
    * GET request

@@ -33,7 +33,7 @@ export interface LoginResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api/auth';
+  private apiUrl = '/api/auth';
   private platformId = inject(PLATFORM_ID);
 
   usuario = signal<Usuario | null>(null);

@@ -145,9 +145,6 @@ export class TeamDetail implements OnInit {
 
   getLogoUrl(team: Team): string {
     if (team.logoUrl) {
-      if (team.logoUrl.startsWith('/api')) {
-        return `http://localhost:8080${team.logoUrl}`;
-      }
       return team.logoUrl;
     }
     return 'assets/images/teams/default-logo.png';

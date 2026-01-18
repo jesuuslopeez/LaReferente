@@ -8,7 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class ValidationService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8080/api';
+  private readonly apiUrl = '/api';
 
   private usedUsernames = ['admin', 'root', 'user', 'test'];
 
