@@ -100,7 +100,7 @@
       right: -10%;
       width: 50%;
       height: 200%;
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--white-alpha-5);
       transform: rotate(15deg);
       pointer-events: none;
     }
@@ -120,7 +120,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--white-alpha-20);
     border: none;
     border-radius: var(--radius-full);
     color: var(--white);
@@ -156,7 +156,7 @@
     align-items: center;
     gap: var(--spacing-1);
     padding: var(--spacing-1) var(--spacing-3);
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--white-alpha-20);
     color: var(--white);
     border-radius: var(--radius-full);
     font-size: var(--font-xs);
@@ -171,7 +171,7 @@
 
     &--outline {
       background-color: transparent;
-      border: var(--border-thin) solid rgba(255, 255, 255, 0.5);
+      border: var(--border-thin) solid var(--white-alpha-60);
     }
   }
 
@@ -190,7 +190,7 @@
 
   &__subtitle {
     font-size: var(--font-lg);
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--white-alpha-85);
     margin: 0 0 var(--spacing-6);
     line-height: 1.5;
 
@@ -209,7 +209,7 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--white-alpha-90);
     font-size: var(--font-sm);
 
     &-icon {
@@ -296,7 +296,7 @@
     blockquote {
       margin: var(--spacing-4) 0;
       padding: var(--spacing-4) var(--spacing-6);
-      border-left: 4px solid var(--primary);
+      border-left: var(--border-thick) solid var(--primary);
       background-color: var(--primary-bg);
       border-radius: 0 var(--radius-md) var(--radius-md) 0;
       font-style: italic;
@@ -315,7 +315,7 @@
   position: fixed;
   inset: 0;
   background-color: var(--black-alpha-70);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(0.25rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -335,14 +335,14 @@
   }
   to {
     opacity: 1;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(0.25rem);
   }
 }
 
 @keyframes fadeOut {
   from {
     opacity: 1;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(0.25rem);
   }
   to {
     opacity: 0;
@@ -353,7 +353,7 @@
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-300px);
+    transform: translateX(-18.75rem);
   }
   to {
     opacity: 1;
@@ -368,7 +368,7 @@
   }
   to {
     opacity: 0;
-    transform: translateX(-300px);
+    transform: translateX(-18.75rem);
   }
 }
 
@@ -464,7 +464,7 @@
 
       &:hover:not(:disabled) {
         background-color: var(--primary-hover);
-        transform: translateY(-1px);
+        transform: translateY(-0.0625rem);
         box-shadow: var(--shadow-md);
       }
 
@@ -530,7 +530,7 @@
     &:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-alpha-10);
+      box-shadow: 0 0 0 0.1875rem var(--primary-alpha-10);
     }
 
     &::placeholder {

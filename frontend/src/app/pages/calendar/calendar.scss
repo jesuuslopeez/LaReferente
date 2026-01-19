@@ -146,7 +146,7 @@
     color: var(--primary);
     text-transform: capitalize;
     padding-left: var(--spacing-3);
-    border-left: 4px solid var(--primary);
+    border-left: var(--border-thick) solid var(--primary);
 
     @include responsive('md') {
       font-size: var(--font-xl);
@@ -184,14 +184,14 @@
   background-color: var(--card-bg);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border-left: 4px solid var(--primary);
+  border-left: var(--border-thick) solid var(--primary);
   box-shadow: var(--shadow-sm);
   transition: box-shadow var(--duration-fast) var(--timing-ease-in-out),
               transform var(--duration-fast) var(--timing-ease-in-out);
 
   &:hover {
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    transform: translateY(-0.125rem);
   }
 
   // Variantes por estado con colores sutiles
@@ -202,12 +202,12 @@
   }
 
   &--en-curso {
-    border-left-color: #2ecc71;
+    border-left-color: var(--match-live);
     .match__status {
-      background-color: #2ecc71;
+      background-color: var(--match-live);
     }
     .match__score-value {
-      color: #2ecc71;
+      color: var(--match-live);
     }
   }
 
@@ -218,17 +218,17 @@
   }
 
   &--aplazado {
-    border-left-color: #f39c12;
+    border-left-color: var(--match-postponed);
     .match__status {
-      background-color: #f39c12;
+      background-color: var(--match-postponed);
     }
   }
 
   &--cancelado {
     opacity: 0.6;
-    border-left-color: #e74c3c;
+    border-left-color: var(--match-cancelled);
     .match__status {
-      background-color: #e74c3c;
+      background-color: var(--match-cancelled);
     }
   }
 

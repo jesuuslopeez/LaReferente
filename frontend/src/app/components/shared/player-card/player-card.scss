@@ -159,7 +159,7 @@
   &__flag {
     font-size: 0.875rem;
     line-height: 1;
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
     flex-shrink: 0;
   }
 

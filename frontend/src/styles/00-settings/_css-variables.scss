@@ -72,12 +72,18 @@ $danger-border: #fecaca;
 $danger-light: #fca5a5;
 $danger-hover: #ef4444;
 
+// Estados de partidos
+$match-live: #2ecc71;
+$match-postponed: #f39c12;
+$match-cancelled: #e74c3c;
+
 $overlay-bg: rgba(0, 0, 0, 0.5);
 $white-alpha-5: rgba(255, 255, 255, 0.05);
 $white-alpha-10: rgba(255, 255, 255, 0.1);
 $white-alpha-15: rgba(255, 255, 255, 0.15);
 $white-alpha-20: rgba(255, 255, 255, 0.2);
 $white-alpha-30: rgba(255, 255, 255, 0.3);
+$white-alpha-40: rgba(255, 255, 255, 0.4);
 $white-alpha-60: rgba(255, 255, 255, 0.6);
 $white-alpha-70: rgba(255, 255, 255, 0.7);
 $white-alpha-80: rgba(255, 255, 255, 0.8);
@@ -85,6 +91,9 @@ $white-alpha-85: rgba(255, 255, 255, 0.85);
 $white-alpha-90: rgba(255, 255, 255, 0.9);
 $black-alpha-10: rgba(0, 0, 0, 0.1);
 $black-alpha-20: rgba(0, 0, 0, 0.2);
+$black-alpha-40: rgba(0, 0, 0, 0.4);
+$black-alpha-50: rgba(0, 0, 0, 0.5);
+$black-alpha-60: rgba(0, 0, 0, 0.6);
 $black-alpha-70: rgba(0, 0, 0, 0.7);
 $primary-alpha-10: rgba(30, 200, 91, 0.1);
 $primary-alpha-20: rgba(30, 200, 91, 0.2);
@@ -123,10 +132,15 @@ body {
 // Respetar preferencia de usuario para movimiento reducido
 @media (prefers-reduced-motion: reduce) {
   :root,
+  :root *,
   html,
+  html *,
   body,
-  * {
-    transition-duration: 0.01ms !important;
+  body * {
+    transition-duration: 0.01ms;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    scroll-behavior: auto;
   }
 }
 
@@ -211,6 +225,11 @@ body {
   --danger-light: #{$danger-light};
   --danger-hover: #{$danger-hover};
 
+  // Estados de partidos
+  --match-live: #{$match-live};
+  --match-postponed: #{$match-postponed};
+  --match-cancelled: #{$match-cancelled};
+
   // Colores auxiliares
   --white: #ffffff;
   --black: #000000;
@@ -222,6 +241,7 @@ body {
   --white-alpha-15: #{$white-alpha-15};
   --white-alpha-20: #{$white-alpha-20};
   --white-alpha-30: #{$white-alpha-30};
+  --white-alpha-40: #{$white-alpha-40};
   --white-alpha-60: #{$white-alpha-60};
   --white-alpha-70: #{$white-alpha-70};
   --white-alpha-80: #{$white-alpha-80};
@@ -229,6 +249,9 @@ body {
   --white-alpha-90: #{$white-alpha-90};
   --black-alpha-10: #{$black-alpha-10};
   --black-alpha-20: #{$black-alpha-20};
+  --black-alpha-40: #{$black-alpha-40};
+  --black-alpha-50: #{$black-alpha-50};
+  --black-alpha-60: #{$black-alpha-60};
   --black-alpha-70: #{$black-alpha-70};
   --primary-alpha-10: #{$primary-alpha-10};
   --primary-alpha-20: #{$primary-alpha-20};

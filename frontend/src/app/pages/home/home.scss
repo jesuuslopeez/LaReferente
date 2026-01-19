@@ -75,9 +75,9 @@
     inset: 0;
     background: linear-gradient(
       135deg,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(0, 0, 0, 0.4) 50%,
-      rgba(0, 0, 0, 0.6) 100%
+      var(--black-alpha-70) 0%,
+      var(--black-alpha-40) 50%,
+      var(--black-alpha-60) 100%
     );
   }
 
@@ -110,7 +110,7 @@
     font-weight: var(--font-bold);
     color: var(--white);
     margin: 0 0 var(--spacing-4);
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0.125rem 1.25rem var(--black-alpha-20);
 
     @media (max-width: $breakpoint-md) {
       font-size: var(--font-4xl);
@@ -123,7 +123,7 @@
 
   &__subtitle {
     font-size: var(--font-xl);
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--white-alpha-90);
     margin: 0 0 var(--spacing-6);
     max-width: 32rem;
     line-height: 1.5;
@@ -172,13 +172,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(8px);
+    background-color: var(--white-alpha-20);
+    backdrop-filter: blur(0.5rem);
     border: none;
     border-radius: var(--radius-full);
     color: var(--white);
     cursor: pointer;
-    transition: background-color 0.15s ease;
+    transition: background-color var(--duration-fast) var(--timing-ease-in-out);
     z-index: 10;
 
     svg {
@@ -187,7 +187,7 @@
     }
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.4);
+      background-color: var(--white-alpha-40);
     }
 
     &--prev {
@@ -223,14 +223,14 @@
   &__indicator {
     width: 2.5rem;
     height: 0.25rem;
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: var(--white-alpha-40);
     border: none;
     border-radius: var(--radius-full);
     cursor: pointer;
     transition: all var(--duration-fast);
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.7);
+      background-color: var(--white-alpha-70);
     }
 
     &--active {
@@ -303,7 +303,7 @@
   &--small {
     width: 1.5rem;
     height: 1.5rem;
-    border-width: 2px;
+    border-width: var(--border-medium);
   }
 }
 
@@ -398,7 +398,7 @@
     padding: var(--spacing-1) var(--spacing-3);
     background-color: var(--primary);
     color: var(--white);
-    font-size: 0.65rem;
+    font-size: var(--font-xs);
     font-weight: var(--font-bold);
     border-radius: var(--radius-sm);
     text-transform: uppercase;
@@ -671,7 +671,7 @@
   &__icon {
     width: 5rem;
     height: 5rem;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--white-alpha-20);
     border-radius: var(--radius-xl);
     display: flex;
     align-items: center;
@@ -713,7 +713,7 @@
 
   &__desc {
     font-size: var(--font-base);
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--white-alpha-85);
     margin: 0;
     line-height: 1.5;
 
