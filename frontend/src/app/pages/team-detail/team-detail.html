@@ -198,28 +198,48 @@
             </label>
             <label class="edit-form__field">
               <span class="edit-form__label">País</span>
-              <select
+              <input
+                type="text"
                 class="edit-form__input"
-                (change)="updateFormField('pais', $any($event.target).value)"
-                required
-              >
-                @for (p of paises; track p) {
-                  <option [value]="p" [selected]="editForm().pais === p">{{ p }}</option>
-                }
-              </select>
+                value="España"
+                disabled
+              />
             </label>
           </section>
 
           <section class="edit-form__row">
-            <label class="edit-form__field">
-              <span class="edit-form__label">Ciudad</span>
-              <input
-                type="text"
-                class="edit-form__input"
-                [value]="editForm().ciudad || ''"
-                (input)="updateFormField('ciudad', $any($event.target).value || undefined)"
-              />
-            </label>
+            <section class="edit-form__field edit-form__field--autocomplete">
+              <span class="edit-form__label">Ciudad / Municipio</span>
+              <section class="autocomplete">
+                <input
+                  type="text"
+                  class="edit-form__input"
+                  [class.edit-form__input--invalid]="!municipioValido() && municipioInput().length > 0"
+                  [value]="municipioInput()"
+                  (input)="onMunicipioInputChange($any($event.target).value)"
+                  (focus)="mostrarSugerencias()"
+                  (blur)="ocultarSugerencias()"
+                  placeholder="Buscar municipio..."
+                  autocomplete="off"
+                />
+                @if (showSugerencias() && municipioSugerencias().length > 0) {
+                  <ul class="autocomplete__list">
+                    @for (sug of municipioSugerencias(); track sug.municipio) {
+                      <li
+                        class="autocomplete__item"
+                        (mousedown)="seleccionarMunicipio(sug)"
+                      >
+                        <span class="autocomplete__municipio">{{ sug.municipio }}</span>
+                        <span class="autocomplete__provincia">{{ sug.provincia }}</span>
+                      </li>
+                    }
+                  </ul>
+                }
+              </section>
+              @if (!municipioValido() && municipioInput().length > 0) {
+                <span class="edit-form__hint edit-form__hint--error">Selecciona un municipio de la lista</span>
+              }
+            </section>
             <label class="edit-form__field">
               <span class="edit-form__label">Estadio</span>
               <input

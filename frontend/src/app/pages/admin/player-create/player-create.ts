@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { PlayerService } from '../../../core/services/player.service';
+import { PaisesService, Pais } from '../../../core/services/paises.service';
 import { ToastService } from '../../../shared/services/toast';
 import { PlayerPosition, AgeCategory } from '../../../core/models';
 import { ImageUpload } from '../../../components/shared/image-upload/image-upload';
@@ -16,8 +17,15 @@ import { TeamSearch } from '../../../components/shared/team-search/team-search';
 export class PlayerCreate {
   private fb = inject(FormBuilder);
   private playerService = inject(PlayerService);
+  private paisesService = inject(PaisesService);
   private toastService = inject(ToastService);
   private router = inject(Router);
+
+  // Autocompletado de países
+  paisSugerencias = signal<Pais[]>([]);
+  paisInput = signal<string>('España');
+  showPaisSugerencias = signal(false);
+  paisValido = signal(true);
 
   posiciones: { valor: PlayerPosition; texto: string }[] = [
     { valor: 'PORTERO', texto: 'Portero' },
@@ -53,6 +61,45 @@ export class PlayerCreate {
   });
 
   cargando = false;
+
+  // Métodos para autocompletado de países
+  onPaisInputChange(valor: string): void {
+    this.paisInput.set(valor);
+    this.paisValido.set(false);
+    this.form.patchValue({ nacionalidad: '' });
+
+    if (valor.length >= 1) {
+      this.paisesService.buscarPaises(valor).subscribe({
+        next: (sugerencias) => {
+          this.paisSugerencias.set(sugerencias);
+          this.showPaisSugerencias.set(sugerencias.length > 0);
+        },
+      });
+    } else {
+      this.paisSugerencias.set([]);
+      this.showPaisSugerencias.set(false);
+    }
+  }
+
+  seleccionarPais(pais: Pais): void {
+    this.paisInput.set(pais.es_name);
+    this.form.patchValue({ nacionalidad: pais.es_name });
+    this.paisValido.set(true);
+    this.showPaisSugerencias.set(false);
+    this.paisSugerencias.set([]);
+  }
+
+  ocultarPaisSugerencias(): void {
+    setTimeout(() => {
+      this.showPaisSugerencias.set(false);
+    }, 200);
+  }
+
+  mostrarPaisSugerencias(): void {
+    if (this.paisSugerencias().length > 0) {
+      this.showPaisSugerencias.set(true);
+    }
+  }
 
   get categoriaActual(): AgeCategory {
     return this.form.get('categoria')?.value || 'SENIOR';

@@ -200,18 +200,38 @@
                 required
               />
             </label>
-            <label class="edit-form__field">
+            <section class="edit-form__field edit-form__field--autocomplete">
               <span class="edit-form__label">Nacionalidad</span>
-              <select
-                class="edit-form__input"
-                (change)="updateFormField('nacionalidad', $any($event.target).value)"
-                required
-              >
-                @for (nac of nacionalidades; track nac) {
-                  <option [value]="nac" [selected]="editForm().nacionalidad === nac">{{ nac }}</option>
+              <section class="autocomplete">
+                <input
+                  type="text"
+                  class="edit-form__input"
+                  [class.edit-form__input--invalid]="!paisValido() && paisInput().length > 0"
+                  [value]="paisInput()"
+                  (input)="onPaisInputChange($any($event.target).value)"
+                  (focus)="mostrarPaisSugerencias()"
+                  (blur)="ocultarPaisSugerencias()"
+                  placeholder="Buscar país..."
+                  autocomplete="off"
+                />
+                @if (showPaisSugerencias() && paisSugerencias().length > 0) {
+                  <ul class="autocomplete__list">
+                    @for (pais of paisSugerencias(); track pais.es_name) {
+                      <li
+                        class="autocomplete__item"
+                        (mousedown)="seleccionarPais(pais)"
+                      >
+                        <span class="autocomplete__pais">{{ pais.es_name }}</span>
+                        <span class="autocomplete__pais-en">{{ pais.name }}</span>
+                      </li>
+                    }
+                  </ul>
                 }
-              </select>
-            </label>
+              </section>
+              @if (!paisValido() && paisInput().length > 0) {
+                <span class="edit-form__hint edit-form__hint--error">Selecciona un país de la lista</span>
+              }
+            </section>
           </section>
 
           <section class="edit-form__row">

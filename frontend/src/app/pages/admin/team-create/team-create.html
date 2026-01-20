@@ -58,30 +58,39 @@
     </section>
 
     <section class="admin-form__row">
-      <section class="admin-form__field">
-        <label for="pais" class="admin-form__label">País *</label>
-        <input
-          type="text"
-          id="pais"
-          formControlName="pais"
-          class="admin-form__input"
-          placeholder="Ej: España"
-        />
+      <section class="admin-form__field admin-form__field--autocomplete">
+        <label class="admin-form__label">Ciudad / Municipio</label>
+        <section class="autocomplete">
+          <input
+            type="text"
+            class="admin-form__input"
+            [class.admin-form__input--invalid]="!municipioValido() && municipioInput().length > 0"
+            [value]="municipioInput()"
+            (input)="onMunicipioInputChange($any($event.target).value)"
+            (focus)="mostrarSugerencias()"
+            (blur)="ocultarSugerencias()"
+            placeholder="Buscar municipio..."
+            autocomplete="off"
+          />
+          @if (showSugerencias() && municipioSugerencias().length > 0) {
+            <ul class="autocomplete__list">
+              @for (sug of municipioSugerencias(); track sug.municipio) {
+                <li
+                  class="autocomplete__item"
+                  (mousedown)="seleccionarMunicipio(sug)"
+                >
+                  <span class="autocomplete__municipio">{{ sug.municipio }}</span>
+                  <span class="autocomplete__provincia">{{ sug.provincia }}</span>
+                </li>
+              }
+            </ul>
+          }
+        </section>
+        @if (!municipioValido() && municipioInput().length > 0) {
+          <span class="admin-form__hint admin-form__hint--error">Selecciona un municipio de la lista</span>
+        }
       </section>
 
-      <section class="admin-form__field">
-        <label for="ciudad" class="admin-form__label">Ciudad</label>
-        <input
-          type="text"
-          id="ciudad"
-          formControlName="ciudad"
-          class="admin-form__input"
-          placeholder="Ej: Barcelona"
-        />
-      </section>
-    </section>
-
-    <section class="admin-form__row">
       <section class="admin-form__field">
         <label for="estadio" class="admin-form__label">Estadio</label>
         <input
@@ -92,17 +101,17 @@
           placeholder="Ej: Camp Nou"
         />
       </section>
+    </section>
 
-      <section class="admin-form__field">
-        <label for="fundacion" class="admin-form__label">Año de fundación</label>
-        <input
-          type="number"
-          id="fundacion"
-          formControlName="fundacion"
-          class="admin-form__input"
-          placeholder="Ej: 1899"
-        />
-      </section>
+    <section class="admin-form__field">
+      <label for="fundacion" class="admin-form__label">Año de fundación</label>
+      <input
+        type="number"
+        id="fundacion"
+        formControlName="fundacion"
+        class="admin-form__input"
+        placeholder="Ej: 1899"
+      />
     </section>
 
     <section class="admin-form__field">
@@ -123,6 +132,34 @@
         placeholder="Descripción del equipo..."
       ></textarea>
     </section>
+
+    <!-- Sección de Competiciones -->
+    <fieldset class="admin-form__fieldset">
+      <legend class="admin-form__legend">Competiciones</legend>
+      <p class="admin-form__hint">Solo puedes asignar una liga por equipo. Puedes asignar varias copas.</p>
+      <section class="admin-form__competitions">
+        @for (comp of getFilteredCompetitions(); track comp.id) {
+          <label
+            class="admin-form__competition-item"
+            [class.admin-form__competition-item--disabled]="isCompetitionDisabled(comp)"
+          >
+            <input
+              type="checkbox"
+              [checked]="isCompetitionSelected(comp.id)"
+              [disabled]="isCompetitionDisabled(comp)"
+              (change)="toggleCompetition(comp)"
+            />
+            <span class="admin-form__competition-name">{{ comp.nombre }}</span>
+            <span class="admin-form__competition-type" [class.admin-form__competition-type--copa]="comp.tipo === 'COPA'">
+              {{ comp.tipo === 'LIGA' ? 'Liga' : 'Copa' }}
+            </span>
+            <span class="admin-form__competition-season">{{ comp.temporada }}</span>
+          </label>
+        } @empty {
+          <p class="admin-form__no-competitions">No hay competiciones disponibles para la categoría {{ getCategoriaTexto(form.get('categoria')?.value) }}</p>
+        }
+      </section>
+    </fieldset>
 
     <section class="admin-form__field admin-form__field--checkbox">
       <label class="admin-form__checkbox-label">

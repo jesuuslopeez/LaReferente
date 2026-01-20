@@ -136,6 +136,27 @@
     color: var(--error);
   }
 
+  &__field--autocomplete {
+    position: relative;
+  }
+
+  &__input--invalid {
+    border-color: var(--error) !important;
+
+    &:focus {
+      box-shadow: 0 0 0 0.1875rem rgba(239, 68, 68, 0.1) !important;
+    }
+  }
+
+  &__hint {
+    font-size: var(--font-xs);
+    color: var(--text-secondary);
+
+    &--error {
+      color: var(--error);
+    }
+  }
+
   &__actions {
     display: flex;
     justify-content: flex-end;
@@ -182,5 +203,142 @@
         color: var(--text-color);
       }
     }
+  }
+
+  // Competiciones (fieldset)
+  &__fieldset {
+    border: var(--border-thin) solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-4);
+    margin: 0;
+  }
+
+  &__legend {
+    font-size: var(--font-sm);
+    font-weight: var(--font-semibold);
+    color: var(--text-color);
+    padding: 0 var(--spacing-2);
+  }
+
+  &__competitions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    max-height: 12rem;
+    overflow-y: auto;
+  }
+
+  &__competition-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color var(--duration-fast);
+
+    &:hover:not(&--disabled) {
+      background-color: var(--bg-secondary);
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    input {
+      width: 1rem;
+      height: 1rem;
+      accent-color: var(--primary);
+      cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__competition-name {
+    flex: 1;
+    font-size: var(--font-sm);
+    color: var(--text-color);
+  }
+
+  &__competition-type {
+    font-size: var(--font-xs);
+    color: var(--white);
+    background-color: var(--primary);
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--radius-sm);
+    font-weight: var(--font-medium);
+
+    &--copa {
+      background-color: var(--warning);
+    }
+  }
+
+  &__competition-season {
+    font-size: var(--font-xs);
+    color: var(--text-secondary);
+    background-color: var(--bg-secondary);
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--radius-sm);
+  }
+
+  &__no-competitions {
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    text-align: center;
+    padding: var(--spacing-4);
+  }
+}
+
+// Autocomplete
+.autocomplete {
+  position: relative;
+
+  &__list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: var(--white);
+    border: var(--border-thin) solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    max-height: 15rem;
+    overflow-y: auto;
+    margin: var(--spacing-1) 0 0;
+    padding: var(--spacing-1);
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-3);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color var(--duration-fast);
+
+    &:hover {
+      background-color: var(--primary-bg);
+    }
+  }
+
+  &__municipio {
+    font-size: var(--font-sm);
+    font-weight: var(--font-medium);
+    color: var(--text-color);
+  }
+
+  &__provincia {
+    font-size: var(--font-xs);
+    color: var(--text-secondary);
+    background-color: var(--bg-secondary);
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--radius-sm);
   }
 }

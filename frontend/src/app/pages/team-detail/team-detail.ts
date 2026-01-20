@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TeamService } from '../../core/services/team.service';
 import { PlayerService } from '../../core/services/player.service';
 import { CompetitionService } from '../../services/competition.service';
+import { MunicipiosService } from '../../core/services/municipios.service';
 import { AuthService } from '../../services/auth.service';
 import { Team, Player, AgeCategory, UpdateTeamDto, Competition, CompetitionType } from '../../core/models';
 import { PlayerCard } from '../../components/shared/player-card/player-card';
@@ -20,6 +21,7 @@ export class TeamDetail implements OnInit {
   private teamService = inject(TeamService);
   private playerService = inject(PlayerService);
   private competitionService = inject(CompetitionService);
+  private municipiosService = inject(MunicipiosService);
   authService = inject(AuthService);
 
   team = signal<Team | null>(null);
@@ -29,6 +31,12 @@ export class TeamDetail implements OnInit {
 
   // Competiciones disponibles para asignar
   availableCompetitions = signal<Competition[]>([]);
+
+  // Autocompletado de municipios
+  municipioSugerencias = signal<{ municipio: string; provincia: string }[]>([]);
+  municipioInput = signal<string>('');
+  showSugerencias = signal(false);
+  municipioValido = signal(true);
 
   // Estado del modal de edición
   showEditModal = signal(false);
@@ -50,11 +58,6 @@ export class TeamDetail implements OnInit {
     { value: 'PREBENJAMIN', label: 'Prebenjamín' },
   ];
 
-  paises: string[] = [
-    'España', 'Francia', 'Alemania', 'Italia', 'Portugal', 'Inglaterra',
-    'Brasil', 'Argentina', 'Países Bajos', 'Bélgica'
-  ];
-
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -72,6 +75,46 @@ export class TeamDetail implements OnInit {
         // Silently fail
       },
     });
+  }
+
+  // Métodos para autocompletado de municipios
+  onMunicipioInputChange(valor: string): void {
+    this.municipioInput.set(valor);
+    this.municipioValido.set(false);
+    this.updateFormField('ciudad', undefined);
+
+    if (valor.length >= 2) {
+      this.municipiosService.buscarMunicipios(valor).subscribe({
+        next: (sugerencias) => {
+          this.municipioSugerencias.set(sugerencias);
+          this.showSugerencias.set(sugerencias.length > 0);
+        },
+      });
+    } else {
+      this.municipioSugerencias.set([]);
+      this.showSugerencias.set(false);
+    }
+  }
+
+  seleccionarMunicipio(sugerencia: { municipio: string; provincia: string }): void {
+    this.municipioInput.set(sugerencia.municipio);
+    this.updateFormField('ciudad', sugerencia.municipio);
+    this.municipioValido.set(true);
+    this.showSugerencias.set(false);
+    this.municipioSugerencias.set([]);
+  }
+
+  ocultarSugerencias(): void {
+    // Pequeño delay para permitir el click en una sugerencia
+    setTimeout(() => {
+      this.showSugerencias.set(false);
+    }, 200);
+  }
+
+  mostrarSugerencias(): void {
+    if (this.municipioSugerencias().length > 0) {
+      this.showSugerencias.set(true);
+    }
   }
 
   @HostListener('document:keydown.escape')
@@ -124,6 +167,18 @@ export class TeamDetail implements OnInit {
       logoUrl: t.logoUrl ?? undefined,
       competicionIds: t.competicionIds ?? [],
     });
+
+    // Inicializar el input de municipio con la ciudad actual
+    if (t.ciudad) {
+      this.municipioInput.set(t.ciudad);
+      this.municipioValido.set(true);
+    } else {
+      this.municipioInput.set('');
+      this.municipioValido.set(true);
+    }
+    this.municipioSugerencias.set([]);
+    this.showSugerencias.set(false);
+
     this.saveError.set(null);
     this.showEditModal.set(true);
   }

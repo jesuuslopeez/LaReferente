@@ -54,15 +54,37 @@
         }
       </section>
 
-      <section class="admin-form__field">
-        <label for="nacionalidad" class="admin-form__label">Nacionalidad *</label>
-        <input
-          type="text"
-          id="nacionalidad"
-          formControlName="nacionalidad"
-          class="admin-form__input"
-          placeholder="Ej: España"
-        />
+      <section class="admin-form__field admin-form__field--autocomplete">
+        <label class="admin-form__label">Nacionalidad *</label>
+        <section class="autocomplete">
+          <input
+            type="text"
+            class="admin-form__input"
+            [class.admin-form__input--invalid]="!paisValido() && paisInput().length > 0"
+            [value]="paisInput()"
+            (input)="onPaisInputChange($any($event.target).value)"
+            (focus)="mostrarPaisSugerencias()"
+            (blur)="ocultarPaisSugerencias()"
+            placeholder="Buscar país..."
+            autocomplete="off"
+          />
+          @if (showPaisSugerencias() && paisSugerencias().length > 0) {
+            <ul class="autocomplete__list">
+              @for (pais of paisSugerencias(); track pais.es_name) {
+                <li
+                  class="autocomplete__item"
+                  (mousedown)="seleccionarPais(pais)"
+                >
+                  <span class="autocomplete__pais">{{ pais.es_name }}</span>
+                  <span class="autocomplete__pais-en">{{ pais.name }}</span>
+                </li>
+              }
+            </ul>
+          }
+        </section>
+        @if (!paisValido() && paisInput().length > 0) {
+          <span class="admin-form__hint admin-form__hint--error">Selecciona un país de la lista</span>
+        }
       </section>
     </section>
 

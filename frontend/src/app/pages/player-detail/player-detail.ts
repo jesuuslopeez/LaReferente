@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PlayerService } from '../../core/services/player.service';
 import { TeamService } from '../../core/services/team.service';
+import { PaisesService, Pais } from '../../core/services/paises.service';
 import { AuthService } from '../../services/auth.service';
 import { Player, Team, AgeCategory, PlayerPosition, UpdatePlayerDto } from '../../core/models';
 
@@ -17,6 +18,7 @@ export class PlayerDetail implements OnInit {
   private route = inject(ActivatedRoute);
   private playerService = inject(PlayerService);
   private teamService = inject(TeamService);
+  private paisesService = inject(PaisesService);
   authService = inject(AuthService);
 
   player = signal<Player | null>(null);
@@ -51,11 +53,11 @@ export class PlayerDetail implements OnInit {
     { value: 'PREBENJAMIN', label: 'Prebenjamín' },
   ];
 
-  nacionalidades: string[] = [
-    'España', 'Francia', 'Alemania', 'Italia', 'Portugal', 'Inglaterra',
-    'Brasil', 'Argentina', 'Uruguay', 'Colombia', 'Marruecos',
-    'Países Bajos', 'Bélgica', 'Croacia', 'Polonia', 'Georgia'
-  ];
+  // Autocompletado de países
+  paisSugerencias = signal<Pais[]>([]);
+  paisInput = signal<string>('');
+  showPaisSugerencias = signal(false);
+  paisValido = signal(true);
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -92,6 +94,45 @@ export class PlayerDetail implements OnInit {
     });
   }
 
+  // Métodos para autocompletado de países
+  onPaisInputChange(valor: string): void {
+    this.paisInput.set(valor);
+    this.paisValido.set(false);
+    this.updateFormField('nacionalidad', undefined);
+
+    if (valor.length >= 1) {
+      this.paisesService.buscarPaises(valor).subscribe({
+        next: (sugerencias) => {
+          this.paisSugerencias.set(sugerencias);
+          this.showPaisSugerencias.set(sugerencias.length > 0);
+        },
+      });
+    } else {
+      this.paisSugerencias.set([]);
+      this.showPaisSugerencias.set(false);
+    }
+  }
+
+  seleccionarPais(pais: Pais): void {
+    this.paisInput.set(pais.es_name);
+    this.updateFormField('nacionalidad', pais.es_name);
+    this.paisValido.set(true);
+    this.showPaisSugerencias.set(false);
+    this.paisSugerencias.set([]);
+  }
+
+  ocultarPaisSugerencias(): void {
+    setTimeout(() => {
+      this.showPaisSugerencias.set(false);
+    }, 200);
+  }
+
+  mostrarPaisSugerencias(): void {
+    if (this.paisSugerencias().length > 0) {
+      this.showPaisSugerencias.set(true);
+    }
+  }
+
   openEditModal(): void {
     const p = this.player();
     if (!p) return;
@@ -111,6 +152,18 @@ export class PlayerDetail implements OnInit {
       activo: p.activo,
       fotoUrl: p.fotoUrl ?? undefined,
     });
+
+    // Inicializar el input de país con la nacionalidad actual
+    if (p.nacionalidad) {
+      this.paisInput.set(p.nacionalidad);
+      this.paisValido.set(true);
+    } else {
+      this.paisInput.set('');
+      this.paisValido.set(true);
+    }
+    this.paisSugerencias.set([]);
+    this.showPaisSugerencias.set(false);
+
     this.saveError.set(null);
     this.showEditModal.set(true);
   }
