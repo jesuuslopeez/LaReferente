@@ -113,6 +113,7 @@ Nota: Necesitas tener PostgreSQL corriendo en localhost:5432 con una base de dat
 | `npm start` | Inicia servidor de desarrollo |
 | `npm run build` | Compila para produccion |
 | `npm test` | Ejecuta tests unitarios |
+| `npm test -- --code-coverage` | Tests con reporte de coverage |
 | `npm run watch` | Compila en modo watch |
 
 ### Backend
@@ -122,6 +123,36 @@ Nota: Necesitas tener PostgreSQL corriendo en localhost:5432 con una base de dat
 | `./gradlew bootRun` | Inicia servidor de desarrollo |
 | `./gradlew build` | Compila el proyecto |
 | `./gradlew test` | Ejecuta tests |
+
+## Testing
+
+### Cobertura de Tests
+
+El proyecto incluye tests unitarios y de integracion con un objetivo de coverage > 50%.
+
+```bash
+# Ejecutar tests con coverage
+cd frontend
+npm test -- --code-coverage
+```
+
+El reporte de coverage se genera en `frontend/coverage/frontend/index.html`.
+
+### Tipos de Tests
+
+| Tipo | Descripcion | Ubicacion |
+|------|-------------|-----------|
+| Unitarios - Servicios | Tests de servicios HTTP y estado | `*.service.spec.ts`, `*.store.spec.ts` |
+| Unitarios - Componentes | Tests de componentes UI | `*.spec.ts` en carpeta del componente |
+| Unitarios - Guards | Tests de guards de rutas | `guards/*.spec.ts` |
+| Integracion | Flujos completos (auth, CRUD, busqueda) | `testing/integration/*.spec.ts` |
+
+### Tests Implementados
+
+- **11 servicios** testeados (TeamService, PlayerService, NewsService, AuthService, etc.)
+- **10+ componentes** testeados (Cards, Toast, Loading, Login, Pages)
+- **2 guards** testeados (authGuard, editorGuard)
+- **4 flujos de integracion** (auth, CRUD noticias, busqueda/filtrado, notificaciones)
 
 ## Documentacion
 
@@ -141,6 +172,7 @@ Nota: Necesitas tener PostgreSQL corriendo en localhost:5432 con una base de dat
 | [Sistema de Rutas](docs/dwec/sistema-rutas.md) | Rutas con parametros, rutas hijas, lazy loading, guards y resolvers |
 | [Servicios HTTP](docs/dwec/servicios-http.md) | ApiService CRUD, interceptores, modelos tipados y patron RequestState |
 | [Gestion de Estado](docs/dwec/gestion-estado.md) | Stores con Signals, paginacion, busqueda con debounce y optimizaciones |
+| [Testing y Cross-Browser](docs/dwec/testing-cross-browser.md) | Tests unitarios, integracion, coverage y verificacion cross-browser |
 
 ## Paginas implementadas
 
