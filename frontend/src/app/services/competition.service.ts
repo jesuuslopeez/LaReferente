@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from '../core/services/api.service';
-import { Competition, CreateCompetitionDto, UpdateCompetitionDto } from '../core/models';
+import { Competition, CreateCompetitionDto, UpdateCompetitionDto, Team } from '../core/models';
 
 @Injectable({
   providedIn: 'root',
@@ -28,5 +28,9 @@ export class CompetitionService {
 
   delete(id: number): Observable<void> {
     return this.api.delete<void>(`${this.endpoint}/${id}`);
+  }
+
+  obtenerEquipos(id: number): Observable<Team[]> {
+    return this.api.get<Team[]>(`${this.endpoint}/${id}/teams`);
   }
 }

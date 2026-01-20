@@ -69,8 +69,8 @@ import { Component, signal, ElementRef, HostListener, ViewChild, Renderer2 } fro
       position: absolute;
       top: 100%;
       left: 0;
-      background: white;
-      border: 1px solid #ccc;
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
       list-style: none;
       padding: 0;
       margin: 0;

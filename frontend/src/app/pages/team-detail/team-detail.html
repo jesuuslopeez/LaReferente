@@ -253,6 +253,34 @@
             ></textarea>
           </label>
 
+          <!-- Sección de Competiciones -->
+          <fieldset class="edit-form__fieldset">
+            <legend class="edit-form__legend">Competiciones</legend>
+            <p class="edit-form__hint">Solo puedes asignar una liga por equipo. Puedes asignar varias copas.</p>
+            <section class="edit-form__competitions">
+              @for (comp of getFilteredCompetitions(); track comp.id) {
+                <label
+                  class="edit-form__competition-item"
+                  [class.edit-form__competition-item--disabled]="isCompetitionDisabled(comp)"
+                >
+                  <input
+                    type="checkbox"
+                    [checked]="isCompetitionSelected(comp.id)"
+                    [disabled]="isCompetitionDisabled(comp)"
+                    (change)="toggleCompetition(comp)"
+                  />
+                  <span class="edit-form__competition-name">{{ comp.nombre }}</span>
+                  <span class="edit-form__competition-type" [class.edit-form__competition-type--copa]="comp.tipo === 'COPA'">
+                    {{ comp.tipo === 'LIGA' ? 'Liga' : 'Copa' }}
+                  </span>
+                  <span class="edit-form__competition-season">{{ comp.temporada }}</span>
+                </label>
+              } @empty {
+                <p class="edit-form__no-competitions">No hay competiciones disponibles para la categoría {{ getCategoriaTexto(team()!.categoria) }}</p>
+              }
+            </section>
+          </fieldset>
+
           <label class="edit-form__checkbox">
             <input
               type="checkbox"

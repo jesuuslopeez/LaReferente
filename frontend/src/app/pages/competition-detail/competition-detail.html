@@ -123,6 +123,33 @@
     </section>
   }
 
+  <!-- Equipos participantes -->
+  <section class="comp-detail__teams-section">
+    <h2 class="comp-detail__section-title">Equipos participantes</h2>
+
+    @if (loadingEquipos()) {
+      <p class="comp-detail__loading">Cargando equipos...</p>
+    } @else if (equipos().length === 0) {
+      <p class="comp-detail__empty">No hay equipos registrados en esta competición</p>
+    } @else {
+      <section class="comp-detail__teams-grid">
+        @for (equipo of equipos(); track equipo.id) {
+          <app-team-card
+            [id]="equipo.id"
+            [nombre]="equipo.nombre"
+            [nombreCompleto]="equipo.nombreCompleto"
+            [categoria]="equipo.categoria"
+            [letra]="equipo.letra"
+            [ciudad]="equipo.ciudad"
+            [estadio]="equipo.estadio"
+            [fundacion]="equipo.fundacion"
+            [logoUrl]="equipo.logoUrl"
+          />
+        }
+      </section>
+    }
+  </section>
+
   <!-- Outlet para rutas hijas -->
   <router-outlet></router-outlet>
 </section>

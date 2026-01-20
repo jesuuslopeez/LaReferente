@@ -629,4 +629,97 @@
       background-color: var(--gray100);
     }
   }
+
+  &__fieldset {
+    border: var(--border-thin) solid var(--gray200);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-4);
+    margin: 0;
+  }
+
+  &__legend {
+    font-size: var(--font-sm);
+    font-weight: var(--font-semibold);
+    color: var(--gray700);
+    padding: 0 var(--spacing-2);
+  }
+
+  &__competitions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    max-height: 12rem;
+    overflow-y: auto;
+  }
+
+  &__hint {
+    font-size: var(--font-xs);
+    color: var(--gray500);
+    margin: 0 0 var(--spacing-3);
+    font-style: italic;
+  }
+
+  &__competition-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color var(--duration-fast);
+
+    &:hover:not(&--disabled) {
+      background-color: var(--gray50);
+    }
+
+    &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    input {
+      width: 1rem;
+      height: 1rem;
+      accent-color: var(--primary);
+      cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__competition-name {
+    flex: 1;
+    font-size: var(--font-sm);
+    color: var(--gray800);
+  }
+
+  &__competition-type {
+    font-size: var(--font-xs);
+    color: var(--white);
+    background-color: var(--primary);
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--radius-sm);
+    font-weight: var(--font-medium);
+
+    &--copa {
+      background-color: var(--warning);
+    }
+  }
+
+  &__competition-season {
+    font-size: var(--font-xs);
+    color: var(--gray500);
+    background-color: var(--gray100);
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--radius-sm);
+  }
+
+  &__no-competitions {
+    font-size: var(--font-sm);
+    color: var(--gray500);
+    text-align: center;
+    padding: var(--spacing-4);
+  }
 }

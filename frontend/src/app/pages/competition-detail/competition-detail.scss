@@ -331,6 +331,32 @@
       margin: 0;
     }
   }
+
+  // Teams section
+  &__teams-section {
+    margin-bottom: var(--spacing-8);
+  }
+
+  &__teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: var(--spacing-6);
+
+    @media (max-width: $breakpoint-sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__loading,
+  &__empty {
+    text-align: center;
+    padding: var(--spacing-8);
+    color: var(--text-secondary);
+    font-size: var(--font-base);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    border: var(--border-thin) dashed var(--border-color);
+  }
 }
 
 // Modal de edición

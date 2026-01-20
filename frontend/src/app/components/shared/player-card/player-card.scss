@@ -163,6 +163,11 @@
     flex-shrink: 0;
   }
 
+  &__no-team {
+    color: var(--white-alpha-70);
+    font-style: italic;
+  }
+
   // Acciones - Mismo estilo que team-card
   &__actions {
     display: flex;

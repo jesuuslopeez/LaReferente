@@ -1,8 +1,11 @@
 package lareferente.backend.service;
 
 import lareferente.backend.dto.CompetitionDTO;
+import lareferente.backend.dto.TeamDTO;
 import lareferente.backend.model.Competition;
+import lareferente.backend.model.Team;
 import lareferente.backend.repository.CompetitionRepository;
+import lareferente.backend.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +17,9 @@ public class CompetitionService {
 
     @Autowired
     private CompetitionRepository competitionRepository;
+
+    @Autowired
+    private MatchRepository matchRepository;
 
     public List<CompetitionDTO> getAllCompetitions() {
         return competitionRepository.findAll().stream()
@@ -79,6 +85,15 @@ public class CompetitionService {
         competitionRepository.save(competition);
     }
 
+    public List<TeamDTO> getTeamsByCompetition(Long competitionId) {
+        Competition competition = competitionRepository.findById(competitionId)
+                .orElseThrow(() -> new RuntimeException("Competición no encontrada con ID: " + competitionId));
+
+        return competition.getEquipos().stream()
+                .map(this::convertTeamToDTO)
+                .collect(Collectors.toList());
+    }
+
     private CompetitionDTO convertToDTO(Competition competition) {
         CompetitionDTO dto = new CompetitionDTO();
         dto.setId(competition.getId());
@@ -94,6 +109,23 @@ public class CompetitionService {
         dto.setFechaInicio(competition.getFechaInicio());
         dto.setFechaFin(competition.getFechaFin());
         dto.setActiva(competition.getActiva());
+        return dto;
+    }
+
+    private TeamDTO convertTeamToDTO(Team team) {
+        TeamDTO dto = new TeamDTO();
+        dto.setId(team.getId());
+        dto.setNombre(team.getNombre());
+        dto.setNombreCompleto(team.getNombreCompleto());
+        dto.setCategoria(team.getCategoria());
+        dto.setLetra(team.getLetra());
+        dto.setPais(team.getPais());
+        dto.setCiudad(team.getCiudad());
+        dto.setEstadio(team.getEstadio());
+        dto.setFundacion(team.getFundacion());
+        dto.setLogoUrl(team.getLogoUrl());
+        dto.setDescripcion(team.getDescripcion());
+        dto.setActivo(team.getActivo());
         return dto;
     }
 }

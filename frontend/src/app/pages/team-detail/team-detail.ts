@@ -3,8 +3,9 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TeamService } from '../../core/services/team.service';
 import { PlayerService } from '../../core/services/player.service';
+import { CompetitionService } from '../../services/competition.service';
 import { AuthService } from '../../services/auth.service';
-import { Team, Player, AgeCategory, UpdateTeamDto } from '../../core/models';
+import { Team, Player, AgeCategory, UpdateTeamDto, Competition, CompetitionType } from '../../core/models';
 import { PlayerCard } from '../../components/shared/player-card/player-card';
 
 @Component({
@@ -18,12 +19,16 @@ export class TeamDetail implements OnInit {
   private route = inject(ActivatedRoute);
   private teamService = inject(TeamService);
   private playerService = inject(PlayerService);
+  private competitionService = inject(CompetitionService);
   authService = inject(AuthService);
 
   team = signal<Team | null>(null);
   players = signal<Player[]>([]);
   loading = signal(true);
   error = signal<string | null>(null);
+
+  // Competiciones disponibles para asignar
+  availableCompetitions = signal<Competition[]>([]);
 
   // Estado del modal de edición
   showEditModal = signal(false);
@@ -55,6 +60,18 @@ export class TeamDetail implements OnInit {
     if (id) {
       this.loadTeam(+id);
     }
+    this.loadCompetitions();
+  }
+
+  private loadCompetitions(): void {
+    this.competitionService.obtenerTodas().subscribe({
+      next: (competitions) => {
+        this.availableCompetitions.set(competitions);
+      },
+      error: () => {
+        // Silently fail
+      },
+    });
   }
 
   @HostListener('document:keydown.escape')
@@ -105,9 +122,54 @@ export class TeamDetail implements OnInit {
       descripcion: t.descripcion ?? undefined,
       activo: t.activo,
       logoUrl: t.logoUrl ?? undefined,
+      competicionIds: t.competicionIds ?? [],
     });
     this.saveError.set(null);
     this.showEditModal.set(true);
+  }
+
+  // Obtener competiciones filtradas por categoría del equipo
+  getFilteredCompetitions(): Competition[] {
+    const t = this.team();
+    if (!t) return [];
+    return this.availableCompetitions().filter(c => c.categoria === t.categoria);
+  }
+
+  // Verificar si ya hay una liga seleccionada
+  private hasLeagueSelected(): boolean {
+    const currentIds = this.editForm().competicionIds ?? [];
+    return this.availableCompetitions().some(
+      c => currentIds.includes(c.id) && c.tipo === 'LIGA'
+    );
+  }
+
+  // Verificar si una competición está deshabilitada (es liga y ya hay otra liga seleccionada)
+  isCompetitionDisabled(competition: Competition): boolean {
+    if (competition.tipo !== 'LIGA') return false;
+    const currentIds = this.editForm().competicionIds ?? [];
+    // Si esta liga ya está seleccionada, no está deshabilitada
+    if (currentIds.includes(competition.id)) return false;
+    // Si hay otra liga seleccionada, esta está deshabilitada
+    return this.hasLeagueSelected();
+  }
+
+  toggleCompetition(competition: Competition): void {
+    // No permitir toggle si está deshabilitada
+    if (this.isCompetitionDisabled(competition)) return;
+
+    const currentIds = this.editForm().competicionIds ?? [];
+    const index = currentIds.indexOf(competition.id);
+    if (index > -1) {
+      // Remove
+      this.updateFormField('competicionIds', currentIds.filter(id => id !== competition.id));
+    } else {
+      // Add
+      this.updateFormField('competicionIds', [...currentIds, competition.id]);
+    }
+  }
+
+  isCompetitionSelected(competitionId: number): boolean {
+    return (this.editForm().competicionIds ?? []).includes(competitionId);
   }
 
   closeEditModal(): void {

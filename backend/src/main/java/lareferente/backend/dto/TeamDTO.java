@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,4 +23,5 @@ public class TeamDTO {
     private String logoUrl;
     private String descripcion;
     private Boolean activo;
+    private List<Long> competicionIds;
 }

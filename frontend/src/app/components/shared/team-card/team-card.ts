@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AgeCategory } from '../../../core/models';
 
 @Component({
   selector: 'app-team-card',
@@ -16,6 +17,8 @@ export class TeamCard {
   estadio = input<string>();
   fundacion = input<number>();
   pais = input<string>();
+  categoria = input<AgeCategory>();
+  letra = input<string | null>();
 
   get logoSrc(): string {
     return this.logoUrl() || 'assets/images/teams/default-team.webp';

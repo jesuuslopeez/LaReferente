@@ -6,10 +6,14 @@ import lareferente.backend.enums.CompetitionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "competiciones")
@@ -63,4 +67,9 @@ public class Competition {
     @CreationTimestamp
     @Column(name = "fecha_creacion", nullable = false, updatable = false)
     private LocalDateTime fechaCreacion;
+
+    @ManyToMany(mappedBy = "competiciones")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Team> equipos = new HashSet<>();
 }

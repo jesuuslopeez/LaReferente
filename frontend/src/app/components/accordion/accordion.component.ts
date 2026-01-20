@@ -56,12 +56,12 @@ interface AccordionItem {
   `,
   styles: [`
     .accordion {
-      border: 1px solid #e0e0e0;
+      border: 1px solid var(--border-color);
       border-radius: 8px;
       overflow: hidden;
     }
     .accordion__item {
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid var(--border-color);
     }
     .accordion__item:last-child {
       border-bottom: none;
@@ -81,14 +81,14 @@ interface AccordionItem {
       transition: background-color 0.2s;
     }
     .accordion__header:hover {
-      background-color: #f5f5f5;
+      background-color: var(--bg-hover);
     }
     .accordion__header:focus {
-      outline: 2px solid var(--primary, #3b82f6);
+      outline: 2px solid var(--primary);
       outline-offset: -2px;
     }
     .accordion__header--open {
-      background-color: #f0f0f0;
+      background-color: var(--bg-secondary);
     }
     .accordion__icon {
       transition: transform 0.3s ease;
@@ -107,7 +107,7 @@ interface AccordionItem {
     .accordion__content {
       padding: 16px 20px;
       margin: 0;
-      color: #666;
+      color: var(--text-secondary);
       line-height: 1.6;
     }
   `]

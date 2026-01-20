@@ -1,21 +1,26 @@
-import { Component, inject, signal, HostListener } from '@angular/core';
+import { Component, inject, signal, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Competition, UpdateCompetitionDto, CompetitionType, AgeCategory } from '../../core/models';
+import { Competition, UpdateCompetitionDto, CompetitionType, AgeCategory, Team } from '../../core/models';
 import { CompetitionService } from '../../services/competition.service';
 import { AuthService } from '../../services/auth.service';
+import { TeamCard } from '../../components/shared/team-card/team-card';
 
 @Component({
   selector: 'app-competition-detail',
-  imports: [RouterLink, RouterOutlet, FormsModule],
+  imports: [RouterLink, RouterOutlet, FormsModule, TeamCard],
   templateUrl: './competition-detail.html',
   styleUrl: './competition-detail.scss',
 })
-export class CompetitionDetail {
+export class CompetitionDetail implements OnInit {
   private competitionService = inject(CompetitionService);
   authService = inject(AuthService);
 
   competicion: Competition;
+
+  // Equipos de la competición
+  equipos = signal<Team[]>([]);
+  loadingEquipos = signal(false);
 
   // Estado del modal de edición
   showEditModal = signal(false);
@@ -49,6 +54,25 @@ export class CompetitionDetail {
 
   constructor(private route: ActivatedRoute) {
     this.competicion = this.route.snapshot.data['competicion'];
+  }
+
+  ngOnInit(): void {
+    this.cargarEquipos();
+  }
+
+  cargarEquipos(): void {
+    if (!this.competicion) return;
+
+    this.loadingEquipos.set(true);
+    this.competitionService.obtenerEquipos(this.competicion.id).subscribe({
+      next: (equipos) => {
+        this.equipos.set(equipos);
+        this.loadingEquipos.set(false);
+      },
+      error: () => {
+        this.loadingEquipos.set(false);
+      },
+    });
   }
 
   @HostListener('document:keydown.escape')

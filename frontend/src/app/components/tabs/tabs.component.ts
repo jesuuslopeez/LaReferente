@@ -98,7 +98,7 @@ const TABS: TabId[] = ['detalles', 'especificaciones', 'opiniones'];
     .tabs-nav {
       display: flex;
       gap: 10px;
-      border-bottom: 2px solid #e0e0e0;
+      border-bottom: 2px solid var(--border-color);
       margin-bottom: 20px;
     }
     .tabs-nav button {
@@ -110,12 +110,12 @@ const TABS: TabId[] = ['detalles', 'especificaciones', 'opiniones'];
       margin-bottom: -2px;
     }
     .tabs-nav button:focus {
-      outline: 2px solid var(--primary, #3b82f6);
+      outline: 2px solid var(--primary);
       outline-offset: 2px;
     }
     .tabs-nav button.active {
-      border-bottom-color: var(--primary, #3b82f6);
-      color: var(--primary, #3b82f6);
+      border-bottom-color: var(--primary);
+      color: var(--primary);
       font-weight: 600;
     }
     .tabs-content {

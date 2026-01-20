@@ -7,104 +7,123 @@
 // ---------------------------------------------------------------------------
 // COLORES SCSS (para interpolacion en :root)
 // NO CREAR NUEVAS - usar solo las existentes
+// Todos los colores en formato HSL/HSLA
 // ---------------------------------------------------------------------------
-$primary-light: #388e3c;
-$primary-hover-light: #328036;
-$primary-active-light: #2d7230;
 
-$secondary-light: #039be5;
-$secondary-hover-light: #038cce;
-$secondary-active-light: #027cb7;
+// Colores primarios - Tema claro (verde)
+$primary-light: hsl(122, 43%, 39%);
+$primary-hover-light: hsl(122, 43%, 35%);
+$primary-active-light: hsl(122, 43%, 32%);
 
-$primary-dark: #2a6b2d;
-$primary-hover-dark: #225524;
-$primary-active-dark: #19401b;
+// Colores secundarios - Tema claro (azul)
+$secondary-light: hsl(199, 98%, 45%);
+$secondary-hover-light: hsl(199, 98%, 41%);
+$secondary-active-light: hsl(199, 98%, 36%);
 
-$secondary-dark: #0274ac;
-$secondary-hover-dark: #025d89;
-$secondary-active-dark: #014667;
+// Colores primarios - Tema oscuro (verde oscuro)
+$primary-dark: hsl(123, 43%, 30%);
+$primary-hover-dark: hsl(123, 43%, 24%);
+$primary-active-dark: hsl(123, 43%, 17%);
 
-$gray50: #f5f5f5;
-$gray100: #e8e8e8;
-$gray200: #cfcfcf;
-$gray300: #b6b6b6;
-$gray400: #9e9e9e;
-$gray500: #858585;
-$gray600: #6b6b6b;
-$gray700: #525252;
-$gray800: #3b3b3b;
-$gray900: #222222;
+// Colores secundarios - Tema oscuro (azul oscuro)
+$secondary-dark: hsl(199, 98%, 34%);
+$secondary-hover-dark: hsl(199, 98%, 27%);
+$secondary-active-dark: hsl(199, 98%, 21%);
 
-$bg-primary-light: #ffffff;
+// Escala de grises
+$gray50: hsl(0, 0%, 96%);
+$gray100: hsl(0, 0%, 91%);
+$gray200: hsl(0, 0%, 81%);
+$gray300: hsl(0, 0%, 71%);
+$gray400: hsl(0, 0%, 62%);
+$gray500: hsl(0, 0%, 52%);
+$gray600: hsl(0, 0%, 42%);
+$gray700: hsl(0, 0%, 32%);
+$gray800: hsl(0, 0%, 23%);
+$gray900: hsl(0, 0%, 13%);
+
+// Fondos y textos - Tema claro
+$bg-primary-light: hsl(0, 0%, 100%);
 $bg-secondary-light: $gray50;
 $text-primary-light: $gray900;
 $text-secondary-light: $gray600;
 $border-color-light: $gray200;
 $bg-hover-light: $gray50;
 
+// Fondos y textos - Tema oscuro
 $bg-primary-dark: $gray900;
 $bg-secondary-dark: $gray800;
-$text-primary-dark: #ffffff;
+$text-primary-dark: hsl(0, 0%, 100%);
 $text-secondary-dark: $gray300;
 $border-color-dark: $gray700;
 $bg-hover-dark: $gray800;
 
-$success: #2ecc71;
-$success-bg: #eafaf1;
-$success-text: #1d8348;
+// Colores semánticos - Success (verde)
+$success: hsl(145, 63%, 49%);
+$success-bg: hsl(145, 63%, 95%);
+$success-text: hsl(145, 63%, 32%);
 
-$error: #c0392b;
-$error-bg: #fdf2f0;
-$error-text: #922b21;
+// Colores semánticos - Error (rojo)
+$error: hsl(6, 63%, 46%);
+$error-bg: hsl(6, 63%, 97%);
+$error-text: hsl(6, 63%, 35%);
 
-$warning: #f39c12;
-$warning-bg: #fef5e7;
-$warning-text: #9c640c;
+// Colores semánticos - Warning (naranja/amarillo)
+$warning: hsl(37, 90%, 51%);
+$warning-bg: hsl(37, 90%, 95%);
+$warning-text: hsl(37, 90%, 33%);
 
-$info: #34495e;
-$info-bg: #ebedef;
-$info-text: #212f3c;
+// Colores semánticos - Info (azul grisáceo)
+$info: hsl(210, 29%, 29%);
+$info-bg: hsl(210, 14%, 93%);
+$info-text: hsl(210, 29%, 18%);
 
-$danger: #dc2626;
-$danger-bg: #fee2e2;
-$danger-text: #991b1b;
-$danger-border: #fecaca;
-$danger-light: #fca5a5;
-$danger-hover: #ef4444;
+// Colores semánticos - Danger (rojo intenso)
+$danger: hsl(0, 72%, 51%);
+$danger-bg: hsl(0, 86%, 94%);
+$danger-text: hsl(0, 72%, 35%);
+$danger-border: hsl(0, 96%, 89%);
+$danger-light: hsl(0, 94%, 82%);
+$danger-hover: hsl(0, 84%, 60%);
 
 // Estados de partidos
-$match-live: #2ecc71;
-$match-postponed: #f39c12;
-$match-cancelled: #e74c3c;
+$match-live: hsl(145, 63%, 49%);
+$match-postponed: hsl(37, 90%, 51%);
+$match-cancelled: hsl(6, 78%, 57%);
 
-$overlay-bg: rgba(0, 0, 0, 0.5);
-$white-alpha-5: rgba(255, 255, 255, 0.05);
-$white-alpha-10: rgba(255, 255, 255, 0.1);
-$white-alpha-15: rgba(255, 255, 255, 0.15);
-$white-alpha-20: rgba(255, 255, 255, 0.2);
-$white-alpha-30: rgba(255, 255, 255, 0.3);
-$white-alpha-40: rgba(255, 255, 255, 0.4);
-$white-alpha-60: rgba(255, 255, 255, 0.6);
-$white-alpha-70: rgba(255, 255, 255, 0.7);
-$white-alpha-80: rgba(255, 255, 255, 0.8);
-$white-alpha-85: rgba(255, 255, 255, 0.85);
-$white-alpha-90: rgba(255, 255, 255, 0.9);
-$black-alpha-10: rgba(0, 0, 0, 0.1);
-$black-alpha-20: rgba(0, 0, 0, 0.2);
-$black-alpha-40: rgba(0, 0, 0, 0.4);
-$black-alpha-50: rgba(0, 0, 0, 0.5);
-$black-alpha-60: rgba(0, 0, 0, 0.6);
-$black-alpha-70: rgba(0, 0, 0, 0.7);
-$primary-alpha-10: rgba(30, 200, 91, 0.1);
-$primary-alpha-20: rgba(30, 200, 91, 0.2);
-$focus-ring-primary: rgba(34, 139, 34, 0.2);
-$focus-ring-blue: rgba(0, 123, 255, 0.1);
-$focus-ring-red: rgba(244, 67, 54, 0.1);
-$focus-ring-green: rgba(76, 175, 80, 0.1);
-$success-alpha-15: rgba(46, 204, 113, 0.15);
-$error-alpha-15: rgba(192, 57, 43, 0.15);
-$warning-alpha-15: rgba(243, 156, 18, 0.15);
-$info-alpha-15: rgba(52, 73, 94, 0.15);
+// Tooltip
+$tooltip-bg: hsl(0, 0%, 20%);
+$tooltip-text: hsl(0, 0%, 100%);
+
+// Colores con transparencia (HSLA)
+$overlay-bg: hsla(0, 0%, 0%, 0.5);
+$white-alpha-5: hsla(0, 0%, 100%, 0.05);
+$white-alpha-10: hsla(0, 0%, 100%, 0.1);
+$white-alpha-15: hsla(0, 0%, 100%, 0.15);
+$white-alpha-20: hsla(0, 0%, 100%, 0.2);
+$white-alpha-30: hsla(0, 0%, 100%, 0.3);
+$white-alpha-40: hsla(0, 0%, 100%, 0.4);
+$white-alpha-60: hsla(0, 0%, 100%, 0.6);
+$white-alpha-70: hsla(0, 0%, 100%, 0.7);
+$white-alpha-80: hsla(0, 0%, 100%, 0.8);
+$white-alpha-85: hsla(0, 0%, 100%, 0.85);
+$white-alpha-90: hsla(0, 0%, 100%, 0.9);
+$black-alpha-10: hsla(0, 0%, 0%, 0.1);
+$black-alpha-20: hsla(0, 0%, 0%, 0.2);
+$black-alpha-40: hsla(0, 0%, 0%, 0.4);
+$black-alpha-50: hsla(0, 0%, 0%, 0.5);
+$black-alpha-60: hsla(0, 0%, 0%, 0.6);
+$black-alpha-70: hsla(0, 0%, 0%, 0.7);
+$primary-alpha-10: hsla(145, 74%, 45%, 0.1);
+$primary-alpha-20: hsla(145, 74%, 45%, 0.2);
+$focus-ring-primary: hsla(120, 61%, 34%, 0.2);
+$focus-ring-blue: hsla(211, 100%, 50%, 0.1);
+$focus-ring-red: hsla(4, 90%, 58%, 0.1);
+$focus-ring-green: hsla(122, 39%, 49%, 0.1);
+$success-alpha-15: hsla(145, 63%, 49%, 0.15);
+$error-alpha-15: hsla(6, 63%, 46%, 0.15);
+$warning-alpha-15: hsla(37, 90%, 51%, 0.15);
+$info-alpha-15: hsla(210, 29%, 29%, 0.15);
 
 $z-toast: 200;
 $z-modal: 150;
@@ -230,9 +249,13 @@ body {
   --match-postponed: #{$match-postponed};
   --match-cancelled: #{$match-cancelled};
 
+  // Tooltip
+  --tooltip-bg: #{$tooltip-bg};
+  --tooltip-text: #{$tooltip-text};
+
   // Colores auxiliares
-  --white: #ffffff;
-  --black: #000000;
+  --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 0%);
   --overlay-bg: #{$overlay-bg};
 
   // Colores con transparencia
@@ -332,10 +355,10 @@ body {
   // ---------------------------------------------------------------------------
   // SOMBRAS (puedes crear nuevas si son necesarias)
   // ---------------------------------------------------------------------------
-  --shadow-sm: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 0.625rem 0.9375rem -0.1875rem rgba(0, 0, 0, 0.1), 0 0.25rem 0.375rem -0.125rem rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 1.25rem 1.5625rem -0.3125rem rgba(0, 0, 0, 0.1), 0 0.625rem 0.625rem -0.3125rem rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 0.0625rem 0.125rem 0 hsla(0, 0%, 0%, 0.05);
+  --shadow-md: 0 0.25rem 0.375rem -0.0625rem hsla(0, 0%, 0%, 0.1), 0 0.125rem 0.25rem -0.0625rem hsla(0, 0%, 0%, 0.06);
+  --shadow-lg: 0 0.625rem 0.9375rem -0.1875rem hsla(0, 0%, 0%, 0.1), 0 0.25rem 0.375rem -0.125rem hsla(0, 0%, 0%, 0.05);
+  --shadow-xl: 0 1.25rem 1.5625rem -0.3125rem hsla(0, 0%, 0%, 0.1), 0 0.625rem 0.625rem -0.3125rem hsla(0, 0%, 0%, 0.04);
 
   // ---------------------------------------------------------------------------
   // BORDES Y RADIOS (puedes crear nuevos si son necesarios)

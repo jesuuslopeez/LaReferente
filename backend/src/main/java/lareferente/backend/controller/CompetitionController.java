@@ -1,6 +1,7 @@
 package lareferente.backend.controller;
 
 import lareferente.backend.dto.CompetitionDTO;
+import lareferente.backend.dto.TeamDTO;
 import lareferente.backend.service.CompetitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,11 @@ public class CompetitionController {
     @GetMapping("/{id}")
     public ResponseEntity<CompetitionDTO> getCompetitionById(@PathVariable Long id) {
         return ResponseEntity.ok(competitionService.getCompetitionById(id));
+    }
+
+    @GetMapping("/{id}/teams")
+    public ResponseEntity<List<TeamDTO>> getTeamsByCompetition(@PathVariable Long id) {
+        return ResponseEntity.ok(competitionService.getTeamsByCompetition(id));
     }
 
     @PostMapping

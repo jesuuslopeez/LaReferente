@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 4200
 
-CMD ["npm", "start", "--", "--host", "0.0.0.0", "--poll"]
+CMD ["npm", "start", "--", "--host", "0.0.0.0", "--poll", "--proxy-config", "proxy.conf.json"]

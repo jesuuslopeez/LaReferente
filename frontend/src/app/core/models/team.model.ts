@@ -16,6 +16,7 @@ export interface Team {
   logoUrl: string | null;
   descripcion: string | null;
   activo: boolean;
+  competicionIds?: number[];
 }
 
 /**
@@ -33,6 +34,7 @@ export interface CreateTeamDto {
   logoUrl?: string;
   descripcion?: string;
   activo?: boolean;
+  competicionIds?: number[];
 }
 
 /**

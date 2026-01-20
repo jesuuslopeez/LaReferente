@@ -30,6 +30,11 @@
           />
           <span>{{ equipoNombre() }}</span>
         </article>
+      } @else {
+        <!-- Placeholder cuando no hay equipo para mantener el grid alineado -->
+        <article class="player-card__info-item">
+          <span class="player-card__no-team">Sin equipo</span>
+        </article>
       }
 
       @if (nacionalidad()) {

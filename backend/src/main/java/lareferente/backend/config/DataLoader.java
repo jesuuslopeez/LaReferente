@@ -28,7 +28,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -111,6 +113,15 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void loadTeams() {
+        // Obtener competiciones para asignar
+        List<Competition> competitions = competitionRepository.findAll();
+        Competition laliga = competitions.stream()
+            .filter(c -> c.getNombre().equals("LaLiga"))
+            .findFirst().orElse(null);
+        Competition segundaRfef = competitions.stream()
+            .filter(c -> c.getNombre().equals("Segunda RFEF G4"))
+            .findFirst().orElse(null);
+
         List<Team> teams = List.of(
             createTeam("Real Madrid", "Real Madrid Club de Fútbol", "España", "Madrid", "Santiago Bernabéu", 1902),
             createTeam("Barcelona", "Fútbol Club Barcelona", "España", "Barcelona", "Spotify Camp Nou", 1899),
@@ -127,8 +138,22 @@ public class DataLoader implements CommandLineRunner {
             createTeam("Xerez", "Xerez Club Deportivo", "España", "Jerez de la Frontera", "Municipal de Chapín", 1947)
         );
         List<Team> saved = teamRepository.saveAll(teams);
-        // Actualizar URLs con IDs generados
-        saved.forEach(t -> t.setLogoUrl("assets/images/teams/medium/" + t.getId() + ".webp"));
+
+        // Asignar competiciones: todos menos Xerez a LaLiga, Xerez a Segunda RFEF
+        for (Team team : saved) {
+            team.setLogoUrl("assets/images/teams/medium/" + team.getId() + ".webp");
+            Set<Competition> competiciones = new HashSet<>();
+            if (team.getNombre().equals("Xerez")) {
+                if (segundaRfef != null) {
+                    competiciones.add(segundaRfef);
+                }
+            } else {
+                if (laliga != null) {
+                    competiciones.add(laliga);
+                }
+            }
+            team.setCompeticiones(competiciones);
+        }
         teamRepository.saveAll(saved);
         log.info("Cargados {} equipos", saved.size());
     }

@@ -2,6 +2,7 @@ package lareferente.backend.repository;
 
 import lareferente.backend.enums.MatchStatus;
 import lareferente.backend.model.Match;
+import lareferente.backend.model.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -46,4 +47,9 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     // Contar victorias de un equipo
     @Query("SELECT COUNT(m) FROM Match m WHERE ((m.equipoLocal.id = :equipoId AND m.golesLocal > m.golesVisitante) OR (m.equipoVisitante.id = :equipoId AND m.golesVisitante > m.golesLocal)) AND m.estado = 'FINALIZADO'")
     Long countWinsByTeam(@Param("equipoId") Long equipoId);
+
+    // Obtener equipos distintos que participan en una competición
+    @Query("SELECT DISTINCT t FROM Match m JOIN m.equipoLocal t WHERE m.competicion.id = :competicionId " +
+           "UNION SELECT DISTINCT t FROM Match m JOIN m.equipoVisitante t WHERE m.competicion.id = :competicionId")
+    List<Team> findTeamsByCompetition(@Param("competicionId") Long competicionId);
 }

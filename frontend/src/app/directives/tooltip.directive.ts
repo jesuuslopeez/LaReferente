@@ -99,10 +99,10 @@ export class TooltipDirective implements OnDestroy {
     this.renderer.setProperty(this.tooltipElement, 'innerText', this.appTooltip);
     this.renderer.setAttribute(this.tooltipElement, 'role', 'tooltip');
 
-    // Estilos base del tooltip
+    // Estilos base del tooltip usando variables CSS
     this.renderer.setStyle(this.tooltipElement, 'position', 'absolute');
-    this.renderer.setStyle(this.tooltipElement, 'backgroundColor', '#333');
-    this.renderer.setStyle(this.tooltipElement, 'color', 'white');
+    this.renderer.setStyle(this.tooltipElement, 'backgroundColor', 'var(--tooltip-bg)');
+    this.renderer.setStyle(this.tooltipElement, 'color', 'var(--tooltip-text)');
     this.renderer.setStyle(this.tooltipElement, 'padding', '6px 12px');
     this.renderer.setStyle(this.tooltipElement, 'borderRadius', '4px');
     this.renderer.setStyle(this.tooltipElement, 'fontSize', '13px');
@@ -152,7 +152,7 @@ export class TooltipDirective implements OnDestroy {
         this.renderer.setStyle(this.arrowElement, 'transform', 'translateX(-50%)');
         this.renderer.setStyle(this.arrowElement, 'borderLeft', `${arrowSize}px solid transparent`);
         this.renderer.setStyle(this.arrowElement, 'borderRight', `${arrowSize}px solid transparent`);
-        this.renderer.setStyle(this.arrowElement, 'borderTop', `${arrowSize}px solid #333`);
+        this.renderer.setStyle(this.arrowElement, 'borderTop', `${arrowSize}px solid var(--tooltip-bg)`);
         break;
 
       case 'bottom':
@@ -166,7 +166,7 @@ export class TooltipDirective implements OnDestroy {
         this.renderer.setStyle(this.arrowElement, 'transform', 'translateX(-50%)');
         this.renderer.setStyle(this.arrowElement, 'borderLeft', `${arrowSize}px solid transparent`);
         this.renderer.setStyle(this.arrowElement, 'borderRight', `${arrowSize}px solid transparent`);
-        this.renderer.setStyle(this.arrowElement, 'borderBottom', `${arrowSize}px solid #333`);
+        this.renderer.setStyle(this.arrowElement, 'borderBottom', `${arrowSize}px solid var(--tooltip-bg)`);
         break;
 
       case 'left':
@@ -180,7 +180,7 @@ export class TooltipDirective implements OnDestroy {
         this.renderer.setStyle(this.arrowElement, 'transform', 'translateY(-50%)');
         this.renderer.setStyle(this.arrowElement, 'borderTop', `${arrowSize}px solid transparent`);
         this.renderer.setStyle(this.arrowElement, 'borderBottom', `${arrowSize}px solid transparent`);
-        this.renderer.setStyle(this.arrowElement, 'borderLeft', `${arrowSize}px solid #333`);
+        this.renderer.setStyle(this.arrowElement, 'borderLeft', `${arrowSize}px solid var(--tooltip-bg)`);
         break;
 
       case 'right':
@@ -194,7 +194,7 @@ export class TooltipDirective implements OnDestroy {
         this.renderer.setStyle(this.arrowElement, 'transform', 'translateY(-50%)');
         this.renderer.setStyle(this.arrowElement, 'borderTop', `${arrowSize}px solid transparent`);
         this.renderer.setStyle(this.arrowElement, 'borderBottom', `${arrowSize}px solid transparent`);
-        this.renderer.setStyle(this.arrowElement, 'borderRight', `${arrowSize}px solid #333`);
+        this.renderer.setStyle(this.arrowElement, 'borderRight', `${arrowSize}px solid var(--tooltip-bg)`);
         break;
     }
   }
