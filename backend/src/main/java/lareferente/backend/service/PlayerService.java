@@ -35,7 +35,7 @@ public class PlayerService {
     }
 
     public List<PlayerDTO> getPlayersByTeam(Long teamId) {
-        return playerRepository.findByEquipoIdAndActivoTrue(teamId).stream()
+        return playerRepository.findByEquipoIdAndActivoTrueOrderByDorsalAsc(teamId).stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }

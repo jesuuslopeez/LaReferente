@@ -15,8 +15,8 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     // Buscar jugadores activos
     List<Player> findByActivoTrueOrderByApellidosAsc();
 
-    // Buscar por equipo
-    List<Player> findByEquipoIdAndActivoTrue(Long equipoId);
+    // Buscar por equipo (ordenados por dorsal)
+    List<Player> findByEquipoIdAndActivoTrueOrderByDorsalAsc(Long equipoId);
 
     // Buscar por posición
     List<Player> findByPosicionAndActivoTrue(PlayerPosition posicion);
