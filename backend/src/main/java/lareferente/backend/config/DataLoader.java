@@ -89,7 +89,8 @@ public class DataLoader implements CommandLineRunner {
         List<Competition> competitions = List.of(
             createCompetition("LaLiga", "LaLiga EA Sports", "España", CompetitionType.LIGA, "2025-2026", "2025-08-15", "2026-05-24"),
             createCompetition("Segunda RFEF G4", "Segunda RFEF Grupo IV", "España", CompetitionType.LIGA, "2025-2026", "2025-09-07", "2026-05-02"),
-            createCompetition("Copa del Rey", "Copa de S.M. El Rey", "España", CompetitionType.COPA, "2025-2026", "2025-10-01", "2026-04-26")
+            createCompetition("Copa del Rey", "Copa de S.M. El Rey", "España", CompetitionType.COPA, "2025-2026", "2025-10-01", "2026-04-26"),
+            createCompetition("LaLiga Hypermotion", "LaLiga Hypermotion", "España", CompetitionType.LIGA, "2025-2026", "2025-08-16", "2026-05-31")
         );
         List<Competition> saved = competitionRepository.saveAll(competitions);
         // Actualizar URLs con IDs generados
@@ -118,11 +119,34 @@ public class DataLoader implements CommandLineRunner {
         Competition laliga = competitions.stream()
             .filter(c -> c.getNombre().equals("LaLiga"))
             .findFirst().orElse(null);
+        Competition segundaDiv = competitions.stream()
+            .filter(c -> c.getNombre().equals("LaLiga Hypermotion"))
+            .findFirst().orElse(null);
+        Competition copaDelRey = competitions.stream()
+            .filter(c -> c.getNombre().equals("Copa del Rey"))
+            .findFirst().orElse(null);
         Competition segundaRfef = competitions.stream()
             .filter(c -> c.getNombre().equals("Segunda RFEF G4"))
             .findFirst().orElse(null);
 
+        // Equipos de Primera División
+        List<String> equiposPrimera = List.of(
+            "Real Madrid", "Barcelona", "Atlético Madrid", "Sevilla", "Real Betis", "Valencia",
+            "Athletic Club", "Real Sociedad", "Villarreal", "Getafe", "Celta", "Osasuna",
+            "Espanyol", "Girona", "Rayo Vallecano", "Mallorca", "Alavés", "Levante",
+            "Real Oviedo", "Elche"
+        );
+
+        // Equipos de Segunda División
+        List<String> equiposSegunda = List.of(
+            "Racing Santander", "Castellón", "Las Palmas", "Deportivo", "Almería", "Málaga",
+            "Burgos", "Cádiz", "Sporting Gijón", "Córdoba", "Ceuta", "Valladolid",
+            "Andorra", "Albacete", "Leganés", "Eibar", "Cultural Leonesa", "Real Sociedad B",
+            "Granada", "Huesca", "Zaragoza", "Mirandés"
+        );
+
         List<Team> teams = List.of(
+            // Primera División
             createTeam("Real Madrid", "Real Madrid Club de Fútbol", "España", "Madrid", "Santiago Bernabéu", 1902),
             createTeam("Barcelona", "Fútbol Club Barcelona", "España", "Barcelona", "Spotify Camp Nou", 1899),
             createTeam("Atlético Madrid", "Club Atlético de Madrid", "España", "Madrid", "Cívitas Metropolitano", 1903),
@@ -135,21 +159,69 @@ public class DataLoader implements CommandLineRunner {
             createTeam("Getafe", "Getafe Club de Fútbol", "España", "Getafe", "Coliseum Alfonso Pérez", 1983),
             createTeam("Celta", "Real Club Celta de Vigo", "España", "Vigo", "Abanca-Balaídos", 1923),
             createTeam("Osasuna", "Club Atlético Osasuna", "España", "Pamplona", "El Sadar", 1920),
+            createTeam("Espanyol", "Reial Club Deportiu Espanyol", "España", "Barcelona", "RCDE Stadium", 1900),
+            createTeam("Girona", "Girona Fútbol Club", "España", "Girona", "Estadi Montilivi", 1930),
+            createTeam("Rayo Vallecano", "Rayo Vallecano de Madrid", "España", "Madrid", "Campo de Fútbol de Vallecas", 1924),
+            createTeam("Mallorca", "Real Club Deportivo Mallorca", "España", "Palma de Mallorca", "Visit Mallorca Estadi", 1916),
+            createTeam("Alavés", "Deportivo Alavés", "España", "Vitoria-Gasteiz", "Mendizorrotza", 1921),
+            createTeam("Levante", "Levante Unión Deportiva", "España", "Valencia", "Estadi Ciutat de València", 1909),
+            createTeam("Real Oviedo", "Real Oviedo Club de Fútbol", "España", "Oviedo", "Carlos Tartiere", 1926),
+            createTeam("Elche", "Elche Club de Fútbol", "España", "Elche", "Estadio Martínez Valero", 1923),
+
+            // Segunda División
+            createTeam("Racing Santander", "Real Racing Club de Santander", "España", "Santander", "El Sardinero", 1913),
+            createTeam("Castellón", "Club Deportivo Castellón", "España", "Castellón de la Plana", "Nou Castalia", 1922),
+            createTeam("Las Palmas", "Unión Deportiva Las Palmas", "España", "Las Palmas de Gran Canaria", "Estadio Gran Canaria", 1949),
+            createTeam("Deportivo", "Real Club Deportivo de La Coruña", "España", "La Coruña", "Riazor", 1906),
+            createTeam("Almería", "Unión Deportiva Almería", "España", "Almería", "Power Horse Stadium", 1989),
+            createTeam("Málaga", "Málaga Club de Fútbol", "España", "Málaga", "La Rosaleda", 1994),
+            createTeam("Burgos", "Burgos Club de Fútbol", "España", "Burgos", "El Plantío", 1922),
+            createTeam("Cádiz", "Cádiz Club de Fútbol", "España", "Cádiz", "Nuevo Mirandilla", 1910),
+            createTeam("Sporting Gijón", "Real Sporting de Gijón", "España", "Gijón", "El Molinón", 1905),
+            createTeam("Córdoba", "Córdoba Club de Fútbol", "España", "Córdoba", "El Arcángel", 1954),
+            createTeam("Ceuta", "Asociación Deportiva Ceuta", "España", "Ceuta", "Alfonso Murube", 1956),
+            createTeam("Valladolid", "Real Valladolid Club de Fútbol", "España", "Valladolid", "José Zorrilla", 1928),
+            createTeam("Andorra", "Fútbol Club Andorra", "España", "Andorra la Vella", "Estadi Nacional", 1942),
+            createTeam("Albacete", "Albacete Balompié", "España", "Albacete", "Carlos Belmonte", 1940),
+            createTeam("Leganés", "Club Deportivo Leganés", "España", "Leganés", "Butarque", 1928),
+            createTeam("Eibar", "Sociedad Deportiva Eibar", "España", "Eibar", "Ipurua", 1940),
+            createTeam("Cultural Leonesa", "Cultural y Deportiva Leonesa", "España", "León", "Reino de León", 1923),
+            createTeam("Real Sociedad B", "Real Sociedad de Fútbol B", "España", "San Sebastián", "Zubieta", 1909),
+            createTeam("Granada", "Granada Club de Fútbol", "España", "Granada", "Nuevo Los Cármenes", 1931),
+            createTeam("Huesca", "Sociedad Deportiva Huesca", "España", "Huesca", "El Alcoraz", 1960),
+            createTeam("Zaragoza", "Real Zaragoza", "España", "Zaragoza", "La Romareda", 1932),
+            createTeam("Mirandés", "Club Deportivo Mirandés", "España", "Miranda de Ebro", "Anduva", 1927),
+
+            // Segunda RFEF
             createTeam("Xerez", "Xerez Club Deportivo", "España", "Jerez de la Frontera", "Municipal de Chapín", 1947)
         );
         List<Team> saved = teamRepository.saveAll(teams);
 
-        // Asignar competiciones: todos menos Xerez a LaLiga, Xerez a Segunda RFEF
+        // Asignar competiciones según la división
         for (Team team : saved) {
             team.setLogoUrl("assets/images/teams/medium/" + team.getId() + ".webp");
             Set<Competition> competiciones = new HashSet<>();
+
             if (team.getNombre().equals("Xerez")) {
+                // Segunda RFEF
                 if (segundaRfef != null) {
                     competiciones.add(segundaRfef);
                 }
-            } else {
+            } else if (equiposPrimera.contains(team.getNombre())) {
+                // Primera División + Copa del Rey
                 if (laliga != null) {
                     competiciones.add(laliga);
+                }
+                if (copaDelRey != null) {
+                    competiciones.add(copaDelRey);
+                }
+            } else if (equiposSegunda.contains(team.getNombre())) {
+                // Segunda División + Copa del Rey
+                if (segundaDiv != null) {
+                    competiciones.add(segundaDiv);
+                }
+                if (copaDelRey != null) {
+                    competiciones.add(copaDelRey);
                 }
             }
             team.setCompeticiones(competiciones);
@@ -183,48 +255,163 @@ public class DataLoader implements CommandLineRunner {
         Team athletic = teams.stream().filter(t -> t.getNombre().equals("Athletic Club")).findFirst().orElse(null);
         Team realSociedad = teams.stream().filter(t -> t.getNombre().equals("Real Sociedad")).findFirst().orElse(null);
         Team xerez = teams.stream().filter(t -> t.getNombre().equals("Xerez")).findFirst().orElse(null);
+        Team osasuna = teams.stream().filter(t -> t.getNombre().equals("Osasuna")).findFirst().orElse(null);
+        Team villarreal = teams.stream().filter(t -> t.getNombre().equals("Villarreal")).findFirst().orElse(null);
 
         List<Player> players = List.of(
-            // Real Madrid
+            // ==================== JUGADORES ORIGINALES (mantener IDs 1-26) ====================
+            // Real Madrid (IDs 1-6)
             createPlayer("Thibaut", "Courtois", "1992-05-11", "Bélgica", PlayerPosition.PORTERO, 1, 199, 96, realMadrid),
             createPlayer("Dani", "Carvajal", "1992-01-11", "España", PlayerPosition.DEFENSA, 2, 173, 73, realMadrid),
             createPlayer("Antonio", "Rüdiger", "1993-03-03", "Alemania", PlayerPosition.DEFENSA, 22, 190, 85, realMadrid),
             createPlayer("Jude", "Bellingham", "2003-06-29", "Inglaterra", PlayerPosition.CENTROCAMPISTA, 5, 186, 75, realMadrid),
             createPlayer("Vinícius", "Júnior", "2000-07-12", "Brasil", PlayerPosition.DELANTERO, 7, 176, 73, realMadrid),
             createPlayer("Kylian", "Mbappé", "1998-12-20", "Francia", PlayerPosition.DELANTERO, 9, 178, 75, realMadrid),
-
-            // Barcelona
+            // Barcelona (IDs 7-12)
             createPlayer("Marc-André", "ter Stegen", "1992-04-30", "Alemania", PlayerPosition.PORTERO, 1, 187, 85, barcelona),
             createPlayer("Ronald", "Araújo", "1999-03-07", "Uruguay", PlayerPosition.DEFENSA, 4, 188, 81, barcelona),
             createPlayer("Pedri", "González", "2002-11-25", "España", PlayerPosition.CENTROCAMPISTA, 8, 174, 60, barcelona),
             createPlayer("Gavi", "Páez", "2004-08-05", "España", PlayerPosition.CENTROCAMPISTA, 6, 173, 68, barcelona),
-            createPlayer("Lamine", "Yamal", "2007-07-13", "España", PlayerPosition.DELANTERO, 19, 180, 68, barcelona),
+            createPlayer("Lamine", "Yamal", "2007-07-13", "España", PlayerPosition.DELANTERO, 10, 180, 68, barcelona),
             createPlayer("Robert", "Lewandowski", "1988-08-21", "Polonia", PlayerPosition.DELANTERO, 9, 185, 81, barcelona),
-
-            // Atlético Madrid
+            // Atlético Madrid (IDs 13-16)
             createPlayer("Jan", "Oblak", "1993-01-07", "Eslovenia", PlayerPosition.PORTERO, 13, 188, 87, atletico),
             createPlayer("José María", "Giménez", "1995-01-20", "Uruguay", PlayerPosition.DEFENSA, 2, 185, 80, atletico),
             createPlayer("Koke", "Resurrección", "1992-01-08", "España", PlayerPosition.CENTROCAMPISTA, 6, 176, 71, atletico),
-            createPlayer("Antoine", "Griezmann", "1991-03-21", "Francia", PlayerPosition.DELANTERO, 7, 176, 73, atletico),
-
-            // Real Betis
+            createPlayer("Antoine", "Griezmann", "1991-03-21", "Francia", PlayerPosition.CENTROCAMPISTA, 7, 176, 73, atletico),
+            // Real Betis (IDs 17-18)
             createPlayer("Antony", "dos Santos", "2000-02-24", "Brasil", PlayerPosition.DELANTERO, 7, 174, 63, betis),
             createPlayer("Isco", "Alarcón", "1992-04-21", "España", PlayerPosition.CENTROCAMPISTA, 22, 176, 76, betis),
-
-            // Valencia
+            // Valencia (ID 19)
             createPlayer("Hugo", "Duro", "1999-11-10", "España", PlayerPosition.DELANTERO, 9, 179, 74, valencia),
-
-            // Athletic Club
+            // Athletic Club (IDs 20-21)
             createPlayer("Unai", "Simón", "1997-06-11", "España", PlayerPosition.PORTERO, 1, 190, 82, athletic),
             createPlayer("Nico", "Williams", "2002-07-12", "España", PlayerPosition.DELANTERO, 11, 181, 75, athletic),
-
-            // Real Sociedad
+            // Real Sociedad (IDs 22-23)
             createPlayer("Álex", "Remiro", "1995-03-24", "España", PlayerPosition.PORTERO, 1, 188, 84, realSociedad),
             createPlayer("Mikel", "Oyarzabal", "1997-04-21", "España", PlayerPosition.DELANTERO, 10, 181, 78, realSociedad),
-
-            // Xerez
+            // Xerez (IDs 24-25)
             createPlayer("Mati", "Castillo", "2001-07-22", "España", PlayerPosition.DELANTERO, 11, 169, 65, xerez),
-            createPlayer("Charaf", "Taoualy", "1999-03-14", "Marruecos", PlayerPosition.CENTROCAMPISTA, 10, 180, 70, xerez)
+            createPlayer("Charaf", "Taoualy", "1999-03-14", "Marruecos", PlayerPosition.CENTROCAMPISTA, 10, 180, 70, xerez),
+
+            // ==================== OSASUNA (IDs 26-48) ====================
+            // Porteros
+            createPlayer("Sergio", "Herrera", "1993-06-05", "España", PlayerPosition.PORTERO, 1, 192, 82, osasuna),
+            createPlayer("Aitor", "Fernández", "1991-05-03", "España", PlayerPosition.PORTERO, 13, 190, 80, osasuna),
+            // Defensas
+            createPlayer("Enzo", "Boyomo", "2001-01-14", "Camerún", PlayerPosition.DEFENSA, 22, 190, 82, osasuna),
+            createPlayer("Jorge", "Herrando", "2001-03-11", "España", PlayerPosition.DEFENSA, 5, 186, 78, osasuna),
+            createPlayer("Alejandro", "Catena", "1994-02-28", "España", PlayerPosition.DEFENSA, 24, 185, 80, osasuna),
+            createPlayer("Abel", "Bretones", "2000-05-22", "España", PlayerPosition.DEFENSA, 23, 175, 68, osasuna),
+            createPlayer("Javi", "Galán", "1994-11-19", "España", PlayerPosition.DEFENSA, 20, 172, 67, osasuna),
+            createPlayer("Juan", "Cruz", "1991-11-28", "España", PlayerPosition.DEFENSA, 3, 183, 75, osasuna),
+            createPlayer("Valentin", "Rosier", "1996-06-07", "Francia", PlayerPosition.DEFENSA, 19, 184, 74, osasuna),
+            createPlayer("Íñigo", "Arguibide", "2005-04-08", "España", PlayerPosition.DEFENSA, 41, 180, 72, osasuna),
+            // Centrocampistas
+            createPlayer("Lucas", "Torró", "1994-07-18", "España", PlayerPosition.CENTROCAMPISTA, 6, 188, 80, osasuna),
+            createPlayer("Iker", "Muñoz", "2002-03-12", "España", PlayerPosition.CENTROCAMPISTA, 8, 180, 74, osasuna),
+            createPlayer("Jon", "Moncayola", "1998-05-13", "España", PlayerPosition.CENTROCAMPISTA, 7, 184, 78, osasuna),
+            createPlayer("Asier", "Osambela", "2004-06-21", "España", PlayerPosition.CENTROCAMPISTA, 29, 178, 72, osasuna),
+            createPlayer("Aimar", "Oroz", "2001-10-23", "España", PlayerPosition.CENTROCAMPISTA, 10, 177, 72, osasuna),
+            createPlayer("Moi", "Gómez", "1994-06-23", "España", PlayerPosition.CENTROCAMPISTA, 16, 172, 66, osasuna),
+            // Delanteros
+            createPlayer("Víctor", "Muñoz", "2003-03-20", "España", PlayerPosition.DELANTERO, 21, 180, 74, osasuna),
+            createPlayer("Sheraldo", "Becker", "1995-02-09", "Surinam", PlayerPosition.DELANTERO, 18, 180, 73, osasuna),
+            createPlayer("Rubén", "García", "1993-07-14", "España", PlayerPosition.DELANTERO, 14, 173, 68, osasuna),
+            createPlayer("Iker", "Benito", "2002-06-22", "España", PlayerPosition.DELANTERO, 2, 176, 70, osasuna),
+            createPlayer("Kike", "Barja", "1997-05-09", "España", PlayerPosition.DELANTERO, 11, 175, 70, osasuna),
+            createPlayer("Raúl", "García de Haro", "2000-09-15", "España", PlayerPosition.DELANTERO, 9, 182, 76, osasuna),
+            createPlayer("Ante", "Budimir", "1991-07-22", "Croacia", PlayerPosition.DELANTERO, 17, 190, 75, osasuna),
+
+            // ==================== NUEVOS JUGADORES BARCELONA (IDs 49+) ====================
+            createPlayer("Wojciech", "Szczęsny", "1990-04-18", "Polonia", PlayerPosition.PORTERO, 25, 196, 84, barcelona),
+            createPlayer("Joan", "García", "2001-02-23", "España", PlayerPosition.PORTERO, 13, 188, 80, barcelona),
+            createPlayer("Jules", "Koundé", "1998-11-12", "Francia", PlayerPosition.DEFENSA, 23, 178, 75, barcelona),
+            createPlayer("João", "Cancelo", "1994-05-27", "Portugal", PlayerPosition.DEFENSA, 2, 182, 74, barcelona),
+            createPlayer("Alejandro", "Balde", "2003-10-18", "España", PlayerPosition.DEFENSA, 3, 175, 70, barcelona),
+            createPlayer("Pau", "Cubarsí", "2007-01-22", "España", PlayerPosition.DEFENSA, 5, 182, 73, barcelona),
+            createPlayer("Eric", "García", "2001-01-09", "España", PlayerPosition.DEFENSA, 24, 182, 75, barcelona),
+            createPlayer("Andreas", "Christensen", "1996-04-10", "Dinamarca", PlayerPosition.DEFENSA, 15, 187, 82, barcelona),
+            createPlayer("Gerard", "Martín", "2002-05-25", "España", PlayerPosition.DEFENSA, 18, 175, 68, barcelona),
+            createPlayer("Frenkie", "de Jong", "1997-05-12", "Países Bajos", PlayerPosition.CENTROCAMPISTA, 21, 180, 74, barcelona),
+            createPlayer("Dani", "Olmo", "1998-05-07", "España", PlayerPosition.CENTROCAMPISTA, 20, 179, 72, barcelona),
+            createPlayer("Fermín", "López", "2003-01-01", "España", PlayerPosition.CENTROCAMPISTA, 16, 175, 68, barcelona),
+            createPlayer("Marc", "Casadó", "2003-09-14", "España", PlayerPosition.CENTROCAMPISTA, 17, 183, 75, barcelona),
+            createPlayer("Marc", "Bernal", "2007-05-27", "España", PlayerPosition.CENTROCAMPISTA, 22, 181, 72, barcelona),
+            createPlayer("Raphinha", "Dias", "1996-12-14", "Brasil", PlayerPosition.DELANTERO, 11, 176, 68, barcelona),
+            createPlayer("Marcus", "Rashford", "1997-10-31", "Inglaterra", PlayerPosition.DELANTERO, 14, 185, 80, barcelona),
+            createPlayer("Ferran", "Torres", "2000-02-29", "España", PlayerPosition.DELANTERO, 7, 184, 77, barcelona),
+            createPlayer("Roony", "Bardghji", "2005-11-03", "Suecia", PlayerPosition.DELANTERO, 19, 175, 68, barcelona),
+
+            // ==================== NUEVOS JUGADORES REAL MADRID ====================
+            createPlayer("Andriy", "Lunin", "1999-02-11", "Ucrania", PlayerPosition.PORTERO, 13, 191, 82, realMadrid),
+            createPlayer("Fran", "González", "2005-06-15", "España", PlayerPosition.PORTERO, 26, 186, 78, realMadrid),
+            createPlayer("Trent", "Alexander-Arnold", "1998-10-07", "Inglaterra", PlayerPosition.DEFENSA, 12, 175, 69, realMadrid),
+            createPlayer("Álvaro", "Carreras", "2003-10-04", "España", PlayerPosition.DEFENSA, 18, 179, 72, realMadrid),
+            createPlayer("Dean", "Huijsen", "2005-04-14", "España", PlayerPosition.DEFENSA, 24, 197, 84, realMadrid),
+            createPlayer("Éder", "Militão", "1998-01-18", "Brasil", PlayerPosition.DEFENSA, 3, 186, 78, realMadrid),
+            createPlayer("Raúl", "Asencio", "2003-09-18", "España", PlayerPosition.DEFENSA, 17, 185, 76, realMadrid),
+            createPlayer("David", "Alaba", "1992-06-24", "Austria", PlayerPosition.DEFENSA, 4, 180, 78, realMadrid),
+            createPlayer("Fran", "García", "1999-08-14", "España", PlayerPosition.DEFENSA, 20, 169, 65, realMadrid),
+            createPlayer("Ferland", "Mendy", "1995-06-08", "Francia", PlayerPosition.DEFENSA, 23, 180, 73, realMadrid),
+            createPlayer("Federico", "Valverde", "1998-07-22", "Uruguay", PlayerPosition.CENTROCAMPISTA, 8, 182, 78, realMadrid),
+            createPlayer("Aurélien", "Tchouaméni", "2000-01-27", "Francia", PlayerPosition.CENTROCAMPISTA, 14, 187, 81, realMadrid),
+            createPlayer("Arda", "Güler", "2005-02-25", "Turquía", PlayerPosition.CENTROCAMPISTA, 15, 176, 70, realMadrid),
+            createPlayer("Eduardo", "Camavinga", "2002-11-10", "Francia", PlayerPosition.CENTROCAMPISTA, 6, 182, 68, realMadrid),
+            createPlayer("Dani", "Ceballos", "1996-08-07", "España", PlayerPosition.CENTROCAMPISTA, 19, 177, 70, realMadrid),
+            createPlayer("Rodrygo", "Goes", "2001-01-09", "Brasil", PlayerPosition.DELANTERO, 11, 174, 64, realMadrid),
+            createPlayer("Franco", "Mastantuono", "2007-08-02", "Argentina", PlayerPosition.DELANTERO, 30, 175, 65, realMadrid),
+            createPlayer("Brahim", "Díaz", "1999-08-03", "Marruecos", PlayerPosition.DELANTERO, 21, 171, 59, realMadrid),
+            createPlayer("Gonzalo", "García", "2004-06-15", "España", PlayerPosition.DELANTERO, 16, 178, 72, realMadrid),
+
+            // ==================== NUEVOS JUGADORES ATLÉTICO MADRID ====================
+            createPlayer("Juan", "Musso", "1994-05-06", "Argentina", PlayerPosition.PORTERO, 1, 191, 83, atletico),
+            createPlayer("Dávid", "Hancko", "1997-12-13", "Eslovaquia", PlayerPosition.DEFENSA, 17, 188, 82, atletico),
+            createPlayer("Marcos", "Llorente", "1995-01-30", "España", PlayerPosition.DEFENSA, 14, 184, 74, atletico),
+            createPlayer("Robin", "Le Normand", "1996-11-11", "España", PlayerPosition.DEFENSA, 24, 187, 81, atletico),
+            createPlayer("Clément", "Lenglet", "1995-06-17", "Francia", PlayerPosition.DEFENSA, 15, 186, 76, atletico),
+            createPlayer("Nahuel", "Molina", "1998-04-06", "Argentina", PlayerPosition.DEFENSA, 16, 175, 70, atletico),
+            createPlayer("Matteo", "Ruggeri", "2002-07-17", "Italia", PlayerPosition.DEFENSA, 3, 184, 75, atletico),
+            createPlayer("Marc", "Pubill", "2003-06-12", "España", PlayerPosition.DEFENSA, 18, 178, 70, atletico),
+            createPlayer("Johnny", "Cardoso", "2001-08-24", "Estados Unidos", PlayerPosition.CENTROCAMPISTA, 5, 185, 76, atletico),
+            createPlayer("Pablo", "Barrios", "2003-02-16", "España", PlayerPosition.CENTROCAMPISTA, 8, 180, 72, atletico),
+            createPlayer("Julián", "Álvarez", "2000-01-31", "Argentina", PlayerPosition.DELANTERO, 19, 170, 71, atletico),
+            createPlayer("Alexander", "Sørloth", "1995-12-05", "Noruega", PlayerPosition.DELANTERO, 9, 195, 88, atletico),
+            createPlayer("Nico", "González", "1998-04-06", "Argentina", PlayerPosition.DELANTERO, 23, 180, 73, atletico),
+            createPlayer("Álex", "Baena", "2001-05-20", "España", PlayerPosition.DELANTERO, 10, 175, 66, atletico),
+            createPlayer("Thiago", "Almada", "2001-04-26", "Argentina", PlayerPosition.DELANTERO, 11, 171, 62, atletico),
+            createPlayer("Giuliano", "Simeone", "2002-07-14", "Argentina", PlayerPosition.DELANTERO, 20, 178, 74, atletico),
+
+            // ==================== VILLARREAL (todos nuevos) ====================
+            // Porteros
+            createPlayer("Luiz", "Júnior", "2000-03-15", "Brasil", PlayerPosition.PORTERO, 1, 188, 80, villarreal),
+            createPlayer("Diego", "Conde", "1998-04-10", "España", PlayerPosition.PORTERO, 13, 190, 82, villarreal),
+            createPlayer("Arnau", "Tenas", "2001-05-18", "España", PlayerPosition.PORTERO, 25, 189, 80, villarreal),
+            // Defensas
+            createPlayer("Logan", "Costa", "2001-08-06", "Cabo Verde", PlayerPosition.DEFENSA, 2, 186, 77, villarreal),
+            createPlayer("Sergi", "Cardona", "1999-05-14", "España", PlayerPosition.DEFENSA, 23, 177, 70, villarreal),
+            createPlayer("Renato", "Veiga", "2003-07-18", "Portugal", PlayerPosition.DEFENSA, 12, 191, 80, villarreal),
+            createPlayer("Juan", "Foyth", "1998-01-12", "Argentina", PlayerPosition.DEFENSA, 8, 187, 77, villarreal),
+            createPlayer("Santiago", "Mouriño", "2002-09-10", "Uruguay", PlayerPosition.DEFENSA, 15, 182, 74, villarreal),
+            createPlayer("Rafa", "Marín", "2002-07-22", "España", PlayerPosition.DEFENSA, 4, 190, 78, villarreal),
+            createPlayer("Alfonso", "Pedraza", "1996-04-09", "España", PlayerPosition.DEFENSA, 24, 179, 73, villarreal),
+            createPlayer("Willy", "Kambwala", "2004-08-16", "Francia", PlayerPosition.DEFENSA, 5, 186, 78, villarreal),
+            createPlayer("Pau", "Navarro", "2005-03-22", "España", PlayerPosition.DEFENSA, 26, 178, 70, villarreal),
+            // Centrocampistas
+            createPlayer("Thomas", "Partey", "1993-06-13", "Ghana", PlayerPosition.CENTROCAMPISTA, 16, 185, 77, villarreal),
+            createPlayer("Santi", "Comesaña", "1996-02-28", "España", PlayerPosition.CENTROCAMPISTA, 14, 170, 62, villarreal),
+            createPlayer("Dani", "Parejo", "1989-04-16", "España", PlayerPosition.CENTROCAMPISTA, 10, 182, 75, villarreal),
+            createPlayer("Pape", "Gueye", "1999-01-24", "Senegal", PlayerPosition.CENTROCAMPISTA, 18, 188, 80, villarreal),
+            createPlayer("Carlos", "Macià", "2005-08-12", "España", PlayerPosition.CENTROCAMPISTA, 34, 175, 65, villarreal),
+            // Delanteros
+            createPlayer("Alberto", "Moleiro", "2003-03-05", "España", PlayerPosition.DELANTERO, 20, 174, 65, villarreal),
+            createPlayer("Georges", "Mikautadze", "2000-10-31", "Georgia", PlayerPosition.DELANTERO, 9, 176, 72, villarreal),
+            createPlayer("Tani", "Oluwaseyi", "2000-02-10", "Canadá", PlayerPosition.DELANTERO, 21, 180, 74, villarreal),
+            createPlayer("Nicolas", "Pépé", "1995-05-29", "Costa de Marfil", PlayerPosition.DELANTERO, 19, 183, 75, villarreal),
+            createPlayer("Ayoze", "Pérez", "1993-07-23", "España", PlayerPosition.DELANTERO, 7, 178, 73, villarreal),
+            createPlayer("Tajon", "Buchanan", "1999-02-08", "Canadá", PlayerPosition.DELANTERO, 17, 176, 68, villarreal),
+            createPlayer("Gerard", "Moreno", "1992-04-07", "España", PlayerPosition.DELANTERO, 33, 180, 77, villarreal),
+            createPlayer("Ilias", "Akhomach", "2004-02-24", "Marruecos", PlayerPosition.DELANTERO, 11, 175, 65, villarreal)
         );
 
         List<Player> saved = playerRepository.saveAll(players);
