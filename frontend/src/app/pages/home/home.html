@@ -112,17 +112,14 @@
     <section class="highlights__grid">
       <!-- Competiciones -->
       <article class="highlight-card">
-        <header class="highlight-card__header">
-          <h3 class="highlight-card__title">Competiciones</h3>
-          <a routerLink="/competiciones" class="highlight-card__header-link">Ver todas</a>
-        </header>
+        <h3 class="highlight-card__title">Competiciones</h3>
 
         @if (loadingCompetitions()) {
           <section class="highlight-card__loading">
             <span class="spinner spinner--small"></span>
           </section>
         } @else {
-          <section class="highlight-card__items highlight-card__items--grid">
+          <section class="highlight-card__items">
             @for (comp of competitions(); track comp.id) {
               <a [routerLink]="['/competiciones', comp.id]" class="item-badge">
                 @if (comp.logoUrl) {
@@ -139,14 +136,20 @@
             }
           </section>
         }
+
+        <footer class="highlight-card__footer">
+          <a routerLink="/competiciones" class="highlight-card__link">
+            Ver más
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </footer>
       </article>
 
       <!-- Jugadores -->
       <article class="highlight-card">
-        <header class="highlight-card__header">
-          <h3 class="highlight-card__title">Jugadores</h3>
-          <a routerLink="/jugadores" class="highlight-card__header-link">Ver todos</a>
-        </header>
+        <h3 class="highlight-card__title">Jugadores</h3>
 
         @if (loadingPlayers()) {
           <section class="highlight-card__loading">
@@ -170,21 +173,27 @@
             }
           </section>
         }
+
+        <footer class="highlight-card__footer">
+          <a routerLink="/jugadores" class="highlight-card__link">
+            Ver más
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </footer>
       </article>
 
       <!-- Equipos -->
       <article class="highlight-card">
-        <header class="highlight-card__header">
-          <h3 class="highlight-card__title">Equipos</h3>
-          <a routerLink="/equipos" class="highlight-card__header-link">Ver todos</a>
-        </header>
+        <h3 class="highlight-card__title">Equipos</h3>
 
         @if (loadingTeams()) {
           <section class="highlight-card__loading">
             <span class="spinner spinner--small"></span>
           </section>
         } @else {
-          <section class="highlight-card__items highlight-card__items--grid">
+          <section class="highlight-card__items">
             @for (team of teams(); track team.id) {
               <a [routerLink]="['/equipos', team.id]" class="item-badge">
                 @if (team.logoUrl) {
@@ -201,6 +210,15 @@
             }
           </section>
         }
+
+        <footer class="highlight-card__footer">
+          <a routerLink="/equipos" class="highlight-card__link">
+            Ver más
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </footer>
       </article>
     </section>
   </section>

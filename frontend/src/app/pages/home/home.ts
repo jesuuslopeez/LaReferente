@@ -121,32 +121,41 @@ export class Home implements OnInit, OnDestroy {
       error: () => this.loadingNews.set(false),
     });
 
-    // Cargar competiciones
+    // Cargar competiciones (aleatorias)
     this.competitionService.obtenerTodas().subscribe({
       next: (competitions: Competition[]) => {
-        this.competitions.set(competitions.slice(0, 4));
+        this.competitions.set(this.shuffleArray(competitions).slice(0, 4));
         this.loadingCompetitions.set(false);
       },
       error: () => this.loadingCompetitions.set(false),
     });
 
-    // Cargar equipos
+    // Cargar equipos (aleatorios)
     this.teamService.getActive().subscribe({
       next: (teams: Team[]) => {
-        this.teams.set(teams.slice(0, 4));
+        this.teams.set(this.shuffleArray(teams).slice(0, 4));
         this.loadingTeams.set(false);
       },
       error: () => this.loadingTeams.set(false),
     });
 
-    // Cargar jugadores
+    // Cargar jugadores (aleatorios)
     this.playerService.getActive().subscribe({
       next: (players: Player[]) => {
-        this.players.set(players.slice(0, 6));
+        this.players.set(this.shuffleArray(players).slice(0, 6));
         this.loadingPlayers.set(false);
       },
       error: () => this.loadingPlayers.set(false),
     });
+  }
+
+  private shuffleArray<T>(array: T[]): T[] {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
   }
 
   formatDate(dateStr: string | null): string {
