@@ -1,7 +1,7 @@
-import { Component, signal, inject, DestroyRef } from '@angular/core';
+import { Component, signal, inject, DestroyRef, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { PlayerCard } from '../../components/shared/player-card/player-card';
 import { PlayerService } from '../../core/services/player.service';
@@ -14,9 +14,10 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './players.html',
   styleUrl: './players.scss',
 })
-export class Players {
+export class Players implements OnInit {
   private destroyRef = inject(DestroyRef);
   private playerService = inject(PlayerService);
+  private route = inject(ActivatedRoute);
   protected readonly authService = inject(AuthService);
 
   // Estado
@@ -62,6 +63,19 @@ export class Players {
       });
   }
 
+  ngOnInit(): void {
+    // Leer parámetro de búsqueda de la URL
+    this.route.queryParams
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((params) => {
+        const query = params['q'] || '';
+        if (query) {
+          this.busquedaControl.setValue(query);
+          this.busqueda.set(query);
+        }
+      });
+  }
+
   // Jugadores filtrados por posicion y busqueda
   get jugadoresFiltrados(): Player[] {
     const filtro = this.filtroPosicion();
@@ -75,12 +89,15 @@ export class Players {
 
     // Filtrar por texto de busqueda
     if (texto) {
-      resultado = resultado.filter(
-        (j) =>
+      resultado = resultado.filter((j) => {
+        const nombreCompleto = `${j.nombre} ${j.apellidos}`.toLowerCase();
+        return (
+          nombreCompleto.includes(texto) ||
           j.nombre.toLowerCase().includes(texto) ||
           j.apellidos.toLowerCase().includes(texto) ||
           (j.equipoNombre && j.equipoNombre.toLowerCase().includes(texto))
-      );
+        );
+      });
     }
 
     return resultado;

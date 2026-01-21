@@ -1,7 +1,7 @@
-import { Component, signal, inject, DestroyRef } from '@angular/core';
+import { Component, signal, inject, DestroyRef, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { TeamCard } from '../../components/shared/team-card/team-card';
 import { TeamService } from '../../core/services/team.service';
@@ -14,9 +14,10 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './teams.html',
   styleUrl: './teams.scss',
 })
-export class Teams {
+export class Teams implements OnInit {
   private destroyRef = inject(DestroyRef);
   private teamService = inject(TeamService);
+  private route = inject(ActivatedRoute);
   protected readonly authService = inject(AuthService);
 
   // Estado
@@ -60,6 +61,19 @@ export class Teams {
       .subscribe((valor) => {
         this.busqueda.set(valor || '');
         this.paginaActual.set(1);
+      });
+  }
+
+  ngOnInit(): void {
+    // Leer parámetro de búsqueda de la URL
+    this.route.queryParams
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((params) => {
+        const query = params['q'] || '';
+        if (query) {
+          this.busquedaControl.setValue(query);
+          this.busqueda.set(query);
+        }
       });
   }
 

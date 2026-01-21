@@ -1,5 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NewsService } from '../../core/services';
 import { News, RequestState } from '../../core/models';
@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class NewsPage implements OnInit {
   private readonly newsService = inject(NewsService);
+  private readonly route = inject(ActivatedRoute);
   protected readonly authService = inject(AuthService);
 
   // Estado de la petición con loading, error y data
@@ -43,6 +44,15 @@ export class NewsPage implements OnInit {
     // Búsqueda con debounce manual
     this.busquedaControl.valueChanges.subscribe((valor) => {
       this.busqueda.set(valor || '');
+    });
+
+    // Leer parámetro de búsqueda de la URL
+    this.route.queryParams.subscribe((params) => {
+      const query = params['q'] || '';
+      if (query) {
+        this.busquedaControl.setValue(query);
+        this.busqueda.set(query);
+      }
     });
   }
 

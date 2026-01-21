@@ -22,6 +22,7 @@ import { CompetitionCreate } from './pages/admin/competition-create/competition-
 import { TeamCreate } from './pages/admin/team-create/team-create';
 import { PlayerCreate } from './pages/admin/player-create/player-create';
 import { MatchCreate } from './pages/admin/match-create/match-create';
+import { SearchPage } from './pages/search/search';
 
 export const routes: Routes = [
   // Inicio
@@ -97,6 +98,12 @@ export const routes: Routes = [
   {
     path: 'calendario',
     component: Calendar,
+  },
+
+  // Búsqueda
+  {
+    path: 'buscar',
+    component: SearchPage,
   },
 
   // Competiciones
