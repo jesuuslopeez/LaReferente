@@ -1,6 +1,7 @@
-import { Component, input, computed, signal } from '@angular/core';
+import { Component, input, computed, signal, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PlayerPosition } from '../../../core/models';
+import { PaisesService } from '../../../core/services';
 
 @Component({
   selector: 'app-player-card',
@@ -8,7 +9,9 @@ import { PlayerPosition } from '../../../core/models';
   templateUrl: './player-card.html',
   styleUrl: './player-card.scss',
 })
-export class PlayerCard {
+export class PlayerCard implements OnInit {
+  private readonly paisesService = inject(PaisesService);
+
   id = input.required<number>();
   nombre = input.required<string>();
   apellidos = input.required<string>();
@@ -23,6 +26,11 @@ export class PlayerCard {
 
   private readonly fallbackImage = 'assets/images/players/medium/no_cutout.webp';
   fotoError = signal(false);
+
+  ngOnInit(): void {
+    // Cargar mapa de banderas al inicializar
+    this.paisesService.buildFlagMap().subscribe();
+  }
 
   get fotoSrc(): string {
     if (this.fotoError()) {
@@ -67,25 +75,6 @@ export class PlayerCard {
   }
 
   getFlagCode(nacionalidad: string | undefined): string {
-    if (!nacionalidad) return 'es';
-    const flagMap: Record<string, string> = {
-      'España': 'es',
-      'Francia': 'fr',
-      'Alemania': 'de',
-      'Italia': 'it',
-      'Portugal': 'pt',
-      'Inglaterra': 'gb-eng',
-      'Brasil': 'br',
-      'Argentina': 'ar',
-      'Uruguay': 'uy',
-      'Colombia': 'co',
-      'Marruecos': 'ma',
-      'Países Bajos': 'nl',
-      'Bélgica': 'be',
-      'Croacia': 'hr',
-      'Polonia': 'pl',
-      'Georgia': 'ge',
-    };
-    return flagMap[nacionalidad] || 'es';
+    return this.paisesService.getFlagCodeSync(nacionalidad);
   }
 }

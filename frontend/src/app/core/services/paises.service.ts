@@ -5,6 +5,7 @@ import { Observable, map, shareReplay } from 'rxjs';
 export interface Pais {
   name: string;
   es_name: string;
+  code: string;
 }
 
 interface PaisesResponse {
@@ -77,5 +78,53 @@ export class PaisesService {
         return paises.some(p => p.es_name.toLowerCase() === nombreLower);
       })
     );
+  }
+
+  /**
+   * Obtiene el código de bandera para un país dado su nombre en español
+   * Devuelve 'es' por defecto si no encuentra el país
+   */
+  getFlagCode(nacionalidad: string | undefined): Observable<string> {
+    if (!nacionalidad) {
+      return new Observable(obs => {
+        obs.next('es');
+        obs.complete();
+      });
+    }
+
+    const nombreLower = nacionalidad.toLowerCase();
+    return this.cargarPaises().pipe(
+      map(paises => {
+        const pais = paises.find(p => p.es_name.toLowerCase() === nombreLower);
+        return pais?.code || 'es';
+      })
+    );
+  }
+
+  /**
+   * Obtiene el código de bandera de forma síncrona usando un mapa cacheado
+   * Útil para templates donde no se puede usar async pipe fácilmente
+   */
+  private flagMap: Map<string, string> | null = null;
+
+  buildFlagMap(): Observable<Map<string, string>> {
+    return this.cargarPaises().pipe(
+      map(paises => {
+        if (!this.flagMap) {
+          this.flagMap = new Map();
+          for (const pais of paises) {
+            this.flagMap.set(pais.es_name.toLowerCase(), pais.code);
+          }
+        }
+        return this.flagMap;
+      })
+    );
+  }
+
+  getFlagCodeSync(nacionalidad: string | undefined): string {
+    if (!nacionalidad || !this.flagMap) {
+      return 'es';
+    }
+    return this.flagMap.get(nacionalidad.toLowerCase()) || 'es';
   }
 }

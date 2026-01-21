@@ -60,6 +60,9 @@ export class PlayerDetail implements OnInit {
   paisValido = signal(true);
 
   ngOnInit(): void {
+    // Cargar mapa de banderas
+    this.paisesService.buildFlagMap().subscribe();
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadPlayer(+id);
@@ -260,24 +263,6 @@ export class PlayerDetail implements OnInit {
   }
 
   getFlagCode(nacionalidad: string): string {
-    const flagMap: Record<string, string> = {
-      'España': 'es',
-      'Francia': 'fr',
-      'Alemania': 'de',
-      'Italia': 'it',
-      'Portugal': 'pt',
-      'Inglaterra': 'gb-eng',
-      'Brasil': 'br',
-      'Argentina': 'ar',
-      'Uruguay': 'uy',
-      'Colombia': 'co',
-      'Marruecos': 'ma',
-      'Países Bajos': 'nl',
-      'Bélgica': 'be',
-      'Croacia': 'hr',
-      'Polonia': 'pl',
-      'Georgia': 'ge',
-    };
-    return flagMap[nacionalidad] || 'es';
+    return this.paisesService.getFlagCodeSync(nacionalidad);
   }
 }

@@ -5,3 +5,4 @@ export { PlayerService } from './player.service';
 export { MatchService } from './match.service';
 export { CommentService } from './comment.service';
 export { FileService } from './file.service';
+export { PaisesService } from './paises.service';
