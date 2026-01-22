@@ -3142,7 +3142,7 @@ A continuacion se muestran capturas de las paginas principales en los tres break
 
 #### URL de Produccion
 
-**[https://yiisus.com](https://yiisus.com)**
+**[https://lareferente.yiisus.com](https://lareferente.yiisus.com)**
 
 #### Infraestructura de Despliegue
 
@@ -3160,13 +3160,13 @@ A continuacion se muestran capturas de las paginas principales en los tres break
 
 | Funcionalidad | URL/Endpoint | Estado |
 |---------------|--------------|--------|
-| Frontend | https://yiisus.com | OK |
-| API Jugadores | https://yiisus.com/api/players/active | OK |
-| API Equipos | https://yiisus.com/api/teams/active | OK |
-| API Noticias | https://yiisus.com/api/news/featured | OK |
-| API Competiciones | https://yiisus.com/api/competitions/active | OK |
-| Autenticacion | https://yiisus.com/api/auth/login | OK |
-| Imagenes estaticas | https://yiisus.com/assets/images/* | OK |
+| Frontend | https://lareferente.yiisus.com | OK |
+| API Jugadores | https://lareferente.yiisus.com/api/players/active | OK |
+| API Equipos | https://lareferente.yiisus.com/api/teams/active | OK |
+| API Noticias | https://lareferente.yiisus.com/api/news/featured | OK |
+| API Competiciones | https://lareferente.yiisus.com/api/competitions/active | OK |
+| Autenticacion | https://lareferente.yiisus.com/api/auth/login | OK |
+| Imagenes estaticas | https://lareferente.yiisus.com/assets/images/* | OK |
 
 #### Comandos de Despliegue
 

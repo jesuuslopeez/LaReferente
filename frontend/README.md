@@ -2,16 +2,16 @@
 
 Aplicación web de noticias deportivas desarrollada con Angular 19+ usando arquitectura standalone.
 
-## URL de Producción
+## URL de producción
 
-**[https://yiisus.com](https://yiisus.com)**
+**[https://lareferente.yiisus.com](https://lareferente.yiisus.com)**
 
-## Características Principales
+## Características principales
 
-- Angular 19 con Standalone Components
-- Zoneless Change Detection
-- SSR Ready (Server-Side Rendering)
-- Lazy Loading de módulos
+- Angular 19 con standalone components
+- Zoneless change detection
+- SSR ready (server-side rendering)
+- Lazy loading de módulos
 - Sistema de autenticación JWT
 - Tema claro/oscuro
 - Tests unitarios y de integración
@@ -39,7 +39,7 @@ ng serve
 ng build --configuration production
 ```
 
-## Scripts Disponibles
+## Scripts disponibles
 
 | Comando | Descripción |
 |---------|-------------|
@@ -60,7 +60,7 @@ npm test -- --code-coverage
 
 **Coverage actual:** >75% statements, >55% branches
 
-## Build de Producción
+## Build de producción
 
 ```bash
 ng build --configuration production
@@ -82,9 +82,9 @@ ng build --configuration production
 
 ---
 
-## Sistema de Rutas
+## Sistema de rutas
 
-### Mapa de Rutas
+### Mapa de rutas
 
 | Path | Componente | Guard | Resolver | Descripción |
 |------|------------|-------|----------|-------------|
@@ -104,7 +104,7 @@ ng build --configuration production
 | `/404` | `NotFound` | - | - | Página no encontrada |
 | `**` | - | - | - | Wildcard → redirige a 404 |
 
-### Rutas con Parámetros Dinámicos
+### Rutas con parámetros dinámicos
 
 ```typescript
 // Ejemplo: /noticias/123
@@ -119,7 +119,7 @@ const id = this.route.snapshot.params['id'];
 this.route.params.subscribe(params => params['id']);
 ```
 
-### Lazy Loading
+### Lazy loading
 
 El módulo de usuario se carga de forma perezosa:
 
@@ -131,9 +131,9 @@ El módulo de usuario se carga de forma perezosa:
 }
 ```
 
-**Estrategia de precarga**: `PreloadAllModules` - Los módulos lazy se precargan en segundo plano después de la carga inicial.
+**Estrategia de precarga**: `PreloadAllModules` - los módulos lazy se precargan en segundo plano después de la carga inicial.
 
-**Verificación de chunks**: Ejecutar `ng build` y comprobar que se generan archivos separados en `dist/`.
+**Verificación de chunks**: ejecutar `ng build` y comprobar que se generan archivos separados en `dist/`.
 
 ---
 
@@ -161,7 +161,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 };
 ```
 
-**Uso**: Rutas bajo `/usuario/*`
+**Uso**: rutas bajo `/usuario/*`
 
 ### editorGuard (CanActivate)
 
@@ -182,7 +182,7 @@ export const editorGuard: CanActivateFn = () => {
 };
 ```
 
-**Uso**: Rutas bajo `/admin/*`
+**Uso**: rutas bajo `/admin/*`
 
 ### formGuard (CanDeactivate)
 
@@ -202,7 +202,7 @@ export const formGuard: CanDeactivateFn<FormularioConCambios> = (component) => {
 };
 ```
 
-**Uso**: Formularios de edición de perfil y contenido
+**Uso**: formularios de edición de perfil y contenido
 
 ---
 
@@ -260,9 +260,9 @@ provideHttpClient(
 )
 ```
 
-### Servicio Base (ApiService)
+### Servicio base (ApiService)
 
-Patrón Facade que centraliza las peticiones HTTP.
+Patrón facade que centraliza las peticiones HTTP.
 
 ```typescript
 // Ubicación: src/app/core/services/api.service.ts
@@ -485,9 +485,9 @@ interface Competition {
 
 ---
 
-## Manejo de Estados
+## Manejo de estados
 
-### Estados de Carga
+### Estados de carga
 
 Se utiliza `LoadingService` para mostrar un overlay de carga global:
 
@@ -499,7 +499,7 @@ loadingService.show('Mensaje opcional...');
 loadingService.hide();
 ```
 
-### Estados en Componentes
+### Estados en componentes
 
 Cada componente gestiona sus propios estados:
 
@@ -509,7 +509,7 @@ error = signal<string|null>(null);  // Mensaje de error
 items = signal<Item[]>([]);  // Datos
 ```
 
-### Estados Vacíos
+### Estados vacíos
 
 Cuando no hay datos, se muestra un mensaje con acción sugerida:
 
@@ -524,7 +524,7 @@ Cuando no hay datos, se muestra un mensaje con acción sugerida:
 
 ---
 
-## Estructura del Proyecto
+## Estructura del proyecto
 
 ```
 src/app/
@@ -545,7 +545,7 @@ src/app/
 
 ---
 
-## Scripts Disponibles
+## Scripts disponibles
 
 ```bash
 ng serve          # Desarrollo en http://localhost:4200
