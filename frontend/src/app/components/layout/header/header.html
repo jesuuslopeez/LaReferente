@@ -159,6 +159,7 @@
                           class="header__suggestion-img"
                           [class.header__suggestion-img--round]="suggestion.type === 'jugador'"
                           [class.header__suggestion-img--contain]="suggestion.type === 'equipo'"
+                          (error)="onSuggestionImageError($event, suggestion.type)"
                         />
                       } @else {
                         <span class="header__suggestion-placeholder" [class.header__suggestion-placeholder--round]="suggestion.type === 'jugador'">

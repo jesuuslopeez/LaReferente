@@ -165,4 +165,12 @@ export class Home implements OnInit, OnDestroy {
       month: 'short',
     });
   }
+
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    // Si falla cargar la imagen, usar el placeholder
+    img.src = 'assets/images/players/medium/no_cutout.webp';
+    // Evitar loop infinito si el placeholder también falla
+    img.onerror = null;
+  }
 }

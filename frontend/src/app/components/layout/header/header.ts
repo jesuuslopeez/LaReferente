@@ -392,4 +392,16 @@ export class Header {
     };
     return labels[type] || type;
   }
+
+  protected onSuggestionImageError(event: Event, type: string): void {
+    const img = event.target as HTMLImageElement;
+
+    // Establecer la imagen placeholder según el tipo
+    if (type === 'jugador') {
+      img.src = 'assets/images/players/medium/no_cutout.webp';
+    }
+    // Para equipos y noticias, mantener el comportamiento actual (no tienen placeholder específico)
+    // pero evitar loop infinito
+    img.onerror = null;
+  }
 }
