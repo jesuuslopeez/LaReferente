@@ -1,122 +1,105 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
-import { Dwec } from './pages/dwec/dwec';
-import { StyleGuide } from './pages/style-guide/style-guide';
-import { Competitions } from './pages/competitions/competitions';
-import { CompetitionDetail } from './pages/competition-detail/competition-detail';
-import { CompetitionGroup } from './pages/competition-group/competition-group';
-import { Teams } from './pages/teams/teams';
-import { TeamDetail } from './pages/team-detail/team-detail';
-import { Players } from './pages/players/players';
-import { PlayerDetail } from './pages/player-detail/player-detail';
-import { Calendar } from './pages/calendar/calendar';
-import { Login } from './pages/login/login';
-import { NotFound } from './pages/not-found/not-found';
-import { NewsPage } from './pages/news/news';
 import { authGuard } from './guards/auth.guard';
 import { editorGuard } from './guards/editor.guard';
 import { competitionResolver } from './resolvers/competition.resolver';
-import { NewsDetail } from './pages/news-detail/news-detail';
-import { NewsCreate } from './pages/admin/news-create/news-create';
-import { CompetitionCreate } from './pages/admin/competition-create/competition-create';
-import { TeamCreate } from './pages/admin/team-create/team-create';
-import { PlayerCreate } from './pages/admin/player-create/player-create';
-import { MatchCreate } from './pages/admin/match-create/match-create';
-import { SearchPage } from './pages/search/search';
 
 export const routes: Routes = [
-  // Inicio
+  // Inicio (eager loading - necesario para first paint)
   {
     path: '',
     component: Home,
   },
 
-  // Style Guide (desarrollo)
-  {
-    path: 'style-guide',
-    component: StyleGuide,
-  },
-
-  // DWEC - Ejemplos y Demos
-  {
-    path: 'dwec',
-    component: Dwec,
-  },
-
-  // Login
+  // Login (eager - es pequeño y se usa frecuentemente)
   {
     path: 'login',
-    component: Login,
+    loadComponent: () => import('./pages/login/login').then(m => m.Login),
   },
 
-  // Noticias (consume API real)
+  // Style Guide (lazy - solo desarrollo)
+  {
+    path: 'style-guide',
+    loadComponent: () => import('./pages/style-guide/style-guide').then(m => m.StyleGuide),
+  },
+
+  // DWEC (lazy - solo demostración)
+  {
+    path: 'dwec',
+    loadComponent: () => import('./pages/dwec/dwec').then(m => m.Dwec),
+  },
+
+  // Noticias (lazy loading con preload - sección popular)
   {
     path: 'noticias',
+    data: { preload: true },
     children: [
       {
         path: '',
-        component: NewsPage,
+        loadComponent: () => import('./pages/news/news').then(m => m.NewsPage),
       },
       {
         path: ':id',
-        component: NewsDetail,
+        loadComponent: () => import('./pages/news-detail/news-detail').then(m => m.NewsDetail),
       },
     ],
   },
 
-  // Equipos
+  // Equipos (lazy loading con preload - sección popular)
   {
     path: 'equipos',
+    data: { preload: true },
     children: [
       {
         path: '',
-        component: Teams,
+        loadComponent: () => import('./pages/teams/teams').then(m => m.Teams),
       },
       {
         path: ':id',
-        component: TeamDetail,
+        loadComponent: () => import('./pages/team-detail/team-detail').then(m => m.TeamDetail),
       },
     ],
   },
 
-  // Jugadores
+  // Jugadores (lazy loading con preload - sección popular)
   {
     path: 'jugadores',
+    data: { preload: true },
     children: [
       {
         path: '',
-        component: Players,
+        loadComponent: () => import('./pages/players/players').then(m => m.Players),
       },
       {
         path: ':id',
-        component: PlayerDetail,
+        loadComponent: () => import('./pages/player-detail/player-detail').then(m => m.PlayerDetail),
       },
     ],
   },
 
-  // Calendario
+  // Calendario (lazy loading)
   {
     path: 'calendario',
-    component: Calendar,
+    loadComponent: () => import('./pages/calendar/calendar').then(m => m.Calendar),
   },
 
-  // Búsqueda
+  // Búsqueda (lazy loading)
   {
     path: 'buscar',
-    component: SearchPage,
+    loadComponent: () => import('./pages/search/search').then(m => m.SearchPage),
   },
 
-  // Competiciones
+  // Competiciones (lazy loading)
   {
     path: 'competiciones',
     children: [
       {
         path: '',
-        component: Competitions,
+        loadComponent: () => import('./pages/competitions/competitions').then(m => m.Competitions),
       },
       {
         path: ':id',
-        component: CompetitionDetail,
+        loadComponent: () => import('./pages/competition-detail/competition-detail').then(m => m.CompetitionDetail),
         resolve: { competicion: competitionResolver },
       },
     ],
@@ -129,23 +112,38 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/user/user.routes').then((m) => m.userRoutes),
   },
 
-  // Admin - Crear contenido (solo editores/admin)
+  // Admin (lazy loading + guard)
   {
     path: 'admin',
     canActivate: [editorGuard],
     children: [
-      { path: 'noticias/nueva', component: NewsCreate },
-      { path: 'competiciones/nueva', component: CompetitionCreate },
-      { path: 'equipos/nuevo', component: TeamCreate },
-      { path: 'jugadores/nuevo', component: PlayerCreate },
-      { path: 'encuentros/nuevo', component: MatchCreate },
+      {
+        path: 'noticias/nueva',
+        loadComponent: () => import('./pages/admin/news-create/news-create').then(m => m.NewsCreate)
+      },
+      {
+        path: 'competiciones/nueva',
+        loadComponent: () => import('./pages/admin/competition-create/competition-create').then(m => m.CompetitionCreate)
+      },
+      {
+        path: 'equipos/nuevo',
+        loadComponent: () => import('./pages/admin/team-create/team-create').then(m => m.TeamCreate)
+      },
+      {
+        path: 'jugadores/nuevo',
+        loadComponent: () => import('./pages/admin/player-create/player-create').then(m => m.PlayerCreate)
+      },
+      {
+        path: 'encuentros/nuevo',
+        loadComponent: () => import('./pages/admin/match-create/match-create').then(m => m.MatchCreate)
+      },
     ],
   },
 
-  // 404
+  // 404 (lazy loading)
   {
     path: '404',
-    component: NotFound,
+    loadComponent: () => import('./pages/not-found/not-found').then(m => m.NotFound),
   },
 
   // Wildcard - redirige a 404

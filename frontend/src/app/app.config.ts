@@ -1,10 +1,11 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter, withPreloading, PreloadAllModules, withInMemoryScrolling } from '@angular/router';
+import { provideRouter, withPreloading, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 import { routes } from './app.routes';
 import { authInterceptor, errorInterceptor, loggingInterceptor } from './core/interceptors';
+import { SelectivePreloadStrategy } from './core/preload-strategy';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,11 +13,12 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(
       routes,
-      withPreloading(PreloadAllModules),
+      withPreloading(SelectivePreloadStrategy),
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',
         anchorScrolling: 'enabled',
-      })
+      }),
+      withViewTransitions()
     ),
     provideHttpClient(
       withFetch(),
