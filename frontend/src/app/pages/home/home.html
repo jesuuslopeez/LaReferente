@@ -6,8 +6,25 @@
         <article
           class="hero__slide"
           [class.hero__slide--active]="currentSlide() === i"
-          [style.background-image]="'url(' + slide.image + ')'"
         >
+          @if (i === 0) {
+            <img
+              [src]="slide.image"
+              [alt]="slide.title"
+              class="hero__bg-image"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          } @else {
+            <img
+              [src]="slide.image"
+              [alt]="slide.title"
+              class="hero__bg-image"
+              loading="lazy"
+              decoding="async"
+            />
+          }
           <section class="hero__overlay"></section>
           <section class="hero__content">
             <h1 class="hero__title">{{ slide.title }}</h1>

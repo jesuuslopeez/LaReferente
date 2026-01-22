@@ -1,5 +1,16 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
+import { Login } from './pages/login/login';
+import { NewsPage } from './pages/news/news';
+import { NewsDetail } from './pages/news-detail/news-detail';
+import { Teams } from './pages/teams/teams';
+import { TeamDetail } from './pages/team-detail/team-detail';
+import { Players } from './pages/players/players';
+import { PlayerDetail } from './pages/player-detail/player-detail';
+import { Calendar } from './pages/calendar/calendar';
+import { Competitions } from './pages/competitions/competitions';
+import { CompetitionDetail } from './pages/competition-detail/competition-detail';
+import { NotFound } from './pages/not-found/not-found';
 import { authGuard } from './guards/auth.guard';
 import { editorGuard } from './guards/editor.guard';
 import { competitionResolver } from './resolvers/competition.resolver';
@@ -14,92 +25,71 @@ export const routes: Routes = [
   // Login (eager - es pequeño y se usa frecuentemente)
   {
     path: 'login',
-    loadComponent: () => import('./pages/login/login').then(m => m.Login),
+    component: Login,
   },
 
-  // Style Guide (lazy - solo desarrollo)
-  {
-    path: 'style-guide',
-    loadComponent: () => import('./pages/style-guide/style-guide').then(m => m.StyleGuide),
-  },
-
-  // DWEC (lazy - solo demostración)
-  {
-    path: 'dwec',
-    loadComponent: () => import('./pages/dwec/dwec').then(m => m.Dwec),
-  },
-
-  // Noticias (lazy loading con preload - sección popular)
+  // Noticias (eager - todo)
   {
     path: 'noticias',
-    data: { preload: true },
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/news/news').then(m => m.NewsPage),
+        component: NewsPage,
       },
       {
         path: ':id',
-        loadComponent: () => import('./pages/news-detail/news-detail').then(m => m.NewsDetail),
+        component: NewsDetail,
       },
     ],
   },
 
-  // Equipos (lazy loading con preload - sección popular)
+  // Equipos (eager - todo)
   {
     path: 'equipos',
-    data: { preload: true },
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/teams/teams').then(m => m.Teams),
+        component: Teams,
       },
       {
         path: ':id',
-        loadComponent: () => import('./pages/team-detail/team-detail').then(m => m.TeamDetail),
+        component: TeamDetail,
       },
     ],
   },
 
-  // Jugadores (lazy loading con preload - sección popular)
+  // Jugadores (eager - todo)
   {
     path: 'jugadores',
-    data: { preload: true },
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/players/players').then(m => m.Players),
+        component: Players,
       },
       {
         path: ':id',
-        loadComponent: () => import('./pages/player-detail/player-detail').then(m => m.PlayerDetail),
+        component: PlayerDetail,
       },
     ],
   },
 
-  // Calendario (lazy loading)
+  // Calendario (eager)
   {
     path: 'calendario',
-    loadComponent: () => import('./pages/calendar/calendar').then(m => m.Calendar),
+    component: Calendar,
   },
 
-  // Búsqueda (lazy loading)
-  {
-    path: 'buscar',
-    loadComponent: () => import('./pages/search/search').then(m => m.SearchPage),
-  },
-
-  // Competiciones (lazy loading)
+  // Competiciones (eager)
   {
     path: 'competiciones',
     children: [
       {
         path: '',
-        loadComponent: () => import('./pages/competitions/competitions').then(m => m.Competitions),
+        component: Competitions,
       },
       {
         path: ':id',
-        loadComponent: () => import('./pages/competition-detail/competition-detail').then(m => m.CompetitionDetail),
+        component: CompetitionDetail,
         resolve: { competicion: competitionResolver },
       },
     ],
@@ -112,38 +102,17 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/user/user.routes').then((m) => m.userRoutes),
   },
 
-  // Admin (lazy loading + guard)
+  // Admin (lazy - solo para editores)
   {
     path: 'admin',
     canActivate: [editorGuard],
-    children: [
-      {
-        path: 'noticias/nueva',
-        loadComponent: () => import('./pages/admin/news-create/news-create').then(m => m.NewsCreate)
-      },
-      {
-        path: 'competiciones/nueva',
-        loadComponent: () => import('./pages/admin/competition-create/competition-create').then(m => m.CompetitionCreate)
-      },
-      {
-        path: 'equipos/nuevo',
-        loadComponent: () => import('./pages/admin/team-create/team-create').then(m => m.TeamCreate)
-      },
-      {
-        path: 'jugadores/nuevo',
-        loadComponent: () => import('./pages/admin/player-create/player-create').then(m => m.PlayerCreate)
-      },
-      {
-        path: 'encuentros/nuevo',
-        loadComponent: () => import('./pages/admin/match-create/match-create').then(m => m.MatchCreate)
-      },
-    ],
+    loadChildren: () => import('./pages/admin/admin.routes').then(m => m.adminRoutes),
   },
 
-  // 404 (lazy loading)
+  // 404 (eager)
   {
     path: '404',
-    loadComponent: () => import('./pages/not-found/not-found').then(m => m.NotFound),
+    component: NotFound,
   },
 
   // Wildcard - redirige a 404
