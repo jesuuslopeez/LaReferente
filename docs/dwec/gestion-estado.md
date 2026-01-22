@@ -1,6 +1,6 @@
-# Gestion de Estado y Actualizacion Dinamica
+# Gestión de estado y actualización dinámica
 
-En este documento explico como gestiono el estado de la aplicacion, las actualizaciones sin recargar la pagina y las optimizaciones de rendimiento que he aplicado.
+En este documento explico como gestiono el estado de la aplicación, las actualizaciones sin recargar la pagina y las optimizaciones de rendimiento que he aplicado.
 
 ---
 
@@ -227,7 +227,7 @@ Cuando el componente se destruye, la suscripcion se cancela automaticamente. Ant
 
 ## 5. Paginacion
 
-He implementado paginacion en la lista de competiciones:
+He implementado paginación en la lista de competiciones:
 
 ```typescript
 // Estado
@@ -340,7 +340,7 @@ private loadingSubject = new BehaviorSubject<boolean>(false);
 public loading$ = this.loadingSubject.asObservable();
 ```
 
-Funcionan bien para comunicacion entre componentes que no estan relacionados. El toast por ejemplo lo puede mostrar cualquier componente y el componente de toast se entera porque esta suscrito.
+Funcionan bien para comunicación entre componentes que no estan relacionados. El toast por ejemplo lo puede mostrar cualquier componente y el componente de toast se entera porque esta suscrito.
 
 ---
 

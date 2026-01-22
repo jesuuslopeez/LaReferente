@@ -1,6 +1,6 @@
-# Servicios y Comunicacion HTTP
+# Servicios y comunicación HTTP
 
-En este documento explico como he montado toda la capa de comunicacion con el backend, los servicios que consumen la API y como gestiono los errores y estados de carga.
+En este documento explico como he montado toda la capa de comunicación con el backend, los servicios que consumen la API y como gestiono los errores y estados de carga.
 
 ---
 

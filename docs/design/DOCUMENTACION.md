@@ -1,27 +1,27 @@
-# Documentacion DIW
+# Documentación DIW
 
-## Seccion 1: Arquitectura CSS y Comunicacion Visual
+## Sección 1: Arquitectura CSS y comunicación visual
 
-### 1.1 Principios de Comunicacion Visual
+### 1.1 Principios de comunicación visual
 
-La interfaz del proyecto se ha disenado aplicando los cinco principios fundamentales de comunicacion visual, garantizando una experiencia de usuario coherente y profesional.
+La interfaz del proyecto se ha diseñado aplicando los cinco principios fundamentales de comunicación visual, garantizando una experiencia de usuario coherente y profesional.
 
 #### Jerarquia
 
-La jerarquia visual establece el orden de importancia de los elementos mediante el uso de tamanos, pesos tipograficos y espaciados diferenciados.
+La jerarquia visual establece el orden de importancia de los elementos mediante el uso de tamaños, pesos tipograficos y espaciados diferenciados.
 
 En el proyecto se aplica de la siguiente manera:
 
-- **Titulos principales (h1)**: Utilizan la fuente secundaria ABeeZee con peso bold y tamano `--font-4xl` (3rem), creando un punto focal claro en cada seccion.
-- **Subtitulos (h2, h3)**: Mantienen la fuente secundaria pero con tamanos progresivamente menores (`--font-2xl`, `--font-xl`), estableciendo niveles de lectura claros.
-- **Texto de contenido**: Emplea la fuente primaria Inter con peso regular y tamano base (`--font-base`), diferenciandose claramente de los titulos.
-- **Texto secundario**: Utiliza el color `--text-secondary` y tamano `--font-sm` para informacion complementaria como ayudas de formulario o fechas.
+- **Titulos principales (h1)**: Utilizan la fuente secundaria ABeeZee con peso bold y tamaño `--font-4xl` (3rem), creando un punto focal claro en cada sección.
+- **Subtitulos (h2, h3)**: Mantienen la fuente secundaria pero con tamaños progresivamente menores (`--font-2xl`, `--font-xl`), estableciendo niveles de lectura claros.
+- **Texto de contenido**: Emplea la fuente primaria Inter con peso regular y tamaño base (`--font-base`), diferenciandose claramente de los titulos.
+- **Texto secundario**: Utiliza el color `--text-secondary` y tamaño `--font-sm` para información complementaria como ayudas de formulario o fechas.
 
 **Ejemplo visual - Tarjeta de jugador:**
 
 ![Jerarquia en tarjeta de jugador](../screenshots/muestra-card-jugador.png)
 
-En la tarjeta de jugador se observa la jerarquia: el nombre del jugador destaca con mayor tamano y peso, seguido del dorsal, y finalmente la informacion secundaria (club, pais, posicion, edad) con tipografia mas pequena.
+En la tarjeta de jugador se observa la jerarquia: el nombre del jugador destaca con mayor tamaño y peso, seguido del dorsal, y finalmente la información secundaria (club, pais, posicion, edad) con tipografia mas pequena.
 
 ```scss
 // Ejemplo de jerarquia en tarjetas
@@ -46,17 +46,17 @@ En la tarjeta de jugador se observa la jerarquia: el nombre del jugador destaca 
 
 #### Contraste
 
-El contraste permite diferenciar elementos y guiar la atencion del usuario hacia las acciones principales.
+El contraste permite diferenciar elementos y guiar la atencion del usuario hacia las acciónes principales.
 
-- **Contraste de color**: El color primario verde (`--primary: #388e3c`) destaca sobre fondos blancos y grises, utilizandose para botones de accion principal, enlaces y elementos interactivos.
+- **Contraste de color**: El color primario verde (`--primary: hsl(122, 43%, 39%)`) destaca sobre fondos blancos y grises, utilizándose para botones de acción principal, enlaces y elementos interactivos.
 - **Contraste de peso**: Los elementos importantes utilizan `--font-semibold` o `--font-bold`, mientras que el texto regular emplea `--font-regular`.
-- **Contraste de estados**: Los botones cambian de borde a relleno en hover, creando una diferenciacion clara entre estado normal e interactivo.
+- **Contraste de estados**: Los botones cambian de borde a relleno en hover, creando una diferenciación clara entre estado normal e interactivo.
 
-**Ejemplo visual - Seccion de noticias:**
+**Ejemplo visual - Sección de noticias:**
 
-![Contraste en seccion de noticias](../screenshots/noticias-contraste.png)
+![Contraste en sección de noticias](../screenshots/noticias-contraste.png)
 
-En la seccion de noticias se aprecia el contraste: los titulos en color oscuro destacan sobre el fondo claro, las imagenes crean contraste visual, y los botones verdes resaltan como elementos de accion.
+En la sección de noticias se aprecia el contraste: los titulos en color oscuro destacan sobre el fondo claro, las imagenes crean contraste visual, y los botones verdes resaltan como elementos de acción.
 
 ```scss
 // Contraste en botones primarios
@@ -74,17 +74,17 @@ En la seccion de noticias se aprecia el contraste: los titulos en color oscuro d
 
 #### Alineacion
 
-La estrategia de alineacion del proyecto sigue un patron consistente:
+La estrategia de alineación del proyecto sigue un patron consistente:
 
 - **Alineacion izquierda**: Se utiliza como estandar para textos, etiquetas de formulario y contenido general, facilitando la lectura natural.
-- **Alineacion centrada**: Reservada para elementos de accion como botones en modales, titulos de secciones principales y mensajes de feedback.
+- **Alineacion centrada**: Reservada para elementos de acción como botones en modales, titulos de secciónes principales y mensajes de feedback.
 - **Sistema grid**: Los layouts complejos utilizan CSS Grid y Flexbox con gaps consistentes basados en la escala de espaciado.
 
 **Ejemplo visual - Alineaciones y posicionamientos:**
 
-![Alineaciones y posicionamientos](../screenshots/alineaciones-posicionamientos.png)
+![Alineaciones y posicionamientos](../screenshots/alineaciónes-posicionamientos.png)
 
-En el diseno se observan las diferentes estrategias de alineacion: contenido alineado a la izquierda en las tarjetas, elementos centrados en las cabeceras, y uso de grid para distribuir las tarjetas de forma equilibrada.
+En el diseño se observan las diferentes estrategias de alineación: contenido alineado a la izquierda en las tarjetas, elementos centrados en las cabeceras, y uso de grid para distribuir las tarjetas de forma equilibrada.
 
 ```scss
 // Alineacion en formularios
@@ -92,8 +92,8 @@ En el diseno se observan las diferentes estrategias de alineacion: contenido ali
   @include flex-columna(var(--spacing-2));
 }
 
-// Alineacion centrada para acciones
-.formulario__acciones {
+// Alineacion centrada para acciónes
+.formulario__acciónes {
   @include flex-centrar;
   gap: var(--spacing-4);
 }
@@ -105,7 +105,7 @@ Los elementos relacionados se agrupan mediante espaciados consistentes, creando 
 
 - **Espaciado interno de grupos**: `--spacing-2` (0.5rem) entre etiqueta y campo de formulario.
 - **Espaciado entre grupos**: `--spacing-4` (1rem) entre diferentes campos de un formulario.
-- **Espaciado de secciones**: `--spacing-6` (1.5rem) o superior para separar bloques de contenido independientes.
+- **Espaciado de secciónes**: `--spacing-6` (1.5rem) o superior para separar bloques de contenido independientes.
 
 ```scss
 // Proximidad en grupos de formulario
@@ -130,7 +130,7 @@ La coherencia visual se logra mediante la repeticion de patrones en toda la inte
 
 ![Botones coherentes](../screenshots/botones-coherentes.png)
 
-En la imagen se observa como todos los botones mantienen el mismo patron visual: bordes redondeados consistentes, mismo espaciado interno, y transiciones uniformes. Esta repeticion crea coherencia en toda la interfaz.
+En la imagen se observa como todos los botones mantienen el mismo patron visual: bordes redondeados consistentes, mismo espaciado interno, y transiciónes uniformes. Esta repeticion crea coherencia en toda la interfaz.
 
 ```scss
 // Patron repetido en elementos interactivos
@@ -152,7 +152,7 @@ En la imagen se observa como todos los botones mantienen el mismo patron visual:
 
 ---
 
-### 1.2 Metodologia CSS: BEM
+### 1.2 Metodología CSS: BEM
 
 El proyecto utiliza la metodologia BEM (Block Element Modifier) para la nomenclatura de clases CSS. Esta decision se fundamenta en las siguientes ventajas:
 
@@ -174,7 +174,7 @@ El proyecto utiliza la metodologia BEM (Block Element Modifier) para la nomencla
 ```scss
 .tarjeta__titulo { }
 .tarjeta__contenido { }
-.tarjeta__acciones { }
+.tarjeta__acciónes { }
 ```
 
 **Modificador**: Variacion del bloque o elemento, se une con doble guion.
@@ -226,7 +226,7 @@ El proyecto utiliza la metodologia BEM (Block Element Modifier) para la nomencla
 
 ---
 
-### 1.3 Organizacion de Archivos: ITCSS
+### 1.3 Organización de archivos: ITCSS
 
 El proyecto implementa la arquitectura ITCSS (Inverted Triangle CSS), que organiza los estilos en capas ordenadas de menor a mayor especificidad. Esta estructura evita problemas de cascada y facilita el mantenimiento.
 
@@ -260,14 +260,14 @@ src/styles/
 │   ├── _boton.scss
 │   ├── _formulario.scss
 │   ├── _modal.scss
-│   ├── _navegacion.scss
+│   ├── _navegación.scss
 │   ├── _notificacion.scss
 │   └── _tarjeta.scss
 └── 06-utilities/
     └── _utilities.scss
 ```
 
-#### Descripcion de Capas
+#### Descripción de capas
 
 | Capa | Contenido | Especificidad |
 |------|-----------|---------------|
@@ -283,15 +283,15 @@ Esta organizacion garantiza que los estilos mas genericos se carguen primero y l
 
 ---
 
-### 1.4 Sistema de Design Tokens
+### 1.4 Sistema de design tokens
 
-Los design tokens son variables que centralizan los valores de diseno, permitiendo cambios globales desde un unico punto y garantizando consistencia en toda la aplicacion.
+Los design tokens son variables que centralizan los valores de diseño, permitiendo cambios globales desde un unico punto y garantizando consistencia en toda la aplicación.
 
 #### Colores
 
 **Colores Primarios y Secundarios**
 
-Se eligio el verde como color primario (`#388e3c`) por su asociacion con naturaleza, crecimiento y acciones positivas, alineandose con la identidad del proyecto. El azul secundario (`#039be5`) proporciona contraste y se reserva para acciones alternativas.
+Se eligió el verde como color primario (`hsl(122, 43%, 39%)`) por su asociación con naturaleza, crecimiento y acciones positivas, alineándose con la identidad del proyecto. El azul secundario (`hsl(199, 98%, 45%)`) proporciona contraste y se reserva para acciones alternativas.
 
 ```scss
 // Tema claro
@@ -335,7 +335,7 @@ $success: #2ecc71;      // Acciones exitosas
 $success-bg: #eafaf1;   // Fondo de mensajes de exito
 $success-text: #1d8348; // Texto sobre fondo de exito
 
-$error: #c0392b;        // Errores y validaciones fallidas
+$error: #c0392b;        // Errores y validaciónes fallidas
 $error-bg: #fdf2f0;
 $error-text: #922b21;
 
@@ -354,7 +354,7 @@ $info-text: #212f3c;
 
 Se utilizan dos familias tipograficas con roles diferenciados:
 
-- **Inter** (`--font-primary`): Fuente sans-serif optimizada para interfaces digitales. Se utiliza para todo el contenido: parrafos, etiquetas, botones, navegacion.
+- **Inter** (`--font-primary`): Fuente sans-serif optimizada para interfaces digitales. Se utiliza para todo el contenido: parrafos, etiquetas, botones, navegación.
 - **ABeeZee** (`--font-secondary`): Fuente con personalidad distintiva, reservada exclusivamente para titulos (h1-h6).
 
 ```scss
@@ -372,7 +372,7 @@ La escala sigue una progresion armonica que facilita establecer jerarquias clara
 --font-base: 1rem;     // 16px - Texto principal
 --font-lg: 1.25rem;    // 20px - Subtitulos menores
 --font-xl: 1.5rem;     // 24px - Titulos de tarjeta
---font-2xl: 1.875rem;  // 30px - Titulos de seccion
+--font-2xl: 1.875rem;  // 30px - Titulos de sección
 --font-3xl: 2.25rem;   // 36px - Titulos principales
 --font-4xl: 3rem;      // 48px - Titulos hero
 --font-5xl: 3.75rem;   // 60px - Titulos destacados
@@ -404,7 +404,7 @@ La escala de espaciado utiliza incrementos de 0.25rem, proporcionando flexibilid
 --spacing-3: 0.75rem;   // 12px - Padding de inputs
 --spacing-4: 1rem;      // 16px - Gap estandar
 --spacing-6: 1.5rem;    // 24px - Padding de tarjetas
---spacing-8: 2rem;      // 32px - Separacion de secciones
+--spacing-8: 2rem;      // 32px - Separacion de secciónes
 // ... hasta --spacing-24: 6rem
 ```
 
@@ -424,7 +424,7 @@ Estos valores se eligieron para cubrir los dispositivos mas comunes, alineandose
 
 ---
 
-### 1.5 Mixins y Funciones
+### 1.5 Mixins y funciones
 
 Los mixins encapsulan patrones de estilos reutilizables, reduciendo la repeticion de codigo y garantizando consistencia.
 
@@ -663,18 +663,18 @@ Centra un elemento posicionado absolutamente.
 }
 ```
 
-#### Mixin 12: transicion-suave
+#### Mixin 12: transición-suave
 
-Aplica transiciones con duracion y timing consistentes.
+Aplica transiciónes con duracion y timing consistentes.
 
 ```scss
-@mixin transicion-suave($propiedades: all) {
+@mixin transición-suave($propiedades: all) {
   transition: $propiedades var(--duration-base) var(--timing-ease-in-out);
 }
 
 // Uso
 .enlace {
-  @include transicion-suave(color);
+  @include transición-suave(color);
 }
 ```
 
@@ -724,7 +724,7 @@ Crea un fondo oscuro semitransparente para modales.
 
 #### Mixin 15: focus-visible
 
-Aplica estilos de foco accesibles que solo aparecen con navegacion por teclado.
+Aplica estilos de foco accesibles que solo aparecen con navegación por teclado.
 
 ```scss
 @mixin focus-visible {
@@ -768,7 +768,7 @@ Esta estrategia hibrida se eligio por las siguientes razones:
 
 1. **Reutilizacion**: Los estilos de componentes como `.boton`, `.tarjeta` o `.formulario` estan definidos globalmente y pueden utilizarse en cualquier componente Angular sin duplicar codigo.
 
-2. **Consistencia**: Al centralizar los estilos en parciales globales, se garantiza que todos los botones, tarjetas y formularios tengan el mismo aspecto en toda la aplicacion.
+2. **Consistencia**: Al centralizar los estilos en parciales globales, se garantiza que todos los botones, tarjetas y formularios tengan el mismo aspecto en toda la aplicación.
 
 3. **Mantenibilidad**: Los cambios en un componente visual (por ejemplo, el radio de borde de los botones) se realizan en un unico archivo y se propagan automaticamente.
 
@@ -819,15 +819,15 @@ export class HeaderComponent { }
 
 ---
 
-## Seccion 2: HTML Semantico y Estructura
+## Sección 2: HTML semántico y estructura
 
-### 2.1 Elementos Semanticos Utilizados
+### 2.1 Elementos semánticos utilizados
 
-El proyecto utiliza elementos semanticos de HTML5 para estructurar el contenido de forma significativa, mejorando la accesibilidad y el SEO de la aplicacion.
+El proyecto utiliza elementos semanticos de HTML5 para estructurar el contenido de forma significativa, mejorando la accesibilidad y el SEO de la aplicación.
 
 #### header
 
-El elemento `<header>` contiene la cabecera principal de la aplicacion, incluyendo el logotipo, la navegacion principal y las utilidades de usuario.
+El elemento `<header>` contiene la cabecera principal de la aplicación, incluyendo el logotipo, la navegación principal y las utilidades de usuario.
 
 ```html
 <header class="header">
@@ -856,7 +856,7 @@ El elemento `<header>` contiene la cabecera principal de la aplicacion, incluyen
 
 #### nav
 
-El elemento `<nav>` agrupa los enlaces de navegacion principal, facilitando a los lectores de pantalla identificar la zona de navegacion.
+El elemento `<nav>` agrupa los enlaces de navegación principal, facilitando a los lectores de pantalla identificar la zona de navegación.
 
 ```html
 <nav class="header__nav">
@@ -934,7 +934,7 @@ El elemento `<article>` representa contenido independiente y autocontenido. Se u
 
 #### footer
 
-El elemento `<footer>` contiene el pie de pagina con informacion legal, enlaces de redes sociales y copyright.
+El elemento `<footer>` contiene el pie de pagina con información legal, enlaces de redes sociales y copyright.
 
 ```html
 <footer class="footer">
@@ -942,7 +942,7 @@ El elemento `<footer>` contiene el pie de pagina con informacion legal, enlaces 
     <section class="footer__main">
       <section class="footer__brand">
         <img src="/images/logo.png" alt="La Referente" class="footer__logo" />
-        <p class="footer__description">Tu fuente de informacion sobre futbol espanol.</p>
+        <p class="footer__description">Tu fuente de información sobre futbol español.</p>
       </section>
 
       <section class="footer__section">
@@ -978,13 +978,13 @@ El elemento `<footer>` contiene el pie de pagina con informacion legal, enlaces 
 
 ---
 
-### 2.2 Jerarquia de Headings
+### 2.2 Jerarquía de headings
 
 La estructura de encabezados sigue una jerarquia logica y accesible, respetando las siguientes reglas:
 
 - Solo existe un `<h1>` por pagina, representando el titulo principal.
-- Los `<h2>` definen las secciones principales de cada pagina.
-- Los `<h3>` subdividen las secciones cuando es necesario.
+- Los `<h2>` definen las secciónes principales de cada pagina.
+- Los `<h3>` subdividen las secciónes cuando es necesario.
 - Nunca se saltan niveles (por ejemplo, de h1 a h3 directamente).
 
 #### Diagrama de Jerarquia
@@ -1017,7 +1017,7 @@ Pagina Footer (como referencia de h3)
 <section class="home">
   <header class="home__header">
     <h1 class="home__title">Bienvenido a La Referente</h1>
-    <p class="home__description">Tu fuente de informacion sobre futbol espanol</p>
+    <p class="home__description">Tu fuente de información sobre futbol español</p>
   </header>
 
   <section class="home__demo">
@@ -1058,7 +1058,7 @@ Cada nivel de encabezado tiene estilos diferenciados para reforzar la jerarquia 
   line-height: var(--font-tight);
 }
 
-// h3 - Subsecciones
+// h3 - Subsecciónes
 .footer__title {
   font-family: var(--font-secondary);
   font-size: var(--font-lg);
@@ -1069,7 +1069,7 @@ Cada nivel de encabezado tiene estilos diferenciados para reforzar la jerarquia 
 
 ---
 
-### 2.3 Estructura de Formularios
+### 2.3 Estructura de formularios
 
 Los formularios del proyecto siguen una estructura semantica que garantiza accesibilidad y usabilidad.
 
@@ -1268,9 +1268,9 @@ Los formularios de busqueda utilizan el atributo `role="search"` para indicar su
 
 ---
 
-## Seccion 3: Sistema de Componentes UI
+## Sección 3: Sistema de componentes UI
 
-### 3.1 Componentes Implementados
+### 3.1 Componentes implementados
 
 El proyecto cuenta con un sistema de componentes reutilizables desarrollados en Angular. A continuacion se documenta cada componente con sus propiedades, variantes y ejemplos de uso.
 
@@ -1278,23 +1278,23 @@ El proyecto cuenta con un sistema de componentes reutilizables desarrollados en 
 
 #### Button
 
-**Proposito**: Componente de boton reutilizable para acciones del usuario.
+**Proposito**: Componente de boton reutilizable para acciónes del usuario.
 
 **Variantes disponibles**:
 - `primary`: Boton principal con borde verde, fondo blanco que se invierte en hover.
 - `secondary`: Boton secundario con borde azul.
 - `ghost`: Boton sin borde ni fondo, solo texto.
-- `danger`: Boton de accion peligrosa con borde rojo.
+- `danger`: Boton de acción peligrosa con borde rojo.
 
 **Tamanos disponibles**:
 - `sm`: Pequeno (padding reducido, fuente pequena).
-- `md`: Mediano (tamano por defecto).
+- `md`: Mediano (tamaño por defecto).
 - `lg`: Grande (padding amplio, fuente mayor).
 
 **Estados que maneja**:
 - Normal: Estado por defecto.
 - Hover: Cambio de colores al pasar el raton.
-- Focus: Outline visible para navegacion por teclado.
+- Focus: Outline visible para navegación por teclado.
 - Active: Reduccion de escala al hacer clic.
 - Disabled: Opacidad reducida, cursor no permitido.
 
@@ -1357,7 +1357,7 @@ El proyecto cuenta con un sistema de componentes reutilizables desarrollados en 
 
 <app-alert
   type="warning"
-  message="Esta accion no se puede deshacer."
+  message="Esta acción no se puede deshacer."
 />
 
 <app-alert
@@ -1370,7 +1370,7 @@ El proyecto cuenta con un sistema de componentes reutilizables desarrollados en 
 
 #### Card (Player Card)
 
-**Proposito**: Tarjeta para mostrar informacion de jugadores de futbol.
+**Proposito**: Tarjeta para mostrar información de jugadores de futbol.
 
 **Propiedades requeridas**:
 - `playerName`: Nombre del jugador.
@@ -1383,8 +1383,8 @@ El proyecto cuenta con un sistema de componentes reutilizables desarrollados en 
 - `position`: Posicion en el campo.
 
 **Estados que maneja**:
-- Normal: Muestra toda la informacion del jugador.
-- Hover en botones: Los botones de accion cambian de estilo.
+- Normal: Muestra toda la información del jugador.
+- Hover en botones: Los botones de acción cambian de estilo.
 
 **Ejemplo de uso**:
 
@@ -1405,7 +1405,7 @@ El proyecto cuenta con un sistema de componentes reutilizables desarrollados en 
 
 #### CompetitionCard
 
-**Proposito**: Tarjeta para mostrar informacion de competiciones deportivas.
+**Proposito**: Tarjeta para mostrar información de competiciones deportivas.
 
 **Propiedades requeridas**:
 - `logo`: URL del logotipo de la competicion.
@@ -1418,8 +1418,8 @@ El proyecto cuenta con un sistema de componentes reutilizables desarrollados en 
 - `groups`: Numero de grupos (si la competicion es multigrupo).
 
 **Estados que maneja**:
-- Normal: Muestra la informacion de la competicion.
-- Multigrupo: Si tiene grupos, muestra informacion adicional.
+- Normal: Muestra la información de la competicion.
+- Multigrupo: Si tiene grupos, muestra información adicional.
 
 **Ejemplo de uso**:
 
@@ -1562,7 +1562,7 @@ positionOptions = [
 
 #### FormCheckbox
 
-**Proposito**: Casilla de verificacion con diseno personalizado.
+**Proposito**: Casilla de verificacion con diseño personalizado.
 
 **Propiedades disponibles**:
 - `label`: Etiqueta del checkbox.
@@ -1601,7 +1601,7 @@ positionOptions = [
 
 #### AccountModal
 
-**Proposito**: Modal para formularios de autenticacion (login, registro).
+**Proposito**: Modal para formularios de autenticación (login, registro).
 
 **Propiedades disponibles**:
 - `title`: Titulo del modal.
@@ -1647,7 +1647,7 @@ positionOptions = [
 
 ---
 
-### 3.2 Nomenclatura y Metodologia
+### 3.2 Nomenclatura y metodología
 
 La nomenclatura de clases CSS sigue la metodologia BEM (Block Element Modifier), aplicada de forma consistente en todos los componentes.
 
@@ -1692,7 +1692,7 @@ La nomenclatura de clases CSS sigue la metodologia BEM (Block Element Modifier),
 .button--ghost { }
 .button--danger { }
 
-// Modificadores de tamano
+// Modificadores de tamaño
 .button--sm { }
 .button--md { }
 .button--lg { }
@@ -1720,7 +1720,7 @@ La nomenclatura de clases CSS sigue la metodologia BEM (Block Element Modifier),
 <aside class="alert alert--success">Operacion exitosa</aside>
 ```
 
-**Clases de estado** se utilizan para cambios dinamicos que dependen de la interaccion o datos:
+**Clases de estado** se utilizan para cambios dinamicos que dependen de la interacción o datos:
 
 ```scss
 // Estados aplicados dinamicamente
@@ -1737,7 +1737,7 @@ La nomenclatura de clases CSS sigue la metodologia BEM (Block Element Modifier),
   [class.form-field__input--error]="control.invalid && control.touched"
 />
 
-<!-- Clase de estado para navegacion activa -->
+<!-- Clase de estado para navegación activa -->
 <a
   routerLink="/noticias"
   routerLinkActive="header__nav-link--active"
@@ -1770,7 +1770,7 @@ La nomenclatura de clases CSS sigue la metodologia BEM (Block Element Modifier),
     cursor: not-allowed;
   }
 
-  // Modificadores de tamano
+  // Modificadores de tamaño
   &--sm {
     padding: var(--spacing-2) var(--spacing-4);
     font-size: var(--font-sm);
@@ -1827,9 +1827,9 @@ La nomenclatura de clases CSS sigue la metodologia BEM (Block Element Modifier),
 
 ---
 
-### 3.3 Style Guide
+### 3.3 Guía de estilo
 
-El proyecto incluye una pagina de Style Guide accesible en la ruta `/style-guide`. Esta pagina sirve como documentacion visual y referencia para todos los componentes del sistema de diseno.
+El proyecto incluye una pagina de Style Guide accesible en la ruta `/style-guide`. Esta pagina sirve como documentacion visual y referencia para todos los componentes del sistema de diseño.
 
 #### Proposito del Style Guide
 
@@ -1853,7 +1853,7 @@ El proyecto incluye una pagina de Style Guide accesible en la ruta `/style-guide
   <!-- Seccion de Botones -->
   <section id="buttons" class="style-guide__section">
     <h2 class="style-guide__section-title">Botones</h2>
-    <p class="style-guide__section-desc">Todos los tamanos, variantes y estados.</p>
+    <p class="style-guide__section-desc">Todos los tamaños, variantes y estados.</p>
 
     <article class="style-guide__component">
       <h3 class="style-guide__component-title">Primary Buttons</h3>
@@ -1911,19 +1911,19 @@ El proyecto incluye una pagina de Style Guide accesible en la ruta `/style-guide
 
 ![Style Guide](../screenshots/styles_guide-cap.png)
 
-La captura muestra la pagina de Style Guide con los diferentes componentes organizados por secciones, permitiendo visualizar todas las variantes y estados de cada elemento.
+La captura muestra la pagina de Style Guide con los diferentes componentes organizados por secciónes, permitiendo visualizar todas las variantes y estados de cada elemento.
 
 #### Acceso al Style Guide
 
-Para acceder al Style Guide, navegar a la ruta `/style-guide` en la aplicacion o hacer clic en el boton "Ver Guia de Componentes" en la pagina principal.
+Para acceder al Style Guide, navegar a la ruta `/style-guide` en la aplicación o hacer clic en el boton "Ver Guia de Componentes" en la pagina principal.
 
 ---
 
-## Seccion 4: Responsive Design y Container Queries
+## Sección 4: Responsive design y container queries
 
 ### 4.1 Breakpoints
 
-El sistema de breakpoints define los puntos de ruptura donde el diseno se adapta a diferentes tamanos de pantalla.
+El sistema de breakpoints define los puntos de ruptura donde el diseño se adapta a diferentes tamaños de pantalla.
 
 | Breakpoint | Valor | Dispositivos objetivo |
 |------------|-------|----------------------|
@@ -1953,7 +1953,7 @@ $breakpoints: (
 
 ---
 
-### 4.2 Estrategia Mobile-First
+### 4.2 Estrategia mobile-first
 
 Se ha utilizado Mobile-First porque obliga a priorizar el contenido esencial y los estilos se van ampliando progresivamente en lugar de ir recortando. El codigo queda mas limpio y los moviles cargan menos CSS.
 
@@ -1997,9 +1997,9 @@ Ejemplo en la pagina de competiciones:
 
 ---
 
-### 4.3 Container Queries
+### 4.3 Container queries
 
-Container Queries permite que los componentes respondan al tamano de su contenedor en lugar del viewport. Esto los hace reutilizables en cualquier contexto sin tener que crear variantes con clases.
+Container Queries permite que los componentes respondan al tamaño de su contenedor en lugar del viewport. Esto los hace reutilizables en cualquier contexto sin tener que crear variantes con clases.
 
 #### Card (Tarjeta de jugador)
 
@@ -2066,7 +2066,7 @@ Container Queries permite que los componentes respondan al tamano de su contened
 
 ---
 
-### 4.4 Tabla de Adaptaciones
+### 4.4 Tabla de adaptaciones
 
 | Seccion | Mobile (< 640px) | Tablet (768px) | Desktop (>= 1024px) |
 |---------|------------------|----------------|---------------------|
@@ -2079,7 +2079,7 @@ Container Queries permite que los componentes respondan al tamano de su contened
 
 ---
 
-### 4.5 Paginas Responsive
+### 4.5 Páginas responsive
 
 | Pagina | Ruta | Descripcion |
 |--------|------|-------------|
@@ -2121,7 +2121,7 @@ Pagina que muestra las competiciones de futbol con:
 
 ---
 
-### 4.6 Capturas Comparativas
+### 4.6 Capturas comparativas
 
 #### Home
 
@@ -2167,9 +2167,9 @@ Pagina que muestra las competiciones de futbol con:
 
 ---
 
-## Seccion 5: Optimizacion Multimedia
+## Sección 5: Optimización multimedia
 
-### 5.1 Formatos Elegidos
+### 5.1 Formatos elegidos
 
 El proyecto utiliza formatos de imagen modernos optimizados para la web:
 
@@ -2177,7 +2177,7 @@ El proyecto utiliza formatos de imagen modernos optimizados para la web:
 |---------|-----|---------------|
 | **WebP** | Imagenes principales (jugadores, competiciones, logos) | Excelente compresion con calidad visual alta. Soportado por todos los navegadores modernos (97%+ de soporte). Reduce el peso entre 25-35% respecto a JPEG manteniendo calidad. |
 | **SVG** | Iconos, graficos vectoriales | Escalable sin perdida de calidad. Peso minimo para graficos simples. Ideal para iconos que necesitan cambiar de color con CSS (`currentColor`). |
-| **PNG** | Solo como fallback o imagenes con transparencia compleja | Mayor peso pero maxima compatibilidad. Se mantienen versiones PNG originales como respaldo. |
+
 
 **Criterio de seleccion:**
 - **WebP** se usa como formato principal por su balance optimo entre compresion y calidad
@@ -2186,23 +2186,23 @@ El proyecto utiliza formatos de imagen modernos optimizados para la web:
 
 ---
 
-### 5.2 Herramientas Utilizadas
+### 5.2 Herramientas utilizadas
 
 | Herramienta | Proposito | Uso en el proyecto |
 |-------------|-----------|-------------------|
-| **Squoosh** | Conversion y optimizacion de imagenes | Conversion de PNG a WebP, ajuste de calidad (75-85%), redimensionado a multiples tamanos |
+| **Squoosh** | Conversion y optimización de imagenes | Conversion de PNG a WebP, ajuste de calidad (75-85%), redimensionado a multiples tamaños |
 | **SVGO/SVGOMG** | Optimizacion de SVGs | Eliminacion de metadatos innecesarios, minificacion de paths, reduccion de decimales |
 | **Sharp (Node.js)** | Procesamiento batch de imagenes | Generacion automatizada de variantes small/medium/large |
 
-**Proceso de optimizacion:**
+**Proceso de optimización:**
 1. Imagenes originales procesadas con Squoosh para conversion a WebP
-2. Generacion de 3 tamanos por imagen (400px, 800px, 1200px de ancho)
+2. Generacion de 3 tamaños por imagen (400px, 800px, 1200px de ancho)
 3. SVGs pasados por SVGOMG con configuracion de precision 2 decimales
 4. Verificacion de que cada archivo pesa menos de 200KB
 
 ---
 
-### 5.3 Resultados de Optimizacion
+### 5.3 Resultados de optimización
 
 #### Imagenes de Competiciones
 
@@ -2244,7 +2244,7 @@ El proyecto utiliza formatos de imagen modernos optimizados para la web:
 
 ---
 
-### 5.4 Tecnologias Implementadas
+### 5.4 Tecnologías implementadas
 
 #### Elemento `<picture>` con `srcset` y `sizes`
 
@@ -2291,7 +2291,7 @@ imageSrcset = computed(() => {
           assets/images/players/large/${slug}.webp 1200w`;
 });
 
-// Sizes para indicar al navegador que tamano usar
+// Sizes para indicar al navegador que tamaño usar
 imageSizes = computed(() => {
   return '(max-width: 640px) 120px, 150px';
 });
@@ -2496,7 +2496,7 @@ Animacion de entrada para componentes de alerta:
 
 #### Transiciones Hover/Focus (5+ elementos)
 
-Todas las transiciones utilizan `transform` y `opacity` cuando es posible:
+Todas las transiciónes utilizan `transform` y `opacity` cuando es posible:
 
 ```scss
 // Botones
@@ -2512,7 +2512,7 @@ Todas las transiciones utilizan `transform` y `opacity` cuando es posible:
   }
 }
 
-// Enlaces de navegacion
+// Enlaces de navegación
 .header__nav-link {
   transition: color var(--duration-fast) var(--timing-ease-in-out);
 
@@ -2566,7 +2566,7 @@ Todas las duraciones estan entre 150ms y 500ms como recomienda la guia, garantiz
 
 ---
 
-## Seccion 6: Sistema de Temas y Modo Oscuro
+## Sección 6: Sistema de temas y modo oscuro
 
 ### 6.1 Variables de Tema
 
@@ -2662,7 +2662,7 @@ Las variables CSS se definen en `:root` y cambian segun la clase aplicada al ele
 
 #### Transiciones Suaves entre Temas
 
-Se implementan transiciones CSS para que el cambio de tema sea suave y no abrupto:
+Se implementan transiciónes CSS para que el cambio de tema sea suave y no abrupto:
 
 ```scss
 // Transicion suave al cambiar entre temas (150-300ms)
@@ -2672,7 +2672,7 @@ Se implementan transiciones CSS para que el cambio de tema sea suave y no abrupt
     color var(--duration-base, 300ms) ease-in-out;
 }
 
-// Aplicar transiciones a elementos principales
+// Aplicar transiciónes a elementos principales
 html,
 body {
   transition:
@@ -2876,11 +2876,11 @@ A continuacion se muestran capturas de las principales paginas en ambos modos (c
 
 ---
 
-## Seccion 7: Aplicacion Completa y Despliegue
+## Sección 7: Aplicación completa y despliegue
 
 ### 7.1 Estado Final de la Aplicacion
 
-La aplicacion La Referente esta completamente implementada con todas las funcionalidades planificadas.
+La aplicación La Referente esta completamente implementada con todas las funcionalidades planificadas.
 
 #### Paginas Implementadas
 
@@ -2943,7 +2943,7 @@ La aplicacion La Referente esta completamente implementada con todas las funcion
 #### Funcionalidades Frontend
 
 - Navegacion SPA con Angular Router
-- Formularios reactivos con validacion completa
+- Formularios reactivos con validación completa
 - Consumo de API REST con HttpClient
 - Estados de carga y error en todas las vistas
 - Theme switcher con persistencia en localStorage
@@ -2988,7 +2988,7 @@ Se ha realizado testing exhaustivo en los 5 viewports requeridos utilizando Chro
 - Layout completo de 3+ columnas
 - Navegacion completa visible
 - Formularios optimizados
-- Contenido multimedia a tamano completo
+- Contenido multimedia a tamaño completo
 
 **1280px - Desktop HD:**
 - Contenedor centrado con max-width
@@ -2999,7 +2999,7 @@ Se ha realizado testing exhaustivo en los 5 viewports requeridos utilizando Chro
 
 ### 7.3 Testing en Dispositivos Reales
 
-Se ha probado la aplicacion en dispositivos fisicos y emuladores.
+Se ha probado la aplicación en dispositivos fisicos y emuladores.
 
 | Dispositivo | Sistema | Navegador | Resolucion | Estado | Observaciones |
 |-------------|---------|-----------|------------|--------|---------------|
@@ -3023,7 +3023,7 @@ Se ha probado la aplicacion en dispositivos fisicos y emuladores.
 
 ### 7.4 Verificacion Multi-Navegador
 
-La aplicacion se ha probado en los principales navegadores.
+La aplicación se ha probado en los principales navegadores.
 
 | Navegador | Version | Sistema | Compatibilidad | Observaciones |
 |-----------|---------|---------|----------------|---------------|
@@ -3194,7 +3194,7 @@ docker compose -f docker-compose.prod.yml up -d --build
 | Mejora | Prioridad | Descripcion |
 |--------|-----------|-------------|
 | Procesamiento de imagenes | Media | Implementar redimensionado automatico y conversion a WebP al subir imagenes |
-| PWA | Media | Convertir la aplicacion en Progressive Web App para funcionamiento offline |
+| PWA | Media | Convertir la aplicación en Progressive Web App para funcionamiento offline |
 | Internacionalizacion | Baja | Soporte para multiples idiomas (i18n) |
 | Tests E2E | Media | Implementar tests end-to-end con Cypress o Playwright |
 | Cache de API | Baja | Implementar cache en frontend para reducir peticiones |

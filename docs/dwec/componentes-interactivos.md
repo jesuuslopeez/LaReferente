@@ -8,7 +8,7 @@ Este documento describe los componentes interactivos implementados en el proyect
 
 El theme switcher permite alternar entre modo claro y oscuro, con persistencia en localStorage y deteccion automatica de preferencias del sistema.
 
-### Implementacion
+### Implementación
 
 **Servicio ThemeService** (`services/theme.service.ts`):
 
@@ -105,9 +105,9 @@ protected toggleTheme(): void {
 
 ## 2. Menu Mobile (Hamburger)
 
-El menu hamburger permite la navegacion en dispositivos moviles, con animacion de apertura/cierre.
+El menu hamburger permite la navegación en dispositivos moviles, con animacion de apertura/cierre.
 
-### Implementacion
+### Implementación
 
 **Template** (`header.html`):
 
@@ -153,7 +153,7 @@ protected closeMobileMenu(): void {
 | Evento | Elemento | Accion |
 |--------|----------|--------|
 | `click` | Boton hamburger | Alterna apertura/cierre del menu |
-| `click` | Enlaces de navegacion | Cierra el menu al navegar |
+| `click` | Enlaces de navegación | Cierra el menu al navegar |
 
 ### Caracteristicas
 
@@ -166,9 +166,9 @@ protected closeMobileMenu(): void {
 
 ## 3. Modal (AccountModal)
 
-Componente modal reutilizable para formularios de autenticacion (login y registro).
+Componente modal reutilizable para formularios de autenticación (login y registro).
 
-### Implementacion
+### Implementación
 
 **Componente** (`account-modal.ts`):
 
@@ -233,16 +233,16 @@ export class AccountModal {
 
 - `stopPropagation()` evita que clicks dentro del modal lo cierren
 - Content projection con `<ng-content>` para contenido flexible
-- Output event para comunicacion con componente padre
+- Output event para comunicación con componente padre
 - Accesibilidad con `aria-label` en boton de cierre
 
 ---
 
 ## 4. Tabs (Pestanas)
 
-Componente de navegacion por pestanas con soporte completo de teclado y accesibilidad.
+Componente de navegación por pestanas con soporte completo de teclado y accesibilidad.
 
-### Implementacion
+### Implementación
 
 **Componente** (`tabs.component.ts`):
 
@@ -288,7 +288,7 @@ const TABS: TabId[] = ['detalles', 'especificaciones', 'opiniones'];
 export class TabsComponent {
   protected readonly activeTab = signal<TabId>('detalles');
 
-  // Referencias para navegacion por teclado
+  // Referencias para navegación por teclado
   @ViewChildren('tabButton') tabButtons!: QueryList<ElementRef>;
   @ViewChild('tabList') tabList!: ElementRef;
 
@@ -365,7 +365,7 @@ export class TabsComponent {
 
 Directiva tooltip con delay configurable, posicionamiento dinamico (top, bottom, left, right), flecha indicadora y soporte para accesibilidad.
 
-### Implementacion
+### Implementación
 
 **Directiva** (`tooltip.directive.ts`):
 
@@ -502,7 +502,7 @@ export class TooltipDirective implements OnDestroy {
 
 Menu desplegable que se cierra al hacer click fuera del componente.
 
-### Implementacion
+### Implementación
 
 ```typescript
 @Component({...})
@@ -556,9 +556,9 @@ export class Header {
 
 ## 7. Accordion
 
-Componente accordion con navegacion completa por teclado y animaciones CSS.
+Componente accordion con navegación completa por teclado y animaciones CSS.
 
-### Implementacion
+### Implementación
 
 **Componente** (`accordion.component.ts`):
 
@@ -609,7 +609,7 @@ interface AccordionItem {
 export class AccordionComponent {
   protected readonly openItemId = signal<string | null>(null);
 
-  // Referencias para navegacion por teclado
+  // Referencias para navegación por teclado
   @ViewChildren('accordionButton') accordionButtons!: QueryList<ElementRef>;
   @ViewChild('accordionContainer') accordionContainer!: ElementRef;
 
@@ -656,9 +656,9 @@ export class AccordionComponent {
 
 | Evento | Elemento | Accion |
 |--------|----------|--------|
-| `click` | Header del accordion | Expande/colapsa seccion |
-| `keydown.enter` | Header del accordion | Expande/colapsa seccion |
-| `keydown.space` | Header del accordion | Expande/colapsa seccion (con preventDefault) |
+| `click` | Header del accordion | Expande/colapsa sección |
+| `keydown.enter` | Header del accordion | Expande/colapsa sección |
+| `keydown.space` | Header del accordion | Expande/colapsa sección (con preventDefault) |
 | `keydown.arrowdown` | Header del accordion | Mueve foco al siguiente item |
 | `keydown.arrowup` | Header del accordion | Mueve foco al item anterior |
 | `keydown.home` | Header del accordion | Mueve foco al primer item |
@@ -666,7 +666,7 @@ export class AccordionComponent {
 
 ### Caracteristicas
 
-- Solo una seccion abierta a la vez (modo accordion)
+- Solo una sección abierta a la vez (modo accordion)
 - Navegacion completa por teclado (ArrowUp, ArrowDown, Home, End, Enter, Space)
 - Animacion CSS con max-height transition
 - Icono chevron que rota 180 grados al abrir
@@ -678,7 +678,7 @@ export class AccordionComponent {
 
 ## Resumen de Eventos por Componente
 
-| Componente | Eventos | Descripcion |
+| Componente | Eventos | Descripción |
 |------------|---------|-------------|
 | Theme Switcher | `click`, `matchMedia:change` | Alterna tema, detecta cambios del sistema |
 | Menu Mobile | `click`, `keydown.escape`, `document:click` | Abre/cierra menu, navega |
@@ -686,7 +686,7 @@ export class AccordionComponent {
 | Tabs | `click`, `keydown.arrowright`, `keydown.arrowleft`, `keydown.home`, `keydown.end` | Cambia pestana con click y teclado |
 | Tooltip | `mouseenter`, `mouseleave`, `focusin`, `focusout` | Muestra/oculta tooltip con mouse y foco |
 | Dropdown | `click`, `document:click`, `document:keydown.escape` | Abre/cierra, detecta click/ESC externo |
-| Accordion | `click`, `keydown.enter`, `keydown.space`, `keydown.arrowup`, `keydown.arrowdown`, `keydown.home`, `keydown.end` | Expande/colapsa con navegacion por teclado |
+| Accordion | `click`, `keydown.enter`, `keydown.space`, `keydown.arrowup`, `keydown.arrowdown`, `keydown.home`, `keydown.end` | Expande/colapsa con navegación por teclado |
 
 ---
 
@@ -756,7 +756,7 @@ Todos los eventos y APIs utilizados en este proyecto tienen soporte universal en
 
 ### Introduccion al Sistema de Eventos
 
-Angular implementa un sistema de eventos basado en el patron de flujo de datos unidireccional. Los eventos fluyen desde el DOM hacia los componentes, donde se procesan y pueden modificar el estado de la aplicacion. Este enfoque facilita el seguimiento del flujo de datos y la depuracion.
+Angular implementa un sistema de eventos basado en el patron de flujo de datos unidireccional. Los eventos fluyen desde el DOM hacia los componentes, donde se procesan y pueden modificar el estado de la aplicación. Este enfoque facilita el seguimiento del flujo de datos y la depuracion.
 
 ### Tipos de Event Binding
 
@@ -862,7 +862,7 @@ onContentClick(event: MouseEvent): void {
 
 ### Tabla de Eventos Implementados por Componente
 
-| Componente | Eventos | Descripcion |
+| Componente | Eventos | Descripción |
 |------------|---------|-------------|
 | Header | `click`, `document:click`, `document:keydown.escape` | Toggle menus, cierre externo y con ESC |
 | Modal | `click`, `keydown.escape`, `keydown.enter`, `blur` | Apertura, cierre, accesibilidad |

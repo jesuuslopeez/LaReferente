@@ -1,6 +1,6 @@
-# Sistema de Rutas y Navegacion
+# Sistema de rutas y navegación
 
-Este documento recoge como he estructurado el enrutamiento de la aplicacion, las decisiones que he tomado y como funcionan los distintos elementos del sistema de navegacion.
+Este documento recoge como he estructurado el enrutamiento de la aplicación, las decisiones que he tomado y como funcionan los distintos elementos del sistema de navegación.
 
 ---
 
@@ -97,7 +97,7 @@ He optado por usar slugs en lugar de IDs numericos porque quedan mejor en la URL
 
 ## 3. Rutas Hijas
 
-Las rutas de competiciones tienen una estructura anidada porque necesito mantener el contexto del detalle mientras muestro informacion de grupos:
+Las rutas de competiciones tienen una estructura anidada porque necesito mantener el contexto del detalle mientras muestro información de grupos:
 
 ```
 /competiciones
@@ -131,7 +131,7 @@ export const userRoutes: Routes = [
 ];
 ```
 
-El `UserLayout` tiene la navegacion lateral y el outlet donde van apareciendo las distintas secciones.
+El `UserLayout` tiene la navegación lateral y el outlet donde van apareciendo las distintas secciones.
 
 ---
 
@@ -158,13 +158,13 @@ Dentro de las rutas de usuario, cada componente tambien se carga de forma lazy c
 
 ### Estrategia de precarga
 
-En `app.config.ts` uso `PreloadAllModules` para que los chunks lazy se descarguen en segundo plano una vez cargada la aplicacion:
+En `app.config.ts` uso `PreloadAllModules` para que los chunks lazy se descarguen en segundo plano una vez cargada la aplicación:
 
 ```typescript
 provideRouter(routes, withPreloading(PreloadAllModules))
 ```
 
-Esto hace que la primera navegacion a `/usuario` sea instantanea porque el chunk ya esta descargado. El usuario no nota que es lazy loading.
+Esto hace que la primera navegación a `/usuario` sea instantanea porque el chunk ya esta descargado. El usuario no nota que es lazy loading.
 
 ---
 
@@ -172,7 +172,7 @@ Esto hace que la primera navegacion a `/usuario` sea instantanea porque el chunk
 
 ### authGuard
 
-Protege las rutas que requieren autenticacion. Es un guard funcional (el estilo moderno de Angular):
+Protege las rutas que requieren autenticación. Es un guard funcional (el estilo moderno de Angular):
 
 ```typescript
 // guards/auth.guard.ts
@@ -290,12 +290,12 @@ constructor() {
 
 ---
 
-## 7. Navegacion Programatica
+## 7. Navegación Programatica
 
 Ademas de los `routerLink` en los templates, a veces necesito navegar desde el codigo:
 
 ```typescript
-// Navegacion basica
+// Navegación basica
 this.router.navigate(['/usuario']);
 
 // Con parametros
@@ -353,7 +353,7 @@ export const serverRoutes: ServerRoute[] = [
 ];
 ```
 
-Las rutas con parametros dinamicos o que dependen de autenticacion se renderizan en el cliente. Las paginas estaticas como home o la guia de estilos se prerrenderizan para mejor SEO y tiempo de carga.
+Las rutas con parametros dinamicos o que dependen de autenticación se renderizan en el cliente. Las paginas estaticas como home o la guia de estilos se prerrenderizan para mejor SEO y tiempo de carga.
 
 ---
 
@@ -362,9 +362,9 @@ Las rutas con parametros dinamicos o que dependen de autenticacion se renderizan
 El sistema de rutas queda organizado asi:
 
 - **Rutas publicas**: Accesibles sin login, carga inmediata
-- **Rutas protegidas**: Requieren autenticacion (`authGuard`), carga lazy
-- **Rutas con datos**: Usan resolvers para precargar informacion
+- **Rutas protegidas**: Requieren autenticación (`authGuard`), carga lazy
+- **Rutas con datos**: Usan resolvers para precargar información
 - **Rutas anidadas**: Permiten layouts compartidos con outlets internos
 - **Manejo de errores**: Wildcard redirige a 404, resolvers validan existencia
 
-La navegacion funciona tanto con `routerLink` en templates como con `Router.navigate()` en el codigo, segun lo que sea mas comodo en cada caso.
+La navegación funciona tanto con `routerLink` en templates como con `Router.navigate()` en el codigo, segun lo que sea mas comodo en cada caso.

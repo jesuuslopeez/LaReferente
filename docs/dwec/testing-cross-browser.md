@@ -1,6 +1,6 @@
-# Testing y Verificacion Cross-Browser
+# Testing y verificación cross-browser
 
-Este documento describe la estrategia de testing implementada y la verificacion de compatibilidad entre navegadores.
+Este documento describe la estrategia de testing implementada y la verificación de compatibilidad entre navegadores.
 
 ---
 
@@ -50,7 +50,7 @@ Se han creado tests unitarios para los siguientes servicios:
 
 ## 2. Testing de Integracion
 
-Se han creado tests de integracion para los flujos principales:
+Se han creado tests de integración para los flujos principales:
 
 ### 2.1 Flujo de Autenticacion (`auth-flow.spec.ts`)
 
@@ -59,7 +59,7 @@ Se han creado tests de integracion para los flujos principales:
 - Preservacion de returnUrl
 - Logout y limpieza de sesion
 - Persistencia de sesion en localStorage
-- Verificacion de roles (USER, EDITOR, ADMIN)
+- Verificación de roles (USER, EDITOR, ADMIN)
 
 ### 2.2 Flujo CRUD de Noticias (`news-crud-flow.spec.ts`)
 
@@ -113,11 +113,11 @@ npm test -- --browsers=ChromeHeadless --watch=false
 
 ---
 
-## 4. Verificacion Cross-Browser
+## 4. Verificación Cross-Browser
 
 ### 4.1 Navegadores Objetivo
 
-La aplicacion esta optimizada para los siguientes navegadores:
+La aplicaciónesta optimizada para los siguientes navegadores:
 
 | Navegador | Version Minima | Estado |
 |-----------|---------------|--------|
@@ -161,7 +161,7 @@ Notas:
 
 ### 4.5 Polyfills
 
-No se requieren polyfills adicionales. La aplicacion usa APIs nativas soportadas por todos los navegadores objetivo.
+No se requieren polyfills adicionales. La aplicaciónusa APIs nativas soportadas por todos los navegadores objetivo.
 
 La configuracion de Angular excluye polyfills de Zone.js gracias a `provideZonelessChangeDetection()`.
 

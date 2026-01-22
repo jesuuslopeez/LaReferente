@@ -1,16 +1,16 @@
 # Formularios Reactivos y Validadores
 
-Este documento describe la implementacion de formularios reactivos en Angular, incluyendo validadores personalizados sincronos y asincronos, FormArray para listas dinamicas, y el sistema de feedback visual de validacion.
+Este documento describe la implementación de formularios reactivos en Angular, incluyendo validadores personalizados sincronos y asincronos, FormArray para listas dinamicas, y el sistema de feedback visual de validación.
 
 ---
 
 ## 1. Formularios Reactivos Implementados
 
-La aplicacion implementa tres formularios reactivos principales, cada uno con diferentes niveles de complejidad.
+La aplicaciónimplementa tres formularios reactivos principales, cada uno con diferentes niveles de complejidad.
 
 ### 1.1 LoginForm
 
-Formulario basico de autenticacion con validadores integrados.
+Formulario basico de autenticacióncon validadores integrados.
 
 **Ubicacion**: `components/shared/login-form/login-form.ts`
 
@@ -48,7 +48,7 @@ export class LoginForm {
 
 **Validadores utilizados**:
 
-| Campo | Validadores | Descripcion |
+| Campo | Validadores | Descripción |
 |-------|-------------|-------------|
 | email | `required`, `email` | Obligatorio, formato email valido |
 | password | `required`, `minLength(6)` | Obligatorio, minimo 6 caracteres |
@@ -57,7 +57,7 @@ export class LoginForm {
 
 ### 1.2 RegisterForm
 
-Formulario avanzado con validadores personalizados sincronos, asincronos y validacion cross-field.
+Formulario avanzado con validadores personalizados sincronos, asincronos y validación cross-field.
 
 **Ubicacion**: `components/shared/register-form/register-form.ts`
 
@@ -97,7 +97,7 @@ export class RegisterForm {
 - Validador asincrono `uniqueEmail` para verificar disponibilidad del email
 - Validador personalizado `passwordStrength` para requisitos de contrasena
 - Validador cross-field `passwordMatch` para confirmar contrasena
-- Configuracion `updateOn: 'blur'` para optimizar validaciones asincronas
+- Configuracion `updateOn: 'blur'` para optimizar validaciónes asincronas
 
 ---
 
@@ -229,7 +229,7 @@ export function nif(): ValidatorFn {
 }
 ```
 
-**Algoritmo de validacion**:
+**Algoritmo de validación**:
 
 1. Verifica formato: 8 digitos + 1 letra
 2. Calcula posicion: numero % 23
@@ -246,7 +246,7 @@ export function telefono(): ValidatorFn {
 }
 ```
 
-**Reglas**: Debe comenzar por 6 o 7, seguido de 8 digitos (formato espanol).
+**Reglas**: Debe comenzar por 6 o 7, seguido de 8 digitos (formato español).
 
 #### Codigo Postal
 
@@ -463,7 +463,7 @@ export function usernameAvailable(validationService: ValidationService): AsyncVa
 
 ---
 
-### 3.3 Servicio de Validacion
+### 3.3 Servicio de Validación
 
 **Ubicacion**: `shared/services/validation.ts`
 
@@ -565,7 +565,7 @@ removePhone(index: number): void {
 
 ---
 
-## 5. Feedback Visual de Validacion
+## 5. Feedback Visual de Validación
 
 ### 5.1 Componente FormInput
 
@@ -629,7 +629,7 @@ export class FormInput {
 </section>
 ```
 
-### 5.2 Estilos de Validacion
+### 5.2 Estilos de Validación
 
 ```scss
 .form-field {
@@ -653,7 +653,7 @@ export class FormInput {
 }
 ```
 
-### 5.3 Estados de Validacion en Templates
+### 5.3 Estados de Validación en Templates
 
 **Estado de carga (async validator)**:
 
@@ -665,7 +665,7 @@ export class FormInput {
 }
 ```
 
-**Error de validacion asincrona**:
+**Error de validación asincrona**:
 
 ```html
 @if (email?.errors?.['emailTaken'] && !email?.pending && email?.touched) {
@@ -709,8 +709,8 @@ export class FormInput {
 
 | Validador | Archivo | Uso |
 |-----------|---------|-----|
-| `nif()` | `spanish-formats.validator.ts` | Valida NIF espanol |
-| `telefono()` | `spanish-formats.validator.ts` | Valida telefono espanol |
+| `nif()` | `spanish-formats.validator.ts` | Valida NIF español |
+| `telefono()` | `spanish-formats.validator.ts` | Valida telefono español |
 | `codigoPostal()` | `spanish-formats.validator.ts` | Valida codigo postal |
 | `passwordStrength()` | `password-strength.validator.ts` | Valida fortaleza de contrasena |
 | `passwordMatch()` | `cross-field.validators.ts` | Valida coincidencia de contrasenas |
@@ -728,7 +728,7 @@ export class FormInput {
 
 ---
 
-## 7. Flujo de Validacion
+## 7. Flujo de Validación
 
 ```
 Usuario escribe en input
@@ -765,6 +765,6 @@ Usuario escribe en input
 - **FormControl**: Control individual de formulario
 - **ValidatorFn**: Tipo para validadores sincronos
 - **AsyncValidatorFn**: Tipo para validadores asincronos
-- **RxJS Operators**: `timer`, `switchMap`, `map`, `delay` para validaciones async
+- **RxJS Operators**: `timer`, `switchMap`, `map`, `delay` para validaciónes async
 - **Angular Signals**: Estado reactivo (`submitted`, estados locales)
 - **Clases dinamicas**: `[class.error]` para feedback visual

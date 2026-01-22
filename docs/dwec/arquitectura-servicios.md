@@ -1,27 +1,27 @@
-# Arquitectura de Servicios y Comunicacion
+# Arquitectura de servicios y comunicación
 
-Este documento describe la arquitectura de servicios implementada en el proyecto, incluyendo el sistema de comunicacion entre componentes, notificaciones, estados de carga y la separacion entre logica y presentacion.
+Este documento describe la arquitectura de servicios implementada en el proyecto, incluyendo el sistema de comunicación entre componentes, notificaciónes, estados de carga y la separacion entre logica y presentación.
 
 ---
 
 ## 1. Patron de Servicios en Angular
 
-La aplicacion implementa un patron de arquitectura basado en servicios que centraliza la logica de negocio y facilita la comunicacion entre componentes desacoplados.
+La aplicación implementa un patron de arquitectura basado en servicios que centraliza la logica de negocio y facilita la comunicación entre componentes desacoplados.
 
 ### Principios aplicados
 
 - **Single Responsibility**: Cada servicio tiene una unica responsabilidad
 - **Dependency Injection**: Los servicios se inyectan donde se necesitan
-- **Observables**: Uso de RxJS para comunicacion reactiva
+- **Observables**: Uso de RxJS para comunicación reactiva
 - **Singleton Pattern**: Servicios con `providedIn: 'root'` como instancias unicas
 
 ---
 
-## 2. Servicio de Comunicacion entre Componentes
+## 2. Servicio de Comunicación entre Componentes
 
-El `CommunicationService` permite la comunicacion entre componentes que no tienen relacion padre-hijo directa.
+El `CommunicationService` permite la comunicación entre componentes que no tienen relacion padre-hijo directa.
 
-### Implementacion
+### Implementación
 
 **Servicio** (`shared/services/communication.ts`):
 
@@ -52,7 +52,7 @@ El `BehaviorSubject` es un tipo especial de Observable que:
 
 ### Uso en componentes
 
-**Emisor de notificaciones** (`home.ts`):
+**Emisor de notificaciónes** (`home.ts`):
 
 ```typescript
 export class Home {
@@ -65,7 +65,7 @@ export class Home {
 }
 ```
 
-**Receptor de notificaciones**:
+**Receptor de notificaciónes**:
 
 ```typescript
 export class Home {
@@ -99,11 +99,11 @@ Componente A                    CommunicationService                 Componente 
 
 ## 3. Sistema de Notificaciones (Toast)
 
-El sistema de notificaciones proporciona feedback visual al usuario mediante mensajes temporales.
+El sistema de notificaciónes proporciona feedback visual al usuario mediante mensajes temporales.
 
 ### Arquitectura
 
-El sistema sigue el patron de separacion logica-presentacion:
+El sistema sigue el patron de separacion logica-presentación:
 
 | Capa | Archivo | Responsabilidad |
 |------|---------|-----------------|
@@ -122,7 +122,7 @@ export interface ToastMessage {
 }
 ```
 
-**Implementacion del servicio**:
+**Implementación del servicio**:
 
 ```typescript
 @Injectable({
@@ -224,7 +224,7 @@ export class LoginForm {
 }
 ```
 
-### Tipos de notificacion y duraciones
+### Tipos de notificación y duraciones
 
 | Tipo | Metodo | Duracion por defecto | Uso |
 |------|--------|---------------------|-----|
@@ -241,7 +241,7 @@ El sistema de loading proporciona indicadores visuales durante operaciones asinc
 
 ### Servicio LoadingService
 
-**Implementacion** (`shared/services/loading.ts`):
+**Implementación** (`shared/services/loading.ts`):
 
 ```typescript
 @Injectable({
@@ -349,13 +349,13 @@ export class Home {
 
 ## 5. Separacion Logica-Presentacion
 
-La arquitectura implementa una clara separacion entre la logica de negocio y la presentacion visual.
+La arquitectura implementa una clara separacion entre la logica de negocio y la presentación visual.
 
 ### Principio de responsabilidad
 
 | Capa | Responsabilidad | Ejemplo |
 |------|-----------------|---------|
-| **Servicio** | Logica de negocio, estado, comunicacion | `ToastService`, `LoadingService` |
+| **Servicio** | Logica de negocio, estado, comunicación | `ToastService`, `LoadingService` |
 | **Componente TS** | Conexion entre servicio y template | `Toast`, `Loading` |
 | **Template HTML** | Estructura y binding de datos | `toast.html`, `loading.html` |
 | **Estilos SCSS** | Presentacion visual | `toast.scss`, `loading.scss` |
@@ -367,7 +367,7 @@ La arquitectura implementa una clara separacion entre la logica de negocio y la 
 3. **Mantenibilidad**: Cambios en la UI no afectan la logica
 4. **Escalabilidad**: Facilita agregar nuevas funcionalidades
 
-### Ejemplo completo: Sistema de notificaciones
+### Ejemplo completo: Sistema de notificaciónes
 
 ```
 ToastService (Logica)
@@ -422,7 +422,7 @@ export class Loading {
 
 | Servicio | Proposito | Patron | Observable |
 |----------|-----------|--------|------------|
-| `CommunicationService` | Comunicacion entre componentes | BehaviorSubject | `notifications$` |
+| `CommunicationService` | Comunicación entre componentes | BehaviorSubject | `notifications$` |
 | `ToastService` | Notificaciones al usuario | BehaviorSubject | `toast$` |
 | `LoadingService` | Estados de carga | BehaviorSubject + Counter | `isLoading$` |
 
@@ -458,7 +458,7 @@ export class Loading {
                     v                                   v
     ┌───────────────────────────┐     ┌───────────────────────────┐
     │        toast.html         │     │       loading.html        │
-    │   Renderiza notificacion  │     │   Muestra overlay/spinner │
+    │   Renderiza notificación  │     │   Muestra overlay/spinner │
     └───────────────────────────┘     └───────────────────────────┘
 ```
 
@@ -471,4 +471,4 @@ export class Loading {
 - **Dependency Injection**: Para desacoplar dependencias
 - **Async Pipe**: Para suscripcion automatica a Observables
 - **TypeScript Interfaces**: Para tipado fuerte de mensajes
-- **Singleton Pattern**: Servicios compartidos en toda la aplicacion
+- **Singleton Pattern**: Servicios compartidos en toda la aplicación
