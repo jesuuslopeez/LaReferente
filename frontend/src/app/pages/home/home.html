@@ -117,7 +117,7 @@
           <a [routerLink]="['/noticias', news.id]" class="news-card" [attr.aria-label]="'Leer noticia: ' + news.titulo">
             <figure class="news-card__image-container">
               @if (news.imagenPrincipalUrl) {
-                <img [src]="news.imagenPrincipalUrl" alt="" class="news-card__image" />
+                <img [src]="news.imagenPrincipalUrl" alt="" role="presentation" class="news-card__image" />
               } @else {
                 <section class="news-card__placeholder">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -136,7 +136,7 @@
                 </svg>
                 {{ formatDate(news.fechaPublicacion) }}
               </span>
-              <h3 class="news-card__title">{{ news.titulo }}</h3>
+              <p class="news-card__title" role="heading" aria-level="3">{{ news.titulo }}</p>
               @if (news.subtitulo) {
                 <p class="news-card__excerpt">{{ news.subtitulo }}</p>
               }
@@ -162,7 +162,7 @@
     <section class="highlights__grid">
       <!-- Competiciones -->
       <article class="highlight-card">
-        <h3 class="highlight-card__title">Competiciones</h3>
+        <p class="highlight-card__title" role="heading" aria-level="3">Competiciones</p>
 
         @if (loadingCompetitions()) {
           <section class="highlight-card__loading">
@@ -173,7 +173,7 @@
             @for (comp of competitions(); track comp.id) {
               <a [routerLink]="['/competiciones', comp.id]" class="item-badge" [attr.aria-label]="'Ver competición ' + comp.nombre">
                 @if (comp.logoUrl) {
-                  <img [src]="comp.logoUrl" alt="" class="item-badge__logo" />
+                  <img [src]="comp.logoUrl" alt="" role="presentation" class="item-badge__logo" />
                 } @else {
                   <span class="item-badge__placeholder">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -199,7 +199,7 @@
 
       <!-- Jugadores -->
       <article class="highlight-card">
-        <h3 class="highlight-card__title">Jugadores</h3>
+        <p class="highlight-card__title" role="heading" aria-level="3">Jugadores</p>
 
         @if (loadingPlayers()) {
           <section class="highlight-card__loading">
@@ -213,6 +213,7 @@
                   <img
                     [src]="player.fotoUrl || 'assets/images/players/medium/no_cutout.webp'"
                     alt=""
+                    role="presentation"
                     (error)="onImageError($event)"
                   />
                 </figure>
@@ -234,7 +235,7 @@
 
       <!-- Equipos -->
       <article class="highlight-card">
-        <h3 class="highlight-card__title">Equipos</h3>
+        <p class="highlight-card__title" role="heading" aria-level="3">Equipos</p>
 
         @if (loadingTeams()) {
           <section class="highlight-card__loading">
@@ -245,7 +246,7 @@
             @for (team of teams(); track team.id) {
               <a [routerLink]="['/equipos', team.id]" class="item-badge" [attr.aria-label]="'Ver equipo ' + team.nombre">
                 @if (team.logoUrl) {
-                  <img [src]="team.logoUrl" alt="" class="item-badge__logo" />
+                  <img [src]="team.logoUrl" alt="" role="presentation" class="item-badge__logo" />
                 } @else {
                   <span class="item-badge__placeholder">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -285,7 +286,7 @@
         </svg>
       </section>
       <section class="calendar-card__content">
-        <h3 class="calendar-card__title">Próximos partidos</h3>
+        <p class="calendar-card__title" role="heading" aria-level="3">Próximos partidos</p>
         <p class="calendar-card__desc">Consulta el calendario completo de partidos, resultados y clasificaciones de todas las competiciones.</p>
       </section>
       <svg class="calendar-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
