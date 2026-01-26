@@ -12,7 +12,7 @@
 
   <section class="login-form__password-wrapper">
     <section class="login-form__password-header">
-      <p class="login-form__password-label">Contraseña<span class="login-form__required">*</span></p>
+      <label for="login-password" class="login-form__password-label">Contraseña<span class="login-form__required">*</span></label>
       <a href="/recuperar-contrasena" class="login-form__forgot-password">¿Olvidaste tu contraseña?</a>
     </section>
     <section class="login-form__input-wrapper">
@@ -25,10 +25,11 @@
         formControlName="password"
         class="login-form__input"
         placeholder="Introduce tu contraseña"
+        aria-describedby="login-password-error"
       />
     </section>
     @if (password.invalid && (password.touched || password.dirty)) {
-      <small class="login-form__error">
+      <small id="login-password-error" class="login-form__error" role="alert">
         @if (password.errors?.['required']) {
           La contraseña es obligatoria
         }

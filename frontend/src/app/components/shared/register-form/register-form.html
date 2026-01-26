@@ -15,7 +15,7 @@
     }
 
     @if (email?.errors?.['emailTaken'] && !email?.pending && email?.touched) {
-      <small class="register-form__error">Este email ya está registrado</small>
+      <small class="register-form__error" role="alert">Este email ya está registrado</small>
     }
   </section>
 
@@ -51,7 +51,7 @@
     />
 
     @if (password?.touched && getPasswordErrors().length > 0) {
-      <ul class="register-form__errors-list">
+      <ul class="register-form__errors-list" role="alert">
         @for (error of getPasswordErrors(); track error) {
           <li class="register-form__error">{{ error }}</li>
         }
@@ -71,7 +71,7 @@
     />
 
     @if (registerForm.errors?.['mismatch'] && confirmPassword?.touched) {
-      <small class="register-form__error">Las contraseñas no coinciden</small>
+      <small class="register-form__error" role="alert">Las contraseñas no coinciden</small>
     }
   </section>
 

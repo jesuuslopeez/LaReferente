@@ -28,6 +28,8 @@
         class="teams__search-input"
         placeholder="Buscar equipos..."
         [formControl]="busquedaControl"
+        aria-label="Buscar equipos"
+        title="Buscar equipos"
       />
     </section>
 
@@ -68,7 +70,8 @@
         class="teams__pagination-btn"
         [class.teams__pagination-btn--disabled]="paginaActual() === 1"
         [disabled]="paginaActual() === 1"
-        (click)="paginaAnterior()">
+        (click)="paginaAnterior()"
+        aria-label="Página anterior">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
         </svg>
@@ -103,7 +106,8 @@
         class="teams__pagination-btn"
         [class.teams__pagination-btn--disabled]="paginaActual() === totalPaginas"
         [disabled]="paginaActual() === totalPaginas"
-        (click)="paginaSiguiente()">
+        (click)="paginaSiguiente()"
+        aria-label="Página siguiente">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
