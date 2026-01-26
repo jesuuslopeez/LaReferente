@@ -102,7 +102,7 @@
   <section class="featured-news">
     <header class="section-header">
       <h2 class="section-header__title">Noticias Destacadas</h2>
-      <a routerLink="/noticias" class="section-header__link">Ver todas</a>
+      <a routerLink="/noticias" class="section-header__link" aria-label="Ver todas las noticias">Ver todas</a>
     </header>
 
     @if (loadingNews()) {
@@ -188,7 +188,7 @@
         }
 
         <footer class="highlight-card__footer">
-          <a routerLink="/competiciones" class="highlight-card__link">
+          <a routerLink="/competiciones" class="highlight-card__link" aria-label="Ver más competiciones">
             Ver más
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -223,7 +223,7 @@
         }
 
         <footer class="highlight-card__footer">
-          <a routerLink="/jugadores" class="highlight-card__link">
+          <a routerLink="/jugadores" class="highlight-card__link" aria-label="Ver más jugadores">
             Ver más
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -260,7 +260,7 @@
         }
 
         <footer class="highlight-card__footer">
-          <a routerLink="/equipos" class="highlight-card__link">
+          <a routerLink="/equipos" class="highlight-card__link" aria-label="Ver más equipos">
             Ver más
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -275,7 +275,7 @@
   <section class="calendar-section">
     <header class="section-header">
       <h2 class="section-header__title">Calendario</h2>
-      <a routerLink="/calendario" class="section-header__link">Ver completo</a>
+      <a routerLink="/calendario" class="section-header__link" aria-label="Ver calendario completo">Ver completo</a>
     </header>
 
     <a routerLink="/calendario" class="calendar-card">
