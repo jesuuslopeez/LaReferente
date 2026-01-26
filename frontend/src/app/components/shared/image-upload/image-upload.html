@@ -5,7 +5,7 @@
     <section class="image-upload__preview">
       <img [src]="displayUrl" alt="Preview" class="image-upload__image" />
       <button type="button" class="image-upload__remove" (click)="removeImage()" [disabled]="isUploading()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
@@ -31,7 +31,7 @@
         [disabled]="isUploading()"
       />
       <section class="image-upload__content">
-        <svg class="image-upload__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <svg class="image-upload__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
           <path
             stroke-linecap="round"
             stroke-linejoin="round"

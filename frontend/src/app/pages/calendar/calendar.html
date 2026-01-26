@@ -9,7 +9,7 @@
     </section>
     @if (authService.esEditor()) {
       <a routerLink="/admin/encuentros/nuevo" class="calendar__add-btn">
-        <svg class="calendar__add-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <svg class="calendar__add-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
         </svg>
         Añadir encuentro
@@ -58,7 +58,7 @@
                     />
                   } @else {
                     <article class="match__team-logo match__team-logo--placeholder">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
                       </svg>
                     </article>
@@ -88,7 +88,7 @@
                     />
                   } @else {
                     <article class="match__team-logo match__team-logo--placeholder">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
                       </svg>
                     </article>
@@ -99,7 +99,7 @@
 
               @if (partido.estadio) {
                 <section class="match__footer">
-                  <svg class="match__stadium-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <svg class="match__stadium-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                   </svg>
                   <span class="match__stadium">{{ partido.estadio }}</span>
@@ -111,7 +111,7 @@
       </article>
     } @empty {
       <article class="calendar__empty">
-        <svg class="calendar__empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <svg class="calendar__empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
         </svg>
         <p>No hay partidos disponibles</p>

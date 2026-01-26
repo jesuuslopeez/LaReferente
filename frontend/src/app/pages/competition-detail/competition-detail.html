@@ -1,7 +1,7 @@
 <section class="comp-detail">
   <!-- Botón volver -->
   <a routerLink="/competiciones" class="comp-detail__back">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
     </svg>
     Volver a competiciones
@@ -12,7 +12,7 @@
     <!-- Botón Editar (solo editores y admin) -->
     @if (authService.esEditor()) {
       <button class="comp-detail__edit-btn" (click)="openEditModal()" title="Editar competición">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
         </svg>
       </button>
@@ -41,14 +41,14 @@
 
         <section class="comp-detail__hero-stats">
           <article class="comp-detail__stat">
-            <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
             </svg>
             <span>{{ competicion.temporada }}</span>
           </article>
           @if (competicion.pais) {
             <article class="comp-detail__stat">
-              <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
@@ -57,14 +57,14 @@
           }
           @if (competicion.numEquipos) {
             <article class="comp-detail__stat">
-              <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
               <span>{{ competicion.numEquipos }} equipos</span>
             </article>
           }
           <article class="comp-detail__stat">
-            <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <svg class="comp-detail__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <span>{{ competicion.activa ? 'Activa' : 'Finalizada' }}</span>
@@ -73,13 +73,13 @@
 
         <section class="comp-detail__hero-actions">
           <a routerLink="/equipos" class="comp-detail__action-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
             </svg>
             Ver equipos
           </a>
           <a routerLink="/calendario" class="comp-detail__action-btn comp-detail__action-btn--outline">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
             </svg>
             Ver calendario
@@ -96,7 +96,7 @@
       <section class="comp-detail__dates-grid">
         @if (competicion.fechaInicio) {
           <article class="comp-detail__date-card">
-            <svg class="comp-detail__date-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <svg class="comp-detail__date-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
             </svg>
             <span class="comp-detail__date-card-value">{{ formatDate(competicion.fechaInicio) }}</span>
@@ -105,7 +105,7 @@
         }
         @if (competicion.fechaFin) {
           <article class="comp-detail__date-card">
-            <svg class="comp-detail__date-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <svg class="comp-detail__date-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <span class="comp-detail__date-card-value">{{ formatDate(competicion.fechaFin) }}</span>
@@ -159,7 +159,7 @@
   <section class="modal-overlay" [class.modal-overlay--closing]="closingModal()" (click)="closeEditModal()">
     <article class="modal" [class.modal--closing]="closingModal()" (click)="$event.stopPropagation()">
       <header class="modal__header">
-        <svg class="modal__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <svg class="modal__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
         </svg>
         <h2 class="modal__title">Editar Competición</h2>
