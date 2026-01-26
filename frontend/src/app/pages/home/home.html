@@ -1,11 +1,22 @@
 <section class="home">
   <!-- Hero Slider -->
-  <section class="hero">
-    <section class="hero__slides">
+  <section
+    class="hero"
+    role="region"
+    aria-roledescription="carrusel"
+    aria-label="Carrusel de destacados"
+    (keydown)="onKeydown($event)"
+    tabindex="0"
+  >
+    <section class="hero__slides" aria-live="polite">
       @for (slide of heroSlides; track slide.id; let i = $index) {
         <article
           class="hero__slide"
           [class.hero__slide--active]="currentSlide() === i"
+          role="group"
+          aria-roledescription="slide"
+          [attr.aria-label]="'Slide ' + (i + 1) + ' de ' + heroSlides.length"
+          [attr.aria-hidden]="currentSlide() !== i"
         >
           @if (i === 0) {
             <img
@@ -52,16 +63,36 @@
       </svg>
     </button>
 
-    <!-- Indicadores -->
-    <section class="hero__indicators">
-      @for (slide of heroSlides; track slide.id; let i = $index) {
-        <button
-          class="hero__indicator"
-          [class.hero__indicator--active]="currentSlide() === i"
-          (click)="goToSlide(i)"
-          [attr.aria-label]="'Ir a slide ' + (i + 1)"
-        ></button>
-      }
+    <!-- Indicadores y controles -->
+    <section class="hero__controls">
+      <!-- Botón pausa/play -->
+      <button
+        class="hero__pause-btn"
+        (click)="toggleAutoplay()"
+        [attr.aria-label]="isPaused() ? 'Reanudar carrusel' : 'Pausar carrusel'"
+      >
+        @if (isPaused()) {
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        } @else {
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+        }
+      </button>
+
+      <!-- Indicadores -->
+      <section class="hero__indicators">
+        @for (slide of heroSlides; track slide.id; let i = $index) {
+          <button
+            class="hero__indicator"
+            [class.hero__indicator--active]="currentSlide() === i"
+            (click)="goToSlide(i)"
+            [attr.aria-label]="'Ir a slide ' + (i + 1)"
+          ></button>
+        }
+      </section>
     </section>
   </section>
 

@@ -56,6 +56,7 @@ export class Home implements OnInit, OnDestroy {
   ];
 
   currentSlide = signal(0);
+  isPaused = signal(false);
   private slideInterval: ReturnType<typeof setInterval> | null = null;
 
   // Datos destacados
@@ -109,6 +110,39 @@ export class Home implements OnInit, OnDestroy {
     // Reset timer when manually changing slides
     this.stopSlideshow();
     this.startSlideshow();
+  }
+
+  // Accesibilidad: Botón para pausar/reanudar autoplay
+  toggleAutoplay(): void {
+    if (this.isPaused()) {
+      this.startSlideshow();
+      this.isPaused.set(false);
+    } else {
+      this.stopSlideshow();
+      this.isPaused.set(true);
+    }
+  }
+
+  // Accesibilidad: Navegación con teclado
+  onKeydown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'ArrowLeft':
+        this.prevSlide();
+        this.stopSlideshow();
+        this.startSlideshow();
+        break;
+      case 'ArrowRight':
+        this.nextSlide();
+        this.stopSlideshow();
+        this.startSlideshow();
+        break;
+      case 'Home':
+        this.goToSlide(0);
+        break;
+      case 'End':
+        this.goToSlide(this.heroSlides.length - 1);
+        break;
+    }
   }
 
   private loadFeaturedData(): void {
