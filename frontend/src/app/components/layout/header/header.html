@@ -11,9 +11,9 @@
       [attr.aria-expanded]="mobileMenuOpen()"
       (click)="toggleMobileMenu()"
       aria-label="Menu">
-      <span class="header__hamburger-line"></span>
-      <span class="header__hamburger-line"></span>
-      <span class="header__hamburger-line"></span>
+      <span class="header__hamburger-line" aria-hidden="true"></span>
+      <span class="header__hamburger-line" aria-hidden="true"></span>
+      <span class="header__hamburger-line" aria-hidden="true"></span>
     </button>
 
     <!-- Overlay para cerrar el menú móvil -->
@@ -55,7 +55,7 @@
       <section class="header__mobile-utilities">
         <section class="header__mobile-search-wrapper">
           <form class="header__mobile-search" role="search" (submit)="onSearch($event)">
-            <select class="header__mobile-search-dropdown" [value]="searchFilter()" (change)="onSearchFilterChange($event)" aria-label="Filtrar búsqueda por categoría">
+            <select class="header__mobile-search-dropdown" [value]="searchFilter()" (change)="onSearchFilterChange($event)" aria-label="Filtrar búsqueda por categoría" title="Filtrar búsqueda por categoría">
               <option value="all">Todo</option>
               <option value="noticias">Noticias</option>
               <option value="equipos">Equipos</option>
@@ -70,7 +70,7 @@
               (focus)="onSearchFocus()"
               (blur)="onSearchBlur()"
               autocomplete="off"
-              aria-label="Término de búsqueda"
+              aria-label="Término de búsqueda" title="Término de búsqueda"
             />
             <button type="submit" class="header__mobile-search-btn" aria-label="Buscar">
               <svg class="header__mobile-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -184,7 +184,7 @@
     <section class="header__utilities">
       <section class="header__search-container">
         <form class="header__search" role="search" (submit)="onSearch($event)">
-          <select class="header__search-dropdown" [value]="searchFilter()" (change)="onSearchFilterChange($event)" aria-label="Filtrar búsqueda por categoría">
+          <select class="header__search-dropdown" [value]="searchFilter()" (change)="onSearchFilterChange($event)" aria-label="Filtrar búsqueda por categoría" title="Filtrar búsqueda por categoría">
             <option value="all">Todo</option>
             <option value="noticias">Noticias</option>
             <option value="equipos">Equipos</option>
@@ -199,7 +199,7 @@
             (focus)="onSearchFocus()"
             (blur)="onSearchBlur()"
             autocomplete="off"
-            aria-label="Término de búsqueda"
+            aria-label="Término de búsqueda" title="Término de búsqueda"
           />
           <button type="submit" class="header__search-btn" aria-label="Buscar">
             <svg class="header__search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -330,7 +330,7 @@
   <section class="search-dropdown">
     <section class="search-dropdown__container">
       <form class="search-dropdown__form" role="search" (submit)="onSearch($event)">
-        <select class="search-dropdown__select" [value]="searchFilter()" (change)="onSearchFilterChange($event)" aria-label="Filtrar búsqueda por categoría">
+        <select class="search-dropdown__select" [value]="searchFilter()" (change)="onSearchFilterChange($event)" aria-label="Filtrar búsqueda por categoría" title="Filtrar búsqueda por categoría">
           <option value="all">Todo</option>
           <option value="noticias">Noticias</option>
           <option value="equipos">Equipos</option>
@@ -345,7 +345,7 @@
           (focus)="onSearchFocus()"
           (blur)="onSearchBlur()"
           autocomplete="off"
-          aria-label="Término de búsqueda"
+          aria-label="Término de búsqueda" title="Término de búsqueda"
         />
         <button type="submit" class="search-dropdown__submit" aria-label="Buscar">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

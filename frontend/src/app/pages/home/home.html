@@ -107,7 +107,7 @@
 
     @if (loadingNews()) {
       <section class="featured-news__loading">
-        <span class="spinner"></span>
+        <span class="spinner" aria-hidden="true"></span>
       </section>
     } @else if (featuredNews().length === 0) {
       <p class="featured-news__empty">No hay noticias destacadas</p>
@@ -166,7 +166,7 @@
 
         @if (loadingCompetitions()) {
           <section class="highlight-card__loading">
-            <span class="spinner spinner--small"></span>
+            <span class="spinner spinner--small" aria-hidden="true"></span>
           </section>
         } @else {
           <section class="highlight-card__items">
@@ -203,7 +203,7 @@
 
         @if (loadingPlayers()) {
           <section class="highlight-card__loading">
-            <span class="spinner spinner--small"></span>
+            <span class="spinner spinner--small" aria-hidden="true"></span>
           </section>
         } @else {
           <section class="highlight-card__items highlight-card__items--players">
@@ -238,7 +238,7 @@
 
         @if (loadingTeams()) {
           <section class="highlight-card__loading">
-            <span class="spinner spinner--small"></span>
+            <span class="spinner spinner--small" aria-hidden="true"></span>
           </section>
         } @else {
           <section class="highlight-card__items">
