@@ -43,9 +43,10 @@
   }
 
   &__logo {
+    display: block;
     width: 7.5rem;
-    height: auto;
-    object-fit: contain;
+    height: 7.5rem;
+    background: url('/logo.webp') center / contain no-repeat;
   }
 
   &__description {
