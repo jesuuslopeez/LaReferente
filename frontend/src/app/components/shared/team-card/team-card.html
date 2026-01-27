@@ -1,6 +1,11 @@
 <article class="team-card">
   <header class="team-card__header">
-    <span class="team-card__logo" [style.background-image]="'url(' + logoSrc + ')'" aria-hidden="true"></span>
+    <img
+      class="team-card__logo"
+      [src]="logoSrc"
+      [alt]="nombre()"
+      loading="lazy"
+    />
     <h3 class="team-card__name">{{ nombre() }}</h3>
   </header>
 
