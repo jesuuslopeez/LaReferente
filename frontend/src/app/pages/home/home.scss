@@ -670,6 +670,18 @@
     background-repeat: no-repeat;
     margin: 0;
     flex-shrink: 0;
+
+    &--placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        color: var(--gray400);
+      }
+    }
   }
 
   &__name {

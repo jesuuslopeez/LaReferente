@@ -190,7 +190,15 @@
           <section class="highlight-card__items highlight-card__items--players">
             @for (player of players(); track player.id) {
               <a [routerLink]="['/jugadores', player.id]" class="player-mini" [attr.aria-label]="'Ver jugador ' + player.nombre">
-                <span class="player-mini__photo" [style.background-image]="'url(' + (player.fotoUrl || 'assets/images/players/medium/no_cutout.webp') + ')'" aria-hidden="true"></span>
+                @if (player.fotoUrl) {
+                  <span class="player-mini__photo" [style.background-image]="'url(' + player.fotoUrl + ')'" aria-hidden="true"></span>
+                } @else {
+                  <span class="player-mini__photo player-mini__photo--placeholder" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                  </span>
+                }
                 <span class="player-mini__name" aria-hidden="true">{{ player.nombre }}</span>
               </a>
             }
