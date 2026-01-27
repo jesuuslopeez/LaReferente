@@ -21,6 +21,8 @@
         [placeholder]="placeholder"
         [required]="required"
         [formControl]="control"
+        [attr.aria-describedby]="errorMessage ? inputId + '-error' : (helpText ? inputId + '-help' : null)"
+        [attr.aria-invalid]="errorMessage ? 'true' : null"
       />
     } @else {
       <input
@@ -30,15 +32,17 @@
         [name]="name"
         [placeholder]="placeholder"
         [required]="required"
+        [attr.aria-describedby]="errorMessage ? inputId + '-error' : (helpText ? inputId + '-help' : null)"
+        [attr.aria-invalid]="errorMessage ? 'true' : null"
       />
     }
   </section>
 
   @if (helpText) {
-    <small class="form-field__help-text">{{ helpText }}</small>
+    <small [id]="inputId + '-help'" class="form-field__help-text">{{ helpText }}</small>
   }
 
   @if (errorMessage) {
-    <span class="form-field__error-message" role="alert">{{ errorMessage }}</span>
+    <span [id]="inputId + '-error'" class="form-field__error-message" role="alert">{{ errorMessage }}</span>
   }
 </section>

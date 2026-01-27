@@ -25,7 +25,9 @@
         formControlName="password"
         class="login-form__input"
         placeholder="Introduce tu contraseña"
-        aria-describedby="login-password-error"
+        [attr.aria-describedby]="password.invalid && (password.touched || password.dirty) ? 'login-password-error' : null"
+        [attr.aria-invalid]="password.invalid && (password.touched || password.dirty) ? 'true' : null"
+        required
       />
     </section>
     @if (password.invalid && (password.touched || password.dirty)) {

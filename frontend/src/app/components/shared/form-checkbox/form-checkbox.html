@@ -1,5 +1,5 @@
 <section class="form-checkbox">
-  <section class="form-checkbox__wrapper">
+  <label class="form-checkbox__wrapper" [for]="checkboxId">
     <input
       type="checkbox"
       [id]="checkboxId"
@@ -8,8 +8,9 @@
       [required]="required"
       [formControl]="control!"
       class="form-checkbox__input"
+      [attr.aria-describedby]="helpText ? checkboxId + '-help' : null"
     />
-    <label [for]="checkboxId" class="form-checkbox__label-box">
+    <span class="form-checkbox__label-box" aria-hidden="true">
       <span class="form-checkbox__box">
         <svg
           class="form-checkbox__icon"
@@ -23,15 +24,15 @@
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
       </span>
-    </label>
+    </span>
     <span class="form-checkbox__text">
       <ng-content>{{ label }}</ng-content>
       @if (required) {
-        <span class="form-checkbox__required">*</span>
+        <span class="form-checkbox__required" aria-hidden="true">*</span>
       }
     </span>
-  </section>
+  </label>
   @if (helpText) {
-  <p class="form-checkbox__help">{{ helpText }}</p>
+    <p [id]="checkboxId + '-help'" class="form-checkbox__help">{{ helpText }}</p>
   }
 </section>
