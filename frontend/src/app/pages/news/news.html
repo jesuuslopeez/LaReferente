@@ -81,23 +81,17 @@
     <section class="news-page__list">
       @for (noticia of noticias; track noticia.id) {
         <article class="news-card">
-          <section class="news-card__image-wrapper">
+          <span class="news-card__image-wrapper" aria-hidden="true">
             @if (noticia.imagenPrincipalUrl) {
-              <img
-                [src]="noticia.imagenPrincipalUrl"
-                [alt]="noticia.titulo"
-                class="news-card__image"
-                loading="lazy"
-                decoding="async"
-              />
+              <span class="news-card__image" [style.background-image]="'url(' + noticia.imagenPrincipalUrl + ')'"></span>
             } @else {
-              <section class="news-card__image news-card__image--placeholder">
+              <span class="news-card__image news-card__image--placeholder">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                 </svg>
-              </section>
+              </span>
             }
-          </section>
+          </span>
 
           <section class="news-card__content">
             <header class="news-card__header">

@@ -40,9 +40,12 @@
   }
 
   &__logo {
+    display: block;
     width: var(--spacing-14);
     height: var(--spacing-14);
-    object-fit: contain;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     filter: drop-shadow(0 0.125rem 0.5rem var(--black-alpha-20));
     flex-shrink: 0;
 

@@ -45,9 +45,12 @@
   }
 
   &__photo {
+    display: block;
     width: 6rem;
     height: 6rem;
-    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     border-radius: var(--radius-lg);
 
     @media (min-width: $breakpoint-sm) {
@@ -149,9 +152,12 @@
   }
 
   &__team-logo {
+    display: inline-block;
     width: 1.125rem;
     height: 1.125rem;
-    object-fit: contain;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     flex-shrink: 0;
     border-radius: var(--radius-sm);
   }

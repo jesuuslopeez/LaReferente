@@ -1,16 +1,10 @@
 <article class="player-card">
   <!-- Cabecera con foto y dorsal -->
   <header class="player-card__header">
-    <section class="player-card__photo-container">
-      <img
-        class="player-card__photo"
-        [src]="fotoSrc"
-        [alt]="nombreCompleto"
-        loading="lazy"
-        (error)="onImageError()"
-      />
+    <span class="player-card__photo-container" aria-hidden="true">
+      <span class="player-card__photo" [style.background-image]="'url(' + fotoSrc + ')'"></span>
       <span class="player-card__name-badge">{{ nombreCompleto }}</span>
-    </section>
+    </span>
     @if (dorsal()) {
       <span class="player-card__dorsal">{{ dorsal() }}</span>
     }
@@ -22,12 +16,7 @@
       <!-- Fila 1: Equipo | Nacionalidad -->
       @if (equipoNombre() && equipoId()) {
         <article class="player-card__info-item">
-          <img
-            [src]="getTeamLogoSmall(equipoId()!)"
-            [alt]="equipoNombre()!"
-            class="player-card__team-logo"
-            (error)="onTeamLogoError($event)"
-          />
+          <span class="player-card__team-logo" [style.background-image]="'url(' + getTeamLogoSmall(equipoId()!) + ')'" aria-hidden="true"></span>
           <span>{{ equipoNombre() }}</span>
         </article>
       } @else {
