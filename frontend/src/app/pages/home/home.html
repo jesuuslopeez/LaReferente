@@ -18,27 +18,8 @@
           [attr.aria-label]="'Slide ' + (i + 1) + ' de ' + heroSlides.length"
           [attr.aria-hidden]="currentSlide() !== i"
         >
-          @if (i === 0) {
-            <img
-              [src]="slide.image"
-              alt=""
-              role="presentation"
-              class="hero__bg-image"
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-            />
-          } @else {
-            <img
-              [src]="slide.image"
-              alt=""
-              role="presentation"
-              class="hero__bg-image"
-              loading="lazy"
-              decoding="async"
-            />
-          }
-          <section class="hero__overlay"></section>
+          <span class="hero__bg-image" [style.background-image]="'url(' + slide.image + ')'" aria-hidden="true"></span>
+          <span class="hero__overlay" aria-hidden="true"></span>
           <section class="hero__content">
             <h1 class="hero__title">{{ slide.title }}</h1>
             <p class="hero__subtitle">{{ slide.subtitle }}</p>
@@ -115,20 +96,20 @@
       <section class="featured-news__grid">
         @for (news of featuredNews(); track news.id) {
           <a [routerLink]="['/noticias', news.id]" class="news-card" [attr.aria-label]="'Leer noticia: ' + news.titulo">
-            <figure class="news-card__image-container">
+            <span class="news-card__image-container" aria-hidden="true">
               @if (news.imagenPrincipalUrl) {
-                <img [src]="news.imagenPrincipalUrl" alt="" role="presentation" class="news-card__image" />
+                <span class="news-card__image" [style.background-image]="'url(' + news.imagenPrincipalUrl + ')'"></span>
               } @else {
-                <section class="news-card__placeholder">
+                <span class="news-card__placeholder">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                   </svg>
-                </section>
+                </span>
               }
               @if (news.destacada) {
                 <span class="news-card__badge">Destacada</span>
               }
-            </figure>
+            </span>
             <section class="news-card__content" aria-hidden="true">
               <span class="news-card__date">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -173,7 +154,7 @@
             @for (comp of competitions(); track comp.id) {
               <a [routerLink]="['/competiciones', comp.id]" class="item-badge" [attr.aria-label]="'Ver competición ' + comp.nombre">
                 @if (comp.logoUrl) {
-                  <img [src]="comp.logoUrl" alt="" role="presentation" class="item-badge__logo" />
+                  <span class="item-badge__logo" [style.background-image]="'url(' + comp.logoUrl + ')'" aria-hidden="true"></span>
                 } @else {
                   <span class="item-badge__placeholder">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -209,14 +190,7 @@
           <section class="highlight-card__items highlight-card__items--players">
             @for (player of players(); track player.id) {
               <a [routerLink]="['/jugadores', player.id]" class="player-mini" [attr.aria-label]="'Ver jugador ' + player.nombre">
-                <figure class="player-mini__photo">
-                  <img
-                    [src]="player.fotoUrl || 'assets/images/players/medium/no_cutout.webp'"
-                    alt=""
-                    role="presentation"
-                    (error)="onImageError($event)"
-                  />
-                </figure>
+                <span class="player-mini__photo" [style.background-image]="'url(' + (player.fotoUrl || 'assets/images/players/medium/no_cutout.webp') + ')'" aria-hidden="true"></span>
                 <span class="player-mini__name" aria-hidden="true">{{ player.nombre }}</span>
               </a>
             }
@@ -246,7 +220,7 @@
             @for (team of teams(); track team.id) {
               <a [routerLink]="['/equipos', team.id]" class="item-badge" [attr.aria-label]="'Ver equipo ' + team.nombre">
                 @if (team.logoUrl) {
-                  <img [src]="team.logoUrl" alt="" role="presentation" class="item-badge__logo" />
+                  <span class="item-badge__logo" [style.background-image]="'url(' + team.logoUrl + ')'" aria-hidden="true"></span>
                 } @else {
                   <span class="item-badge__placeholder">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">

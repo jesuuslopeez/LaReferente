@@ -65,12 +65,17 @@
   }
 
   &__logo-img {
+    display: block;
     height: calc(var(--spacing-12) + var(--spacing-2));
-    width: auto;
-    object-fit: contain;
+    width: calc(var(--spacing-12) + var(--spacing-2));
+    background-image: url('/logo.webp');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 
     @media (min-width: $breakpoint-lg) {
       height: calc(var(--spacing-17) + var(--spacing-1));
+      width: calc(var(--spacing-17) + var(--spacing-1));
     }
   }
 
