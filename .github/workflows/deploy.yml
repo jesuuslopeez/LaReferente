@@ -17,6 +17,14 @@
             script: |
               cd /var/www/LaReferente
               git pull origin main
+              if [ ! -f .env ]; then
+                echo "ERROR: .env file not found. Deployment aborted."
+                exit 1
+              fi
+              if ! grep -q "JWT_SECRET=" .env; then
+                echo "ERROR: JWT_SECRET not defined in .env. Deployment aborted."
+                exit 1
+              fi
               docker compose -f docker-compose.prod.yml down
               docker compose -f docker-compose.prod.yml build --no-cache
-              docker compose -f docker-compose.prod.yml up -d 
+              docker compose -f docker-compose.prod.yml up -d

@@ -32,7 +32,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-changeme}
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: "false"
-      JWT_SECRET: ${JWT_SECRET:-L4R3F3R3N73VLTR4S3CVR1TYBYY115VS}
+      JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
     ports:
       - "8081:8080"  # Backend accesible en localhost:8081
