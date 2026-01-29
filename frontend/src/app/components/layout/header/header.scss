@@ -66,12 +66,12 @@
 
   &__logo-img {
     display: block;
-    height: calc(var(--spacing-12) + var(--spacing-2));
+    height: 3.5rem;
     aspect-ratio: 1;
     background: url('/logo.webp') center / contain no-repeat;
 
     @media (min-width: $breakpoint-lg) {
-      height: calc(var(--spacing-17) + var(--spacing-1));
+      height: 5rem;
     }
   }
 
