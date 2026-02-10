@@ -3,16 +3,29 @@
 .listado {
     display: grid;
     grid-template-columns: repeat(3, 200px);
-    gap: var(--spacing-4);
-    width: 100%;
+    width: 50%;
     background-color: var(--color-2);
     border-radius: 2.5rem;
+    margin: 1.5rem;
+    padding: .5rem;
+    justify-content: center;
 
 }
 
 .listado__elemento {
     display: flex;
     justify-content: center;
-    align-items: center;
     color: var(--color-1);
+}
+
+@media (max-width: 768px) { 
+  .listado {
+    grid-template-columns: repeat(2, 150px)
+  }
+}
+
+@media (max-width: 640px) { 
+  .listado {
+    grid-template-columns: repeat(1, 100px)
+  }
 }
