@@ -1,0 +1,12 @@
+.listado {
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    gap: var(--spacing-4);
+    width: 200px;
+}
+
+.listado__elemento {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

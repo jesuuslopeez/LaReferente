@@ -11,6 +11,7 @@ import { Calendar } from './pages/calendar/calendar';
 import { Competitions } from './pages/competitions/competitions';
 import { CompetitionDetail } from './pages/competition-detail/competition-detail';
 import { City } from './pages/city/city'
+import { DiwPage } from './pages/diw-page/diw-page';
 import { NotFound } from './pages/not-found/not-found';
 import { authGuard } from './guards/auth.guard';
 import { editorGuard } from './guards/editor.guard';
@@ -114,6 +115,12 @@ export const routes: Routes = [
   {
     path: 'ciudades',
     component: City,
+  },
+
+  // Diw Page
+  {
+    path: 'diw',
+    component: DiwPage,
   },
 
   // 404 (eager)

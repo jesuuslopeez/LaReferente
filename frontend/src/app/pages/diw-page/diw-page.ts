@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { Maquetacion } from '../../components/shared/maquetacion/maquetacion';
 
 @Component({
   selector: 'app-diw-page',
-  imports: [],
+  imports: [Maquetacion],
   templateUrl: './diw-page.html',
   styleUrl: './diw-page.scss',
 })
