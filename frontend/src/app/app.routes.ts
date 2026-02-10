@@ -10,6 +10,7 @@ import { PlayerDetail } from './pages/player-detail/player-detail';
 import { Calendar } from './pages/calendar/calendar';
 import { Competitions } from './pages/competitions/competitions';
 import { CompetitionDetail } from './pages/competition-detail/competition-detail';
+import { City } from './pages/city/city'
 import { NotFound } from './pages/not-found/not-found';
 import { authGuard } from './guards/auth.guard';
 import { editorGuard } from './guards/editor.guard';
@@ -107,6 +108,12 @@ export const routes: Routes = [
     path: 'admin',
     canActivate: [editorGuard],
     loadChildren: () => import('./pages/admin/admin.routes').then(m => m.adminRoutes),
+  },
+
+  // Ciudades
+  {
+    path: 'ciudades',
+    component: City,
   },
 
   // 404 (eager)
