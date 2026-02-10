@@ -1,6 +1,15 @@
 # Justificación DIW
+
 ## Arquitectura: ¿Por qué has colocado tus variables en la capa Settings y tus estilos en Components? ¿Qué pasaría si importaras Components antes que Settings en el manifiesto?
-Principalmente por la especificidad, cada cosa debe ir en su capa correspondiente para no tener problemas y poder hacer uso de ciertas cosas anteriores. Lo que ocurriría si tuviesemos Components antes que Settings sería que no podriamos hacer uso de las variables globales por orden de especificidad y por los principios ITCSS.
+
+Las variables las he puesto en Settings porque es la primera capa de ITCSS, que es donde van las configuraciones globales como son las variables. Al estar lo primero tiene la especificidad más baja y se aplica a todo lo demás.
+
+Los estilos del listado los he puesto en Components porque es donde van los estilos concretos de cada componente, que ya tienen una especificidad más alta y usan las variables que han sido definidas arriba.
+
+Si importase Components antes que Settings en el styles.scss, las variables no harían nada porque actuaría como si no estuviesen definidas aún.
 
 ## Metodología: Explica una ventaja real que te haya aportado usar BEM en este examen frente a usar selectores de etiqueta anidados (ej: div > button).
-La facilidad para leer e identificar los selectores, ya que estando anidados cuesta más trabajar con ellos porque tienes que ir buscando dentro de un mismo item, mientras que con BEM simplemente toca fijarse en su nombre, que es más descriptivo que el anidamiento haciendo más sencillo el trabajo con ellos.
+
+Lo que hace que BEM es que no haya conflictos, ademas de la mayor facilidad que dan para identificarse.
+
+Si hubiese usado selectores anidados como section > article la especificidad sube y si en otro sitio quiero darle otro estilo a un article dentro de un section tendría problemas porque se pisarían entre ellos.

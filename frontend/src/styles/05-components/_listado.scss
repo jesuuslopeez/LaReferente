@@ -2,8 +2,9 @@
 
 .listado {
     display: grid;
-    grid-template-columns: repeat(3, 200px);
-    width: 50%;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 1rem;
     background-color: var(--color-2);
     border-radius: 2.5rem;
     margin: 1.5rem;
@@ -16,16 +17,32 @@
     display: flex;
     justify-content: center;
     color: var(--color-1);
+    flex-direction: row;
+}
+
+.listado__elemento--destacado {
+    color: var(--color-2);
+    background-color: var(--color-1);
+}
+
+.listado__elemento:hover {
+    background-color: var(--color-1);
+    color: var(--color-2);
+    cursor: pointer;
 }
 
 @media (max-width: 768px) { 
   .listado {
-    grid-template-columns: repeat(2, 150px)
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 640px) { 
+@media (max-width: 640px) {
   .listado {
-    grid-template-columns: repeat(1, 100px)
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .listado__elemento {
+    flex-direction: column;
   }
 }
