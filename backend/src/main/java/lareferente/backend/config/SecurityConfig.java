@@ -48,7 +48,7 @@ public class SecurityConfig {
                         // Swagger y Actuator
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/api-docs/**").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
-                        .requestMatchers("/api/spanish/players").authenticated()
+                        .requestMatchers("/api/spanish/**").authenticated()
                         // Resto requiere autenticación
                         .anyRequest().authenticated()
                 )
