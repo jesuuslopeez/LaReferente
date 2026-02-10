@@ -21,9 +21,6 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
     // Buscar por posición
     List<Player> findByPosicionAndActivoTrue(PlayerPosition posicion);
 
-    // Buscar por nacionalidad
-    List<Player> findByNacionalidadAndActivoTrue(String nacionalidad);
-
     // Buscar jugadores por nombre o apellidos
     @Query("SELECT p FROM Player p WHERE (LOWER(p.nombre) LIKE LOWER(CONCAT('%', :query, '%')) OR LOWER(p.apellidos) LIKE LOWER(CONCAT('%', :query, '%'))) AND p.activo = true")
     List<Player> searchByNameOrSurname(@Param("query") String query);
