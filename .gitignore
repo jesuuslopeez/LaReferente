@@ -49,3 +49,7 @@ Desktop.ini
 # Si quieres bloquear los lock-files (recomendado si trabajas solo o te molestan):
 package-lock.json
 yarn.lock
+
+# ARCHIVOS PRUEBA
+backend/src/main/java/lareferente/backend/controller/TestController.java
+frontend/src/app/pages/test-page/
