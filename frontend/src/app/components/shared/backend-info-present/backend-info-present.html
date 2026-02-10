@@ -1,1 +1,7 @@
-<p>backend-info-present works!</p>
+<section class="player-info">
+  <h1>{{ player.nombre }} {{ player.apellidos }}</h1>
+  <p>Posición: {{ player.posicion }}</p>
+  <p>Edad: {{ player.edad }}</p>
+  <p>Nacionalidad: {{ player.nacionalidad }}</p>
+  <p>Activo: {{ player.activo ? 'Sí' : 'No' }}</p>
+</section>

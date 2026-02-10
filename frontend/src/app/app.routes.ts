@@ -10,7 +10,6 @@ import { PlayerDetail } from './pages/player-detail/player-detail';
 import { Calendar } from './pages/calendar/calendar';
 import { Competitions } from './pages/competitions/competitions';
 import { CompetitionDetail } from './pages/competition-detail/competition-detail';
-import { City } from './pages/city/city'
 import { DiwPage } from './pages/diw-page/diw-page';
 import { NotFound } from './pages/not-found/not-found';
 import { authGuard } from './guards/auth.guard';
@@ -114,7 +113,7 @@ export const routes: Routes = [
   // Ciudades
   {
     path: 'ciudades',
-    component: City,
+    loadComponent: () => import('./pages/city/city').then(m => m.City),
   },
 
   // Diw Page

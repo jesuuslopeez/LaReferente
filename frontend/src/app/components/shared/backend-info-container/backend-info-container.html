@@ -1,1 +1,9 @@
-<p>backend-info-container works!</p>
+<section class="backend-info">
+  @if (loading()) {
+    <p>Cargando jugador...</p>
+  } @else if (player()) {
+    <app-backend-info-present [player]="player()!" />
+  } @else {
+    <p>No se encontró el jugador.</p>
+  }
+</section>

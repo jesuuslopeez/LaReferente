@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Player } from '../../../core/models/player.model';
 
 @Component({
   standalone: true,
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './backend-info-present.scss',
 })
 export class BackendInfoPresent {
-
+  @Input({ required: true }) player!: Player;
 }
