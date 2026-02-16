@@ -65,6 +65,7 @@
     inset: 0;
     opacity: 0;
     visibility: hidden;
+    background-color: hsl(0, 0%, 0%);
     // Desactivar transiciones para mejorar CLS
     // transition: opacity 0.8s ease, visibility 0.8s ease;
 
@@ -90,8 +91,8 @@
     background: linear-gradient(
       135deg,
       var(--black-alpha-70) 0%,
-      var(--black-alpha-60) 50%,
-      var(--black-alpha-70) 100%
+      var(--black-alpha-40) 50%,
+      var(--black-alpha-60) 100%
     );
   }
 
