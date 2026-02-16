@@ -118,7 +118,7 @@
                 </svg>
                 {{ formatDate(news.fechaPublicacion) }}
               </span>
-              <p class="news-card__title" role="heading" aria-level="3">{{ news.titulo }}</p>
+              <h3 class="news-card__title">{{ news.titulo }}</h3>
               @if (news.subtitulo) {
                 <p class="news-card__excerpt">{{ news.subtitulo }}</p>
               }
@@ -144,7 +144,7 @@
     <section class="highlights__grid">
       <!-- Competiciones -->
       <article class="highlight-card">
-        <p class="highlight-card__title" role="heading" aria-level="3">Competiciones</p>
+        <h3 class="highlight-card__title">Competiciones</h3>
 
         @if (loadingCompetitions()) {
           <section class="highlight-card__loading">
@@ -181,7 +181,7 @@
 
       <!-- Jugadores -->
       <article class="highlight-card">
-        <p class="highlight-card__title" role="heading" aria-level="3">Jugadores</p>
+        <h3 class="highlight-card__title">Jugadores</h3>
 
         @if (loadingPlayers()) {
           <section class="highlight-card__loading">
@@ -218,7 +218,7 @@
 
       <!-- Equipos -->
       <article class="highlight-card">
-        <p class="highlight-card__title" role="heading" aria-level="3">Equipos</p>
+        <h3 class="highlight-card__title">Equipos</h3>
 
         @if (loadingTeams()) {
           <section class="highlight-card__loading">
@@ -262,14 +262,14 @@
       <a routerLink="/calendario" class="section-header__link" aria-label="Ver calendario completo">Ver completo</a>
     </header>
 
-    <a routerLink="/calendario" class="calendar-card">
+    <a routerLink="/calendario" class="calendar-card" aria-label="Ir al calendario de próximos partidos">
       <section class="calendar-card__icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       </section>
       <section class="calendar-card__content">
-        <p class="calendar-card__title" role="heading" aria-level="3">Próximos partidos</p>
+        <h3 class="calendar-card__title">Próximos partidos</h3>
         <p class="calendar-card__desc">Consulta el calendario completo de partidos, resultados y clasificaciones de todas las competiciones.</p>
       </section>
       <svg class="calendar-card__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
