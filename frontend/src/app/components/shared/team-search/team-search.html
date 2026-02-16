@@ -9,7 +9,7 @@
       @if (selectedTeam()!.letra) {
         <span class="team-search__selected-letra">{{ selectedTeam()!.letra }}</span>
       }
-      <button type="button" class="team-search__clear" (click)="clearSelection()">
+      <button type="button" class="team-search__clear" (click)="clearSelection()" aria-label="Limpiar selección de equipo">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>

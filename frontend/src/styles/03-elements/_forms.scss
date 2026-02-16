@@ -49,3 +49,16 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: var(--border-medium) solid var(--primary);
+  outline-offset: var(--border-medium);
+}
+
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+select:focus:not(:focus-visible) {
+  outline: none;
+}

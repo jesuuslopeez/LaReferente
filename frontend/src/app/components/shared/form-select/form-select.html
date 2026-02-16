@@ -6,7 +6,14 @@
   }
 
   <section class="form-field__select-wrapper">
-    <select class="form-field__select" [id]="selectId" [name]="name" [required]="required">
+    <select
+      class="form-field__select"
+      [id]="selectId"
+      [name]="name"
+      [required]="required"
+      [attr.aria-describedby]="errorMessage ? selectId + '-error' : null"
+      [attr.aria-invalid]="errorMessage ? 'true' : null"
+    >
       <option value="" disabled selected>{{ placeholder }}</option>
       @for (option of options; track option.value) {
       <option [value]="option.value">{{ option.label }}</option>
@@ -23,4 +30,8 @@
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
     </svg>
   </section>
+
+  @if (errorMessage) {
+    <span [id]="selectId + '-error'" class="form-field__error-message" role="alert">{{ errorMessage }}</span>
+  }
 </section>

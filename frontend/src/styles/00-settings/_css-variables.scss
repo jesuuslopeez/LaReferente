@@ -10,10 +10,10 @@
 // Todos los colores en formato HSL/HSLA
 // ---------------------------------------------------------------------------
 
-// Colores primarios - Tema claro (verde)
-$primary-light: hsl(122, 43%, 39%);
-$primary-hover-light: hsl(122, 43%, 35%);
-$primary-active-light: hsl(122, 43%, 32%);
+// Colores primarios - Tema claro (verde) - ajustados para contraste WCAG AA (4.5:1)
+$primary-light: hsl(122, 43%, 35%);
+$primary-hover-light: hsl(122, 43%, 31%);
+$primary-active-light: hsl(122, 43%, 28%);
 
 // Colores secundarios - Tema claro (azul)
 $secondary-light: hsl(199, 98%, 45%);
@@ -182,6 +182,7 @@ body {
   --text-secondary: #{$text-secondary-light};
   --border-color: #{$border-color-light};
   --bg-hover: #{$bg-hover-light};
+  --gray400: hsl(0, 0%, 46%); // Oscurecido para contraste WCAG AA (4.54:1 sobre blanco)
 }
 
 // ---------------------------------------------------------------------------
@@ -202,6 +203,7 @@ body {
   --text-secondary: #{$text-secondary-dark};
   --border-color: #{$border-color-dark};
   --bg-hover: #{$bg-hover-dark};
+  --gray400: #{$gray400}; // Mantiene el original (5.93:1 sobre gray900)
 }
 
 // ---------------------------------------------------------------------------

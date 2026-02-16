@@ -18,4 +18,5 @@ export class FormSelect {
   @Input() required: boolean = false;
   @Input() options: SelectOption[] = [];
   @Input() placeholder: string = 'Selecciona una opción';
+  @Input() errorMessage: string = '';
 }

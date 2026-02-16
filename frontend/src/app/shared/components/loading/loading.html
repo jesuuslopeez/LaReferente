@@ -1,7 +1,7 @@
 @if (isLoading$ | async) {
-  <section class="loading-overlay">
+  <section class="loading-overlay" role="status" aria-live="polite">
     <section class="loading-spinner">
-      <section class="spinner"></section>
+      <section class="spinner" aria-hidden="true"></section>
       <p class="loading-text">{{ (message$ | async) || 'Cargando...' }}</p>
     </section>
   </section>

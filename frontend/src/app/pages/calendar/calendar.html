@@ -23,6 +23,7 @@
       <button
         class="calendar__filter-btn"
         [class.calendar__filter-btn--active]="filtroEstado() === estado.valor"
+        [attr.aria-pressed]="filtroEstado() === estado.valor"
         (click)="setFiltroEstado(estado.valor)">
         {{ estado.texto }}
       </button>

@@ -1,9 +1,27 @@
-<textarea
-  class="form-field__textarea"
-  [id]="textareaId"
-  [name]="name"
-  [placeholder]="placeholder"
-  [required]="required"
-  [rows]="rows"
-  [attr.maxlength]="maxLength"
-></textarea>
+<section class="form-field">
+  @if (label) {
+    <label [for]="textareaId" class="form-field__label">
+      {{ label }}@if (required) {<span class="form-field__required">*</span>}
+    </label>
+  }
+
+  <textarea
+    class="form-field__textarea"
+    [id]="textareaId"
+    [name]="name"
+    [placeholder]="placeholder"
+    [required]="required"
+    [rows]="rows"
+    [attr.maxlength]="maxLength"
+    [attr.aria-describedby]="errorMessage ? textareaId + '-error' : (helpText ? textareaId + '-help' : null)"
+    [attr.aria-invalid]="errorMessage ? 'true' : null"
+  ></textarea>
+
+  @if (helpText) {
+    <small [id]="textareaId + '-help'" class="form-field__help-text">{{ helpText }}</small>
+  }
+
+  @if (errorMessage) {
+    <span [id]="textareaId + '-error'" class="form-field__error-message" role="alert">{{ errorMessage }}</span>
+  }
+</section>

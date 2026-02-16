@@ -73,6 +73,7 @@
             [class.hero__indicator--active]="currentSlide() === i"
             (click)="goToSlide(i)"
             [attr.aria-label]="'Ir a slide ' + (i + 1)"
+            [attr.aria-current]="currentSlide() === i ? 'true' : null"
           ></button>
         }
       </section>

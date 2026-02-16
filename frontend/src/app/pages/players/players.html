@@ -38,6 +38,7 @@
         <button
           class="players__filter-btn"
           [class.players__filter-btn--active]="filtroPosicion() === pos.valor"
+          [attr.aria-pressed]="filtroPosicion() === pos.valor"
           (click)="setFiltroPosicion(pos.valor)">
           {{ pos.texto }}
         </button>
